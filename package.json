@@ -14,7 +14,7 @@
     "prepare-site": "pnpm languages && pnpm spec",
     "dev": "pnpm prepare-site && vite dev",
     "build": "pnpm prepare-site && vite build && node scripts/check-build.ts",
-    "preview": "vite preview --port 4173 --strictPort",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
     "lint": "pnpm prepare-site && svelte-kit sync && eslint .",
     "typecheck": "pnpm prepare-site && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "test": "pnpm prepare-site && vitest run --coverage",
