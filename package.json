@@ -15,9 +15,9 @@
     "dev": "pnpm prepare-site && vite dev",
     "build": "pnpm prepare-site && vite build && node scripts/check-build.ts",
     "preview": "vite preview --port 4173 --strictPort",
-    "lint": "pnpm languages && svelte-kit sync && eslint .",
-    "typecheck": "pnpm languages && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
-    "test": "pnpm languages && vitest run --coverage",
+    "lint": "pnpm prepare-site && svelte-kit sync && eslint .",
+    "typecheck": "pnpm prepare-site && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
+    "test": "pnpm prepare-site && vitest run --coverage",
     "e2e": "playwright test"
   },
   "devDependencies": {
