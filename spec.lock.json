@@ -1,0 +1,6 @@
+{
+  "repository": "https://github.com/mandate-spec/mandate-spec.git",
+  "versions": [
+    { "tag": "v0.2.0-alpha.4", "commit": "3b02ff36d32677d153ce11087447b50f4c3f2160" }
+  ]
+}
