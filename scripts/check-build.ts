@@ -4,7 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { checkHtml } from './lib/build-check.ts';
+import { checkHtml, checkSecurityTxt } from './lib/build-check.ts';
 import { sha256 } from './lib/spec.ts';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -16,8 +16,7 @@ const need = (path: string): void => {
 	if (!existsSync(join(BUILD, path))) problems.push(`${path}: missing`);
 };
 
-const generated = readFileSync(join(ROOT, 'src', 'lib', 'generated', 'spec.ts'), 'utf8');
-const spec = JSON.parse(generated.slice(generated.indexOf('{'), generated.lastIndexOf('}') + 1)) as {
+const spec = JSON.parse(readFileSync(join(ROOT, '.generated', 'spec.json'), 'utf8')) as {
 	schemas: { path: string; sha256: string }[];
 	identifiers: Record<string, string>;
 };
@@ -42,6 +41,7 @@ for (const { tag } of languages) {
 need('404.html');
 need('robots.txt');
 need('.well-known/security.txt');
+problems.push(...checkSecurityTxt(readFileSync(join(BUILD, '.well-known', 'security.txt'), 'utf8'), new Date()));
 
 const version = JSON.parse(readFileSync(join(BUILD, 'version.json'), 'utf8')) as { commit?: string };
 const expected = process.env.SITE_COMMIT ?? execFileSync('git', ['rev-parse', 'HEAD'], { cwd: ROOT, encoding: 'utf8' }).trim();

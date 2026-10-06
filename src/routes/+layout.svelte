@@ -12,15 +12,19 @@
 	const locale = $derived(getLocale());
 	const partial = $derived(language(locale)?.complete === false);
 	const path = $derived(page.url.pathname);
+	// The 404 page is served for unknown addresses: no canonical or alternates.
+	const indexable = $derived(page.route.id !== '/404');
 </script>
 
 <svelte:head>
 	<meta name="description" content={m.site_description()} />
-	<link rel="canonical" href={urlIn(path, locale)} />
-	{#each languages as l (l.tag)}
-		<link rel="alternate" hreflang={l.tag} href={urlIn(path, l.tag)} />
-	{/each}
-	<link rel="alternate" hreflang="x-default" href={urlIn(path, 'en')} />
+	{#if indexable}
+		<link rel="canonical" href={urlIn(path, locale)} />
+		{#each languages as l (l.tag)}
+			<link rel="alternate" hreflang={l.tag} href={urlIn(path, l.tag)} />
+		{/each}
+		<link rel="alternate" hreflang="x-default" href={urlIn(path, 'en')} />
+	{/if}
 </svelte:head>
 
 <a class="skip" href="#main">{m.nav_skip()}</a>

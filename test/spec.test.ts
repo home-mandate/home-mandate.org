@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { identifierSchemas, schemaTarget, sha256, verifyManifest } from '../scripts/lib/spec.ts';
+import { identifierSchemas, isOfficialRepository, publishedFiles, schemaTarget, sha256, verifyManifest } from '../scripts/lib/spec.ts';
 
 const enc = (s: string) => Buffer.from(s, 'utf8');
 
@@ -73,5 +73,32 @@ describe('identifierSchemas', () => {
 				['audit/v0', 'audit/v0/audit.schema.json']
 			])
 		);
+	});
+});
+
+describe('isOfficialRepository', () => {
+	it('accepts only the official repository', () => {
+		expect(isOfficialRepository('https://github.com/mandate-spec/mandate-spec.git')).toBe(true);
+		expect(isOfficialRepository('https://github.com/evil/mandate-spec.git')).toBe(false);
+		expect(isOfficialRepository('--upload-pack=x')).toBe(false);
+	});
+});
+
+describe('publishedFiles', () => {
+	it('publishes only manifest entries from the schema and vocabulary trees', () => {
+		const manifest = {
+			files: [
+				{ path: 'schema/mandate-v0.schema.json', sha256: 'x' },
+				{ path: 'conformance/schema/cases-v0.schema.json', sha256: 'x' },
+				{ path: 'vocabulary/v0.json', sha256: 'x' },
+				{ path: 'conformance/cases-v0.json', sha256: 'x' },
+				{ path: 'examples/voice-assistant.json', sha256: 'x' }
+			]
+		};
+		expect(publishedFiles(manifest)).toEqual([
+			'schema/mandate-v0.schema.json',
+			'conformance/schema/cases-v0.schema.json',
+			'vocabulary/v0.json'
+		]);
 	});
 });

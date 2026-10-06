@@ -23,8 +23,10 @@ const LANGUAGE_TAG = /^[a-z]{2,3}(-[A-Z][a-z]{3})?(-([A-Z]{2}|[0-9]{3}))?$/;
 const MAX_NAME = 40;
 const META_KEYS = new Set(['name', 'dir', 'translators']);
 // Control, format (incl. bidi overrides and isolates), private use, surrogates,
-// line and paragraph separators: never in text shown to humans.
-const FORBIDDEN = /[\p{Cc}\p{Cf}\p{Co}\p{Cs}\p{Zl}\p{Zp}]/u;
+// line and paragraph separators: never in text shown to humans. Exceptions that
+// scripts need for correct spelling: ZWNJ and ZWJ (Persian, Indic) and the
+// directional marks LRM and RLM (U+200C to U+200F).
+const FORBIDDEN = /(?![\u200C-\u200F])[\p{Cc}\p{Cf}\p{Co}\p{Cs}\p{Zl}\p{Zp}]/u;
 const HTML = /<\s*\/?\s*[a-zA-Z!?]/;
 
 export function isLanguageTag(tag: string): boolean {
@@ -82,6 +84,10 @@ function isRequired(key: string): boolean {
 	return REQUIRED_PREFIXES.some((prefix) => key.startsWith(prefix));
 }
 
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 export function checkMessages(
 	tag: string,
 	base: Record<string, unknown>,
@@ -89,10 +95,11 @@ export function checkMessages(
 ): MessageCheck {
 	const errors: string[] = [];
 	const missing: string[] = [];
+	if (!isPlainObject(messages)) return { errors: [`${tag}/messages.json: must be a JSON object`], missing };
 	for (const [key, value] of Object.entries(messages)) {
 		if (key === '$schema') continue;
 		const where = `${tag}/${key}`;
-		if (!(key in base)) {
+		if (!Object.hasOwn(base, key)) {
 			errors.push(`${where}: unknown key (not in en)`);
 			continue;
 		}
@@ -118,7 +125,7 @@ export function checkMessages(
 		}
 	}
 	for (const key of Object.keys(base)) {
-		if (key === '$schema' || key in messages) continue;
+		if (key === '$schema' || Object.hasOwn(messages, key)) continue;
 		if (isRequired(key)) errors.push(`${tag}/${key}: required key is missing`);
 		else missing.push(key);
 	}

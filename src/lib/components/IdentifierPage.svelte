@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<title>{m.ident_title({ name, version })} – mandate-spec</title>
+	<title>{m.ident_title({ name, version })} – {m.site_name()}</title>
 </svelte:head>
 
 <article>

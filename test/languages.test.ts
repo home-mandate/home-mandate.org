@@ -42,7 +42,7 @@ describe('parseMeta', () => {
 		[{ name: 'Deutsch', dir: 'up' }, 'dir'],
 		[{ name: 'Deutsch', dir: 'ltr', translators: 'A' }, 'translators'],
 		[{ name: 'Deutsch', dir: 'ltr', extra: 1 }, 'unknown'],
-		[{ name: 'Deu‮tsch', dir: 'ltr' }, 'code point']
+		[{ name: 'Deu\u202Etsch', dir: 'ltr' }, 'code point']
 	])('rejects %j (%s)', (meta, needle) => {
 		expect(() => parseMeta(meta)).toThrow(new RegExp(needle, 'i'));
 	});
@@ -84,8 +84,25 @@ describe('checkMessages', () => {
 	it('rejects HTML', () => {
 		expect(checkMessages('de', base, { ...base, home_title: '<b>KI</b>' }).errors.join()).toMatch(/HTML/);
 	});
-	it('rejects invisible control characters', () => {
-		expect(checkMessages('de', base, { ...base, home_title: 'KI⁦x' }).errors.join()).toMatch(/code point/);
+	it.each(['2066', '202E', '0007', '2028', 'E000', 'FEFF'])('rejects the invisible character U+%s', (hex) => {
+		const ch = String.fromCodePoint(parseInt(hex, 16));
+		expect(checkMessages('de', base, { ...base, home_title: `KI${ch}x` }).errors.join()).toMatch(/code point/);
+	});
+	it.each([
+		['ZWNJ (Persian)', '200C'],
+		['ZWJ (Indic)', '200D'],
+		['LRM', '200E'],
+		['RLM', '200F']
+	])('allows %s, which some scripts need for correct spelling', (_name, hex) => {
+		const ch = String.fromCodePoint(parseInt(hex, 16));
+		expect(checkMessages('fa', base, { ...base, home_title: `a${ch}b` }).errors).toEqual([]);
+	});
+	it.each(['constructor', 'toString', '__proto__', 'hasOwnProperty'])('rejects the inherited name %s as unknown key', (key) => {
+		const messages = JSON.parse(`{"${key}": "x", "nav_home": "Start", "home_title": "T", "footer_license": "Text {text} · Code {code}"}`);
+		expect(checkMessages('de', base, messages).errors.join()).toMatch(new RegExp(`${key}.*unknown`));
+	});
+	it.each([null, [], 'text', 3])('rejects a messages file that is not an object (%j)', (raw) => {
+		expect(checkMessages('de', base, raw as never).errors.join()).toMatch(/object/);
 	});
 	it('rejects non-string values', () => {
 		expect(checkMessages('de', base, { ...base, home_title: 3 }).errors.join()).toMatch(/string/);

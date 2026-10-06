@@ -1,0 +1,4 @@
+# Changes to publishing and to what gets published need the maintainer.
+/.github/  @markusmazurczak
+/spec.lock.json  @markusmazurczak
+/Dockerfile  @markusmazurczak

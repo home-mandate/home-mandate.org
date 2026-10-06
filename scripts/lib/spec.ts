@@ -6,6 +6,10 @@ export interface Manifest {
 }
 
 const SITE = 'https://mandate-spec.org/';
+/** The only repository whose releases may be published under mandate-spec.org. */
+export const OFFICIAL_REPOSITORY = 'https://github.com/mandate-spec/mandate-spec.git';
+/** Trees of a release that the site publishes (only files listed in the manifest). */
+const PUBLISHED = /^(schema\/[a-z0-9-]+\.schema\.json|conformance\/schema\/[a-z0-9-]+\.schema\.json|vocabulary\/v[0-9]+\.json)$/;
 const SCHEMA_PATH = /^[a-z0-9-]+\/v[0-9]+\/[a-z0-9-]+\.schema\.json$/;
 
 export function sha256(data: Buffer): string {
@@ -50,4 +54,13 @@ export function identifierSchemas(paths: string[]): Map<string, string> {
 		if (only !== undefined && rest.length === 0) result.set(dir, only);
 	}
 	return result;
+}
+
+export function isOfficialRepository(url: string): boolean {
+	return url === OFFICIAL_REPOSITORY;
+}
+
+/** Manifest entries the site publishes; files outside the manifest never are. */
+export function publishedFiles(manifest: Manifest): string[] {
+	return manifest.files.map((f) => f.path).filter((path) => PUBLISHED.test(path));
 }

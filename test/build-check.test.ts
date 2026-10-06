@@ -22,7 +22,13 @@ describe('checkHtml', () => {
 		['<div style="color:red"></div>', 'style attribute'],
 		['<button onclick="x()"></button>', 'event handler'],
 		['<iframe src="/x"></iframe>', 'iframe'],
-		['<form action="/x"></form>', 'form']
+		['<form action="/x"></form>', 'form'],
+		['<style>body{color:red}</style>', 'style element'],
+		['<script>alert(1)</script>', 'inline script'],
+		['<base href="https://evil.example/">', 'base'],
+		['<meta http-equiv="refresh" content="0;url=https://evil.example/">', 'refresh'],
+		["<script src='https://cdn.example/x.js'></script>", 'external'],
+		['<img src=https://cdn.example/x.png>', 'external']
 	])('rejects %s', (snippet, needle) => {
 		expect(checkHtml(page('', snippet)).join()).toMatch(new RegExp(needle, 'i'));
 	});
@@ -31,5 +37,17 @@ describe('checkHtml', () => {
 	});
 	it('rejects canonical links to other domains', () => {
 		expect(checkHtml(page('<link rel="canonical" href="https://evil.example/">')).join()).toMatch(/external/);
+	});
+});
+
+describe('checkSecurityTxt', () => {
+	it('accepts an expiry far enough ahead', async () => {
+		const { checkSecurityTxt } = await import('../scripts/lib/build-check.ts');
+		expect(checkSecurityTxt('Expires: 2027-10-01T00:00:00Z\n', new Date('2026-10-01T00:00:00Z'))).toEqual([]);
+	});
+	it('fails 60 days before expiry and without Expires', async () => {
+		const { checkSecurityTxt } = await import('../scripts/lib/build-check.ts');
+		expect(checkSecurityTxt('Expires: 2026-11-01T00:00:00Z\n', new Date('2026-10-01T00:00:00Z')).join()).toMatch(/expires/i);
+		expect(checkSecurityTxt('Contact: x\n', new Date()).join()).toMatch(/Expires/);
 	});
 });

@@ -1,10 +1,14 @@
 # Publishes the site after a merge to main (the only workflow that runs after a merge).
 #
-# 1. test and build exactly like CI
-# 2. push the image by commit tag only (sha-<commit>)
-# 3. sign the pushed digest with cosign keyless (GitHub OIDC, no key in the repo)
-# 4. record build provenance
-# 5. only then point the tag "main" at that digest
+# Job "build" has no write or signing permissions: install, test and build run
+# there, so a compromised dependency never sees an OIDC or package token.
+# Job "publish" only packs build/ into the image and:
+#   1. checks that this commit is still the head of main (a re-run of an old run
+#      must not sign and roll the site back)
+#   2. pushes the image by commit tag only (sha-<commit>)
+#   3. signs the pushed digest with cosign keyless (GitHub OIDC, no key in the repo)
+#   4. records build provenance
+#   5. only then points the tag "main" at that digest
 #
 # The server pulls "main" every 15 minutes, resolves its digest, and deploys it only if the
 # signature was made by this workflow file, in this repository, on refs/heads/main, for a
@@ -28,16 +32,12 @@ env:
   SITE_COMMIT: ${{ github.sha }}
 
 jobs:
-  publish:
-    name: Build, sign, publish
+  build:
+    name: Test and build
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
-    environment: production
+    timeout-minutes: 20
     permissions:
       contents: read
-      packages: write
-      id-token: write
-      attestations: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -54,6 +54,49 @@ jobs:
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm e2e
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: site
+          path: build/
+          include-hidden-files: true
+          retention-days: 7
+          if-no-files-found: error
+
+  publish:
+    name: Build image, sign, publish
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: production
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+    steps:
+      - name: Still the head of main?
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          head="$(gh api "repos/${REPO}/commits/main" --jq .sha)"
+          if [ "${head}" != "${SITE_COMMIT}" ]; then
+            echo "main is at ${head}, this run is for ${SITE_COMMIT} - not publishing an older commit." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            Dockerfile
+            .dockerignore
+          sparse-checkout-cone-mode: false
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: site
+          path: build/
+      - name: Build output belongs to this commit
+        run: test "$(jq -r .commit build/version.json)" = "${SITE_COMMIT}"
 
       - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
       - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
