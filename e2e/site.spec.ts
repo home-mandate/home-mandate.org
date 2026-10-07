@@ -24,7 +24,7 @@ for (const lang of LANGUAGES) {
 			await page.goto(`${lang.prefix}/`);
 			await expect(page.locator('html')).toHaveAttribute('lang', lang.tag);
 			await expect(page.getByRole('heading', { level: 1 })).toHaveText(lang.title);
-			await expect(page.locator('.decisions li')).toHaveCount(3);
+			await expect(page.locator('[data-decision]')).toHaveCount(3);
 			expect(problems).toEqual([]);
 		});
 
