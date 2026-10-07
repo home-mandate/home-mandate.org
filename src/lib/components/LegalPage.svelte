@@ -36,6 +36,10 @@
 				<ul>
 					{#each block.ul as item, n (n)}<li><RichText text={item} /></li>{/each}
 				</ul>
+			{:else if 'lines' in block}
+				<p class="lines">
+					{#each block.lines as line, n (n)}<span><RichText text={line} /></span>{/each}
+				</p>
 			{:else if 'toc' in block}
 				<nav class="toc" aria-labelledby="toc-title">
 					<span class="eyebrow" id="toc-title">{block.toc}</span>
@@ -77,6 +81,10 @@
 	p,
 	ul {
 		max-inline-size: 44em;
+	}
+	.lines {
+		display: flex;
+		flex-direction: column;
 	}
 	.caps {
 		font-size: 15px;

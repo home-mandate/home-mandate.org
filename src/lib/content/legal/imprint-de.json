@@ -1,12 +1,36 @@
 {
  "title": "Impressum",
- "intro": "Angaben gemäß § 5 DDG.",
+ "intro": "Angaben gemäß § 5 DDG",
  "blocks": [
-  {"legal": [["Name", "[Name]"], ["Anschrift", "[Straße, Postleitzahl, Ort]"]]},
-  {"h2": "Kontakt"},
-  {"p": "Sie erreichen uns auf zwei Wegen:"},
-  {"ul": ["per E-Mail an [contact@mandate-spec.org](mailto:contact@mandate-spec.org)", "über unser [Kontaktformular](/contact/)"]},
-  {"h2": "Verantwortlich für den Inhalt"},
-  {"legal": [["Name", "[Name]"], ["Anschrift", "[Straße, Postleitzahl, Ort]"]]}
+  {
+   "lines": [
+    "Markus Mazurczak",
+    "c/o Impressumservice Dein-Impressum",
+    "Stettiner Str. 41",
+    "35410 Hungen",
+    "Deutschland"
+   ]
+  },
+  {
+   "h2": "Kontakt"
+  },
+  {
+   "lines": [
+    "E-Mail: [contact@mandate-spec.org](mailto:contact@mandate-spec.org)",
+    "Kontaktformular: [mandate-spec.org/contact](/contact/)"
+   ]
+  },
+  {
+   "h2": "Redaktionell verantwortlich"
+  },
+  {
+   "p": "Markus Mazurczak (Anschrift wie oben)"
+  },
+  {
+   "h2": "Verbraucherstreitbeilegung / Universalschlichtungsstelle"
+  },
+  {
+   "p": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+  }
  ]
 }

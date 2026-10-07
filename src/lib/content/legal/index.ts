@@ -11,6 +11,7 @@ export type LegalBlock =
 	| { h3: string }
 	| { p: string; caps?: boolean }
 	| { ul: string[] }
+	| { lines: string[] }
 	| { toc: string }
 	| { legal: [string, string][] }
 	| { callout: string; title: string; text: string };
