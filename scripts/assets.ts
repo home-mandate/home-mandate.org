@@ -5,7 +5,7 @@
 //                                 ship no SvelteKit runtime, see +layout.ts)
 //   src/lib/generated/client.ts   their published paths, for <script src>
 // Run with: node scripts/assets.ts
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { build, type Rollup } from 'vite';
 import { systemThemeCss } from './lib/tokens.ts';
@@ -15,9 +15,16 @@ const OUT = join(ROOT, '.generated', 'static', 'js');
 
 // Classic script, loaded synchronously in <head>.
 const BOOT = { themeBoot: 'src/client/theme-boot.ts' };
-// ES modules (deferred by nature), one per kind of page.
+// ES modules (deferred by nature): the shared site script plus one per page
+// that needs its own behaviour, src/client/pages/<name>.ts -> scripts.<name>.
+const PAGES = join(ROOT, 'src', 'client', 'pages');
 const MODULES: Record<string, string> = {
-	site: 'src/client/site.ts'
+	site: 'src/client/site.ts',
+	...Object.fromEntries(
+		(existsSync(PAGES) ? readdirSync(PAGES) : [])
+			.filter((f) => f.endsWith('.ts') && !f.endsWith('.test.ts'))
+			.map((f) => [f.slice(0, -3), `src/client/pages/${f}`])
+	)
 };
 
 function entries(output: Rollup.RollupOutput | Rollup.RollupOutput[] | unknown): Record<string, string> {

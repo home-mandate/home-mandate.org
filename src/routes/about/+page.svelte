@@ -1,6 +1,6 @@
 <script lang="ts">
 	import TextPageView from '$lib/components/TextPageView.svelte';
-	import { faq } from '$lib/content/pages/faq';
+	import { about } from '$lib/content/pages/about';
 </script>
 
-<TextPageView page={faq} />
+<TextPageView page={about} />

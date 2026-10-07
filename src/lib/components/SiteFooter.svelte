@@ -104,6 +104,9 @@
 		gap: 16px 32px;
 		padding-block: 32px;
 	}
+	.row a {
+		text-decoration: underline;
+	}
 	ul {
 		display: flex;
 		flex-wrap: wrap;
