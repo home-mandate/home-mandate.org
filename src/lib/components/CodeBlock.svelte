@@ -14,8 +14,9 @@
 		<button type="button" class="copy" data-copy-target="#{id}">
 			<span class="idle"><Icon name="copy" size={16} />{m.common_copy()}</span>
 			<span class="done"><Icon name="check" size={16} stroke={2.4} />{m.common_copied()}</span>
+			<span class="failed"><Icon name="warning" size={16} stroke={2.2} />{m.common_copy_failed()}</span>
 		</button>
-		<span class="visually-hidden" aria-live="polite" data-copy-status={m.common_copied()}></span>
+		<span class="visually-hidden" aria-live="polite" data-copy-status={m.common_copied()} data-copy-failed-status={m.common_copy_failed_status()}></span>
 	</div>
 	<!-- Scrollable code must be reachable by keyboard (WCAG 2.1.1). -->
 	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -60,16 +61,24 @@
 		gap: 6px;
 	}
 	.copy .done,
-	:global(.copy[data-copied]) .idle {
+	.copy .failed,
+	:global(.copy[data-copied]) .idle,
+	:global(.copy[data-copy-failed]) .idle {
 		display: none;
 	}
-	:global(.copy[data-copied]) .done {
+	:global(.copy[data-copied]) .done,
+	:global(.copy[data-copy-failed]) .failed {
 		display: inline-flex;
 	}
 	:global(.copy[data-copied]) {
 		border-color: var(--ms-allow-border);
 		background: var(--ms-allow-bg);
 		color: var(--ms-allow-fg);
+	}
+	:global(.copy[data-copy-failed]) {
+		border-color: var(--ms-deny-border);
+		background: var(--ms-deny-bg);
+		color: var(--ms-deny-fg);
 	}
 	pre {
 		margin: 0;

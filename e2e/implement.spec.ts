@@ -130,3 +130,22 @@ test('copy buttons copy the command and the checksum', async ({ page, context },
 	await card.locator('.copy').click();
 	expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await card.locator('.full').textContent());
 });
+
+test('without a usable clipboard the copy buttons say that nothing was copied', async ({ page }, info) => {
+	test.skip(info.project.name !== 'chromium', 'one desktop run is enough');
+	await page.addInitScript(() => {
+		Object.defineProperty(Navigator.prototype, 'clipboard', { configurable: true, get: () => ({ writeText: () => Promise.reject(new Error('NotAllowedError')) }) });
+	});
+	await page.goto('/implement/');
+	const command = page.locator('.command').first();
+	await command.getByRole('button').click();
+	await expect(command.locator('.copy')).toHaveAttribute('data-copy-failed', 'true');
+	await expect(command.locator('.copy')).not.toHaveAttribute('data-copied', /.*/);
+	await expect(command.locator('.copy .failed')).toBeVisible();
+	await expect(command.locator('.copy .failed')).toHaveText('Not copied');
+	await expect(command.locator('[data-copy-status]')).toHaveText('Could not copy. Select the text and copy it yourself.');
+
+	const card = page.locator('article').first();
+	await card.locator('.copy').click();
+	await expect(card.locator('.copy .failed')).toBeVisible();
+});

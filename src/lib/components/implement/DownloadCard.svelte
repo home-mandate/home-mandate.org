@@ -33,8 +33,9 @@
 			<button type="button" class="copy" data-copy={download.sha256} aria-label="{m.implement_dl_copy_hash()}: {title}">
 				<span class="idle"><Icon name="copy" size={14} stroke={2} /></span>
 				<span class="done"><Icon name="check" size={14} stroke={2.4} /></span>
+				<span class="failed"><Icon name="warning" size={14} stroke={2.2} /></span>
 			</button>
-			<span class="visually-hidden" aria-live="polite" data-copy-status={m.common_copied()}></span>
+			<span class="visually-hidden" aria-live="polite" data-copy-status={m.common_copied()} data-copy-failed-status={m.common_copy_failed_status()}></span>
 		</div>
 	</div>
 	<a class="btn btn-primary btn-sm get" href={download.href} download={download.file}>
@@ -160,16 +161,24 @@
 		place-items: center;
 	}
 	.copy .done,
-	:global(.hash .copy[data-copied]) .idle {
+	.copy .failed,
+	:global(.hash .copy[data-copied]) .idle,
+	:global(.hash .copy[data-copy-failed]) .idle {
 		display: none;
 	}
-	:global(.hash .copy[data-copied]) .done {
+	:global(.hash .copy[data-copied]) .done,
+	:global(.hash .copy[data-copy-failed]) .failed {
 		display: grid;
 	}
 	:global(.hash .copy[data-copied]) {
 		border-color: var(--ms-allow-border);
 		background: var(--ms-allow-bg);
 		color: var(--ms-allow-fg);
+	}
+	:global(.hash .copy[data-copy-failed]) {
+		border-color: var(--ms-deny-border);
+		background: var(--ms-deny-bg);
+		color: var(--ms-deny-fg);
 	}
 	.get {
 		margin-block-start: auto;

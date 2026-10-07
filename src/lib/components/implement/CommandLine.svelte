@@ -17,8 +17,9 @@
 			<button type="button" class="copy" data-copy-target="#{id}" aria-describedby="{id}-label">
 				<span class="idle"><Icon name="copy" size={15} stroke={2} />{m.common_copy()}</span>
 				<span class="done"><Icon name="check" size={15} stroke={2.4} />{m.common_copied()}</span>
+				<span class="failed"><Icon name="warning" size={15} stroke={2.2} />{m.common_copy_failed()}</span>
 			</button>
-			<span class="visually-hidden" aria-live="polite" data-copy-status={m.common_copied()}></span>
+			<span class="visually-hidden" aria-live="polite" data-copy-status={m.common_copied()} data-copy-failed-status={m.common_copy_failed_status()}></span>
 		</div>
 	</div>
 </div>
@@ -78,16 +79,24 @@
 		gap: 6px;
 	}
 	.copy .done,
-	:global(.command .copy[data-copied]) .idle {
+	.copy .failed,
+	:global(.command .copy[data-copied]) .idle,
+	:global(.command .copy[data-copy-failed]) .idle {
 		display: none;
 	}
-	:global(.command .copy[data-copied]) .done {
+	:global(.command .copy[data-copied]) .done,
+	:global(.command .copy[data-copy-failed]) .failed {
 		display: inline-flex;
 	}
 	:global(.command .copy[data-copied]) {
 		border-color: var(--ms-allow-border);
 		background: var(--ms-allow-bg);
 		color: var(--ms-allow-fg);
+	}
+	:global(.command .copy[data-copy-failed]) {
+		border-color: var(--ms-deny-border);
+		background: var(--ms-deny-bg);
+		color: var(--ms-deny-fg);
 	}
 	@media (max-width: 767px) {
 		.line {

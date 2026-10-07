@@ -31,6 +31,8 @@
   "common_deny": "deny",
   "common_copy": "Copy",
   "common_copied": "Copied",
+  "common_copy_failed": "Not copied",
+  "common_copy_failed_status": "Could not copy. Select the text and copy it yourself.",
   "common_external": "(opens another website)",
   "footer_label": "Site information",
   "footer_license": "Text CC BY 4.0, code Apache 2.0. The name and logo are not licensed.",
