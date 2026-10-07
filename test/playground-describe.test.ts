@@ -9,40 +9,40 @@ const de = { texts: texts('de'), locale: 'de' };
 
 describe('plain-language renderer', () => {
 	it('describes the voice assistant example in English', () => {
-		const rules = describeMandate(en, 'Sprachassistent', rulesOf(exampleDoc('voice-assistant')));
+		const rules = describeMandate(en, 'Voice assistant', rulesOf(exampleDoc('voice-assistant')));
 		expect(rules.map((r) => r.sentences.join(' '))).toEqual([
-			'Any device: Sprachassistent may read.',
-			'Lights: Sprachassistent may turn on, turn off or set.',
-			'Heating: Sprachassistent may set temperature.',
-			'Locks: Sprachassistent may unlock or open, but only after confirmation by user-1.',
-			'Cameras: Sprachassistent may do nothing.',
-			'Alarm: Sprachassistent may not disarm.'
+			'Any device: Voice assistant may read.',
+			'Lights: Voice assistant may turn on, turn off or set.',
+			'Heating: Voice assistant may set temperature.',
+			'Locks: Voice assistant may unlock or open, but only after confirmation by user-1.',
+			'Cameras: Voice assistant may do nothing.',
+			'Alarm: Voice assistant may not disarm.'
 		]);
 		expect(rules.map((r) => [r.id, r.decision])[3]).toEqual(['r-locks', 'ask']);
 	});
 
 	it('describes the voice assistant example in German', () => {
-		const rules = describeMandate(de, 'Sprachassistent', rulesOf(exampleDoc('voice-assistant')));
+		const rules = describeMandate(de, 'Voice assistant', rulesOf(exampleDoc('voice-assistant')));
 		expect(rules.map((r) => r.sentences.join(' '))).toEqual([
-			'Jedes Gerät: Sprachassistent darf lesen.',
-			'Licht: Sprachassistent darf einschalten, ausschalten oder einstellen.',
-			'Heizung: Sprachassistent darf Temperatur einstellen.',
-			'Schlösser: Sprachassistent darf entriegeln oder öffnen, aber nur nach Bestätigung durch user-1.',
-			'Kameras: Sprachassistent darf nichts tun.',
-			'Alarmanlage: Sprachassistent darf nicht unscharf schalten.'
+			'Jedes Gerät: Voice assistant darf lesen.',
+			'Licht: Voice assistant darf einschalten, ausschalten oder einstellen.',
+			'Heizung: Voice assistant darf Temperatur einstellen.',
+			'Schlösser: Voice assistant darf entriegeln oder öffnen, aber nur nach Bestätigung durch user-1.',
+			'Kameras: Voice assistant darf nichts tun.',
+			'Alarmanlage: Voice assistant darf nicht unscharf schalten.'
 		]);
 	});
 
 	it('describes devices by id, areas, days and time windows', () => {
-		const energy = describeMandate(en, 'Energie-Agent', rulesOf(exampleDoc('energy-agent')));
+		const energy = describeMandate(en, 'Energy agent', rulesOf(exampleDoc('energy-agent')));
 		expect(energy[2]?.sentences).toEqual([
-			'The device “number.wallbox_ladestrom”: Energie-Agent may read or set between 06:00 and 22:00.',
+			'The device “number.wallbox_charge_current”: Energy agent may read or set between 06:00 and 22:00.',
 			'Critical actions run without confirmation (allow_critical).'
 		]);
-		const shopping = describeMandate(de, 'Einkaufs-Agent', rulesOf(exampleDoc('shopping-agent')));
+		const shopping = describeMandate(de, 'Shopping agent', rulesOf(exampleDoc('shopping-agent')));
 		expect(shopping.map((r) => r.sentences[0])).toEqual([
-			'Sensoren im Bereich „vorratsraum“: Einkaufs-Agent darf lesen.',
-			'Das Gerät „sensor.kuehlschrank_inhalt“: Einkaufs-Agent darf am Mo, Di, Mi, Do, Fr, Sa lesen.'
+			'Sensoren im Bereich „pantry“: Shopping agent darf lesen.',
+			'Das Gerät „sensor.fridge_contents“: Shopping agent darf am Mo, Di, Mi, Do, Fr, Sa lesen.'
 		]);
 	});
 

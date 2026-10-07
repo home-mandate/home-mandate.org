@@ -155,7 +155,7 @@ describe('helpers', () => {
 		expect(fileName(null)).toBe('mandate.mandate.json');
 	});
 	it('reads the agent name', () => {
-		expect(agentName(exampleDoc('voice-assistant'), 'x')).toBe('Sprachassistent');
+		expect(agentName(exampleDoc('voice-assistant'), 'x')).toBe('Voice assistant');
 		expect(agentName({ agent: { display_name: ' ' } }, 'fallback')).toBe('fallback');
 		expect(agentName(null, 'fallback')).toBe('fallback');
 	});

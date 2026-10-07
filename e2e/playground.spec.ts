@@ -2,8 +2,8 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page, type TestInfo } from '@playwright/test';
 
 const LANGUAGES = [
-	{ tag: 'en', prefix: '', title: 'Playground', ask: 'ask', deny: 'deny', allow: 'allow', invalid: 'Not valid', subject: 'Sprachassistent may …', tabTest: 'Test' },
-	{ tag: 'de', prefix: '/de', title: 'Spielplatz', ask: 'nachfragen', deny: 'ablehnen', allow: 'erlauben', invalid: 'Ungültig', subject: 'Sprachassistent darf …', tabTest: 'Testen' }
+	{ tag: 'en', prefix: '', title: 'Playground', ask: 'ask', deny: 'deny', allow: 'allow', invalid: 'Not valid', subject: 'Voice assistant may …', tabTest: 'Test' },
+	{ tag: 'de', prefix: '/de', title: 'Spielplatz', ask: 'nachfragen', deny: 'ablehnen', allow: 'erlauben', invalid: 'Ungültig', subject: 'Voice assistant darf …', tabTest: 'Testen' }
 ];
 
 function watch(page: Page): string[] {
@@ -122,7 +122,7 @@ test.describe('desktop', () => {
 		await page.locator('#pg-req-category').selectOption('other');
 		await page.locator('#pg-req-action').selectOption('set');
 		await page.locator('.pg-more summary').click();
-		await page.locator('#pg-req-entity').fill('number.wallbox_ladestrom');
+		await page.locator('#pg-req-entity').fill('number.wallbox_charge_current');
 		await page.locator('#pg-req-time').fill('21:59');
 		await expect(result(page).locator('.pg-verdict')).toContainText('allow');
 		await page.locator('#pg-req-time').fill('22:00');
@@ -324,8 +324,8 @@ test.describe('phone', () => {
 
 	test('4e rules in German', async ({ page }) => {
 		await page.goto('/de/playground/');
-		await expect(page.locator('.pg-subject').first()).toHaveText('Sprachassistent darf …');
-		await expect(page.locator('.pg-words').first()).toContainText('Jedes Gerät: Sprachassistent darf lesen.');
+		await expect(page.locator('.pg-subject').first()).toHaveText('Voice assistant darf …');
+		await expect(page.locator('.pg-words').first()).toContainText('Jedes Gerät: Voice assistant darf lesen.');
 		const pageOverflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
 		expect(pageOverflow).toBe(false);
 	});

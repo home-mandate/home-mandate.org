@@ -44,7 +44,7 @@ describe('request time', () => {
 	it('evaluates to the local clock time it shows', () => {
 		const mandate = parseMandate(example('energy-agent'));
 		const wallbox = (time: string) =>
-			evaluate(mandate, buildRequest({ ...input, category: 'other', action: 'set', entityId: 'number.wallbox_ladestrom', time })).decision;
+			evaluate(mandate, buildRequest({ ...input, category: 'other', action: 'set', entityId: 'number.wallbox_charge_current', time })).decision;
 		expect(wallbox('05:59')).toBe('deny');
 		expect(wallbox('06:00')).toBe('allow');
 		expect(wallbox('21:59')).toBe('allow');
