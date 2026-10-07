@@ -53,14 +53,11 @@
 		<div class="search js-only">
 			<label for="site-search">{m.notfound_search()}</label>
 			<span class="field"><Icon name="search" /><input id="site-search" type="search" placeholder={m.notfound_placeholder()} autocomplete="off" /></span>
-			<p
-				id="search-status"
-				class="visually-hidden"
-				aria-live="polite"
-				data-none={m.notfound_results({ count: 0 })}
-				data-one={m.notfound_results({ count: 1 })}
-				data-other={m.notfound_results({ count: 2 })}
-			></p>
+			<p id="search-status" class="visually-hidden" aria-live="polite"></p>
+			<!-- The status sentence for every possible number of hits, in correct plural form. -->
+			<ul id="search-counts" hidden>
+				{#each { length: pages.length + 1 } as _, count (count)}<li>{m.notfound_results({ count })}</li>{/each}
+			</ul>
 			<ul id="search-results" class="results" hidden>
 				{#each pages as page (page.path)}
 					<li data-search="{page.title} {page.text}" hidden>

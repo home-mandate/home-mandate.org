@@ -145,6 +145,20 @@ describe('feed', () => {
 		expect(xml).toContain('&lt;code&gt;a&lt;/code&gt;');
 		expect(xml).not.toMatch(/<(strong|code|ul|li)>/);
 	});
+	it('dates each entry by its own release when known', () => {
+		const dated = atomFeed(entries, {
+			page: 'https://mandate-spec.org/changelog/',
+			spec: 'https://mandate-spec.org/spec/v0/',
+			self: 'https://mandate-spec.org/changelog/feed.xml',
+			title: 't',
+			kinds: {},
+			updated: atomDate('2026-10-05'),
+			entryUpdated: (e) => (e.unreleased ? undefined : atomDate('2026-07-14')),
+			entryTitle: (e) => e.version
+		});
+		expect(dated.match(/<updated>2026-07-14T00:00:00Z<\/updated>/g)).toHaveLength(1);
+		expect(dated.match(/<updated>2026-10-05T00:00:00Z<\/updated>/g)).toHaveLength(2);
+	});
 	it('falls back to the kind name without a label', () => {
 		expect(xml).toContain('&lt;strong&gt;clarified&lt;/strong&gt;');
 	});

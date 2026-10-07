@@ -84,7 +84,7 @@ for (const lang of LANGUAGES) {
 			await expect(section.getByRole('link', { name: lang.allImpl })).toHaveAttribute('href', `${lang.prefix}/implementations/`);
 			await expect(section.getByRole('link', { name: lang.addImpl })).toHaveAttribute(
 				'href',
-				'https://github.com/mandate-spec/mandate-spec.org'
+				'https://github.com/mandate-spec/mandate-spec.org/blob/main/src/lib/content/implementations.ts'
 			);
 		});
 

@@ -7,7 +7,7 @@
 	import { scripts } from '$lib/generated/client';
 	import { KIND_FILTERS, kindCounts, kindsAttribute, type KindFilter } from '$lib/implement/list';
 	import { m } from '$lib/paraglide/messages';
-	import { SITE_REPOSITORY } from '$lib/site';
+	import { IMPLEMENTATIONS_FILE_URL } from '$lib/site';
 
 	const KIND_LABEL: Record<KindFilter, () => string> = {
 		all: m.implement_kind_all,
@@ -36,7 +36,7 @@
 			<h1>{m.implement_list_title()}</h1>
 			<p class="lead">{m.implement_list_intro()}</p>
 		</div>
-		<a class="btn btn-secondary add" href="{SITE_REPOSITORY}/pulls">
+		<a class="btn btn-secondary add" href={IMPLEMENTATIONS_FILE_URL}>
 			<Icon name="plus" size={18} stroke={2} />{m.implement_list_add()}<span class="visually-hidden">
 				{m.common_external()}</span
 			>

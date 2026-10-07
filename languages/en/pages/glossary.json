@@ -24,5 +24,6 @@
   "glossary_vocabulary_term": "Vocabulary",
   "glossary_vocabulary_def": "The list of categories and actions everyone shares.",
   "glossary_wildcard_term": "Wildcard",
-  "glossary_wildcard_def": "Matches any action. Allowing a critical action this way is not enough: without an explicit allow_critical, a person is asked."
+  "glossary_wildcard_def": "Matches any action. Allowing a critical action this way is not enough: without an explicit allow_critical, a person is asked.",
+  "glossary_index": "Glossary from A to Z"
 }

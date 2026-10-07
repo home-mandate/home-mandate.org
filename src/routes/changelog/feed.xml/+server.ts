@@ -28,6 +28,7 @@ export const GET: RequestHandler = () => {
 			clarified: m.changelog_kind_clarified({}, en)
 		},
 		updated: atomDate(notes.date),
+		entryUpdated: (entry) => ('date' in entry && typeof entry.date === 'string' ? atomDate(entry.date) : undefined),
 		entryTitle: (entry) => (entry.unreleased ? `${entry.version} (${m.changelog_as_of({ version: notes.tag }, en)})` : entry.version)
 	});
 	return new Response(xml, { headers: { 'content-type': 'application/atom+xml; charset=utf-8' } });

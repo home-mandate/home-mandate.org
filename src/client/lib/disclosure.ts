@@ -8,10 +8,15 @@ function summaryOf(details: HTMLDetailsElement): HTMLElement | null {
 	return details.querySelector(':scope > summary');
 }
 
-/** Visible focusable elements inside the open details, summary first. */
+/**
+ * Elements Tab reaches inside the open details, summary first. Of a radio
+ * group only the checked button is a tab stop, like the browser does it.
+ */
 export function focusables(details: HTMLDetailsElement): HTMLElement[] {
 	return [...details.querySelectorAll<HTMLElement>(FOCUSABLE)].filter(
-		(el) => el.closest('details:not([open])') === null || el.parentElement === details
+		(el) =>
+			(el.closest('details:not([open])') === null || el.parentElement === details) &&
+			!(el instanceof HTMLInputElement && el.type === 'radio' && !el.checked)
 	);
 }
 

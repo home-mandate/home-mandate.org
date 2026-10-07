@@ -84,7 +84,7 @@
 		)}
 		{@const present = new Set(groups.map((g) => g.letter))}
 		<div class="glossary">
-			<nav class="az" aria-label="A–Z">
+			<nav class="az" aria-label={t(block.index)}>
 				{#each ALPHABET as letter (letter)}
 					{#if present.has(letter)}<a href="#g-{letter}">{letter}</a>{:else}<span aria-hidden="true">{letter}</span>{/if}
 				{/each}

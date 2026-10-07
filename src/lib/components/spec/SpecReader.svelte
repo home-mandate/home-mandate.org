@@ -80,7 +80,7 @@
 		</aside>
 
 		<article class="content" lang="en" data-spec-content>
-			<div class="print-head" aria-hidden="true"><span>mandate-spec {spec.tag} · Draft</span><span>{printUrl}</span></div>
+			<div class="print-head" aria-hidden="true"><span>mandate-spec {spec.tag} · {m.spec_draft_badge()}</span><span>{printUrl}</span></div>
 			<div class="meta">
 				<span class="draft" lang={locale}><span class="dot" aria-hidden="true"></span>{m.spec_draft_badge()}</span>
 				<span class="tag mono">{spec.tag}</span>

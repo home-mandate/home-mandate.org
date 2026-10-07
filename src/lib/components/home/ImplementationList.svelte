@@ -5,7 +5,7 @@
 	import { pathIn } from '$lib/locale';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages';
-	import { SITE_REPOSITORY } from '$lib/site';
+	import { IMPLEMENTATIONS_FILE_URL } from '$lib/site';
 
 	// The first implementations of the list; conformance classes count as
 	// "passed" only with a published conformance run, otherwise as declared.
@@ -44,7 +44,7 @@
 					</li>
 				{/each}
 			</ul>
-			<p class="add">{m.home_impl_add()} <a href={SITE_REPOSITORY}>{m.home_impl_pr()}</a></p>
+			<p class="add">{m.home_impl_add()} <a href={IMPLEMENTATIONS_FILE_URL}>{m.home_impl_pr()}</a></p>
 		</div>
 		<a class="text-link all" href={pathIn('/implementations/', getLocale())}
 			>{m.home_impl_all()}<Icon name="arrow" size={18} stroke={2} /></a

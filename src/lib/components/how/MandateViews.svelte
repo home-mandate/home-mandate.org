@@ -40,7 +40,7 @@
 				>
 			{/each}
 		</div>
-		<div class="panel" role="tabpanel" id="how-panel-plain" aria-labelledby="how-tab-plain" tabindex="0" data-active>
+		<div class="panel" id="how-panel-plain" data-tabpanel-for="how-tab-plain" data-active>
 			<h3 class="no-js-only panel-title">{m.how_view_plain()}</h3>
 			<ul class="plain">
 				{#each rows as row (row.id)}
@@ -48,7 +48,7 @@
 				{/each}
 			</ul>
 		</div>
-		<div class="panel" role="tabpanel" id="how-panel-json" aria-labelledby="how-tab-json">
+		<div class="panel" id="how-panel-json" data-tabpanel-for="how-tab-json">
 			<h3 class="no-js-only panel-title">{m.how_view_json()}</h3>
 			<CodeBlock code={exampleText.trimEnd()} file="voice-assistant.json" id="how-mandate-json" />
 		</div>

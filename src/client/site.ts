@@ -22,7 +22,12 @@ function initTheme(doc: Document): void {
 
 /** FAQ and other anchored <details>: open the one the address points to. */
 function openTarget(doc: Document): void {
-	const id = decodeURIComponent(doc.location.hash.slice(1));
+	let id: string;
+	try {
+		id = decodeURIComponent(doc.location.hash.slice(1));
+	} catch {
+		return; // a malformed address such as #%E0%A4%A
+	}
 	if (id === '') return;
 	const target = doc.getElementById(id);
 	const details = target?.closest('details') ?? (target instanceof HTMLDetailsElement ? target : null);

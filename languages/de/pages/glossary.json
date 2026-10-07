@@ -24,5 +24,6 @@
   "glossary_vocabulary_term": "Vokabular",
   "glossary_vocabulary_def": "Die gemeinsame Liste der Kategorien und Aktionen.",
   "glossary_wildcard_term": "Platzhalter",
-  "glossary_wildcard_def": "Passt auf jede Aktion. Für kritische Aktionen reicht das zum Erlauben nicht: Ohne ausdrückliches allow_critical wird ein Mensch gefragt."
+  "glossary_wildcard_def": "Passt auf jede Aktion. Für kritische Aktionen reicht das zum Erlauben nicht: Ohne ausdrückliches allow_critical wird ein Mensch gefragt.",
+  "glossary_index": "Glossar von A bis Z"
 }

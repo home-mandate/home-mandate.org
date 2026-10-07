@@ -18,7 +18,7 @@ export type Block =
 	| { tech: K; text: K[] }
 	| { callout: K; icon?: IconName; tone?: 'info' | 'tip' | 'warn' | 'critical'; text: K[]; link?: { text: K; href: string } }
 	| { faq: { id: string; q: K; a: K }[] }
-	| { glossary: { term: K; code: string; def: K }[] }
+	| { glossary: { term: K; code: string; def: K }[]; index: K }
 	| { list: { title: K; body: K }[] }
 	| { process: { icon: IconName; title: K; body: K }[] }
 	| { cards: { icon: IconName; title: K; body: K; link: K; href: string }[] }

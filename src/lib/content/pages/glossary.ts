@@ -17,6 +17,6 @@ export const glossary: TextPage = {
 			{ term: 'glossary_rule_term', code: 'rule', def: 'glossary_rule_def' },
 			{ term: 'glossary_vocabulary_term', code: 'vocabulary', def: 'glossary_vocabulary_def' },
 			{ term: 'glossary_wildcard_term', code: '*', def: 'glossary_wildcard_def' }
-		] }
+		], index: 'glossary_index' }
 	]
 };

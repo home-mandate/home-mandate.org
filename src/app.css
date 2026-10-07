@@ -249,6 +249,7 @@ html.js .no-js-only {
 		border-color: ButtonText;
 	}
 }
+/* Print is black on white in every theme: the one place with fixed colours. */
 @media print {
 	body {
 		background: #fff;

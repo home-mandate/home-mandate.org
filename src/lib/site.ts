@@ -3,6 +3,8 @@ import { spec } from '$lib/generated/spec';
 
 export const SITE_URL = 'https://mandate-spec.org';
 export const SITE_REPOSITORY = 'https://github.com/mandate-spec/mandate-spec.org';
+/** Where implementations are listed; additions come as pull requests against this file. */
+export const IMPLEMENTATIONS_FILE_URL = `${SITE_REPOSITORY}/blob/main/src/lib/content/implementations.ts`;
 export const TRANSLATING_URL = `${SITE_REPOSITORY}/blob/main/TRANSLATING.md`;
 export const CONTACT_EMAIL = 'contact@mandate-spec.org';
 

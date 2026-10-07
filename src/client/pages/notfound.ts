@@ -6,12 +6,11 @@ const items = [...document.querySelectorAll<HTMLLIElement>('[data-search]')];
 const list = document.querySelector<HTMLElement>('#search-results');
 const status = document.querySelector<HTMLElement>('#search-status');
 
-/** Prerendered texts for 0, 1 and n results; the n form holds the example number 2. */
+// The page renders the status sentence for every possible number of hits.
+const counts = [...document.querySelectorAll<HTMLLIElement>('#search-counts li')].map((li) => li.textContent ?? '');
+
 function statusText(count: number): string {
-	if (!status) return '';
-	if (count === 0) return status.dataset.none ?? '';
-	if (count === 1) return status.dataset.one ?? '';
-	return (status.dataset.other ?? '').replace(/\d+/, String(count));
+	return counts[count] ?? '';
 }
 
 input?.addEventListener('input', () => {

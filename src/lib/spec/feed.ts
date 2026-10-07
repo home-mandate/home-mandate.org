@@ -74,6 +74,8 @@ export interface FeedOptions {
 	kinds: Record<string, string>;
 	/** RFC 3339 date of the imported release; Atom requires an updated date. */
 	updated: string;
+	/** RFC 3339 date of one entry, if known; entries without one use `updated`. */
+	entryUpdated?: (entry: ChangelogEntry) => string | undefined;
 	/** Label for the Unreleased entry, e.g. "Unreleased (as of v0.2.0-alpha.4)". */
 	entryTitle: (entry: ChangelogEntry) => string;
 }
@@ -94,7 +96,7 @@ export function atomFeed(entries: ChangelogEntry[], options: FeedOptions): strin
 			'\t<entry>',
 			`\t\t<id>${escapeXml(url)}</id>`,
 			`\t\t<title>${escapeXml(options.entryTitle(entry))}</title>`,
-			`\t\t<updated>${escapeXml(options.updated)}</updated>`,
+			`\t\t<updated>${escapeXml(options.entryUpdated?.(entry) ?? options.updated)}</updated>`,
 			`\t\t<link rel="alternate" type="text/html" href="${escapeXml(url)}"/>`,
 			`\t\t<content type="html" xml:lang="en">${escapeXml(html)}</content>`,
 			'\t</entry>'

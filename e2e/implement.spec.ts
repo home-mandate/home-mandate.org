@@ -74,7 +74,7 @@ for (const lang of LANGUAGES) {
 			await expect(entries).toHaveCount(2);
 			await expect(entries.first()).toBeVisible();
 			await expect(entries.first().locator('.badge').first()).toContainText('evaluator');
-			await expect(page.locator('a[href="https://github.com/mandate-spec/mandate-spec.org/pulls"]')).toBeVisible();
+			await expect(page.locator('a[href="https://github.com/mandate-spec/mandate-spec.org/blob/main/src/lib/content/implementations.ts"]:visible').first()).toBeVisible();
 			expect(problems).toEqual([]);
 		});
 
