@@ -83,6 +83,7 @@ export const ICONS = {
 	'arrow-up-right': 'M7 17L17 7M9 7h8v8',
 	'print': 'M6 9V3h12v6M6 18H4v-7h16v7h-2M7 14h10v7H7z',
 	'contents': 'M4 6h16M4 12h10M4 18h13',
+	'trash': 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13',
 } as const;
 
 export type IconName = keyof typeof ICONS;
