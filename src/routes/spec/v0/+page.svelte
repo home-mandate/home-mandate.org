@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { m } from '$lib/paraglide/messages';
+	import SpecReader from '$lib/components/spec/SpecReader.svelte';
+
+	let { data } = $props();
 </script>
 
-<svelte:head><title>{m.nav_spec()} – {m.site_name()}</title></svelte:head>
-
-<div class="wrap section"><h1>{m.nav_spec()}</h1></div>
+<SpecReader spec={data.spec} versions={data.versions} file={data.file} />

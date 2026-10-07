@@ -1,0 +1,19 @@
+{
+  "spec_page_title": "Specification {version}",
+  "spec_description": "The normative text of mandate-spec, release {version}: data model, evaluation rule, vocabulary, audit log and conformance.",
+  "spec_breadcrumb": "Breadcrumb",
+  "spec_crumb": "Spec",
+  "spec_version": "Version",
+  "spec_latest": "latest",
+  "spec_draft": "draft",
+  "spec_draft_badge": "Draft",
+  "spec_github": "View on GitHub",
+  "spec_print": "Print view",
+  "spec_contents": "Contents",
+  "spec_toc": "Table of contents",
+  "spec_anchor": "Link to this section: {section}",
+  "spec_table": "Table, scrolls sideways",
+  "spec_old_title": "You are reading an older version.",
+  "spec_old_body": "Rules may have changed since.",
+  "spec_to_latest": "Go to {version} (latest)"
+}
