@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkHtml, checkProvenance } from '../scripts/lib/build-check.ts';
+import { checkHtml, checkProvenance, isFormPage } from '../scripts/lib/build-check.ts';
 
 const csp = '<meta http-equiv="content-security-policy" content="default-src \'none\'; script-src \'self\'">';
 const page = (head: string, body = '') => `<!doctype html><html lang="en"><head>${csp}${head}</head><body>${body}</body></html>`;
@@ -31,6 +31,30 @@ describe('checkHtml', () => {
 		['<img src=https://cdn.example/x.png>', 'external']
 	])('rejects %s', (snippet, needle) => {
 		expect(checkHtml(page('', snippet)).join()).toMatch(new RegExp(needle, 'i'));
+	});
+	describe('forms', () => {
+		const form = '<form class="form s-x" action="/contact" method="post" novalidate data-contact-form></form>';
+		it.each(['contact/index.html', 'de/contact/index.html', 'pt-BR/contact/index.html'])('allow the contact form on %s', (path) => {
+			expect(checkHtml(page('', form), path)).toEqual([]);
+		});
+		it.each(['index.html', 'contact/sent/index.html', 'de/contact/failed/index.html', 'privacy/index.html', 'xcontact/index.html', ''])(
+			'reject a form on %s',
+			(path) => {
+				expect(checkHtml(page('', form), path).join()).toMatch(/only the contact page has a form/);
+			}
+		);
+		it.each([
+			'<form action="https://evil.example/contact" method="post">',
+			'<form action="/contact" method="get">',
+			'<form action="/contact/x" method="post">',
+			'<form method="post">'
+		])('reject a contact page form that does not post to /contact: %s', (tag) => {
+			expect(checkHtml(page('', `${tag}</form>`), 'contact/index.html').join()).toMatch(/not posting to \/contact/);
+		});
+		it('knows the form pages', () => {
+			expect(isFormPage('contact/index.html')).toBe(true);
+			expect(isFormPage('contact/sent/index.html')).toBe(false);
+		});
 	});
 	it('allows canonical and hreflang links to our own domain', () => {
 		expect(checkHtml(page('<link rel="canonical" href="https://mandate-spec.org/"><link rel="alternate" hreflang="de" href="https://mandate-spec.org/de/">'))).toEqual([]);

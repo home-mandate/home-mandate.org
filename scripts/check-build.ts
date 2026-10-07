@@ -10,6 +10,8 @@ import { sha256 } from './lib/spec.ts';
 const ROOT = new URL('..', import.meta.url).pathname;
 const BUILD = join(ROOT, 'build');
 const IDENTIFIER_PAGES = ['mandate/v0', 'audit/v0', 'audit-checkpoint/v0'];
+// The contact form and the pages the contact service redirects to (303).
+const CONTACT_PAGES = ['contact', 'contact/sent', 'contact/failed', 'contact/limit', 'contact/invalid'];
 
 const problems: string[] = [];
 const need = (path: string): void => {
@@ -36,7 +38,7 @@ const languages = JSON.parse(readFileSync(join(ROOT, '.generated', 'languages.js
 for (const { tag } of languages) {
 	const prefix = tag === 'en' ? '' : `${tag}/`;
 	need(`${prefix}index.html`);
-	for (const page of IDENTIFIER_PAGES) need(`${prefix}${page}/index.html`);
+	for (const page of [...IDENTIFIER_PAGES, ...CONTACT_PAGES]) need(`${prefix}${page}/index.html`);
 }
 need('404.html');
 need('robots.txt');
@@ -54,7 +56,8 @@ for (const entry of readdirSync(BUILD, { recursive: true, withFileTypes: true })
 		for (const p of checkProvenance(readFileSync(file))) problems.push(`${file.slice(BUILD.length + 1)}: ${p}`);
 	}
 	if (!entry.name.endsWith('.html')) continue;
-	for (const p of checkHtml(readFileSync(file, 'utf8'))) problems.push(`${file.slice(BUILD.length + 1)}: ${p}`);
+	const path = file.slice(BUILD.length + 1);
+	for (const p of checkHtml(readFileSync(file, 'utf8'), path)) problems.push(`${path}: ${p}`);
 }
 
 if (problems.length > 0) {
@@ -62,4 +65,4 @@ if (problems.length > 0) {
 	console.error(`\n${problems.length} problem(s) in build/.`);
 	process.exit(1);
 }
-console.log('build/ checked: schemas, identifier pages, languages, version.json, HTML.');
+console.log('build/ checked: schemas, identifier and contact pages, languages, version.json, HTML.');
