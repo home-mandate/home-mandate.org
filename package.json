@@ -26,7 +26,7 @@
     "@eslint/js": "10.0.1",
     "@inlang/paraglide-js": "2.25.4",
     "@inlang/plugin-icu1": "1.1.0",
-    "@mandate-spec/mandate-spec": "github:mandate-spec/mandate-spec-ts#671ec90e0290e4f6ce6ae0f30e1244594dc26f68",
+    "@mandate-spec/mandate-spec": "github:mandate-spec/mandate-spec-ts#1cdfc014c9229cd320ab1f7e421f03b750cca59c",
     "@messageformat/parser": "5.1.1",
     "@playwright/test": "1.63.0",
     "@sveltejs/adapter-static": "3.0.10",

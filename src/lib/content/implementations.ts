@@ -38,7 +38,7 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library'],
 		language: 'TypeScript',
 		license: 'Apache-2.0',
-		spec: 'v0.2.0-alpha.4',
+		spec: 'v0.2.0-alpha.5',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored']
 	}
 ];
