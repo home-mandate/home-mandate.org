@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { analyse } from '../src/client/playground/analyse.ts';
-import { evaluate, MandateError, parseMandate, type Request } from '../src/client/playground/engine.ts';
+import { evaluate, MandateError, parseMandate, type Request } from '../src/lib/playground/engine.ts';
 import { formatTimeout, matchingRules, reasonText, requestIsCritical } from '../src/client/playground/explain.ts';
 import { duplicateKeyLine, lineAt, lineOfPointer, syntaxErrorLine } from '../src/client/playground/locate.ts';
-import { formatDoc, type JsonObject } from '../src/client/playground/model.ts';
+import { formatDoc, type JsonObject } from '../src/lib/playground/model.ts';
 import { explainProblem } from '../src/client/playground/problems.ts';
-import { buildRequest, type RequestInput } from '../src/client/playground/request.ts';
+import { buildRequest, type RequestInput } from '../src/lib/playground/request.ts';
 import { example, exampleDoc, specText, texts } from './playground-fixtures.ts';
 
 const input: RequestInput = { category: 'lock', action: 'unlock', area: '', entityId: '', critical: false, day: 2, time: '19:00', parameters: {} };

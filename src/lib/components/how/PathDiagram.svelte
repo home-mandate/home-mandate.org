@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Decision from '../Decision.svelte';
 	import Icon from '../Icon.svelte';
-	import { DEFAULT_PATH, PATHS } from '../../../client/lib/how';
+	import { DEFAULT_PATH, PATHS } from '$lib/how/path';
 	import { m } from '$lib/paraglide/messages';
 
 	// All three paths are in the HTML; data-path on the root (set by the page

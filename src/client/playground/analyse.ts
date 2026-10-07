@@ -1,7 +1,7 @@
 // One mandate text, read three ways: as JSON (what the rule editor shows), as a mandate
 // of the specification (what the evaluation gets, null if invalid) and, if invalid, why.
-import { MandateError, parseMandate, type Mandate } from './engine.ts';
-import { isObject, type JsonObject } from './model.ts';
+import { MandateError, parseMandate, type Mandate } from '../../lib/playground/engine.ts';
+import { isObject, type JsonObject } from '../../lib/playground/model.ts';
 import { explainProblem, type Problem } from './problems.ts';
 
 export interface Analysis {

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { analyse } from '../src/client/playground/analyse.ts';
-import { EXAMPLE_FILES, emptyMandate, isExampleId } from '../src/client/playground/examples.ts';
-import { formatDoc } from '../src/client/playground/model.ts';
+import { EXAMPLE_FILES, emptyMandate, isExampleId } from '../src/lib/playground/examples.ts';
+import { formatDoc } from '../src/lib/playground/model.ts';
 import { playgroundTexts } from '../src/lib/content/pages/playground.ts';
 import { texts } from './playground-fixtures.ts';
 

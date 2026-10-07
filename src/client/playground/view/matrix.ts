@@ -2,7 +2,7 @@
 // one tab stop for the whole table (roving tabindex); arrow keys, Home and End move.
 import type { Matrix, Direction } from '../matrix.ts';
 import { moveInMatrix } from '../matrix.ts';
-import { actionLabel, categoryLabel, tx, type Texts } from '../texts.ts';
+import { actionLabel, categoryLabel, tx, type Texts } from '../../../lib/playground/texts.ts';
 import { chip, h, icon, isIconName } from './dom.ts';
 
 export interface MatrixContext {

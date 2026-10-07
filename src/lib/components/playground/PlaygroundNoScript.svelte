@@ -4,9 +4,9 @@
 	import RichText from '$lib/components/RichText.svelte';
 	import { m } from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
-	import { describeMandate } from '../../../client/playground/describe.ts';
-	import { agentName, rulesOf, type JsonObject } from '../../../client/playground/model.ts';
-	import type { Texts } from '../../../client/playground/texts.ts';
+	import { describeMandate } from '$lib/playground/describe';
+	import { agentName, rulesOf, type JsonObject } from '$lib/playground/model';
+	import type { Texts } from '$lib/playground/texts';
 
 	// Without JavaScript: the notice, and the voice assistant example in plain language.
 	let { example, texts }: { example: string; texts: Texts } = $props();

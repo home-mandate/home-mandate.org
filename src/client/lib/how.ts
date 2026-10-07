@@ -1,14 +1,6 @@
 // State of the interactive parts of /how-it-works/. The page renders every
 // state in its HTML; the script only switches data attributes on the roots.
-
-export const PATHS = ['allow', 'ask', 'deny'] as const;
-export type Path = (typeof PATHS)[number];
-/** Shown without JavaScript, and the starting point with it. */
-export const DEFAULT_PATH: Path = 'ask';
-
-export function isPath(value: string | undefined): value is Path {
-	return (PATHS as readonly string[]).includes(value ?? '');
-}
+import { DEFAULT_PATH, isPath } from '../../lib/how/path.ts';
 
 /** Path diagram: the checked radio decides data-path on the diagram's root. */
 export function initPath(root: HTMLElement): void {

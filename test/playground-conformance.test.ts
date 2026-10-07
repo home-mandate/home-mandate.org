@@ -1,8 +1,8 @@
 // The playground agrees with the specification: the conformance cases of the imported
-// specification run through src/client/playground/engine.ts, the very module the page
+// specification run through src/lib/playground/engine.ts, the very module the page
 // script bundles for evaluation and validation.
 import { describe, expect, it } from 'vitest';
-import { evaluate, tryParseMandate, type Request } from '../src/client/playground/engine.ts';
+import { evaluate, tryParseMandate, type Request } from '../src/lib/playground/engine.ts';
 import { specText } from './playground-fixtures.ts';
 
 type Case = Record<string, unknown> & { id: string; why: string };

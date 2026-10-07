@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest';
-import { DEFAULT_PATH, isPath, PATHS, toggleTampered } from '../src/client/lib/how.ts';
+import { toggleTampered } from '../src/client/lib/how.ts';
+import { DEFAULT_PATH, isPath, PATHS } from '../src/lib/how/path.ts';
 import { nextTab } from '../src/client/lib/tabs.ts';
 
 it('moves between tabs with arrow keys, Home and End, wrapping around', () => {

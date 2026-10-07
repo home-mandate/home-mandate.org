@@ -2,12 +2,12 @@
 // Decisions and validity come from the implementation in ../playground/engine.ts; this
 // script only holds the state in memory and draws it. Nothing is stored or sent.
 import { analyse, type Analysis } from '../playground/analyse.ts';
-import { evaluate } from '../playground/engine.ts';
-import { emptyMandate, isExampleId, type ExampleId } from '../playground/examples.ts';
+import { evaluate } from '../../lib/playground/engine.ts';
+import { emptyMandate, isExampleId, type ExampleId } from '../../lib/playground/examples.ts';
 import { computeMatrix } from '../playground/matrix.ts';
-import { addRule, agentName, fileName, formatDoc, isObject, removeRule, updateRule, type JsonObject, type RuleView } from '../playground/model.ts';
-import { buildRequest, DAYS, type RequestInput } from '../playground/request.ts';
-import { tx, type Texts } from '../playground/texts.ts';
+import { addRule, agentName, fileName, formatDoc, isObject, removeRule, updateRule, type JsonObject, type RuleView } from '../../lib/playground/model.ts';
+import { buildRequest, DAYS, type RequestInput } from '../../lib/playground/request.ts';
+import { tx, type Texts } from '../../lib/playground/texts.ts';
 import { download, initCopyButton, renderGutter, renderValidity, setEditorText, type JsonElements } from '../playground/view/json.ts';
 import { renderMatrix } from '../playground/view/matrix.ts';
 import { findForm, readRequest, readValue, setRequest, syncCategory, syncValue } from '../playground/view/request.ts';

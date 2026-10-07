@@ -4,9 +4,9 @@
 	import StepNumber from '$lib/components/StepNumber.svelte';
 	import type { IconName } from '$lib/icons';
 	import { m } from '$lib/paraglide/messages';
-	import { DAYS, HOUSEHOLD_ZONE, REFERENCE_MONDAY, defaultEntityId } from '../../../client/playground/request.ts';
-	import { categoryLabel, actionLabel, type Texts } from '../../../client/playground/texts.ts';
-	import { CATEGORIES, actionsOf } from '../../../client/playground/vocab.ts';
+	import { DAYS, HOUSEHOLD_ZONE, REFERENCE_MONDAY, defaultEntityId } from '$lib/playground/request';
+	import { categoryLabel, actionLabel, type Texts } from '$lib/playground/texts';
+	import { CATEGORIES, actionsOf } from '$lib/playground/vocab';
 	import './playground.css';
 
 	// The interactive playground. The page renders its frame and the request form; the

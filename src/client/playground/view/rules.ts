@@ -1,12 +1,12 @@
 // Step 2: every rule as a sentence of controls, after the mandate model of SPEC-v0
 // sections 3, 4.2 and 4.5. Edits go to ctx.edit as functions on the rule view; the
 // document, the JSON and the evaluation follow from there.
-import { describeRule, type Language } from '../describe.ts';
+import { describeRule, type Language } from '../../../lib/playground/describe.ts';
 import { formatTimeout } from '../explain.ts';
-import { DECISIONS, readRule, ruleEntries, WEEKDAYS, type JsonObject, type RuleView } from '../model.ts';
-import { actionLabel, categoryLabel, parameterLabel, tx, unitLabel } from '../texts.ts';
-import { formatUnit, toUnit } from '../units.ts';
-import { actionsOf, CATEGORIES, commonParameters, criticalSomewhere, isCategory } from '../vocab.ts';
+import { DECISIONS, readRule, ruleEntries, WEEKDAYS, type JsonObject, type RuleView } from '../../../lib/playground/model.ts';
+import { actionLabel, categoryLabel, parameterLabel, tx, unitLabel } from '../../../lib/playground/texts.ts';
+import { formatUnit, toUnit } from '../../../lib/playground/units.ts';
+import { actionsOf, CATEGORIES, commonParameters, criticalSomewhere, isCategory } from '../../../lib/playground/vocab.ts';
 import { clear, h, icon, rerender } from './dom.ts';
 
 export interface RulesContext {

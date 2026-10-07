@@ -1,9 +1,9 @@
 // Why a mandate is not valid, in plain language with a line number. parseMandate says
 // what is wrong in a technical message (MandateError); this maps the known messages to
 // texts of the page and finds the line. The technical message is kept as the detail.
-import { MandateError } from './engine.ts';
+import { MandateError } from '../../lib/playground/engine.ts';
 import { duplicateKeyLine, lineOfPointer, syntaxErrorLine } from './locate.ts';
-import { ruleEntries, type JsonObject } from './model.ts';
+import { ruleEntries, type JsonObject } from '../../lib/playground/model.ts';
 
 export interface Problem {
 	/** Text key (without "playground_") and its placeholders. */

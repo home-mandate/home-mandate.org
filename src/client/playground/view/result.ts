@@ -1,8 +1,8 @@
 // Step 4: the decision of the evaluation, why, which rules apply and, for a critical
 // action, what that means. Also the short result line of the phone layout.
-import type { Mandate, Request, Result } from '../engine.ts';
+import type { Mandate, Request, Result } from '../../../lib/playground/engine.ts';
 import { formatTimeout, matchingRules, reasonText, requestIsCritical, requestPhrase } from '../explain.ts';
-import { joinOr, tx, type Texts } from '../texts.ts';
+import { joinOr, tx, type Texts } from '../../../lib/playground/texts.ts';
 import { chip, h, icon } from './dom.ts';
 
 export function renderResult(container: HTMLElement, texts: Texts, mandate: Mandate | null, request: Request, result: Result): void {

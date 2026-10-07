@@ -1,8 +1,8 @@
 // The overview: every category of the vocabulary against every action, each cell the
 // result of the evaluation for the current request's day, time, area and values.
-import { evaluate, type Mandate, type Result } from './engine.ts';
-import { buildRequest, type RequestInput } from './request.ts';
-import { ACTIONS, CATEGORIES, hasAction } from './vocab.ts';
+import { evaluate, type Mandate, type Result } from '../../lib/playground/engine.ts';
+import { buildRequest, type RequestInput } from '../../lib/playground/request.ts';
+import { ACTIONS, CATEGORIES, hasAction } from '../../lib/playground/vocab.ts';
 
 export interface Cell {
 	category: string;

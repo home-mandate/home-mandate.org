@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseMandate } from '../src/client/playground/engine.ts';
+import { parseMandate } from '../src/lib/playground/engine.ts';
 import {
 	addRule,
 	agentName,
@@ -16,7 +16,7 @@ import {
 	writeRule,
 	type JsonObject,
 	type RuleView
-} from '../src/client/playground/model.ts';
+} from '../src/lib/playground/model.ts';
 import { exampleDoc } from './playground-fixtures.ts';
 
 const EXAMPLES = ['voice-assistant', 'energy-agent', 'shopping-agent'] as const;

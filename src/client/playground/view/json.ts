@@ -1,7 +1,7 @@
 // Step 6: the mandate as editable JSON with line numbers, a valid/invalid badge, the
 // reason in plain language, copy and download.
 import type { Problem } from '../problems.ts';
-import { tx, type Texts } from '../texts.ts';
+import { tx, type Texts } from '../../../lib/playground/texts.ts';
 import { append, h, icon } from './dom.ts';
 
 export const COPIED_MS = 2000;

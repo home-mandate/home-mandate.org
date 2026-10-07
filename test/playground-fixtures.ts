@@ -3,8 +3,8 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { spec } from '../src/lib/generated/spec.ts';
-import type { Texts } from '../src/client/playground/texts.ts';
-import type { JsonObject } from '../src/client/playground/model.ts';
+import type { Texts } from '../src/lib/playground/texts.ts';
+import type { JsonObject } from '../src/lib/playground/model.ts';
 
 const ROOT = join(import.meta.dirname, '..');
 export const SPEC_DIR = join(ROOT, '.spec-cache', spec.latest.tag);

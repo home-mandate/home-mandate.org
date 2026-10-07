@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { describeMandate, describeRule, resourcePhrase } from '../src/client/playground/describe.ts';
-import { readRule, rulesOf, type RuleView } from '../src/client/playground/model.ts';
-import { actionLabel, capitalize, joinOr, tx, unitLabel } from '../src/client/playground/texts.ts';
+import { describeMandate, describeRule, resourcePhrase } from '../src/lib/playground/describe.ts';
+import { readRule, rulesOf, type RuleView } from '../src/lib/playground/model.ts';
+import { actionLabel, capitalize, joinOr, tx, unitLabel } from '../src/lib/playground/texts.ts';
 import { exampleDoc, texts } from './playground-fixtures.ts';
 
 const en = { texts: texts('en'), locale: 'en' };

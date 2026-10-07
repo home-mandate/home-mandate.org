@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { evaluate, parseMandate } from '../src/client/playground/engine.ts';
+import { evaluate, parseMandate } from '../src/lib/playground/engine.ts';
 import { computeMatrix, moveInMatrix } from '../src/client/playground/matrix.ts';
 import {
 	buildRequest,
@@ -9,9 +9,9 @@ import {
 	referenceDate,
 	requestTime,
 	type RequestInput
-} from '../src/client/playground/request.ts';
-import { formatUnit, fromUnit, toUnit } from '../src/client/playground/units.ts';
-import { ACTIONS, CATEGORIES, actionsOf, commonParameters, criticalSomewhere, parameterInfo, parametersOf } from '../src/client/playground/vocab.ts';
+} from '../src/lib/playground/request.ts';
+import { formatUnit, fromUnit, toUnit } from '../src/lib/playground/units.ts';
+import { ACTIONS, CATEGORIES, actionsOf, commonParameters, criticalSomewhere, parameterInfo, parametersOf } from '../src/lib/playground/vocab.ts';
 import { example } from './playground-fixtures.ts';
 
 const input: RequestInput = {

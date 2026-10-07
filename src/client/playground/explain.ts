@@ -1,9 +1,9 @@
 // The result of the evaluation in plain language: heading, reason (one text per reason
 // code of SPEC-v0 section 4.1) and which rules match. Which rules match is asked of the
 // evaluation itself, one rule at a time; nothing here decides anything.
-import { evaluate, isCritical, type Mandate, type Request, type Result, type Rule } from './engine.ts';
-import { HOUSEHOLD_ZONE } from './request.ts';
-import { actionLabel, categoryLabel, joinOr, tx, type Texts } from './texts.ts';
+import { evaluate, isCritical, type Mandate, type Request, type Result, type Rule } from '../../lib/playground/engine.ts';
+import { HOUSEHOLD_ZONE } from '../../lib/playground/request.ts';
+import { actionLabel, categoryLabel, joinOr, tx, type Texts } from '../../lib/playground/texts.ts';
 
 export type Role = 'decides' | 'outvoted' | 'also' | 'limits';
 

@@ -1,9 +1,9 @@
 // Step 3: the request form. The page renders it; this reads it and keeps the action
 // list and the value field in line with the chosen device category.
-import { DAYS, defaultEntityId, defaultParameter, type RequestInput } from '../request.ts';
-import { actionLabel, parameterLabel, tx, unitLabel, type Texts } from '../texts.ts';
-import { formatUnit, toUnit } from '../units.ts';
-import { actionsOf, parametersOf } from '../vocab.ts';
+import { DAYS, defaultEntityId, defaultParameter, type RequestInput } from '../../../lib/playground/request.ts';
+import { actionLabel, parameterLabel, tx, unitLabel, type Texts } from '../../../lib/playground/texts.ts';
+import { formatUnit, toUnit } from '../../../lib/playground/units.ts';
+import { actionsOf, parametersOf } from '../../../lib/playground/vocab.ts';
 import { h } from './dom.ts';
 
 export interface RequestForm {
