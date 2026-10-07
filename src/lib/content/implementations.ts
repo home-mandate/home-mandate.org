@@ -3,7 +3,7 @@
 // published conformance run; otherwise it is what the project itself declares.
 
 export type ImplementationKind = 'guard' | 'integration' | 'library' | 'tool';
-export type ConformanceClass = 'evaluator' | 'selection' | 'signatures' | 'audit' | 'audit-anchored';
+export type ConformanceClass = 'evaluator' | 'selection' | 'signatures' | 'audit' | 'audit-anchored' | 'pdp';
 
 export interface Implementation {
 	name: string;
