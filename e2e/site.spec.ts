@@ -83,3 +83,22 @@ test('no cookies and no storage are used', async ({ page, context }) => {
 	expect(await context.cookies()).toEqual([]);
 	expect(await page.evaluate(() => localStorage.length + sessionStorage.length)).toBe(0);
 });
+
+test('the theme switch stores only ms-theme, only after a choice, and system removes it', async ({ page, context }, info) => {
+	test.skip(info.project.name === 'no-js', 'the switch needs JavaScript');
+	await page.goto('/');
+	expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
+	const group = info.project.name === 'mobile' ? 'theme-menu' : 'theme-header';
+	if (info.project.name === 'mobile') await page.locator('details[data-popover="menu"] > summary').click();
+	await page.locator(`input[name="${group}"][value="dark"]`).check({ force: true });
+	await expect(page.locator('html')).toHaveAttribute('data-ms-theme', 'dark');
+	expect(await page.evaluate(() => Object.entries(localStorage))).toEqual([['ms-theme', 'dark']]);
+	// The choice survives a reload without flashing the system theme first.
+	await page.reload();
+	await expect(page.locator('html')).toHaveAttribute('data-ms-theme', 'dark');
+	if (info.project.name === 'mobile') await page.locator('details[data-popover="menu"] > summary').click();
+	await page.locator(`input[name="${group}"][value="system"]`).check({ force: true });
+	await expect(page.locator('html')).not.toHaveAttribute('data-ms-theme', /.*/);
+	expect(await page.evaluate(() => localStorage.length + sessionStorage.length)).toBe(0);
+	expect(await context.cookies()).toEqual([]);
+});
