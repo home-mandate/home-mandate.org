@@ -5,6 +5,7 @@ import {
 	countLinks,
 	counterLevel,
 	length,
+	messageLength,
 	normalizeMessage,
 	resultOf,
 	validEmail,
@@ -101,6 +102,18 @@ describe('helpers', () => {
 	it('counts code points and links', () => {
 		expect(length('a😀')).toBe(2);
 		expect(countLinks('http://a https://b HTTPS://c')).toBe(3);
+	});
+	it('counts a message as the server stores it, without outer white space', () => {
+		expect(messageLength('  a😀 \r\n')).toBe(2);
+		expect(messageLength('a\r\nb')).toBe(3);
+		expect(messageLength(' \n\t ')).toBe(0);
+	});
+	it('does not call a message too long because of outer white space', () => {
+		const text = `${'a'.repeat(MAX_MESSAGE)}${' '.repeat(20)}`;
+		expect(messageLength(text)).toBe(MAX_MESSAGE);
+		expect(validate({ ...ok, message: text }).message).toBeUndefined();
+		expect(counterLevel(messageLength(text))).toBe('warn');
+		expect(messageLength(`${'a'.repeat(MAX_MESSAGE + 1)} `)).toBe(MAX_MESSAGE + 1);
 	});
 	it('chooses the counter colour', () => {
 		expect(counterLevel(0)).toBe('ok');

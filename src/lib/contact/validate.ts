@@ -59,6 +59,11 @@ export function normalizeMessage(text: string): string {
 	return goTrim(plainSpaces(text.replace(/\r\n?/g, '\n')));
 }
 
+/** Length of a message as the server counts it: after normalizeMessage (trimmed). */
+export function messageLength(text: string): number {
+	return length(normalizeMessage(text));
+}
+
 /** cleanText in Go: rejects control/format/invisible characters. */
 export function cleanText(text: string, multiline: boolean): boolean {
 	const rest = (multiline ? text.replace(/[\n\t]/g, '') : text).replace(ALLOWED_FORMAT, '');

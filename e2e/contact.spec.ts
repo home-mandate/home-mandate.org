@@ -343,6 +343,21 @@ test('the character counter changes colour from 4500 and above 5000', async ({ p
 	await expect(page.locator('#c-message-err')).toBeHidden();
 });
 
+test('the counter and the length error count the message without outer white space', async ({ page }, info) => {
+	needsJs(info);
+	await mockChallenge(page);
+	await page.goto('/contact/');
+	const counter = page.locator('#c-message-count');
+	await page.locator('#c-message').fill(`  ${'a'.repeat(10)}\n\n  `);
+	await expect(counter).toHaveText('10 / 5,000');
+	await page.locator('#c-message').fill(`${'a'.repeat(5000)}${' '.repeat(30)}`);
+	await expect(counter).toHaveText('5,000 / 5,000');
+	await expect(page.locator('#c-message-err')).toBeHidden();
+	await page.locator('#c-message').fill(`${' '.repeat(30)}${'a'.repeat(5003)}${' '.repeat(30)}`);
+	await expect(counter).toHaveText('5,003 / 5,000');
+	await expect(page.locator('#c-message-err')).toHaveText('The message is 3 characters too long.');
+});
+
 test('the contact form stores nothing in the browser', async ({ page, context }, info) => {
 	needsJs(info);
 	await mockChallenge(page);
