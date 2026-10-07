@@ -29,7 +29,8 @@ export default {
 				'connect-src': ['self'],
 				'manifest-src': ['self'],
 				'base-uri': ['none'],
-				'form-action': ['none'],
+				'form-action': ['self'],
+				'worker-src': ['self'],
 				'object-src': ['none']
 			}
 		},
