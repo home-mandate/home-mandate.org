@@ -70,6 +70,8 @@
   "playground_req_context": "Zeitzone des Haushalts {zone}, Woche vom {date}.",
   "playground_req_more": "Bereich, Geräte-ID und Markierung",
   "playground_req_value_unit": "{param} in {unit}",
+  "playground_req_value_whole": "Gib eine ganze Zahl ein.",
+  "playground_req_value_decimals": "Gib eine Zahl mit höchstens {places} Nachkommastellen ein.",
   "playground_req_entity_hint": "Leer: {entity}",
   "playground_head_allow": "Wird sofort ausgeführt",
   "playground_head_ask": "Ein Mensch muss bestätigen",

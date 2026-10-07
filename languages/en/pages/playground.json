@@ -70,6 +70,8 @@
   "playground_req_context": "Household time zone {zone}, week of {date}.",
   "playground_req_more": "Area, device ID and marking",
   "playground_req_value_unit": "{param} in {unit}",
+  "playground_req_value_whole": "Enter a whole number.",
+  "playground_req_value_decimals": "Enter a number with at most {places} decimal places.",
   "playground_req_entity_hint": "Empty: {entity}",
   "playground_head_allow": "Runs right away",
   "playground_head_ask": "A person must confirm",

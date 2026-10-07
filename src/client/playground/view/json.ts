@@ -1,10 +1,10 @@
 // Step 6: the mandate as editable JSON with line numbers, a valid/invalid badge, the
-// reason in plain language, copy and download.
+// reason in plain language and download. Copying is the shared copy button
+// (../../lib/copy.ts).
 import type { Problem } from '../problems.ts';
 import { tx, type Texts } from '../../../lib/playground/texts.ts';
+import { setInvalid } from '../../lib/dom.ts';
 import { append, h, icon } from './dom.ts';
-
-export const COPIED_MS = 2000;
 
 export interface JsonElements {
 	textarea: HTMLTextAreaElement;
@@ -40,16 +40,12 @@ export function renderValidity(els: JsonElements, texts: Texts, problem: Problem
 	const valid = problem === null;
 	els.badge.dataset.valid = String(valid);
 	els.badge.replaceChildren(icon(valid ? 'check' : 'warning', 14, 2.2), tx(texts, valid ? 'valid' : 'invalid'));
-	els.textarea.toggleAttribute('aria-invalid', !valid);
-	if (valid) {
-		els.problem.hidden = true;
-		els.problem.replaceChildren();
-		return;
-	}
+	// The problem box describes the editor while the text is not valid.
+	setInvalid(els.textarea, !valid, els.problem);
+	els.problem.replaceChildren();
+	if (valid) return;
 	const where = problemText(texts, problem);
 	const rule = problem.rule;
-	els.problem.hidden = false;
-	els.problem.replaceChildren();
 	append(
 		els.problem,
 		h('strong', {}, icon('warning', 18, 1.9), tx(texts, 'invalid_title')),
@@ -58,32 +54,6 @@ export function renderValidity(els: JsonElements, texts: Texts, problem: Problem
 		h('span', { class: 'pg-detail' }, `${tx(texts, 'detail')}: `, h('code', {}, problem.detail)),
 		rule ? h('button', { type: 'button', class: 'pg-link-btn', onclick: () => goToRule(rule.number - 1) }, tx(texts, 'go_to_rule')) : null
 	);
-}
-
-export async function copyText(text: string, status: HTMLElement, texts: Texts): Promise<void> {
-	try {
-		await navigator.clipboard.writeText(text);
-	} catch {
-		return;
-	}
-	status.textContent = tx(texts, 'copied');
-	setTimeout(() => {
-		status.textContent = '';
-	}, COPIED_MS);
-}
-
-/** Copy button: copies, then shows "Copied" for COPIED_MS (also announced). */
-export function initCopyButton(button: HTMLButtonElement, status: HTMLElement, texts: Texts, text: () => string): void {
-	const label = button.querySelector('span');
-	button.addEventListener('click', async () => {
-		await copyText(text(), status, texts);
-		button.dataset.copied = 'true';
-		if (label) label.textContent = tx(texts, 'copied');
-		setTimeout(() => {
-			delete button.dataset.copied;
-			if (label) label.textContent = tx(texts, 'copy');
-		}, COPIED_MS);
-	});
 }
 
 /** Saves the text as a file: a blob URL on a temporary link with download. */

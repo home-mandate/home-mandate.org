@@ -105,3 +105,25 @@
 .pg-editor textarea:focus {
 	outline: none;
 }
+
+/* Copy button: the shared copy script (src/client/lib/copy.ts) sets data-copied
+   or data-copy-failed for a while; each state has its own visible label. */
+.pg-copy > span {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+}
+.pg-copy .pg-copy-done,
+.pg-copy .pg-copy-failed,
+.pg-copy[data-copied] .pg-copy-idle,
+.pg-copy[data-copy-failed] .pg-copy-idle {
+	display: none;
+}
+.pg-copy[data-copied] .pg-copy-done,
+.pg-copy[data-copy-failed] .pg-copy-failed {
+	display: inline-flex;
+}
+.pg-copy[data-copy-failed] {
+	border-color: var(--ms-deny-border);
+	color: var(--ms-deny-fg);
+}

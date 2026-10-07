@@ -60,7 +60,7 @@
 	<div class="pg-bar">
 		<div class="pg-tabs" role="tablist" aria-label={m.playground_tabs_label()}>
 			{#each tabs as tab, i (tab.id)}
-				<button type="button" role="tab" id="pg-tab-{tab.id}" data-tab-target={tab.id} aria-selected={i === 0} tabindex={i === 0 ? 0 : -1}>
+				<button type="button" role="tab" id="pg-tab-{tab.id}" aria-controls="pg-panel-{tab.id}" data-tab-target={tab.id} aria-selected={i === 0} tabindex={i === 0 ? 0 : -1}>
 					<Icon name={tab.icon} size={18} /><span>{tab.label}</span>
 				</button>
 			{/each}
@@ -105,9 +105,11 @@
 					<label class="pg-field"><span>{m.playground_req_time()}</span>
 						<input id="pg-req-time" type="time" step="60" value={DEFAULT.time} required />
 					</label>
-					<label class="pg-field pg-wide" id="pg-req-value-field" hidden><span id="pg-req-value-label">{m.playground_req_value()}</span>
+					<div class="pg-field pg-wide" id="pg-req-value-field" hidden>
+						<label for="pg-req-value" id="pg-req-value-label">{m.playground_req_value()}</label>
 						<input id="pg-req-value" type="text" inputmode="decimal" autocomplete="off" />
-					</label>
+						<span class="pg-field-error" id="pg-req-value-error" hidden></span>
+					</div>
 				</div>
 				<details class="pg-more">
 					<summary><Icon name="chevron" size={16} />{m.playground_req_more()}</summary>
@@ -152,9 +154,13 @@
 			<h2 id="pg-s6" class="pg-h"><span class="pg-num"><StepNumber n={6} size={30} /></span>{m.playground_s6()}</h2>
 			<div class="pg-json-actions">
 				<span id="pg-badge" class="pg-badge" data-valid="true"></span>
-				<button type="button" class="btn btn-secondary btn-sm" id="pg-copy"><Icon name="copy" size={18} /><span>{m.playground_copy()}</span></button>
+				<button type="button" class="btn btn-secondary btn-sm pg-copy" id="pg-copy" data-copy-target="#pg-json">
+					<span class="pg-copy-idle"><Icon name="copy" size={18} />{m.playground_copy()}</span>
+					<span class="pg-copy-done"><Icon name="check" size={18} stroke={2.4} />{m.playground_copied()}</span>
+					<span class="pg-copy-failed"><Icon name="warning" size={18} stroke={2.2} />{m.common_copy_failed()}</span>
+				</button>
 				<button type="button" class="btn btn-primary btn-sm" id="pg-download"><Icon name="download" size={18} /><span>{m.playground_download()}</span></button>
-				<span class="visually-hidden" id="pg-copy-status" aria-live="polite"></span>
+				<span class="visually-hidden" id="pg-copy-status" aria-live="polite" data-copy-status={m.playground_copied()} data-copy-failed-status={m.common_copy_failed_status()}></span>
 			</div>
 		</div>
 		<p class="pg-hint" id="pg-json-hint">{m.playground_edit_hint()}</p>

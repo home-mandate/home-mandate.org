@@ -25,16 +25,30 @@ export function selectTab(tabs: HTMLElement[], index: number, doc: Document): vo
 	});
 }
 
-export function initTabs(list: HTMLElement, doc: Document): void {
+/** Called after a tab was selected, with the tab and its index. */
+export type OnSelect = (tab: HTMLElement, index: number) => void;
+
+/**
+ * Wires the tabs of a tablist and returns the function that selects one by index
+ * (and focuses it on request). onSelect lets a page react, e.g. by switching layout.
+ */
+export function initTabs(list: HTMLElement, doc: Document, onSelect?: OnSelect): (index: number, focus?: boolean) => void {
 	const tabs = [...list.querySelectorAll<HTMLElement>('[role="tab"]')];
+	const select = (index: number, focus = false): void => {
+		const tab = tabs[index];
+		if (!tab) return;
+		selectTab(tabs, index, doc);
+		onSelect?.(tab, index);
+		if (focus) tab.focus();
+	};
 	tabs.forEach((tab, i) => {
-		tab.addEventListener('click', () => selectTab(tabs, i, doc));
+		tab.addEventListener('click', () => select(i));
 		tab.addEventListener('keydown', (event) => {
 			const next = nextTab(event.key, i, tabs.length, getComputedStyle(list).direction === 'rtl');
 			if (next === undefined) return;
 			event.preventDefault();
-			selectTab(tabs, next, doc);
-			tabs[next]?.focus();
+			select(next, true);
 		});
 	});
+	return select;
 }

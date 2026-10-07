@@ -7,6 +7,7 @@ import { DECISIONS, readRule, ruleEntries, WEEKDAYS, type JsonObject, type RuleV
 import { actionLabel, categoryLabel, parameterLabel, tx, unitLabel } from '../../../lib/playground/texts.ts';
 import { formatUnit, toUnit } from '../../../lib/playground/units.ts';
 import { actionsOf, CATEGORIES, commonParameters, criticalSomewhere, isCategory } from '../../../lib/playground/vocab.ts';
+import { setInvalid } from '../../lib/dom.ts';
 import { clear, h, icon, rerender } from './dom.ts';
 
 export interface RulesContext {
@@ -147,62 +148,58 @@ function actionsRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement {
 	);
 }
 
-function timeRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement {
+function windowFields(ctx: RulesContext, i: number, window: { start: string; end: string }): HTMLElement[] {
 	const t = ctx.lang.texts;
-	const row = h(
-		'div',
-		{ class: 'pg-row' },
-		select(
-			`${i}:time`,
-			tx(t, 'field_time'),
-			[
-				['any', tx(t, 'time_any')],
-				['window', tx(t, 'time_window')]
-			],
-			view.window ? 'window' : 'any',
-			(v) => ctx.edit(i, (r) => ({ ...r, window: v === 'window' ? { ...DEFAULT_WINDOW } : undefined }), true)
-		)
-	);
-	if (view.window) {
-		const set = (key: 'start' | 'end') => (e: Event) => {
-			const value = (e.target as HTMLInputElement).value;
-			if (/^\d{2}:\d{2}$/.test(value)) ctx.edit(i, (r) => ({ ...r, window: { ...(r.window ?? DEFAULT_WINDOW), [key]: value } }), false);
-		};
-		row.append(
-			h('label', { class: 'pg-inline' }, h('span', {}, tx(t, 'field_from')), h('input', { type: 'time', value: view.window.start, 'data-focus': `${i}:start`, oninput: set('start') })),
-			h('label', { class: 'pg-inline' }, h('span', {}, tx(t, 'field_to')), h('input', { type: 'time', value: view.window.end, 'data-focus': `${i}:end`, oninput: set('end') }))
-		);
-	}
-	row.append(
-		select(
-			`${i}:days`,
-			tx(t, 'field_days'),
-			[
-				['all', tx(t, 'days_all')],
-				['some', tx(t, 'days_some')]
-			],
-			view.weekdays ? 'some' : 'all',
-			(v) => ctx.edit(i, (r) => ({ ...r, weekdays: v === 'some' ? [...DEFAULT_DAYS] : undefined }), true)
-		)
-	);
-	if (!view.weekdays) return row;
-	const days = view.weekdays;
+	const set = (key: 'start' | 'end') => (e: Event) => {
+		const value = (e.target as HTMLInputElement).value;
+		if (/^\d{2}:\d{2}$/.test(value)) ctx.edit(i, (r) => ({ ...r, window: { ...(r.window ?? DEFAULT_WINDOW), [key]: value } }), false);
+	};
+	return [
+		h('label', { class: 'pg-inline' }, h('span', {}, tx(t, 'field_from')), h('input', { type: 'time', value: window.start, 'data-focus': `${i}:start`, oninput: set('start') })),
+		h('label', { class: 'pg-inline' }, h('span', {}, tx(t, 'field_to')), h('input', { type: 'time', value: window.end, 'data-focus': `${i}:end`, oninput: set('end') }))
+	];
+}
+
+function dayPills(ctx: RulesContext, i: number, days: readonly string[]): HTMLElement {
+	const t = ctx.lang.texts;
 	const toggle = (day: string) => (on: boolean) =>
 		ctx.edit(i, (r) => {
 			const next = WEEKDAYS.filter((d) => (d === day ? on : (r.weekdays ?? []).includes(d)));
 			return next.length === 0 ? r : { ...r, weekdays: next };
 		}, true);
 	return h(
-		'div',
-		{ class: 'pg-group' },
-		row,
-		h(
-			'fieldset',
-			{ class: 'pg-row pg-pills' },
-			h('legend', { class: 'visually-hidden' }, tx(t, 'field_days')),
-			...WEEKDAYS.map((d) => pill(`${i}:day:${d}`, tx(t, `day_short_${d}`), days.includes(d), toggle(d)))
-		)
+		'fieldset',
+		{ class: 'pg-row pg-pills' },
+		h('legend', { class: 'visually-hidden' }, tx(t, 'field_days')),
+		...WEEKDAYS.map((d) => pill(`${i}:day:${d}`, tx(t, `day_short_${d}`), days.includes(d), toggle(d)))
 	);
+}
+
+function timeRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement {
+	const t = ctx.lang.texts;
+	const timeChoice = select(
+		`${i}:time`,
+		tx(t, 'field_time'),
+		[
+			['any', tx(t, 'time_any')],
+			['window', tx(t, 'time_window')]
+		],
+		view.window ? 'window' : 'any',
+		(v) => ctx.edit(i, (r) => ({ ...r, window: v === 'window' ? { ...DEFAULT_WINDOW } : undefined }), true)
+	);
+	const daysChoice = select(
+		`${i}:days`,
+		tx(t, 'field_days'),
+		[
+			['all', tx(t, 'days_all')],
+			['some', tx(t, 'days_some')]
+		],
+		view.weekdays ? 'some' : 'all',
+		(v) => ctx.edit(i, (r) => ({ ...r, weekdays: v === 'some' ? [...DEFAULT_DAYS] : undefined }), true)
+	);
+	const row = h('div', { class: 'pg-row' }, timeChoice, ...(view.window ? windowFields(ctx, i, view.window) : []), daysChoice);
+	if (!view.weekdays) return row;
+	return h('div', { class: 'pg-group' }, row, dayPills(ctx, i, view.weekdays));
 }
 
 function limitsRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement | null {
@@ -223,7 +220,7 @@ function limitsRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement | 
 					(value, el) => {
 						const n = value.trim() === '' ? undefined : toUnit(value, p.scale);
 						const bad = n !== undefined && !Number.isSafeInteger(n);
-						el.toggleAttribute('aria-invalid', bad);
+						setInvalid(el, bad);
 						if (bad) return;
 						ctx.edit(i, (r) => ({ ...r, constraints: { ...r.constraints, [p.name]: { ...(r.constraints[p.name] ?? {}), [key]: n } } }), false);
 					},

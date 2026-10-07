@@ -26,73 +26,87 @@ export function lineOfPointer(text: string, pointer: string): number | undefined
 
 const DUPLICATE = '#duplicate';
 
+/** Reading position in the text, and the start offsets found so far by path. */
+interface Cursor {
+	readonly text: string;
+	pos: number;
+	readonly found: Map<string, number>;
+}
+
+function skipSpace(c: Cursor): void {
+	while (c.pos < c.text.length && ' \t\r\n'.includes(c.text.charAt(c.pos))) c.pos += 1;
+}
+
+function readString(c: Cursor): string {
+	const start = c.pos;
+	c.pos += 1;
+	while (c.pos < c.text.length && c.text.charAt(c.pos) !== '"') c.pos += c.text.charAt(c.pos) === '\\' ? 2 : 1;
+	c.pos += 1;
+	return JSON.parse(c.text.slice(start, c.pos)) as string;
+}
+
+/** After a member or element: true at the closing bracket, on to the next one at a comma. */
+function closes(c: Cursor, close: '}' | ']'): boolean {
+	skipSpace(c);
+	const next = c.text.charAt(c.pos);
+	c.pos += 1;
+	if (next === close) return true;
+	if (next !== ',') throw new Error(`expected , or ${close}`);
+	return false;
+}
+
+/** True (and past it) if the container is empty: the closing bracket follows at once. */
+function empty(c: Cursor, close: '}' | ']'): boolean {
+	c.pos += 1;
+	skipSpace(c);
+	if (c.text.charAt(c.pos) !== close) return false;
+	c.pos += 1;
+	return true;
+}
+
+function readObject(c: Cursor, path: string[]): void {
+	if (empty(c, '}')) return;
+	const keys = new Set<string>();
+	do {
+		skipSpace(c);
+		const keyAt = c.pos;
+		const key = readString(c);
+		if (keys.has(key) && !c.found.has(DUPLICATE)) c.found.set(DUPLICATE, keyAt);
+		keys.add(key);
+		skipSpace(c);
+		if (c.text.charAt(c.pos) !== ':') throw new Error('expected :');
+		c.pos += 1;
+		readValue(c, [...path, key]);
+	} while (!closes(c, '}'));
+}
+
+function readArray(c: Cursor, path: string[]): void {
+	if (empty(c, ']')) return;
+	let i = 0;
+	do {
+		readValue(c, [...path, String(i)]);
+		i += 1;
+	} while (!closes(c, ']'));
+}
+
+function readValue(c: Cursor, path: string[]): void {
+	skipSpace(c);
+	c.found.set(path.join('/'), c.pos);
+	const first = c.text.charAt(c.pos);
+	if (first === '{') return readObject(c, path);
+	if (first === '[') return readArray(c, path);
+	if (first === '"') {
+		readString(c);
+		return;
+	}
+	const literal = /^(?:true|false|null|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/.exec(c.text.slice(c.pos));
+	if (!literal) throw new Error('unexpected token');
+	c.pos += literal[0].length;
+}
+
 /** Records the start offset of every value by its path ("rules/0/id"). */
 function walk(text: string, found: Map<string, number>): void {
-	let pos = 0;
-	const space = (): void => {
-		while (pos < text.length && ' \t\r\n'.includes(text.charAt(pos))) pos += 1;
-	};
-	const string = (): string => {
-		const start = pos;
-		pos += 1;
-		while (pos < text.length && text.charAt(pos) !== '"') pos += text.charAt(pos) === '\\' ? 2 : 1;
-		pos += 1;
-		return JSON.parse(text.slice(start, pos)) as string;
-	};
-	const value = (path: string[]): void => {
-		space();
-		found.set(path.join('/'), pos);
-		const c = text.charAt(pos);
-		if (c === '{') {
-			pos += 1;
-			space();
-			if (text.charAt(pos) === '}') {
-				pos += 1;
-				return;
-			}
-			const keys = new Set<string>();
-			for (;;) {
-				space();
-				const keyAt = pos;
-				const key = string();
-				if (keys.has(key) && !found.has(DUPLICATE)) found.set(DUPLICATE, keyAt);
-				keys.add(key);
-				space();
-				if (text.charAt(pos) !== ':') throw new Error('expected :');
-				pos += 1;
-				value([...path, key]);
-				space();
-				const next = text.charAt(pos);
-				pos += 1;
-				if (next === '}') return;
-				if (next !== ',') throw new Error('expected , or }');
-			}
-		}
-		if (c === '[') {
-			pos += 1;
-			space();
-			if (text.charAt(pos) === ']') {
-				pos += 1;
-				return;
-			}
-			for (let i = 0; ; i += 1) {
-				value([...path, String(i)]);
-				space();
-				const next = text.charAt(pos);
-				pos += 1;
-				if (next === ']') return;
-				if (next !== ',') throw new Error('expected , or ]');
-			}
-		}
-		if (c === '"') {
-			string();
-			return;
-		}
-		const literal = /^(?:true|false|null|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/.exec(text.slice(pos));
-		if (!literal) throw new Error('unexpected token');
-		pos += literal[0].length;
-	};
-	value([]);
+	readValue({ text, pos: 0, found }, []);
 }
 
 /** Line of a syntax error, from the message of the browser's JSON.parse. */

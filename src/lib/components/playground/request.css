@@ -23,6 +23,11 @@
 .pg-wide {
 	grid-column: 1 / -1;
 }
+.pg-field-error {
+	font-size: 13.5px;
+	font-weight: 500;
+	color: var(--ms-deny-fg);
+}
 .pg-more summary {
 	display: inline-flex;
 	align-items: center;

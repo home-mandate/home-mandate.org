@@ -2,8 +2,9 @@
 // list and the value field in line with the chosen device category.
 import { DAYS, defaultEntityId, defaultParameter, type RequestInput } from '../../../lib/playground/request.ts';
 import { actionLabel, parameterLabel, tx, unitLabel, type Texts } from '../../../lib/playground/texts.ts';
-import { formatUnit, toUnit } from '../../../lib/playground/units.ts';
+import { decimalPlaces, formatUnit, toUnit } from '../../../lib/playground/units.ts';
 import { actionsOf, parametersOf } from '../../../lib/playground/vocab.ts';
+import { required, setInvalid } from '../../lib/dom.ts';
 import { h } from './dom.ts';
 
 export interface RequestForm {
@@ -14,31 +15,28 @@ export interface RequestForm {
 	valueField: HTMLElement;
 	valueLabel: HTMLElement;
 	value: HTMLInputElement;
+	/** Shown (and linked with aria-describedby) while the value does not parse. */
+	valueError: HTMLElement;
 	area: HTMLInputElement;
 	entity: HTMLInputElement;
 	entityHint: HTMLElement;
 	critical: HTMLInputElement;
 }
 
-function byId<T extends HTMLElement>(id: string): T {
-	const el = document.getElementById(id);
-	if (!el) throw new Error(`#${id} is missing`);
-	return el as T;
-}
-
 export function findForm(): RequestForm {
 	return {
-		category: byId('pg-req-category'),
-		action: byId('pg-req-action'),
-		day: byId('pg-req-day'),
-		time: byId('pg-req-time'),
-		valueField: byId('pg-req-value-field'),
-		valueLabel: byId('pg-req-value-label'),
-		value: byId('pg-req-value'),
-		area: byId('pg-req-area'),
-		entity: byId('pg-req-entity'),
-		entityHint: byId('pg-req-entity-hint'),
-		critical: byId('pg-req-critical')
+		category: required('#pg-req-category'),
+		action: required('#pg-req-action'),
+		day: required('#pg-req-day'),
+		time: required('#pg-req-time'),
+		valueField: required('#pg-req-value-field'),
+		valueLabel: required('#pg-req-value-label'),
+		value: required('#pg-req-value'),
+		valueError: required('#pg-req-value-error'),
+		area: required('#pg-req-area'),
+		entity: required('#pg-req-entity'),
+		entityHint: required('#pg-req-entity-hint'),
+		critical: required('#pg-req-critical')
 	};
 }
 
@@ -71,7 +69,9 @@ export function syncValue(form: RequestForm, texts: Texts, locale: string, value
 	form.valueLabel.textContent = tx(texts, 'req_value_unit', { param: parameterLabel(texts, p.name), unit: unitLabel(texts, p) });
 	const value = values[p.name] ?? defaultParameter(form.category.value, form.action.value, p.name);
 	form.value.value = formatUnit(value, p.scale, locale);
-	form.value.removeAttribute('aria-invalid');
+	const places = decimalPlaces(p.scale);
+	form.valueError.textContent = places === 0 ? tx(texts, 'req_value_whole') : tx(texts, 'req_value_decimals', { places });
+	setInvalid(form.value, false, form.valueError);
 }
 
 /** Reads the value field into the per-parameter values (unchanged if it does not parse). */
@@ -81,7 +81,7 @@ export function readValue(form: RequestForm, values: Record<string, number>): Re
 	const n = toUnit(form.value.value, p.scale);
 	// A value with too many decimals stays in the request: the evaluation calls it invalid.
 	const next = form.value.value.trim() === '' ? values : { ...values, [p.name]: n };
-	form.value.toggleAttribute('aria-invalid', !Number.isSafeInteger(n));
+	setInvalid(form.value, !Number.isSafeInteger(n), form.valueError);
 	return next;
 }
 

@@ -167,6 +167,79 @@ test.describe('desktop', () => {
 		expect(download.suggestedFilename()).toBe('m-voice-assistant.mandate.json');
 	});
 
+	test('a request value that does not parse is explained next to the field', async ({ page }) => {
+		const value = page.locator('#pg-req-value');
+		const error = page.locator('#pg-req-value-error');
+		await page.locator('#pg-req-category').selectOption('climate');
+		await page.locator('#pg-req-action').selectOption('set_temperature');
+		await expect(value).not.toHaveAttribute('aria-invalid', /.*/);
+		await expect(error).toBeHidden();
+		await value.fill('21.555');
+		await expect(value).toHaveAttribute('aria-invalid', 'true');
+		await expect(error).toBeVisible();
+		await expect(error).toHaveText('Enter a number with at most 2 decimal places.');
+		await expect(value).toHaveAttribute('aria-describedby', 'pg-req-value-error');
+		await expect(value).toHaveAccessibleDescription('Enter a number with at most 2 decimal places.');
+		expect(await axe(page)).toEqual([]);
+		await value.fill('21.5');
+		await expect(value).not.toHaveAttribute('aria-invalid', /.*/);
+		await expect(error).toBeHidden();
+		await expect(value).not.toHaveAttribute('aria-describedby', /.*/);
+	});
+
+	test('the JSON editor is aria-invalid="true" and described by the problem while invalid', async ({ page }) => {
+		const editor = page.locator('#pg-json');
+		const text = await editor.inputValue();
+		await editor.fill(text.replace('"default": "deny",', '"default": "deny"'));
+		await expect(editor).toHaveAttribute('aria-invalid', 'true');
+		await expect(editor).toHaveAttribute('aria-describedby', 'pg-json-hint pg-problem');
+		await editor.fill(text);
+		await expect(editor).not.toHaveAttribute('aria-invalid', /.*/);
+		await expect(editor).toHaveAttribute('aria-describedby', 'pg-json-hint');
+	});
+
+	test('on wide screens the panels are no tab panels', async ({ page }) => {
+		await expect(page.locator('[role="tabpanel"]')).toHaveCount(0);
+		await expect(page.locator('#pg-panel-rules')).toHaveAttribute('aria-labelledby', 'pg-s2');
+		await expect(page.locator('#pg-panel-test')).not.toHaveAttribute('aria-labelledby', /.*/);
+	});
+
+	test('copies the JSON with the shared copy button', async ({ page, context }) => {
+		await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+		const copy = page.locator('#pg-copy');
+		await expect(copy.locator('.pg-copy-idle')).toBeVisible();
+		await copy.click();
+		await expect(copy).toHaveAttribute('data-copied', 'true');
+		await expect(copy.locator('.pg-copy-done')).toBeVisible();
+		await expect(page.locator('#pg-copy-status')).toHaveText('Copied');
+		expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await page.locator('#pg-json').inputValue());
+	});
+});
+
+test.describe('copy without a clipboard', () => {
+	test('shows that nothing was copied', async ({ page }, info) => {
+		only(info, 'chromium');
+		await page.addInitScript(() => {
+			Object.defineProperty(Navigator.prototype, 'clipboard', { configurable: true, get: () => undefined });
+		});
+		await page.goto('/de/playground/');
+		const copy = page.locator('#pg-copy');
+		await copy.click();
+		await expect(copy).toHaveAttribute('data-copy-failed', 'true');
+		await expect(copy.locator('.pg-copy-failed')).toBeVisible();
+		await expect(copy.locator('.pg-copy-failed')).toHaveText('Nicht kopiert');
+		await expect(copy.locator('.pg-copy-idle')).toBeHidden();
+		await expect(page.locator('#pg-copy-status')).toHaveText('Kopieren nicht möglich. Markiere den Text und kopiere ihn selbst.');
+		expect(await axe(page)).toEqual([]);
+	});
+});
+
+test.describe('desktop, continued', () => {
+	test.beforeEach(async ({ page }, info) => {
+		only(info, 'chromium');
+		await page.goto('/playground/');
+	});
+
 	test('the error links to the rule', async ({ page }) => {
 		const editor = page.locator('#pg-json');
 		await editor.fill((await editor.inputValue()).replace('"actions": ["disarm"]', '"actions": ["unlokc"]'));
@@ -189,6 +262,22 @@ test.describe('phone', () => {
 		await expect(page.locator('#pg-panel-rules')).toBeVisible();
 		await expect(page.locator('#pg-panel-test')).toBeHidden();
 		await expect(page.locator('.pg-bar')).toHaveCSS('position', 'sticky');
+		expect(await axe(page)).toEqual([]);
+	});
+
+	test('the tabs control their panels, labelled by the tab', async ({ page }) => {
+		await page.goto('/playground/');
+		for (const id of ['rules', 'test', 'overview', 'json']) {
+			await expect(page.locator(`#pg-tab-${id}`)).toHaveAttribute('aria-controls', `pg-panel-${id}`);
+			await expect(page.locator(`#pg-panel-${id}`)).toHaveAttribute('role', 'tabpanel');
+			await expect(page.locator(`#pg-panel-${id}`)).toHaveAttribute('aria-labelledby', `pg-tab-${id}`);
+		}
+		await expect(page.getByRole('tabpanel', { name: 'Rules' })).toBeVisible();
+		await page.getByRole('tab', { name: 'JSON' }).click();
+		await expect(page.getByRole('tabpanel', { name: 'JSON' })).toBeVisible();
+		await page.setViewportSize({ width: 1024, height: 800 });
+		await expect(page.locator('[role="tabpanel"]')).toHaveCount(0);
+		await expect(page.locator('#pg-panel-json')).toHaveAttribute('aria-labelledby', 'pg-s6');
 		expect(await axe(page)).toEqual([]);
 	});
 

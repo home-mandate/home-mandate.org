@@ -109,7 +109,7 @@
 .pg input.pg-num-input {
 	inline-size: 5.5em;
 }
-.pg input[aria-invalid] {
+.pg input[aria-invalid='true'] {
 	border-color: var(--ms-deny-fg);
 }
 .pg-inline {
