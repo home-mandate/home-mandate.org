@@ -58,7 +58,7 @@
 		<div class="text">
 			<h2 id="model">{m.implement_model_title()}</h2>
 			<p class="muted">{m.implement_model_body()}</p>
-			<a class="text-link" href={pathIn('/spec/v0/', locale)}>{m.implement_model_link()} <span aria-hidden="true">→</span></a>
+			<a class="text-link" href={`${pathIn('/spec/v0/', locale)}#3-data-model`}>{m.implement_model_link()} <span aria-hidden="true">→</span></a>
 		</div>
 		<div class="diagram">
 			<ModelBox title={m.implement_model_mandate()} fields={data.model.mandate} primary />
