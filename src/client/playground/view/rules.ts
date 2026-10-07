@@ -21,6 +21,8 @@ export interface RulesContext {
 
 const ANY = '*any';
 const NONE = '*none';
+/** More actions than this are offered in a list instead of as pills. */
+const COMPACT_ACTIONS = 6;
 const TIMEOUTS = ['PT30S', 'PT1M', 'PT2M', 'PT5M', 'PT10M', 'PT30M', 'PT1H'];
 const DEFAULT_WINDOW = { start: '06:00', end: '22:00' };
 const DEFAULT_DAYS = ['mon', 'tue', 'wed', 'thu', 'fri'];
@@ -126,12 +128,22 @@ function actionsRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement {
 			},
 			true
 		);
+	// Without a category every action of the vocabulary is possible: show the chosen
+	// ones as pills and offer the others in a list, so the rule stays readable.
+	const compact = known.length > COMPACT_ACTIONS;
+	const shown = compact ? known.filter((a) => !all && view.actions.includes(a)) : known;
+	const hidden = compact ? known.filter((a) => !shown.includes(a)) : [];
 	return h(
 		'fieldset',
 		{ class: 'pg-row pg-pills' },
 		h('legend', { class: 'visually-hidden' }, tx(t, 'field_actions')),
 		pill(`${i}:act:*`, tx(t, 'all_actions'), all, toggle('*')),
-		...known.map((a) => pill(`${i}:act:${a}`, actionLabel(t, a), !all && view.actions.includes(a), toggle(a)))
+		...shown.map((a) => pill(`${i}:act:${a}`, actionLabel(t, a), !all && view.actions.includes(a), toggle(a))),
+		hidden.length > 0
+			? select(`${i}:act:add`, tx(t, 'add_action'), [['', tx(t, 'add_action')], ...hidden.map((a): [string, string] => [a, actionLabel(t, a)])], '', (v) => {
+					if (v !== '') toggle(v)(true);
+				}, 'pg-add-action')
+			: null
 	);
 }
 

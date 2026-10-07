@@ -222,6 +222,17 @@
 	inline-size: 10em;
 	max-inline-size: 100%;
 }
+.pg input.mono {
+	inline-size: 16em;
+	font-family: var(--ms-font-mono);
+	font-size: 14px;
+}
+.pg select.pg-add-action {
+	min-block-size: 32px;
+	border-style: dashed;
+	border-radius: var(--ms-radius-pill);
+	font-size: 14px;
+}
 .pg input.pg-num-input {
 	inline-size: 5.5em;
 }
@@ -857,6 +868,24 @@
 	}
 	.pg-desktop {
 		display: none;
+	}
+	.pg-json-actions {
+		inline-size: 100%;
+	}
+	.pg-json-actions .btn:first-of-type {
+		margin-inline-start: auto;
+	}
+	#pg-download {
+		inline-size: 44px;
+		padding-inline: 0;
+	}
+	#pg-download span {
+		position: absolute;
+		inline-size: 1px;
+		block-size: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
 	}
 	.pg-mobile {
 		display: inline;

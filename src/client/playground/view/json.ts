@@ -72,6 +72,20 @@ export async function copyText(text: string, status: HTMLElement, texts: Texts):
 	}, COPIED_MS);
 }
 
+/** Copy button: copies, then shows "Copied" for COPIED_MS (also announced). */
+export function initCopyButton(button: HTMLButtonElement, status: HTMLElement, texts: Texts, text: () => string): void {
+	const label = button.querySelector('span');
+	button.addEventListener('click', async () => {
+		await copyText(text(), status, texts);
+		button.dataset.copied = 'true';
+		if (label) label.textContent = tx(texts, 'copied');
+		setTimeout(() => {
+			delete button.dataset.copied;
+			if (label) label.textContent = tx(texts, 'copy');
+		}, COPIED_MS);
+	});
+}
+
 /** Saves the text as a file: a blob URL on a temporary link with download. */
 export function download(text: string, name: string): void {
 	const url = URL.createObjectURL(new Blob([text], { type: 'application/json' }));

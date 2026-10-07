@@ -8,13 +8,13 @@ import { computeMatrix } from '../playground/matrix.ts';
 import { addRule, agentName, fileName, formatDoc, isObject, removeRule, updateRule, type JsonObject, type RuleView } from '../playground/model.ts';
 import { buildRequest, DAYS, type RequestInput } from '../playground/request.ts';
 import { tx, type Texts } from '../playground/texts.ts';
-import { copyText, download, renderGutter, renderValidity, setEditorText, type JsonElements } from '../playground/view/json.ts';
+import { download, initCopyButton, renderGutter, renderValidity, setEditorText, type JsonElements } from '../playground/view/json.ts';
 import { renderMatrix } from '../playground/view/matrix.ts';
 import { findForm, readRequest, readValue, setRequest, syncCategory, syncValue } from '../playground/view/request.ts';
 import { renderLine, renderResult, shortRequest } from '../playground/view/result.ts';
 import { refreshRules, renderRules, type RulesContext } from '../playground/view/rules.ts';
+import { initTabs } from '../playground/view/tabs.ts';
 
-const TABS = ['rules', 'test', 'overview', 'json'] as const;
 const PHONE = '(max-width: 767px)';
 
 function required<T extends HTMLElement>(id: string): T {
@@ -37,6 +37,8 @@ function start(root: HTMLElement): void {
 		badge: required('pg-badge'),
 		problem: required('pg-problem')
 	};
+
+	const showTab = initTabs(root);
 
 	let analysis: Analysis = analyse(examples.voice ?? '');
 	let values: Record<string, number> = {};
@@ -113,29 +115,6 @@ function start(root: HTMLElement): void {
 		});
 	}
 
-	// Tabs (phone layout): one panel at a time; arrow keys move between tabs.
-	const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
-	function showTab(id: string, focus = false): void {
-		root.dataset.tab = id;
-		for (const tab of tabs) {
-			const active = tab.dataset.tabTarget === id;
-			tab.setAttribute('aria-selected', String(active));
-			tab.tabIndex = active ? 0 : -1;
-			if (active && focus) tab.focus();
-		}
-	}
-	for (const tab of tabs) {
-		tab.addEventListener('click', () => showTab(tab.dataset.tabTarget ?? 'rules'));
-		tab.addEventListener('keydown', (event) => {
-			const i = TABS.indexOf((tab.dataset.tabTarget ?? 'rules') as (typeof TABS)[number]);
-			const rtl = document.documentElement.dir === 'rtl';
-			const step = { ArrowRight: rtl ? -1 : 1, ArrowLeft: rtl ? 1 : -1, Home: -i, End: TABS.length - 1 - i }[event.key];
-			if (step === undefined) return;
-			event.preventDefault();
-			showTab(TABS[(i + step + TABS.length) % TABS.length] ?? 'rules', true);
-		});
-	}
-
 	// Step 1: examples.
 	for (const radio of root.querySelectorAll<HTMLInputElement>('input[name="pg-example"]')) {
 		radio.addEventListener('change', () => {
@@ -169,17 +148,7 @@ function start(root: HTMLElement): void {
 
 	// Step 6: JSON.
 	json.textarea.addEventListener('input', () => setText(json.textarea.value, 'json'));
-	const copyButton = required<HTMLButtonElement>('pg-copy');
-	copyButton.addEventListener('click', async () => {
-		await copyText(json.textarea.value, required('pg-copy-status'), texts);
-		copyButton.dataset.copied = 'true';
-		const label = copyButton.querySelector('span');
-		if (label) label.textContent = tx(texts, 'copied');
-		setTimeout(() => {
-			delete copyButton.dataset.copied;
-			if (label) label.textContent = tx(texts, 'copy');
-		}, 2000);
-	});
+	initCopyButton(required('pg-copy'), required('pg-copy-status'), texts, () => json.textarea.value);
 	required('pg-download').addEventListener('click', () => download(json.textarea.value, fileName(analysis.doc ?? doc)));
 
 	syncCategory(form, texts, locale, form.action.value, values);

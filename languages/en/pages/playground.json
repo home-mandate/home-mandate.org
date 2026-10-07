@@ -42,6 +42,7 @@
   "playground_any_device": "any device",
   "playground_by_id": "a device by ID or area",
   "playground_all_actions": "do anything",
+  "playground_add_action": "+ add action",
   "playground_time_any": "at any time",
   "playground_time_window": "between",
   "playground_days_all": "every day",
