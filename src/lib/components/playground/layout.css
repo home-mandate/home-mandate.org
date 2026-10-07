@@ -1,0 +1,218 @@
+/* Playground: tablet and phone layouts, forced colours, and the guard against
+   horizontal page overflow. Imported last: these rules override the step files. */
+
+/* Tablet: one column, the side column no longer sticks. */
+@media (max-width: 1023px) {
+	.pg-examples {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	.pg-cols {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.pg-side {
+		position: static;
+	}
+}
+
+/* Phone: example pills, sticky tabs with the result line, one panel at a time. */
+@media (max-width: 767px) {
+	.pg {
+		gap: 16px;
+	}
+	.pg-choose .pg-h {
+		font-size: 13px;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--ms-text-muted);
+	}
+	.pg-choose .pg-num {
+		display: none;
+	}
+	.pg-examples {
+		display: flex;
+		gap: 8px;
+		overflow-x: auto;
+		margin-inline: calc(-1 * var(--page-pad));
+		padding-inline: var(--page-pad);
+		padding-block: 2px 4px;
+		scrollbar-width: none;
+	}
+	.pg-example {
+		flex: none;
+		flex-direction: row;
+		align-items: center;
+		min-block-size: 44px;
+		padding: 0 16px;
+		border-radius: var(--ms-radius-pill);
+	}
+	.pg-example:has(input:checked) {
+		padding: 0 15px;
+	}
+	.pg-example-body,
+	.pg-tick {
+		display: none !important;
+	}
+	.pg-bar {
+		position: sticky;
+		inset-block-start: 0;
+		z-index: 3;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-inline: calc(-1 * var(--page-pad));
+		padding: 8px var(--page-pad);
+		background: var(--ms-bg);
+	}
+	.pg-tabs {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 2px;
+		padding: 3px;
+		border: 1px solid var(--ms-border);
+		border-radius: var(--ms-radius);
+		background: var(--ms-surface);
+	}
+	.pg-tabs button {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2px;
+		min-block-size: 52px;
+		padding: 4px;
+		border: 0;
+		border-radius: var(--ms-radius-sm);
+		background: transparent;
+		color: var(--ms-text);
+		font-size: 13px;
+		font-weight: 500;
+		cursor: pointer;
+	}
+	.pg-tabs button[aria-selected='true'] {
+		background: var(--ms-btn-bg);
+		color: var(--ms-btn-fg);
+		font-weight: 650;
+	}
+	.pg-line {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		min-block-size: 44px;
+		padding: 6px 12px;
+		border: 1px solid var(--ms-ask-border);
+		border-radius: var(--ms-radius);
+		background: var(--ms-surface);
+		font-size: 14px;
+		color: var(--ms-text-muted);
+	}
+	.pg-cols {
+		display: block;
+	}
+	.pg-panel {
+		display: none;
+	}
+	.pg[data-tab='rules'] [data-panel='rules'],
+	.pg[data-tab='test'] [data-panel='test'],
+	.pg[data-tab='overview'] [data-panel='overview'],
+	.pg[data-tab='json'] [data-panel='json'] {
+		display: flex;
+	}
+	.pg-card {
+		padding: 0;
+		border: 0;
+		background: none;
+	}
+	.pg-panel > .pg-card-head .pg-h,
+	.pg-side .pg-h {
+		position: absolute;
+		inline-size: 1px;
+		block-size: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+	.pg-rule {
+		background: var(--ms-surface);
+	}
+	.pg-rule .pg-row {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.pg-rule .pg-row.pg-pills {
+		flex-direction: row;
+	}
+	.pg select,
+	.pg input[type='text'],
+	.pg input[type='time'] {
+		min-block-size: 44px;
+	}
+	.pg-pill span,
+	.pg-icon-btn {
+		min-block-size: 44px;
+	}
+	.pg-icon-btn {
+		inline-size: 44px;
+	}
+	.pg-add {
+		align-self: stretch;
+	}
+	.pg-side .pg-card {
+		gap: 12px;
+	}
+	.pg-cell {
+		min-block-size: 44px;
+		min-inline-size: 44px;
+	}
+	.pg-matrix tbody th {
+		background: var(--ms-bg);
+	}
+	.pg-desktop {
+		display: none;
+	}
+	.pg-json-actions {
+		inline-size: 100%;
+	}
+	.pg-json-actions .btn:first-of-type {
+		margin-inline-start: auto;
+	}
+	#pg-download {
+		inline-size: 44px;
+		padding-inline: 0;
+	}
+	#pg-download span {
+		position: absolute;
+		inline-size: 1px;
+		block-size: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+	.pg-mobile {
+		display: inline;
+	}
+}
+
+@media (forced-colors: active) {
+	.pg-example:has(input:checked),
+	.pg-cell[aria-pressed='true'],
+	.pg-tabs button[aria-selected='true'] {
+		border-color: Highlight;
+		outline: 2px solid Highlight;
+	}
+	.pg-pill input:checked + span {
+		border-color: Highlight;
+	}
+}
+/* Grid and flex children default to min-width: auto and would grow with the
+   matrix; 0 lets .pg-matrix-scroll scroll inside the card instead. The scroller
+   is also the containing block of the cells' positioned parts, otherwise they
+   escape its clipping and widen the page. */
+.pg-step,
+.pg-card,
+.pg-matrix-scroll {
+	min-inline-size: 0;
+}
+.pg-matrix-scroll,
+.pg-examples {
+	position: relative;
+}

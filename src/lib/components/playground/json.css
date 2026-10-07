@@ -1,0 +1,107 @@
+/* Playground, step 6: the JSON editor, its badge, problem box, copy and download. */
+
+/* Step 6: JSON */
+.pg-json-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+}
+.pg-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 10px;
+	border: 1px solid var(--ms-allow-border);
+	border-radius: var(--ms-radius-pill);
+	background: var(--ms-allow-bg);
+	color: var(--ms-allow-fg);
+	font-size: 13.5px;
+	font-weight: 650;
+}
+.pg-badge[data-valid='false'] {
+	border-color: var(--ms-deny-border);
+	background: var(--ms-deny-bg);
+	color: var(--ms-deny-fg);
+}
+.pg-problem {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 14px 16px;
+	border: 1px solid var(--ms-deny-border);
+	border-radius: var(--ms-radius);
+	background: var(--ms-deny-bg);
+	font-size: 14.5px;
+}
+.pg-problem strong {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--ms-deny-fg);
+}
+.pg-where {
+	font-weight: 650;
+}
+.pg-detail {
+	font-size: 13px;
+	color: var(--ms-text-muted);
+	overflow-wrap: anywhere;
+}
+.pg-link-btn {
+	align-self: flex-start;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--ms-accent);
+	font-weight: 600;
+	text-decoration: underline;
+	cursor: pointer;
+	min-block-size: 32px;
+}
+.pg-editor {
+	display: flex;
+	border: 1px solid var(--ms-border);
+	border-radius: var(--ms-radius);
+	background: var(--ms-surface-2);
+	overflow: hidden;
+	font-size: 13px;
+	line-height: 1.6;
+}
+.pg-editor:focus-within {
+	outline: 2px solid var(--ms-focus);
+	outline-offset: 2px;
+}
+.pg-gutter {
+	display: flex;
+	flex-direction: column;
+	flex: none;
+	padding: 12px 10px;
+	border-inline-end: 1px solid var(--ms-border);
+	color: var(--ms-text-muted);
+	text-align: end;
+	user-select: none;
+	min-inline-size: 3.2em;
+}
+.pg-err-line {
+	color: var(--ms-deny-fg);
+	font-weight: 700;
+}
+.pg-editor textarea {
+	flex: 1;
+	min-inline-size: 0;
+	padding: 12px 14px;
+	border: 0;
+	background: transparent;
+	color: var(--ms-text);
+	font-family: var(--ms-font-mono);
+	font-size: inherit;
+	line-height: inherit;
+	resize: none;
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: pre;
+}
+.pg-editor textarea:focus {
+	outline: none;
+}

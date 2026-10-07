@@ -8,6 +8,11 @@
 	import { categoryLabel, actionLabel, type Texts } from '$lib/playground/texts';
 	import { CATEGORIES, actionsOf } from '$lib/playground/vocab';
 	import './playground.css';
+	import './rules.css';
+	import './request.css';
+	import './matrix.css';
+	import './json.css';
+	import './layout.css';
 
 	// The interactive playground. The page renders its frame and the request form; the
 	// script (src/client/pages/playground.ts) fills in rules, result, overview and JSON.

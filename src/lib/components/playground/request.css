@@ -1,0 +1,114 @@
+/* Playground, steps 3 and 4: the request form and the result. */
+
+/* Step 3: request */
+.pg-form {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+.pg-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	font-size: 14px;
+	color: var(--ms-text-muted);
+	min-inline-size: 0;
+}
+.pg-field select,
+.pg-field input[type='text'],
+.pg-field input[type='time'] {
+	inline-size: 100%;
+	min-block-size: 42px;
+}
+.pg-wide {
+	grid-column: 1 / -1;
+}
+.pg-more summary {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-block-size: 36px;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--ms-accent);
+	cursor: pointer;
+	list-style: none;
+}
+.pg-more summary::-webkit-details-marker {
+	display: none;
+}
+.pg-more[open] summary svg {
+	transform: rotate(180deg);
+}
+.pg-more .pg-form {
+	margin-block-start: 10px;
+}
+
+/* Step 4: result */
+.pg-result #pg-result {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.pg-verdict {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 14px;
+}
+.pg-verdict-head {
+	font-size: 19px;
+}
+.pg-eyebrow {
+	margin: 4px 0 0;
+	font-size: 12.5px;
+	font-weight: 650;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--ms-text-muted);
+}
+.pg-matches {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pg-match {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 6px 10px;
+	border-radius: var(--ms-radius-sm);
+	background: var(--ms-surface-2);
+	font-size: 14px;
+}
+.pg-match code {
+	padding: 0;
+	background: none;
+	overflow-wrap: anywhere;
+}
+.pg-role {
+	margin-inline-start: auto;
+	color: var(--ms-text-muted);
+	font-size: 13px;
+}
+.pg-none,
+.pg-approval {
+	font-size: 14px;
+	color: var(--ms-text-muted);
+}
+.pg-critical-note {
+	display: flex;
+	gap: 12px;
+	padding: 14px 16px;
+	border: 1px solid var(--ms-deny-border);
+	border-radius: var(--ms-radius);
+	background: var(--ms-deny-bg);
+	color: var(--ms-deny-fg);
+}
+.pg-critical-note p {
+	font-size: 14px;
+	color: var(--ms-text);
+}
