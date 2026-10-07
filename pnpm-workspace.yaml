@@ -8,3 +8,9 @@ trustPolicy: no-downgrade
 # No git or tarball URLs anywhere in the dependency tree.
 blockExoticSubdeps: true
 saveExact: true
+# Security fixes for transitive dependencies (remove once the parents require them):
+# source-map-js < 1.2.2: GHSA-68fv-2mgg-jv7q (lint and test tooling only).
+# cookie < 0.7.0: GHSA-pxg6-pf52-xh8x (SvelteKit; the prerendered site sets no cookies).
+overrides:
+  source-map-js: 1.2.2
+  cookie: 0.7.2
