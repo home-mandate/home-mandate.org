@@ -40,6 +40,17 @@ for (const lang of LANGUAGES) {
 			expect(result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(' ')}`)).toEqual([]);
 		});
 
+		test('every path of a request has enough contrast, also the inactive parts', async ({ page }, info) => {
+			test.skip(info.project.name === 'no-js', 'needs JavaScript');
+			await page.goto(`${lang.prefix}/how-it-works/`);
+			for (const value of ['allow', 'deny']) {
+				await page.locator(`[data-how-path] input[value="${value}"]`).check({ force: true });
+				await expect(path(page)).toHaveAttribute('data-path', value);
+				const result = await new AxeBuilder({ page }).include('[data-how-path]').withRules(['color-contrast']).analyze();
+				expect(result.violations.map((v) => `${value} ${v.id}: ${v.nodes.map((n) => n.target).join(' ')}`)).toEqual([]);
+			}
+		});
+
 		test('switches the path of a request', async ({ page }, info) => {
 			test.skip(info.project.name === 'no-js', 'needs JavaScript');
 			await page.goto(`${lang.prefix}/how-it-works/`);

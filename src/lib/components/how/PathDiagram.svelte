@@ -265,9 +265,11 @@
 	.root:global([data-path='deny']) .decision {
 		border-color: var(--ms-deny-border);
 	}
+	/* Inactive parts: dashed and muted, never transparent text (contrast AA). */
 	.root:global([data-path='deny']) .device {
-		border-color: var(--ms-border);
-		opacity: 0.55;
+		border-color: var(--ms-border-strong);
+		border-style: dashed;
+		color: var(--ms-text-muted);
 	}
 
 	.arrow {
@@ -289,8 +291,7 @@
 		grid-column: 6;
 	}
 	.root:global([data-path='deny']) .a-command {
-		color: var(--ms-deny-border);
-		opacity: 0.35;
+		color: var(--ms-text-muted);
 	}
 	.label {
 		font-size: 13px;
@@ -360,12 +361,13 @@
 	.phone {
 		grid-column: 5;
 	}
-	.root:not(:global([data-path='ask'])) .phone,
 	.root:not(:global([data-path='ask'])) .phone-line {
 		opacity: 0.35;
 	}
 	.root:not(:global([data-path='ask'])) .phone {
-		border-color: var(--ms-border);
+		border-color: var(--ms-border-strong);
+		border-style: dashed;
+		color: var(--ms-text-muted);
 	}
 	.root:not(:global([data-path='ask'])) .phone .ic {
 		color: var(--ms-text-muted);
