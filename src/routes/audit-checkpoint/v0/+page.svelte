@@ -1,6 +1,6 @@
 <script lang="ts">
-	import IdentifierPage from '$lib/components/IdentifierPage.svelte';
-	import { m } from '$lib/paraglide/messages';
+	import TextPageView from '$lib/components/TextPageView.svelte';
+	import { checkpointIdentifier } from '$lib/content/pages/identifiers';
 </script>
 
-<IdentifierPage name={m.ident_audit_checkpoint()} version="v0" section="95-checkpoints" />
+<TextPageView page={checkpointIdentifier} />

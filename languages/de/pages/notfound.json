@@ -1,0 +1,9 @@
+{
+  "notfound_title": "Diese Seite gibt es hier nicht",
+  "notfound_intro": "Vielleicht ist sie umgezogen, oder im Link steckt ein Tippfehler. Das hilft vielleicht weiter:",
+  "notfound_search": "Diese Seite durchsuchen",
+  "notfound_placeholder": "z. B. kritische Aktionen",
+  "notfound_results": "{count, plural, =0 {Keine Seite gefunden.} one {Eine Seite gefunden.} other {# Seiten gefunden.}}",
+  "notfound_home": "Start",
+  "notfound_spec": "Spezifikation"
+}

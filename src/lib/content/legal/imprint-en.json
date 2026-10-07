@@ -1,0 +1,13 @@
+{
+ "title": "Imprint",
+ "intro": "Information according to § 5 DDG (German Digital Services Act).",
+ "blocks": [
+  {"callout": "info", "title": "Translation", "text": "This is a translation for your convenience. Only the German version is legally binding."},
+  {"legal": [["Name", "[Name]"], ["Address", "[Street, postcode, city]"]]},
+  {"h2": "Contact"},
+  {"p": "You can reach us in two ways:"},
+  {"ul": ["by e-mail to [contact@mandate-spec.org](mailto:contact@mandate-spec.org)", "through our [contact form](/contact/)"]},
+  {"h2": "Responsible for the content"},
+  {"legal": [["Name", "[Name]"], ["Address", "[Street, postcode, city]"]]}
+ ]
+}

@@ -44,18 +44,5 @@
   "footer_privacy": "Datenschutz",
   "footer_source": "Quellcode dieser Website",
   "footer_security": "Sicherheitslücke melden",
-  "footer_translate": "Diese Seite übersetzen",
-  "page_imprint_title": "Impressum",
-  "page_imprint_body": "Das Impressum wird hier veröffentlicht, bevor diese Webseite freigeschaltet wird.",
-  "page_privacy_title": "Datenschutz",
-  "page_privacy_body": "Diese Webseite setzt keine Cookies und verwendet kein Tracking. Eine vollständige Datenschutzerklärung wird hier veröffentlicht, bevor diese Webseite freigeschaltet wird.",
-  "ident_title": "{name}, Version {version}",
-  "ident_body": "Diese Adresse bezeichnet ein {name} nach mandate-spec, Version {version}. Software verwendet sie als Namen; Menschen, die ihr folgen, landen hier.",
-  "ident_schema": "JSON-Schema",
-  "ident_spec": "Abschnitt in der Spezifikation",
-  "ident_mandate": "Mandat",
-  "ident_audit": "Protokolleintrag",
-  "ident_audit_checkpoint": "Protokoll-Kontrollpunkt",
-  "notfound_title": "Seite nicht gefunden",
-  "notfound_body": "Unter dieser Adresse gibt es nichts."
+  "footer_translate": "Diese Seite übersetzen"
 }

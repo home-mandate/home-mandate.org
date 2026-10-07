@@ -44,18 +44,5 @@
   "footer_privacy": "Privacy",
   "footer_source": "Source code of this website",
   "footer_security": "Report a vulnerability",
-  "footer_translate": "Translate this site",
-  "page_imprint_title": "Imprint",
-  "page_imprint_body": "The legal notice will be published here before this website is launched.",
-  "page_privacy_title": "Privacy",
-  "page_privacy_body": "This website sets no cookies and uses no tracking. A complete privacy notice will be published here before this website is launched.",
-  "ident_title": "{name}, version {version}",
-  "ident_body": "This address identifies a {name} as defined by mandate-spec, version {version}. Software uses it as a name; people who follow it end up here.",
-  "ident_schema": "JSON Schema",
-  "ident_spec": "Section in the specification",
-  "ident_mandate": "mandate",
-  "ident_audit": "audit log entry",
-  "ident_audit_checkpoint": "audit log checkpoint",
-  "notfound_title": "Page not found",
-  "notfound_body": "There is nothing at this address."
+  "footer_translate": "Translate this site"
 }

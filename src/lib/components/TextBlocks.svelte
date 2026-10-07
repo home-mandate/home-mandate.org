@@ -8,13 +8,13 @@
 	import { ALPHABET, groupByInitial } from '$lib/content/glossary';
 	import { t } from '$lib/content/text';
 	import type { Block } from '$lib/content/types';
-	import { pathIn } from '$lib/locale';
+	import { localHref } from '$lib/locale';
 	import { getLocale } from '$lib/paraglide/runtime';
 
 	let { blocks }: { blocks: Block[] } = $props();
 
 	const locale = $derived(getLocale());
-	const href = (target: string) => (target.startsWith('/') ? pathIn(target, locale) : target);
+	const href = (target: string) => localHref(target, locale);
 	const marks = { allow: 'check', ask: 'ask', deny: 'close' } as const;
 	const toc = $derived(blocks.flatMap((b) => ('h2' in b ? [{ id: b.id, text: t(b.h2) }] : [])));
 </script>

@@ -1,7 +1,6 @@
 <script lang="ts">
-	import IdentifierPage from '$lib/components/IdentifierPage.svelte';
-	import { spec } from '$lib/generated/spec';
-	import { m } from '$lib/paraglide/messages';
+	import TextPageView from '$lib/components/TextPageView.svelte';
+	import { mandateIdentifier } from '$lib/content/pages/identifiers';
 </script>
 
-<IdentifierPage name={m.ident_mandate()} version="v0" schema={spec.identifiers['mandate/v0']} section="3-data-model" />
+<TextPageView page={mandateIdentifier} />

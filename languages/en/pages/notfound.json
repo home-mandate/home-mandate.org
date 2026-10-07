@@ -1,0 +1,9 @@
+{
+  "notfound_title": "This page isn’t here",
+  "notfound_intro": "Maybe it moved, or the link has a typo. These might help:",
+  "notfound_search": "Search this site",
+  "notfound_placeholder": "e.g. critical actions",
+  "notfound_results": "{count, plural, =0 {No page found.} one {One page found.} other {# pages found.}}",
+  "notfound_home": "Home",
+  "notfound_spec": "Specification"
+}

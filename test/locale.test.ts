@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { basePath, language, languages, pathIn, urlIn } from '$lib/locale';
+import { basePath, language, languages, localHref, pathIn, urlIn } from '$lib/locale';
 import { SECURITY_URL, SITE_URL, specUrl } from '$lib/site';
 import { spec } from '$lib/generated/spec';
 
@@ -34,5 +34,18 @@ describe('site links', () => {
 	});
 	it('points vulnerability reports to the specification repository', () => {
 		expect(SECURITY_URL).toBe('https://github.com/mandate-spec/mandate-spec/security/advisories/new');
+	});
+});
+
+describe('localHref', () => {
+	it('prefixes site pages, keeps anchors', () => {
+		expect(localHref('/spec/v0/#3-data-model', 'de')).toBe('/de/spec/v0/#3-data-model');
+		expect(localHref('/why/', 'en')).toBe('/why/');
+	});
+	it('leaves files, anchors and external links alone', () => {
+		expect(localHref('/mandate/v0/mandate.schema.json', 'de')).toBe('/mandate/v0/mandate.schema.json');
+		expect(localHref('#faq', 'de')).toBe('#faq');
+		expect(localHref('https://github.com/x', 'de')).toBe('https://github.com/x');
+		expect(localHref('mailto:contact@mandate-spec.org', 'de')).toBe('mailto:contact@mandate-spec.org');
 	});
 });

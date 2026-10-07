@@ -24,3 +24,16 @@ export function urlIn(pathname: string, tag: string): string {
 export function language(tag: string): Language | undefined {
 	return languages.find((l) => l.tag === tag);
 }
+
+/**
+ * Link target for a page in the current language. Only site pages get the
+ * language prefix; files (/mandate/v0/mandate.schema.json), anchors and
+ * external URLs stay as they are.
+ */
+export function localHref(target: string, tag: string): string {
+	if (!target.startsWith('/') || target.startsWith('//')) return target;
+	const [path = '', hash] = target.split('#');
+	if (/\.[a-z0-9]+$/i.test(path)) return target;
+	const localized = pathIn(path, tag);
+	return hash === undefined ? localized : `${localized}#${hash}`;
+}

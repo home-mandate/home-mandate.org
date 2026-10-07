@@ -1,0 +1,20 @@
+{
+  "ident_mandate_title": "This URL identifies a mandate-spec v0 mandate",
+  "ident_mandate_intro": "If you found this address inside a file, that file is a mandate: rules that say what an AI agent may do in a household.",
+  "ident_audit_title": "This URL identifies a mandate-spec v0 audit log entry",
+  "ident_audit_intro": "If you found this address inside a file, the file holds entries of an audit log: the record of what agents asked for and what was decided, linked into a hash chain.",
+  "ident_checkpoint_title": "This URL identifies a mandate-spec v0 audit log checkpoint",
+  "ident_checkpoint_intro": "This address names the signed statement of a checkpoint: proof that an audit log had a certain entry at a certain position, so later changes are noticed.",
+  "ident_schema_title": "JSON Schema",
+  "ident_schema_body": "Machine-readable definition of this format.",
+  "ident_schema_link": "Download schema",
+  "ident_spec_title": "Specification",
+  "ident_spec_body": "The section that defines this format in detail.",
+  "ident_spec_link": "Read the section",
+  "ident_play_title": "Playground",
+  "ident_play_body": "Open and test a mandate in your browser.",
+  "ident_play_link": "Open the playground",
+  "ident_how_title": "How it works",
+  "ident_how_body": "Why the log is a hash chain, explained without jargon.",
+  "ident_how_link": "Read the explanation"
+}
