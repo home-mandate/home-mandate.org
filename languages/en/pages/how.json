@@ -64,7 +64,7 @@
   "how_rule_4": "No answer means no.",
   "how_rule_4_body": "If nobody confirms an ask in time, the answer is deny.",
   "how_rule_5": "Decided at home, written down.",
-  "how_rule_5_body": "The guard runs in your home, not at the agent’s provider, and logs every decision.",
+  "how_rule_5_body": "The guard decides, not the agent – the agent can only ask. Every decision is recorded in the log.",
   "how_crit_title": "Critical actions",
   "how_crit_body": "A plain allow is never enough for these. Only a rule that names them and carries allow_critical lets them through without asking – otherwise a person must confirm.",
   "how_crit_note": "Your home can also mark single devices as critical, for example a switch that drives a door opener.",

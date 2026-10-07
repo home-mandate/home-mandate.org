@@ -241,3 +241,13 @@ test.describe('phone', () => {
 		expect(pageOverflow).toBe(false);
 	});
 });
+
+test('the overview matrix scrolls inside its card, the page never scrolls sideways', async ({ page }, info) => {
+	test.skip(info.project.name === 'no-js', 'the matrix is built by the script');
+	for (const width of [1440, 1024, 375, 320]) {
+		await page.setViewportSize({ width, height: 800 });
+		await page.goto('/playground/');
+		await expect(page.locator('.pg-matrix tbody tr').first()).toBeAttached();
+		expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+	}
+});

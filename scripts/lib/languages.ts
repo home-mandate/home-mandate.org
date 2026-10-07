@@ -149,7 +149,11 @@ export function mergeWithBase(
 // links to other sites.
 const LINK = /\[[^\]]*\]\(([^)\s]*)\)/g;
 
-/** Sorted link targets of a message. */
+/**
+ * Sorted link targets of a message. Sorted, not in order: a translation may
+ * reorder a sentence and with it the links. Which text goes with which link
+ * is checked by reading the translation in review.
+ */
 export function linkTargets(message: string): string[] {
 	return [...message.matchAll(LINK)].map((m) => m[1] ?? '').sort();
 }

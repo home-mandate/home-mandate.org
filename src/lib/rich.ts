@@ -5,7 +5,9 @@
 export type Segment = { text: string } | { text: string; href: string; external: boolean };
 
 const LINK = /\[([^\]]+)\]\(([^)\s]+)\)/g;
-const SAFE_HREF = /^(\/(?!\/)|#|https:\/\/|mailto:)/;
+// Site paths (not //host or /\host, which browsers treat as another site), anchors,
+// https and mailto; nothing with control characters or white space.
+const SAFE_HREF = /^(\/(?![/\\])|#|https:\/\/|mailto:)[^\s\p{Cc}\\]*$/u;
 
 /** Splits a message into plain text and links. Unsafe targets stay plain text. */
 export function segments(message: string): Segment[] {

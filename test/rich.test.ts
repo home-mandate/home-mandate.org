@@ -17,7 +17,7 @@ describe('segments', () => {
 	});
 
 	it('never turns unsafe targets into links', () => {
-		for (const href of ['javascript:alert', '//evil.example', 'http://x.org', 'data:text/html,x']) {
+		for (const href of ['javascript:alert', '//evil.example', '/\\evil.example', '/x\\y', 'http://x.org', 'data:text/html,x']) {
 			expect(segments(`[x](${href})`)).toEqual([{ text: `[x](${href})` }]);
 		}
 	});

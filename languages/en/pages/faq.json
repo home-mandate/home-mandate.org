@@ -2,7 +2,7 @@
   "faq_title": "Frequently asked questions",
   "faq_intro": "Short answers. Each question has its own link.",
   "faq_data_q": "Does my data leave the house?",
-  "faq_data_a": "No. The mandate is checked inside your home. Only the confirmation question is sent to your phone.",
+  "faq_data_a": "Not because of the mandate. It is checked by a guard outside the agent – in the intended setup a device in your home – and only a confirmation question goes to your phone. What the agent itself is allowed to read does leave with the agent, so a mandate is also a decision about what it may see.",
   "faq_tricked_q": "What if the agent is tricked?",
   "faq_tricked_a": "It can still only do what the mandate allows. Critical actions always need an explicit rule or a person.",
   "faq_product_q": "Do I need to buy something?",

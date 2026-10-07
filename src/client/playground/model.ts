@@ -64,7 +64,8 @@ export function agentName(doc: JsonObject | null, fallback: string): string {
 
 function readLimits(raw: Json | undefined): Record<string, Limits> {
 	if (!isObject(raw)) return {};
-	const out: Record<string, Limits> = {};
+	// No prototype: a parameter named "__proto__" stays an ordinary key.
+	const out: Record<string, Limits> = Object.create(null) as Record<string, Limits>;
 	for (const [name, value] of Object.entries(raw)) {
 		if (!isObject(value)) continue;
 		const limits: Limits = {};

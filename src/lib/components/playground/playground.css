@@ -903,3 +903,16 @@
 		border-color: Highlight;
 	}
 }
+/* Grid and flex children default to min-width: auto and would grow with the
+   matrix; 0 lets .pg-matrix-scroll scroll inside the card instead. The scroller
+   is also the containing block of the cells' positioned parts, otherwise they
+   escape its clipping and widen the page. */
+.pg-step,
+.pg-card,
+.pg-matrix-scroll {
+	min-inline-size: 0;
+}
+.pg-matrix-scroll,
+.pg-examples {
+	position: relative;
+}

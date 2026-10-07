@@ -64,7 +64,7 @@
   "how_rule_4": "Keine Antwort heißt Nein.",
   "how_rule_4_body": "Bestätigt niemand eine Nachfrage rechtzeitig, lautet die Antwort ablehnen.",
   "how_rule_5": "Entschieden und aufgeschrieben zu Hause.",
-  "how_rule_5_body": "Der Wächter läuft bei dir, nicht beim Anbieter des Agenten, und protokolliert jede Entscheidung.",
+  "how_rule_5_body": "Der Wächter entscheidet, nicht der Agent – der Agent kann nur fragen. Jede Entscheidung landet im Protokoll.",
   "how_crit_title": "Kritische Aktionen",
   "how_crit_body": "Ein einfaches Erlauben reicht hier nie. Nur eine Regel, die sie ausdrücklich nennt und allow_critical trägt, lässt sie ohne Nachfrage durch – sonst muss ein Mensch bestätigen.",
   "how_crit_note": "Dein Zuhause kann außerdem einzelne Geräte als kritisch markieren, zum Beispiel einen Schalter, der einen Türöffner steuert.",
