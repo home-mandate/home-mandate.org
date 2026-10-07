@@ -51,8 +51,10 @@ for (const lang of LANGUAGES) {
 
 test('language menu switches to the same page in another language', async ({ page }) => {
 	await page.goto('/imprint/');
-	await page.locator('.language-menu summary').click();
-	await page.getByRole('link', { name: 'Deutsch' }).click();
+	// Desktop header and phone header each have a picker; use the visible one.
+	const picker = page.locator('header details.lang:visible').first();
+	await picker.locator('summary').click();
+	await picker.getByRole('link', { name: 'Deutsch' }).click();
 	await expect(page).toHaveURL(/\/de\/imprint\/$/);
 	await expect(page.getByRole('heading', { level: 1 })).toHaveText('Impressum');
 });

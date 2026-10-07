@@ -41,8 +41,8 @@
 		<LanguagePicker variant="icon" />
 		<details class="menu" data-popover="menu">
 			<summary>
-				<span class="when-closed"><Icon name="menu" stroke={2} />{m.nav_menu()}</span>
-				<span class="when-open"><Icon name="close" stroke={2} />{m.nav_close()}</span>
+				<span class="when-closed"><Icon name="menu" stroke={2} /><span class="word">{m.nav_menu()}</span></span>
+				<span class="when-open"><Icon name="close" stroke={2} /><span class="word">{m.nav_close()}</span></span>
 			</summary>
 			<div class="menu-panel">
 				<nav aria-label={m.nav_main()}>
@@ -219,6 +219,23 @@
 		color: var(--ms-text-muted);
 	}
 
+	/* Very narrow phones: the menu button keeps only its icon (the word stays for screen readers). */
+	@media (max-width: 359px) {
+		.menu summary {
+			padding-inline: 10px;
+		}
+		.menu .word {
+			position: absolute;
+			inline-size: 1px;
+			block-size: 1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+		}
+		.header {
+			gap: 8px;
+		}
+	}
 	@media (max-width: 1199px) {
 		.header {
 			block-size: 64px;

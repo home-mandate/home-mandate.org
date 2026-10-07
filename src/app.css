@@ -17,6 +17,12 @@
 	--h2: clamp(24px, 1.1rem + 1.3vw, 38px);
 	--lead: clamp(17px, 0.95rem + 0.35vw, 21px);
 }
+@media (max-width: 767px) {
+	:root {
+		--page-pad: 16px;
+		--header-pad: 16px;
+	}
+}
 [data-ms-theme='dark'] {
 	color-scheme: dark;
 }
