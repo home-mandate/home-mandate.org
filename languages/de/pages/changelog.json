@@ -1,0 +1,17 @@
+{
+  "changelog_title": "Änderungsprotokoll",
+  "changelog_intro": "Was sich in jeder Version der Spezifikation geändert hat, so wie es am Ende der Spezifikation selbst steht.",
+  "changelog_feed_title": "Änderungen verfolgen",
+  "changelog_feed_text": "Abonniere den Atom-Feed, um neue Versionen im Feedreader zu bekommen.",
+  "changelog_feed_link": "Atom-Feed",
+  "changelog_feed_name": "mandate-spec changelog",
+  "changelog_english": "Die Einträge sind aus der Spezifikation zitiert und daher auf Englisch.",
+  "changelog_as_of": "Stand {version}",
+  "changelog_in_spec": "In der Spezifikation",
+  "changelog_kind_added": "neu",
+  "changelog_kind_changed": "geändert",
+  "changelog_kind_fixed": "behoben",
+  "changelog_kind_removed": "entfernt",
+  "changelog_kind_incompatible": "inkompatibel",
+  "changelog_kind_clarified": "präzisiert"
+}
