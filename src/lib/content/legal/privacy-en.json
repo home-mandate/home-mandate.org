@@ -86,15 +86,11 @@
    "legal": [
     [
      "Name / address",
-     "[Full name or company name, full address]"
-    ],
-    [
-     "Phone",
-     "[Phone number]"
+     "Markus Mazurczak, c/o Impressumservice Dein-Impressum, Stettiner Str. 41, 35410 Hungen, Germany"
     ],
     [
      "E-mail",
-     "[E-mail address]"
+     "[contact@mandate-spec.org](mailto:contact@mandate-spec.org)"
     ]
    ]
   },

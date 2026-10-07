@@ -47,7 +47,7 @@
 				</nav>
 			{:else if 'legal' in block}
 				<dl class="facts">
-					{#each block.legal as [key, value] (key)}<dt>{key}</dt><dd>{value}</dd>{/each}
+					{#each block.legal as [key, value] (key)}<dt>{key}</dt><dd><RichText text={value} /></dd>{/each}
 				</dl>
 			{:else if 'callout' in block}
 				<Callout title={block.title}><p>{block.text}</p></Callout>
@@ -123,7 +123,8 @@
 		gap: 10px 24px;
 		margin: 0;
 		padding: 20px;
-		border: 1px dashed var(--ms-border-strong);
+		border: 1px solid var(--ms-border);
+		background: var(--ms-surface);
 		border-radius: 12px;
 	}
 	dt {
@@ -132,8 +133,6 @@
 	}
 	dd {
 		margin: 0;
-		font-family: var(--ms-font-mono);
-		font-size: 15px;
 		overflow-wrap: anywhere;
 	}
 	@media (max-width: 767px) {
