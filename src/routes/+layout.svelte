@@ -1,11 +1,15 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
-	import LanguageMenu from '$lib/components/LanguageMenu.svelte';
-	import { language, languages, pathIn, urlIn } from '$lib/locale';
+	import Icon from '$lib/components/Icon.svelte';
+	import SiteFooter from '$lib/components/SiteFooter.svelte';
+	import SiteHeader from '$lib/components/SiteHeader.svelte';
+	import StatusBand from '$lib/components/StatusBand.svelte';
+	import { scripts } from '$lib/generated/client';
+	import { language, languages, urlIn } from '$lib/locale';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages';
-	import { SECURITY_URL, SITE_REPOSITORY, SPEC_REPOSITORY } from '$lib/site';
+	import { TRANSLATING_URL } from '$lib/site';
 
 	let { children } = $props();
 
@@ -14,10 +18,17 @@
 	const path = $derived(page.url.pathname);
 	// The 404 page is served for unknown addresses: no canonical or alternates.
 	const indexable = $derived(page.route.id !== '/404');
+	const home = $derived(page.route.id === '/');
 </script>
 
 <svelte:head>
+	<!-- Theme before the first paint: a classic script, not deferred. -->
+	<script src={scripts.themeBoot}></script>
+	<script type="module" src={scripts.site}></script>
 	<meta name="description" content={m.site_description()} />
+	<link rel="icon" href="/favicon.ico" sizes="48x48" />
+	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+	<link rel="apple-touch-icon" href="/icons/icon-180.png" />
 	{#if indexable}
 		<link rel="canonical" href={urlIn(path, locale)} />
 		{#each languages as l (l.tag)}
@@ -28,95 +39,58 @@
 </svelte:head>
 
 <a class="skip" href="#main">{m.nav_skip()}</a>
-
-<header class="site-header">
-	<a class="brand" href={pathIn('/', locale)}>{m.site_name()}</a>
-	<nav aria-label={m.nav_main()}>
-		<a href={SPEC_REPOSITORY}>{m.nav_github()}</a>
-	</nav>
-	<LanguageMenu />
-</header>
-
-<p class="status">{m.common_status()}</p>
+<StatusBand />
+<SiteHeader />
 
 {#if partial}
-	<p class="notice" role="note">{m.lang_partial()}</p>
+	<div class="partial" role="note">
+		<div class="wrap inner">
+			<Icon name="info" />
+			<p>{m.lang_partial()} <a href={TRANSLATING_URL}>{m.lang_help()}</a></p>
+		</div>
+	</div>
 {/if}
 
-<main id="main">
+<main id="main" tabindex="-1">
 	{@render children()}
 </main>
 
-<footer class="site-footer" aria-label={m.footer_label()}>
-	<p>{m.footer_license()}</p>
-	<ul>
-		<li><a href={pathIn('/imprint/', locale)}>{m.footer_imprint()}</a></li>
-		<li><a href={pathIn('/privacy/', locale)}>{m.footer_privacy()}</a></li>
-		<li><a href={SITE_REPOSITORY}>{m.footer_source()}</a></li>
-		<li><a href={`${SITE_REPOSITORY}/blob/main/TRANSLATING.md`}>{m.footer_translate()}</a></li>
-		<li><a href={SECURITY_URL}>{m.footer_security()}</a></li>
-	</ul>
-</footer>
+<SiteFooter variant={home ? 'full' : 'compact'} />
 
 <style>
 	.skip {
 		position: absolute;
-		inset-inline-start: 1rem;
+		z-index: 100;
+		inset-inline-start: 16px;
 		inset-block-start: -10rem;
+		padding: 10px 16px;
+		border-radius: var(--ms-radius);
+		background: var(--ms-btn-bg);
+		color: var(--ms-btn-fg);
+		font-weight: 600;
 	}
 	.skip:focus {
-		inset-block-start: 1rem;
+		inset-block-start: 16px;
 	}
-	.site-header,
-	.status,
-	.notice,
-	main,
-	.site-footer {
-		max-inline-size: 72rem;
-		margin-inline: auto;
-		padding-inline: var(--ms-space);
+	main:focus {
+		outline: none;
 	}
-	.site-header {
+	.partial {
+		background: var(--ms-ask-bg);
+		border-block-end: 1px solid var(--ms-ask-border);
+		font-size: 14.5px;
+	}
+	.inner {
 		display: flex;
-		flex-wrap: wrap;
-		gap: var(--ms-space);
-		align-items: center;
-		justify-content: space-between;
-		padding-block: var(--ms-space);
+		gap: 10px;
+		padding-block: 12px;
+		color: var(--ms-text);
 	}
-	.brand {
+	.inner :global(svg) {
+		color: var(--ms-ask-fg);
+		margin-block-start: 1px;
+	}
+	.partial a {
 		font-weight: 600;
-		font-size: 1.25rem;
-		color: var(--ms-fg);
-		text-decoration: none;
-	}
-	nav {
-		margin-inline-start: auto;
-	}
-	.status {
-		color: var(--ms-muted);
-		font-size: 0.875rem;
-		margin-block: 0;
-	}
-	.notice {
-		background: var(--ms-surface);
-		border-radius: var(--ms-radius);
-		padding-block: 0.75rem;
-	}
-	main {
-		padding-block: 2rem 4rem;
-	}
-	.site-footer {
-		border-block-start: 1px solid var(--ms-border);
-		padding-block: 2rem;
-		color: var(--ms-muted);
-		font-size: 0.9375rem;
-	}
-	.site-footer ul {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem 1.5rem;
-		padding: 0;
-		list-style: none;
 	}
 </style>

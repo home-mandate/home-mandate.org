@@ -123,6 +123,9 @@ export function checkMessages(
 		if (own.join(',') !== expected.join(',')) {
 			errors.push(`${where}: placeholders {${own.join('}, {')}} differ from en {${expected.join('}, {')}}`);
 		}
+		const ownLinks = linkTargets(value).join(' ');
+		const baseLinks = linkTargets(String(base[key])).join(' ');
+		if (ownLinks !== baseLinks) errors.push(`${where}: links [..](${ownLinks}) differ from en [..](${baseLinks})`);
 	}
 	for (const key of Object.keys(base)) {
 		if (key === '$schema' || Object.hasOwn(messages, key)) continue;
@@ -139,4 +142,51 @@ export function mergeWithBase(
 	const merged: Record<string, unknown> = { ...base, ...messages };
 	delete merged.$schema;
 	return merged;
+}
+
+// Inline links in messages are written [text](target). Translations must keep
+// exactly the link targets of the English text: a language pack cannot add
+// links to other sites.
+const LINK = /\[[^\]]*\]\(([^)\s]*)\)/g;
+
+/** Sorted link targets of a message. */
+export function linkTargets(message: string): string[] {
+	return [...message.matchAll(LINK)].map((m) => m[1] ?? '').sort();
+}
+
+export interface PackFile {
+	name: string;
+	content: unknown;
+}
+
+/** One catalogue from messages.json and pages/*.json; a key may appear only once. */
+export function combineFiles(tag: string, files: PackFile[]): { messages: Record<string, unknown>; errors: string[] } {
+	const messages: Record<string, unknown> = {};
+	const seen = new Map<string, string>();
+	const errors: string[] = [];
+	for (const file of files) {
+		if (!isPlainObject(file.content)) {
+			errors.push(`${tag}/${file.name}: must be a JSON object`);
+			continue;
+		}
+		for (const [key, value] of Object.entries(file.content)) {
+			if (key === '$schema') continue;
+			const other = seen.get(key);
+			if (other !== undefined) {
+				errors.push(`${tag}/${file.name}: key ${key} is already defined in ${other}`);
+				continue;
+			}
+			seen.set(key, file.name);
+			messages[key] = value;
+		}
+	}
+	return { messages, errors };
+}
+
+/** Share of the English keys a language translates, in whole percent (rounded down). */
+export function coverage(base: Record<string, unknown>, messages: Record<string, unknown>): number {
+	const keys = Object.keys(base).filter((k) => k !== '$schema');
+	if (keys.length === 0) return 100;
+	const done = keys.filter((k) => Object.hasOwn(messages, k)).length;
+	return Math.floor((done * 100) / keys.length);
 }

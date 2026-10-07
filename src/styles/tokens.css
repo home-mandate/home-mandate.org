@@ -1,0 +1,62 @@
+/* mandate-spec design tokens · prefix --ms- · light + dark */
+:root, [data-ms-theme="light"] {
+  --ms-bg: #F5F5FA;
+  --ms-surface: #FFFFFF;
+  --ms-surface-2: #ECECF4;
+  --ms-border: #DCDCE8;
+  --ms-border-strong: #8686AC;
+  --ms-text: #0F0E47;
+  --ms-text-muted: #505081;
+  --ms-accent: #3A3A9A;
+  --ms-btn-bg: #272757;
+  --ms-btn-fg: #FFFFFF;
+  --ms-btn2-bg: #FFFFFF;
+  --ms-brand-1: #0F0E47;
+  --ms-brand-2: #505081;
+  --ms-brand-3: #8686AC;
+  --ms-band-bg: #272757;
+  --ms-band-fg: #ECECF6;
+  --ms-allow-fg: #0B6670; --ms-allow-bg: #E3F4EC; --ms-allow-border: #A8DCC4;
+  --ms-ask-fg: #8F5A00;   --ms-ask-bg: #FBF0D9;   --ms-ask-border: #EBCB8A;
+  --ms-deny-fg: #B0213A;  --ms-deny-bg: #FBE6E9;  --ms-deny-border: #EFB1BB;
+  --ms-focus: #3A3A9A;
+  --ms-shadow-1: 0 1px 2px rgba(15,14,71,.06), 0 4px 16px rgba(15,14,71,.06);
+  --ms-shadow-2: 0 2px 4px rgba(15,14,71,.06), 0 16px 40px rgba(15,14,71,.10);
+}
+[data-ms-theme="dark"] {
+  --ms-bg: #0F0E47;
+  --ms-surface: #1A1952;
+  --ms-surface-2: #272757;
+  --ms-border: #34346A;
+  --ms-border-strong: #6B6BA3;
+  --ms-text: #ECECF6;
+  --ms-text-muted: #A9A9CC;
+  --ms-accent: #BDBDF4;
+  --ms-btn-bg: #C9C9F5;
+  --ms-btn-fg: #0F0E47;
+  --ms-btn2-bg: #1A1952;
+  --ms-brand-1: #ECECF6;
+  --ms-brand-2: #8686AC;
+  --ms-brand-3: #505081;
+  --ms-band-bg: #0A0938;
+  --ms-band-fg: #A9A9CC;
+  --ms-allow-fg: #7EE3C8; --ms-allow-bg: rgba(126,227,200,.10); --ms-allow-border: rgba(126,227,200,.38);
+  --ms-ask-fg: #F4C969;   --ms-ask-bg: rgba(244,201,105,.10);   --ms-ask-border: rgba(244,201,105,.38);
+  --ms-deny-fg: #F87782;  --ms-deny-bg: rgba(248,119,130,.10);  --ms-deny-border: rgba(248,119,130,.38);
+  --ms-focus: #C9C9F5;
+  --ms-shadow-1: 0 1px 2px rgba(0,0,0,.25), 0 4px 16px rgba(0,0,0,.20);
+  --ms-shadow-2: 0 2px 4px rgba(0,0,0,.25), 0 20px 48px rgba(0,0,0,.35);
+}
+:root {
+  --ms-font-sans: system-ui, -apple-system, "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --ms-font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Noto Sans Mono", Menlo, monospace;
+  --ms-text-sm: 14px; --ms-text-base: 17px; --ms-text-lg: 20px;
+  --ms-h3: 22px; --ms-h2: 36px; --ms-h1: 56px;
+  --ms-leading: 1.5; --ms-measure: 68ch;
+  --ms-space-1: 4px; --ms-space-2: 8px; --ms-space-3: 12px; --ms-space-4: 16px;
+  --ms-space-5: 24px; --ms-space-6: 32px; --ms-space-7: 48px; --ms-space-8: 64px; --ms-space-9: 96px;
+  --ms-radius-sm: 6px; --ms-radius: 10px; --ms-radius-lg: 16px; --ms-radius-pill: 999px;
+  --ms-bp-sm: 360px; --ms-bp-md: 768px; --ms-bp-lg: 1024px; --ms-bp-xl: 1440px;
+  --ms-ease: cubic-bezier(.2,.7,.2,1); --ms-dur: 180ms; --ms-dur-slow: 420ms;
+}
+@media (prefers-reduced-motion: reduce) { :root { --ms-dur: 0ms; --ms-dur-slow: 0ms; } }

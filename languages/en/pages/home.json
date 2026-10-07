@@ -1,0 +1,15 @@
+{
+  "home_title": "AI is coming home. Decide what it may do.",
+  "home_lead": "mandate-spec is an open standard that lets every household say what an AI agent may do – allow, ask or deny.",
+  "home_construction": "This website is still being built. Until then, the specification lives on GitHub.",
+  "home_decisions_title": "Three decisions",
+  "home_allow_title": "allow",
+  "home_allow_text": "Done right away. Example: switch on the light.",
+  "home_ask_title": "ask",
+  "home_ask_text": "A person confirms first, on their phone. Example: open the front door.",
+  "home_deny_title": "deny",
+  "home_deny_text": "Refused. Example: switch off the alarm system.",
+  "home_rule": "Whatever is not explicitly allowed is forbidden.",
+  "home_cta_spec": "Read the specification",
+  "home_cta_conformance": "Test an implementation"
+}

@@ -4,7 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { checkHtml, checkSecurityTxt } from './lib/build-check.ts';
+import { checkHtml, checkProvenance, checkSecurityTxt } from './lib/build-check.ts';
 import { sha256 } from './lib/spec.ts';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -48,8 +48,12 @@ const expected = process.env.SITE_COMMIT ?? execFileSync('git', ['rev-parse', 'H
 if (version.commit !== expected) problems.push(`version.json: commit ${version.commit} != ${expected}`);
 
 for (const entry of readdirSync(BUILD, { recursive: true, withFileTypes: true })) {
-	if (!entry.isFile() || !entry.name.endsWith('.html')) continue;
+	if (!entry.isFile() || /\.(br|gz)$/.test(entry.name)) continue;
 	const file = join(entry.parentPath, entry.name);
+	if (/\.(svg|png|ico|webp|jpe?g)$/.test(entry.name)) {
+		for (const p of checkProvenance(readFileSync(file))) problems.push(`${file.slice(BUILD.length + 1)}: ${p}`);
+	}
+	if (!entry.name.endsWith('.html')) continue;
 	for (const p of checkHtml(readFileSync(file, 'utf8'))) problems.push(`${file.slice(BUILD.length + 1)}: ${p}`);
 }
 

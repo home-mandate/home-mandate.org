@@ -3,6 +3,8 @@ import { spec } from '$lib/generated/spec';
 
 export const SITE_URL = 'https://mandate-spec.org';
 export const SITE_REPOSITORY = 'https://github.com/mandate-spec/mandate-spec.org';
+export const TRANSLATING_URL = `${SITE_REPOSITORY}/blob/main/TRANSLATING.md`;
+export const CONTACT_EMAIL = 'contact@mandate-spec.org';
 
 /** Link to a file (optionally a heading) of the specification at the imported release. */
 export function specUrl(file = '', anchor = ''): string {

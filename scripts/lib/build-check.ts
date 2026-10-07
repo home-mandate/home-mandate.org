@@ -40,3 +40,11 @@ export function checkSecurityTxt(text: string, now: Date): string[] {
 	}
 	return [];
 }
+
+// Content credentials (C2PA) and similar embedded provenance records: design
+// tools add them to SVG and PNG files. The site ships its files without them.
+const PROVENANCE = /c2pa|caBX|jumbf/;
+
+export function checkProvenance(content: Buffer): string[] {
+	return PROVENANCE.test(content.toString('latin1')) ? ['embedded provenance metadata (C2PA) - strip it'] : [];
+}

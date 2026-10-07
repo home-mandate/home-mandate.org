@@ -1,36 +1,28 @@
 /*
- * Neutral placeholder styles until the final design arrives.
- * Only logical properties (RTL), only these custom properties in components.
+ * Global styles on top of the design tokens. Only logical properties (RTL),
+ * no colour values here: everything comes from var(--ms-*).
  */
-:root {
-	--ms-font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
-	--ms-font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
-	--ms-bg: #ffffff;
-	--ms-fg: #1b1d21;
-	--ms-muted: #555b66;
-	--ms-border: #d7dbe0;
-	--ms-accent: #1f5fbf;
-	--ms-allow: #1d7a3f;
-	--ms-ask: #8a5a00;
-	--ms-deny: #b3261e;
-	--ms-surface: #f4f5f7;
-	--ms-radius: 8px;
-	--ms-space: 1rem;
-	--ms-measure: 68ch;
-	color-scheme: light dark;
-}
+@import './styles/tokens.css';
+@import '../.generated/theme-system.css';
 
+:root {
+	color-scheme: light;
+	/* Gutters: 16 px on phones, 120 px (content) and 64 px (header) at 1440. */
+	--page-pad: clamp(16px, 8.4vw, 120px);
+	--header-pad: clamp(16px, 4.5vw, 64px);
+	--page-max: 1440px;
+	--section-pad: clamp(56px, 6.7vw, 96px);
+	--h1-home: clamp(34px, 1.6rem + 2.6vw, 58px);
+	--h1-page: clamp(30px, 1.5rem + 1.8vw, 50px);
+	--h2: clamp(24px, 1.1rem + 1.3vw, 38px);
+	--lead: clamp(17px, 0.95rem + 0.35vw, 21px);
+}
+[data-ms-theme='dark'] {
+	color-scheme: dark;
+}
 @media (prefers-color-scheme: dark) {
-	:root {
-		--ms-bg: #15171a;
-		--ms-fg: #e8eaed;
-		--ms-muted: #a9b0bb;
-		--ms-border: #3a3f46;
-		--ms-accent: #8ab4f8;
-		--ms-allow: #6dd58c;
-		--ms-ask: #f2c14e;
-		--ms-deny: #f28b82;
-		--ms-surface: #1f2226;
+	:root:not([data-ms-theme='light']) {
+		color-scheme: dark;
 	}
 }
 
@@ -39,51 +31,224 @@
 *::after {
 	box-sizing: border-box;
 }
-
 html {
-	font-family: var(--ms-font-sans);
-	line-height: 1.5;
-	background: var(--ms-bg);
-	color: var(--ms-fg);
 	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
 }
-
-body {
-	margin: 0;
-	font-size: 1.0625rem;
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
 }
-
-.app {
-	display: contents;
-}
-
-a {
-	color: var(--ms-accent);
-	text-underline-offset: 0.15em;
-}
-
-a:focus-visible,
-summary:focus-visible {
-	outline: 3px solid var(--ms-accent);
-	outline-offset: 2px;
-	border-radius: 2px;
-}
-
-code {
-	font-family: var(--ms-font-mono);
-	font-size: 0.95em;
-}
-
-h1,
-h2 {
-	line-height: 1.25;
-}
-
 @media (prefers-reduced-motion: reduce) {
 	*,
 	*::before,
 	*::after {
 		animation: none !important;
 		transition: none !important;
+	}
+}
+html.menu-open {
+	overflow: hidden;
+}
+body {
+	margin: 0;
+	background: var(--ms-bg);
+	color: var(--ms-text);
+	font-family: var(--ms-font-sans);
+	font-size: var(--ms-text-base);
+	line-height: var(--ms-leading);
+	-webkit-font-smoothing: antialiased;
+}
+.app {
+	display: contents;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	margin: 0;
+	text-wrap: balance;
+}
+h1 {
+	font-size: var(--h1-page);
+	line-height: 1.1;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+h2 {
+	font-size: var(--h2);
+	line-height: 1.15;
+	font-weight: 700;
+	letter-spacing: -0.015em;
+}
+h3 {
+	font-size: clamp(19px, 1rem + 0.25vw, 22px);
+	line-height: 1.3;
+	font-weight: 650;
+}
+p {
+	margin: 0;
+	text-wrap: pretty;
+}
+[id] {
+	scroll-margin-block-start: 24px;
+}
+a {
+	color: var(--ms-accent);
+	text-underline-offset: 0.15em;
+}
+code,
+kbd,
+samp,
+pre {
+	font-family: var(--ms-font-mono);
+	font-size: 0.9em;
+}
+:not(pre) > code {
+	padding: 1px 6px;
+	border-radius: var(--ms-radius-sm);
+	background: var(--ms-surface-2);
+	color: var(--ms-text);
+}
+svg {
+	flex: none;
+}
+button,
+input,
+select,
+textarea {
+	font: inherit;
+	color: inherit;
+}
+:focus-visible {
+	outline: 2px solid var(--ms-focus);
+	outline-offset: 2px;
+}
+
+/* Layout helpers */
+.wrap {
+	max-inline-size: var(--page-max);
+	margin-inline: auto;
+	padding-inline: var(--page-pad);
+}
+.section {
+	padding-block: var(--section-pad);
+}
+.section-head {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	max-inline-size: 760px;
+	margin-block-end: clamp(32px, 3.3vw, 48px);
+}
+.lead {
+	font-size: var(--lead);
+	line-height: 1.5;
+	color: var(--ms-text-muted);
+}
+.muted {
+	color: var(--ms-text-muted);
+}
+.mono {
+	font-family: var(--ms-font-mono);
+}
+.eyebrow {
+	font-size: 13px;
+	font-weight: 650;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--ms-text-muted);
+}
+.visually-hidden {
+	position: absolute;
+	inline-size: 1px;
+	block-size: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+/* Controls that need JavaScript are hidden until theme-boot sets html.js. */
+html:not(.js) .js-only {
+	display: none !important;
+}
+html.js .no-js-only {
+	display: none !important;
+}
+
+/* Buttons and button-like links */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	min-block-size: 52px;
+	padding-inline: 24px;
+	border: 1px solid transparent;
+	border-radius: var(--ms-radius);
+	font-size: 17px;
+	font-weight: 600;
+	text-decoration: none;
+	cursor: pointer;
+	transition:
+		background-color var(--ms-dur) var(--ms-ease),
+		border-color var(--ms-dur) var(--ms-ease);
+}
+.btn-sm {
+	min-block-size: 44px;
+	padding-inline: 18px;
+	font-size: 16px;
+}
+.btn-primary {
+	background: var(--ms-btn-bg);
+	color: var(--ms-btn-fg);
+}
+.btn-primary:hover {
+	background: color-mix(in srgb, var(--ms-btn-bg) 92%, var(--ms-text-muted));
+}
+.btn-secondary {
+	background: var(--ms-btn2-bg);
+	border-color: var(--ms-border-strong);
+	color: var(--ms-text);
+}
+.btn-secondary:hover {
+	background: var(--ms-surface-2);
+}
+.btn:disabled,
+.btn[aria-disabled='true'] {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+.text-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--ms-accent);
+	font-weight: 600;
+	text-decoration: none;
+}
+.text-link:hover {
+	text-decoration: underline;
+}
+[dir='rtl'] .mirror {
+	transform: scaleX(-1);
+}
+
+@media (forced-colors: active) {
+	:focus-visible {
+		outline-color: Highlight;
+	}
+	.btn {
+		border-color: ButtonText;
+	}
+}
+@media print {
+	body {
+		background: #fff;
+		color: #000;
+	}
+	.no-print {
+		display: none !important;
 	}
 }

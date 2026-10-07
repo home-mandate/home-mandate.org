@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
 	checkMessages,
+	combineFiles,
+	coverage,
+	linkTargets,
 	isLanguageTag,
 	mergeWithBase,
 	parseMeta,
@@ -124,5 +127,52 @@ describe('mergeWithBase', () => {
 	});
 	it('drops the $schema key', () => {
 		expect(mergeWithBase(base, { $schema: 'x' })).not.toHaveProperty('$schema');
+	});
+});
+
+describe('linkTargets', () => {
+	it('finds inline link targets, sorted', () => {
+		expect(linkTargets('See [b](/b/) and [a](https://x.org/a)')).toEqual(['/b/', 'https://x.org/a']);
+		expect(linkTargets('no links')).toEqual([]);
+	});
+});
+
+describe('checkMessages with links', () => {
+	const linked = { ...base, home_more: 'Read [the spec](/spec/v0/).' };
+	it('accepts the same targets with translated text', () => {
+		expect(checkMessages('de', linked, { ...linked, home_more: 'Lies [die Spec](/spec/v0/).' }).errors).toEqual([]);
+	});
+	it('rejects added or changed targets', () => {
+		const result = checkMessages('de', linked, { ...linked, home_more: 'Lies [das](https://evil.example/).' });
+		expect(result.errors.join()).toMatch(/home_more: links/);
+	});
+});
+
+describe('combineFiles', () => {
+	it('merges files and ignores $schema', () => {
+		const result = combineFiles('en', [
+			{ name: 'messages.json', content: { $schema: 'x', a: '1' } },
+			{ name: 'pages/faq.json', content: { b: '2' } }
+		]);
+		expect(result).toEqual({ messages: { a: '1', b: '2' }, errors: [] });
+	});
+	it('rejects duplicate keys and non-objects', () => {
+		const result = combineFiles('en', [
+			{ name: 'messages.json', content: { a: '1' } },
+			{ name: 'pages/x.json', content: { a: '2' } },
+			{ name: 'pages/y.json', content: [] }
+		]);
+		expect(result.errors).toEqual([
+			'en/pages/x.json: key a is already defined in messages.json',
+			'en/pages/y.json: must be a JSON object'
+		]);
+	});
+});
+
+describe('coverage', () => {
+	it('counts translated keys in whole percent', () => {
+		expect(coverage({ a: '', b: '', c: '' }, { a: 'x' })).toBe(33);
+		expect(coverage({ $schema: '', a: '' }, { a: 'x' })).toBe(100);
+		expect(coverage({}, {})).toBe(100);
 	});
 });

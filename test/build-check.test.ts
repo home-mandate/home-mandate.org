@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkHtml } from '../scripts/lib/build-check.ts';
+import { checkHtml, checkProvenance } from '../scripts/lib/build-check.ts';
 
 const csp = '<meta http-equiv="content-security-policy" content="default-src \'none\'; script-src \'self\'">';
 const page = (head: string, body = '') => `<!doctype html><html lang="en"><head>${csp}${head}</head><body>${body}</body></html>`;
@@ -49,5 +49,15 @@ describe('checkSecurityTxt', () => {
 		const { checkSecurityTxt } = await import('../scripts/lib/build-check.ts');
 		expect(checkSecurityTxt('Expires: 2026-11-01T00:00:00Z\n', new Date('2026-10-01T00:00:00Z')).join()).toMatch(/expires/i);
 		expect(checkSecurityTxt('Contact: x\n', new Date()).join()).toMatch(/Expires/);
+	});
+});
+
+describe('checkProvenance', () => {
+	it('flags C2PA records in SVG metadata and PNG chunks', () => {
+		expect(checkProvenance(Buffer.from('<svg><metadata><c2pa:manifest>x</c2pa:manifest></metadata></svg>'))).toHaveLength(1);
+		expect(checkProvenance(Buffer.from('\x89PNG....caBX....'))).toHaveLength(1);
+	});
+	it('accepts clean files', () => {
+		expect(checkProvenance(Buffer.from('<svg viewBox="0 0 16 16"><path d="M1 1"/></svg>'))).toEqual([]);
 	});
 });
