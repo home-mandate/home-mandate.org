@@ -28,7 +28,7 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library', 'tool'],
 		language: 'Go',
 		license: 'Apache-2.0',
-		spec: 'v0.1.0-alpha.1',
+		spec: 'v0.1.0-alpha.2',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored']
 	},
 	{
@@ -38,7 +38,7 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library'],
 		language: 'TypeScript',
 		license: 'Apache-2.0',
-		spec: 'v0.1.0-alpha.1',
+		spec: 'v0.1.0-alpha.2',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored']
 	}
 ];
