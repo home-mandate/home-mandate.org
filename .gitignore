@@ -1,0 +1,12 @@
+node_modules/
+.svelte-kit/
+build/
+coverage/
+test-results/
+playwright-report/
+.generated/
+.spec-cache/
+project.inlang/
+src/lib/paraglide/
+src/lib/generated/
+static/generated/

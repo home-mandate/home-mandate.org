@@ -1,0 +1,42 @@
+{
+ "title": "Impressum",
+ "intro": "Angaben gemäß § 5 DDG",
+ "blocks": [
+  {
+   "lines": [
+    "Markus Mazurczak",
+    "c/o Impressumservice Dein-Impressum",
+    "Stettiner Str. 41",
+    "35410 Hungen",
+    "Deutschland"
+   ]
+  },
+  {
+   "h2": "Kontakt"
+  },
+  {
+   "lines": [
+    "E-Mail: [contact@home-mandate.org](mailto:contact@home-mandate.org)",
+    "Kontaktformular: [home-mandate.org/contact](/contact/)"
+   ]
+  },
+  {
+   "h2": "Redaktionell verantwortlich"
+  },
+  {
+   "p": "Markus Mazurczak (Anschrift wie oben)"
+  },
+  {
+   "h2": "Verbraucherstreitbeilegung / Universalschlichtungsstelle"
+  },
+  {
+   "p": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+  },
+  {
+   "h2": "Markenrechtlicher Hinweis"
+  },
+  {
+   "p": "Die Bezeichnung „Home-Mandate“ ist eine beim Deutschen Patent- und Markenamt (DPMA) zur Eintragung angemeldete Marke (Anmeldenummer: 302026256047.4). Die Nutzung oder Nachahmung dieser Bezeichnung im geschäftlichen Verkehr bedarf der Zustimmung des Inhabers. Alle Rechte vorbehalten."
+  }
+ ]
+}

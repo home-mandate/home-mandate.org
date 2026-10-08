@@ -1,0 +1,95 @@
+/* Playground, step 5: the overview matrix (src/client/playground/view/matrix.ts). */
+
+/* Step 5: overview */
+.pg-at {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--ms-text-muted);
+	letter-spacing: 0;
+}
+.pg-legend {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 16px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 14px;
+}
+.pg-legend li {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+.pg-na-dot {
+	display: inline-block;
+	inline-size: 4px;
+	block-size: 4px;
+	border-radius: 50%;
+	background: var(--ms-text-muted);
+	opacity: 0.6;
+}
+.pg-matrix-scroll {
+	overflow-x: auto;
+	max-inline-size: 100%;
+}
+.pg-matrix {
+	border-collapse: separate;
+	border-spacing: 2px 0;
+	inline-size: 100%;
+	font-size: 13px;
+}
+.pg-matrix th {
+	font-weight: 600;
+	color: var(--ms-text-muted);
+	white-space: nowrap;
+}
+.pg-matrix thead th {
+	padding: 4px 4px 8px;
+	font-size: 12px;
+	white-space: normal;
+	min-inline-size: 44px;
+	vertical-align: bottom;
+}
+.pg-matrix tbody th {
+	position: sticky;
+	inset-inline-start: 0;
+	z-index: 1;
+	padding-block: 2px;
+	padding-inline: 0 12px;
+	background: var(--ms-surface);
+	text-align: start;
+	font-size: 14px;
+	color: var(--ms-text);
+	font-weight: 500;
+}
+.pg-matrix tbody th svg {
+	vertical-align: -3px;
+	margin-inline-end: 6px;
+	color: var(--ms-text-muted);
+}
+.pg-matrix td {
+	padding-block: 2px;
+	text-align: center;
+	border-block-start: 1px solid var(--ms-border);
+}
+.pg-matrix tbody tr:first-child td {
+	border-block-start: 0;
+}
+.pg-cell {
+	display: grid;
+	place-items: center;
+	inline-size: 100%;
+	min-block-size: 34px;
+	border: 2px solid transparent;
+	border-radius: var(--ms-radius-sm);
+	background: none;
+	cursor: pointer;
+}
+.pg-cell:hover {
+	background: var(--ms-surface-2);
+}
+.pg-cell[aria-pressed='true'] {
+	border-color: var(--ms-text);
+}

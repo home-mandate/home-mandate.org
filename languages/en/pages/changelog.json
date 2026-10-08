@@ -1,0 +1,17 @@
+{
+  "changelog_title": "Changelog",
+  "changelog_intro": "What changed in each version of the specification, as listed at the end of the specification itself.",
+  "changelog_feed_title": "Follow changes",
+  "changelog_feed_text": "Subscribe to the Atom feed to get new versions in your feed reader.",
+  "changelog_feed_link": "Atom feed",
+  "changelog_feed_name": "Home-Mandate Specification changelog",
+  "changelog_english": "The entries are quoted from the specification and are in English.",
+  "changelog_as_of": "as of {version}",
+  "changelog_in_spec": "In the specification",
+  "changelog_kind_added": "added",
+  "changelog_kind_changed": "changed",
+  "changelog_kind_fixed": "fixed",
+  "changelog_kind_removed": "removed",
+  "changelog_kind_incompatible": "incompatible",
+  "changelog_kind_clarified": "clarified"
+}

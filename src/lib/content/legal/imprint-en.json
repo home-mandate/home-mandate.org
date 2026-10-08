@@ -1,0 +1,47 @@
+{
+ "title": "Imprint",
+ "intro": "Information according to § 5 DDG (German Digital Services Act)",
+ "blocks": [
+  {
+   "callout": "info",
+   "title": "Translation",
+   "text": "This is a translation for your convenience. Only the German version is legally binding."
+  },
+  {
+   "lines": [
+    "Markus Mazurczak",
+    "c/o Impressumservice Dein-Impressum",
+    "Stettiner Str. 41",
+    "35410 Hungen",
+    "Germany"
+   ]
+  },
+  {
+   "h2": "Contact"
+  },
+  {
+   "lines": [
+    "E-mail: [contact@home-mandate.org](mailto:contact@home-mandate.org)",
+    "Contact form: [home-mandate.org/contact](/contact/)"
+   ]
+  },
+  {
+   "h2": "Editorially responsible"
+  },
+  {
+   "p": "Markus Mazurczak (address as above)"
+  },
+  {
+   "h2": "Consumer dispute resolution / universal arbitration board"
+  },
+  {
+   "p": "We are neither willing nor obliged to take part in dispute resolution proceedings before a consumer arbitration board."
+  },
+  {
+   "h2": "Trademark notice"
+  },
+  {
+   "p": "The name “Home-Mandate” is a trademark filed for registration with the German Patent and Trade Mark Office (DPMA) (application number: 302026256047.4). Use or imitation of this name in the course of trade requires the consent of the owner. All rights reserved."
+  }
+ ]
+}

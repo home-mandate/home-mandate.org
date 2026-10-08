@@ -1,0 +1,19 @@
+{
+  "spec_page_title": "Spezifikation {version}",
+  "spec_description": "Der verbindliche Text der Home-Mandate-Spezifikation, Release {version}: Datenmodell, Auswertungsregel, Vokabular, Protokoll und Konformität.",
+  "spec_breadcrumb": "Brotkrumen",
+  "spec_crumb": "Spec",
+  "spec_version": "Version",
+  "spec_latest": "aktuell",
+  "spec_draft": "Entwurf",
+  "spec_draft_badge": "Entwurf",
+  "spec_github": "Auf GitHub ansehen",
+  "spec_print": "Druckansicht",
+  "spec_contents": "Inhalt",
+  "spec_toc": "Inhaltsverzeichnis",
+  "spec_anchor": "Link zu diesem Abschnitt: {section}",
+  "spec_table": "Tabelle, seitlich scrollbar",
+  "spec_old_title": "Du liest eine ältere Version.",
+  "spec_old_body": "Regeln können sich seitdem geändert haben.",
+  "spec_to_latest": "Zu {version} (aktuell)"
+}

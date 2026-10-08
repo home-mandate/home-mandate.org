@@ -1,0 +1,132 @@
+/*
+ * Playground (/playground/). The frame comes from Playground.svelte, the rules,
+ * result, overview and JSON parts from src/client/playground/view/. Tokens only,
+ * logical properties only. State set by the script: [data-tab] on .pg,
+ * [aria-pressed] on overview cells, [data-valid] on the badge, [hidden].
+ *
+ * Split by region; Playground.svelte imports the files in this order: this one
+ * (frame, step 1, columns), rules.css, request.css, matrix.css, json.css and
+ * layout.css (tablet, phone, forced colours, overflow guard), which comes last.
+ */
+
+.pg {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.pg [hidden] {
+	display: none !important;
+}
+.pg-h {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+	font-size: 22px;
+	line-height: 1.25;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+}
+.pg-num {
+	display: inline-flex;
+}
+.pg-card {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 24px;
+	border: 1px solid var(--ms-border);
+	border-radius: var(--ms-radius-lg);
+	background: var(--ms-surface);
+	min-inline-size: 0;
+}
+.pg-card-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+.pg-wrap {
+	flex-wrap: wrap;
+}
+.pg-count {
+	font-size: 13px;
+	color: var(--ms-text-muted);
+}
+.pg-hint {
+	font-size: 14px;
+	color: var(--ms-text-muted);
+}
+.pg-mobile {
+	display: none;
+}
+
+/* Step 1: examples */
+.pg-choose {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.pg-examples {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 12px;
+}
+.pg-example {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 16px 18px;
+	border: 1px solid var(--ms-border);
+	border-radius: var(--ms-radius);
+	background: var(--ms-surface);
+	cursor: pointer;
+	transition: border-color var(--ms-dur) var(--ms-ease);
+}
+.pg-example:hover {
+	border-color: var(--ms-border-strong);
+}
+.pg-example:has(input:checked) {
+	border: 2px solid var(--ms-text);
+	padding: 15px 17px;
+}
+.pg-example:has(input:focus-visible) {
+	outline: 2px solid var(--ms-focus);
+	outline-offset: 2px;
+}
+.pg-example-head {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 16px;
+}
+.pg-tick {
+	display: none;
+	margin-inline-start: auto;
+}
+.pg-example:has(input:checked) .pg-tick {
+	display: inline-flex;
+}
+.pg-example-body {
+	font-size: 14px;
+	line-height: 1.45;
+	color: var(--ms-text-muted);
+}
+
+/* Columns: rules | request and result (sticky) */
+.pg-cols {
+	display: grid;
+	grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+	gap: 24px;
+	align-items: start;
+}
+.pg-side {
+	position: sticky;
+	inset-block-start: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+.pg-bar {
+	display: none;
+}

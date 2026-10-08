@@ -1,0 +1,19 @@
+{
+  "security_title": "Security & privacy",
+  "security_intro": "Honest about what a mandate protects – and what it doesn’t.",
+  "security_01_1": "What is protected",
+  "security_01_1_1": "A manipulated agent can only do what the mandate allows.",
+  "security_01_1_2": "Critical actions need an explicit rule or a person.",
+  "security_01_1_3": "Every decision is logged. A change in the middle of the log is noticed; with signed checkpoints, changes anywhere are.",
+  "security_01_1_4": "Mandates are plain files you can read and check.",
+  "security_01_2": "What is not",
+  "security_01_2_1": "A hacked home guard or hub.",
+  "security_01_2_2": "Mistakes in your own rules – an allow is an allow.",
+  "security_01_2_3": "Devices that can be controlled without the guard.",
+  "security_01_2_4": "What the agent’s provider does with your conversations.",
+  "security_02_title": "Decided outside the agent",
+  "security_02_text": "The guard that checks requests is not part of the agent. In the intended setup, mandates and logs are stored and evaluated on a device in your home, and only confirmation questions go to your phone. Nothing is sent to us. This website itself uses no cookies and no tracking.",
+  "security_03_title": "Found a vulnerability?",
+  "security_03_text": "Please report it privately on GitHub. We acknowledge every report within 72 hours.",
+  "security_03_link": "How to report"
+}
