@@ -10,7 +10,7 @@
 		<circle class="ask" cx="16" cy="20.5" r="2.2" />
 		<circle class="deny" cx="20.5" cy="20.5" r="2.2" />
 	</svg>
-	{#if wordmark}<span class="word" dir="ltr">mandate<span class="suffix">-spec</span></span>{/if}
+	{#if wordmark}<span class="word" dir="ltr">Home-Mandate</span>{/if}
 </span>
 
 <style>
@@ -37,13 +37,18 @@
 		font-weight: 650;
 		letter-spacing: -0.01em;
 	}
-	.suffix {
-		color: var(--ms-text-muted);
-		font-weight: 500;
-	}
 	@media (max-width: 767px) {
 		.word {
 			font-size: 18px;
+		}
+	}
+	/* "Home-Mandate" is wider than the old wordmark; keep the header within 375 px. */
+	@media (max-width: 400px) {
+		.logo {
+			gap: 8px;
+		}
+		.word {
+			font-size: 16px;
 		}
 	}
 	@media (forced-colors: active) {
