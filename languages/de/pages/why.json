@@ -22,5 +22,8 @@
   "why_07_title": "Für Techniker: Was ist Prompt-Injection?",
   "why_07_text": "Agenten lesen Texte aus vielen Quellen. Stehen darin Anweisungen, kann ein Modell ihnen folgen. Die Spezifikation versucht nicht, das zu erkennen – sie begrenzt den Schaden: Egal was der Agent fragt, der Wächter führt nur aus, was das Mandat erlaubt.",
   "why_08_title": "Für Techniker: Warum wird zu Hause entschieden?",
-  "why_08_text": "Entschieden wird außerhalb des Agenten: Er nennt nur Gerät und Aktion, alles andere – Kategorie, Bereich, Uhrzeit – kommt vom Wächter. So gedacht läuft der Wächter auf einem Gerät, das der Haushalt kontrolliert. Ein manipulierter Agent kann sich also nicht am Mandat vorbeireden."
+  "why_08_text": "Entschieden wird außerhalb des Agenten: Er nennt nur Gerät und Aktion, alles andere – Kategorie, Bereich, Uhrzeit – kommt vom Wächter. So gedacht läuft der Wächter auf einem Gerät, das der Haushalt kontrolliert. Ein manipulierter Agent kann sich also nicht am Mandat vorbeireden.",
+  "why_everyday_title": "Wie sieht das im Alltag aus?",
+  "why_everyday_text": "Sechs Beispiele – und warum die Smart-Home-App allein nicht reicht.",
+  "why_everyday_link": "Im Alltag"
 }

@@ -22,6 +22,8 @@ export type Block =
 	| { list: { title: K; body: K }[] }
 	| { process: { icon: IconName; title: K; body: K }[] }
 	| { cards: { icon: IconName; title: K; body: K; link: K; href: string }[] }
+	| { versus: { head: [K, K]; rows: { label: K; without: K; with: K }[] } }
+	| { examples: { icon: IconName; title: K; situation: K; without: K; rule: K; decision?: Tone; result: K }[] }
 	| { code: string; file?: string };
 
 export interface TextPage {

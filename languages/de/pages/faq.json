@@ -12,5 +12,7 @@
   "faq_no_answer_q": "Was passiert, wenn ich eine Rückfrage nicht beantworte?",
   "faq_no_answer_a": "Nach Ablauf der Frist – zum Beispiel zwei Minuten – gilt die Anfrage als abgelehnt.",
   "faq_matter_q": "Wie hängt das mit Matter oder Home Assistant zusammen?",
-  "faq_matter_a": "Die Spezifikation sitzt darüber: Sie entscheidet, ob ein Befehl gesendet werden darf. Matter oder Home Assistant stellen ihn dann zu."
+  "faq_matter_a": "Die Spezifikation sitzt darüber: Sie entscheidet, ob ein Befehl gesendet werden darf. Matter oder Home Assistant stellen ihn dann zu.",
+  "faq_app_q": "Reicht nicht die App meines Smart Homes?",
+  "faq_app_a": "Sie ist für Menschen gebaut, denen du vertraust. Ein Mandat gibt jedem Agenten eigene Grenzen: einzelne Aktionen, Höchstwerte, Uhrzeiten, eine Rückfrage aufs Handy und ein Protokoll. [Beispiele im Alltag](/everyday/)"
 }

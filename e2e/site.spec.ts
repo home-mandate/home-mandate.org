@@ -1,7 +1,7 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
-const PAGES = ['/', '/imprint/', '/privacy/', '/mandate/v0/', '/audit/v0/', '/audit-checkpoint/v0/'];
+const PAGES = ['/', '/everyday/', '/imprint/', '/privacy/', '/mandate/v0/', '/audit/v0/', '/audit-checkpoint/v0/'];
 const LANGUAGES = [
 	{ tag: 'en', prefix: '', title: 'AI is coming home. Decide what it may do.', name: 'English' },
 	{ tag: 'de', prefix: '/de', title: 'KI kommt nach Hause. Bestimme, was sie darf.', name: 'Deutsch' }

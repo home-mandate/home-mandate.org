@@ -22,6 +22,7 @@
 	const pages = $derived([
 		{ path: '/', title: m.notfound_home(), text: m.site_description() },
 		{ path: '/why/', title: t('why_title'), text: t('why_intro') },
+		{ path: '/everyday/', title: t('everyday_title'), text: t('everyday_intro') },
 		{ path: '/how-it-works/', title: m.nav_how(), text: '' },
 		{ path: '/playground/', title: m.nav_playground(), text: '' },
 		{ path: '/implement/', title: m.nav_implement(), text: '' },

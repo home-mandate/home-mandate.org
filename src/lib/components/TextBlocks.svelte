@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Callout from './Callout.svelte';
+	import Decision from './Decision.svelte';
 	import CodeBlock from './CodeBlock.svelte';
 	import Icon from './Icon.svelte';
 	import RichText from './RichText.svelte';
@@ -128,6 +129,31 @@
 					<span class="muted">{t(card.body)}</span>
 					<span class="more">{t(card.link)}<Icon name="arrow" size={18} /></span>
 				</a>
+			{/each}
+		</div>
+	{:else if 'versus' in block}
+		<div class="versus">
+			<div class="versus-head" aria-hidden="true">
+				<span></span><span>{t(block.versus.head[0])}</span><span>{t(block.versus.head[1])}</span>
+			</div>
+			{#each block.versus.rows as row (row.label)}
+				<section class="versus-row" aria-label={t(row.label)}>
+					<h3>{t(row.label)}</h3>
+					<p class="without"><span class="eyebrow">{t(block.versus.head[0])}</span><span>{t(row.without)}</span></p>
+					<p class="with"><span class="eyebrow">{t(block.versus.head[1])}</span><span>{t(row.with)}</span></p>
+				</section>
+			{/each}
+		</div>
+	{:else if 'examples' in block}
+		<div class="grid two examples">
+			{#each block.examples as ex (ex.title)}
+				<article class="card example">
+					<span class="row"><span class="tile"><Icon name={ex.icon} /></span><strong>{t(ex.title)}</strong></span>
+					<p>{t(ex.situation)}</p>
+					<p class="muted without-rule"><Icon name="warning" size={18} />{t(ex.without)}</p>
+					<p class="rule"><span class="rule-text">{t(ex.rule)}</span></p>
+					<p class="result">{#if ex.decision}<Decision value={ex.decision} />{/if}<span>{t(ex.result)}</span></p>
+				</article>
 			{/each}
 		</div>
 	{:else if 'code' in block}
@@ -483,9 +509,89 @@
 			grid-template-columns: minmax(0, 1fr);
 		}
 	}
+	.versus {
+		display: flex;
+		flex-direction: column;
+		border: 1px solid var(--ms-border);
+		border-radius: 14px;
+		background: var(--ms-surface);
+	}
+	.versus-head,
+	.versus-row {
+		display: grid;
+		grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1fr);
+		gap: 16px;
+		padding-block: 14px;
+		padding-inline: 20px;
+	}
+	.versus-head {
+		font-size: 14px;
+		font-weight: 650;
+		color: var(--ms-text-muted);
+		border-block-end: 1px solid var(--ms-border);
+	}
+	.versus-row + .versus-row {
+		border-block-start: 1px solid var(--ms-border);
+	}
+	.versus-row h3 {
+		margin: 0;
+		font-size: 16px;
+		font-weight: 650;
+	}
+	.versus-row p {
+		margin: 0;
+		font-size: 15.5px;
+	}
+	.versus-row .without {
+		color: var(--ms-text-muted);
+	}
+	.versus-row .with {
+		font-weight: 550;
+	}
+	.versus-row .eyebrow {
+		display: none;
+	}
+	.example p {
+		margin: 0;
+	}
+	.example .without-rule {
+		display: flex;
+		gap: 8px;
+	}
+	.example .without-rule :global(svg) {
+		flex: none;
+		margin-block-start: 3px;
+		color: var(--ms-ask-fg);
+	}
+	.example .rule {
+		padding-block: 10px;
+		padding-inline: 14px;
+		border-inline-start: 3px solid var(--ms-accent);
+		border-radius: 8px;
+		background: var(--ms-surface-2);
+		font-weight: 600;
+	}
+	.example .result {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+		margin-block-start: auto;
+	}
 	@media (max-width: 767px) {
 		.two {
 			grid-template-columns: minmax(0, 1fr);
+		}
+		.versus-head {
+			display: none;
+		}
+		.versus-row {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 8px;
+		}
+		.versus-row .eyebrow {
+			display: block;
+			font-size: 13px;
 		}
 		.process {
 			flex-direction: column;

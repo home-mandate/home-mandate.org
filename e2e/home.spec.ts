@@ -64,7 +64,7 @@ for (const lang of LANGUAGES) {
 			const entries = page.locator('section[aria-labelledby="start-title"] a');
 			await expect(entries).toHaveCount(3);
 			const hrefs = await entries.evaluateAll((links) => links.map((a) => a.getAttribute('href')));
-			expect(hrefs).toEqual([`${lang.prefix}/why/`, `${lang.prefix}/playground/`, `${lang.prefix}/spec/v0/`]);
+			expect(hrefs).toEqual([`${lang.prefix}/everyday/`, `${lang.prefix}/playground/`, `${lang.prefix}/spec/v0/`]);
 		});
 
 		test('open and neutral lists four facts', async ({ page }) => {

@@ -6,7 +6,7 @@
 
 	const locale = getLocale();
 	const entries = [
-		{ path: '/why/', who: m.home_start_why_who(), title: m.home_start_why_title(), body: m.home_start_why_body(), link: m.home_start_why_link() },
+		{ path: '/everyday/', who: m.home_start_why_who(), title: m.home_start_why_title(), body: m.home_start_why_body(), link: m.home_start_why_link() },
 		{ path: '/playground/', who: m.home_start_play_who(), title: m.home_start_play_title(), body: m.home_start_play_body(), link: m.home_start_play_link() },
 		{ path: '/spec/v0/', who: m.home_start_spec_who(), title: m.home_start_spec_title(), body: m.home_start_spec_body(), link: m.home_start_spec_link() }
 	];

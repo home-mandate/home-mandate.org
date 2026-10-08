@@ -32,7 +32,7 @@
 	</nav>
 
 	<div class="tools desktop">
-		<a class="github" href={SPEC_REPOSITORY}><Icon name="github" size={18} />{m.nav_github()}</a>
+		<a class="github" href={SPEC_REPOSITORY}><Icon name="github" size={18} /><span class="github-word">{m.nav_github()}</span></a>
 		<LanguagePicker />
 		<ThemeSwitch group="theme-header" />
 	</div>
@@ -236,7 +236,22 @@
 			gap: 8px;
 		}
 	}
-	@media (max-width: 1199px) {
+	/* Between the menu breakpoint and wide screens the navigation needs the room: GitHub keeps
+	   only its icon, the word stays for screen readers. */
+	@media (max-width: 1439px) {
+		.github-word {
+			position: absolute;
+			inline-size: 1px;
+			block-size: 1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+		}
+		nav.desktop a {
+			padding-inline: 8px;
+		}
+	}
+	@media (max-width: 1239px) {
 		.header {
 			block-size: 64px;
 			gap: 12px;
