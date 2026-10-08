@@ -1,7 +1,6 @@
 {
-  "repository": "https://github.com/mandate-spec/mandate-spec.git",
+  "repository": "https://github.com/home-mandate/spec.git",
   "versions": [
-    { "tag": "v0.2.0-alpha.4", "commit": "3b02ff36d32677d153ce11087447b50f4c3f2160" },
-    { "tag": "v0.2.0-alpha.5", "commit": "0a597a7edb7e4db4107e509d502e1fe975701249" }
+    { "tag": "v0.1.0-alpha.1", "commit": "df229b532531470feee0422f2c4698d90d608168" }
   ]
 }

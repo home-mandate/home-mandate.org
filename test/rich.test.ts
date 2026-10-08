@@ -24,7 +24,7 @@ describe('segments', () => {
 
 	it('accepts anchors and mailto', () => {
 		expect(segments('[a](#faq)')[0]).toMatchObject({ href: '#faq' });
-		expect(segments('[mail](mailto:contact@mandate-spec.org)')[0]).toMatchObject({ external: false });
+		expect(segments('[mail](mailto:contact@home-mandate.org)')[0]).toMatchObject({ external: false });
 	});
 });
 

@@ -88,13 +88,13 @@ for (const lang of LANGUAGES) {
 			await page.goto(`${lang.prefix}/contact/`);
 			await expect(page.getByRole('heading', { level: 1 })).toHaveText(lang.title);
 			await expect(page.locator('meta[name=robots]')).toHaveCount(0);
-			await expect(page.locator('aside a[href="mailto:contact@mandate-spec.org"]')).toBeVisible();
+			await expect(page.locator('aside a[href="mailto:contact@home-mandate.org"]')).toBeVisible();
 			const form = page.locator('form[data-contact-form]');
 			const noJs = page.locator('.no-js-only');
 			if (info.project.name === 'no-js') {
 				await expect(form).toBeHidden();
 				await expect(noJs).toBeVisible();
-				await expect(noJs.locator('a[href="mailto:contact@mandate-spec.org"]')).toBeVisible();
+				await expect(noJs.locator('a[href="mailto:contact@home-mandate.org"]')).toBeVisible();
 			} else {
 				await expect(form).toBeVisible();
 				await expect(noJs).toBeHidden();
@@ -190,7 +190,7 @@ for (const lang of LANGUAGES) {
 				await page.reload();
 			}
 			await page.goto(`${lang.prefix}/contact/failed/`);
-			await expect(page.locator('main a[href="mailto:contact@mandate-spec.org"]')).toBeVisible();
+			await expect(page.locator('main a[href="mailto:contact@home-mandate.org"]')).toBeVisible();
 			await expect(page.locator(`main a[href="${lang.prefix}/contact/"]`)).toBeVisible();
 			expect(posts).toEqual([]);
 		});

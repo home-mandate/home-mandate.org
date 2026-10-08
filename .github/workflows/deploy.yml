@@ -28,7 +28,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  IMAGE: ghcr.io/mandate-spec/mandate-spec.org
+  IMAGE: ghcr.io/home-mandate/home-mandate.org
   SITE_COMMIT: ${{ github.sha }}
 
 jobs:

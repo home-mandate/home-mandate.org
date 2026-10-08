@@ -1,14 +1,14 @@
-# Image of https://mandate-spec.org: the prerendered site on nginx-unprivileged.
+# Image of https://home-mandate.org: the prerendered site on nginx-unprivileged.
 # Built by .github/workflows/deploy.yml after "pnpm build" (build/ must exist).
 # The server configuration (nginx.conf, TLS, headers) is not part of the image;
 # the operator mounts it.
 FROM docker.io/nginxinc/nginx-unprivileged:1.29-alpine@sha256:0c79d56aee561a1d81c63f00eee5fb5fe29279560cdc55e91425133104c7fbe6
 
 ARG REVISION
-LABEL org.opencontainers.image.title="mandate-spec.org" \
-      org.opencontainers.image.description="Website of the mandate-spec specification" \
-      org.opencontainers.image.source="https://github.com/mandate-spec/mandate-spec.org" \
-      org.opencontainers.image.url="https://mandate-spec.org" \
+LABEL org.opencontainers.image.title="home-mandate.org" \
+      org.opencontainers.image.description="Website of the Home-Mandate Specification" \
+      org.opencontainers.image.source="https://github.com/home-mandate/home-mandate.org" \
+      org.opencontainers.image.url="https://home-mandate.org" \
       org.opencontainers.image.licenses="Apache-2.0 AND CC-BY-4.0" \
       org.opencontainers.image.revision="${REVISION}"
 

@@ -15,7 +15,7 @@ export const EXAMPLE_FILES: Readonly<Record<Exclude<ExampleId, 'build'>, string>
 /** A valid mandate without rules: everything is denied. */
 export function emptyMandate(displayName: string): JsonObject {
 	return {
-		type: 'https://mandate-spec.org/mandate/v0',
+		type: 'https://home-mandate.org/mandate/v0',
 		id: 'm-my-agent',
 		principal: 'household:my-home',
 		agent: { client_id: 'hm-client:my-agent', display_name: displayName },

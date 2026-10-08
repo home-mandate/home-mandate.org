@@ -22,7 +22,7 @@ interface Pattern {
 	names: string[];
 }
 
-// Messages of mandate-spec-ts (src/mandate.ts) that name a rule.
+// Messages of spec-ts (src/mandate.ts) that name a rule.
 const RULE_MESSAGES: Pattern[] = [
 	{ re: /^action (\S+) not in the vocabulary$/, key: 'err_action_unknown', names: ['action'] },
 	{ re: /^time window with equal start and end$/, key: 'err_window_equal', names: [] },

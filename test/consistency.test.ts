@@ -1,7 +1,7 @@
 // Data that must agree with the imported specification.
 import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
-import { vocabulary } from '@mandate-spec/mandate-spec/browser';
+import { vocabulary } from '@home-mandate/spec/browser';
 import { IMPLEMENTATIONS } from '../src/lib/content/implementations.ts';
 import { spec } from '../src/lib/generated/spec.ts';
 

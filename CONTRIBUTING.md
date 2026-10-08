@@ -1,7 +1,7 @@
 # Contributing
 
 - Questions about the specification, changes to it, and conformance cases belong in
-  [mandate-spec/mandate-spec](https://github.com/mandate-spec/mandate-spec). This
+  [home-mandate/spec](https://github.com/home-mandate/spec). This
   repository only explains and publishes it.
 - Translations: [TRANSLATING.md](TRANSLATING.md).
 - Changes to the website: open an issue first for anything larger than a fix. Every

@@ -125,23 +125,23 @@ describe('helpers', () => {
 });
 
 describe('resultOf', () => {
-	const origin = 'https://mandate-spec.org';
+	const origin = 'https://home-mandate.org';
 	it.each([
-		['https://mandate-spec.org/contact/sent/', 'sent'],
-		['https://mandate-spec.org/de/contact/failed/', 'failed'],
-		['https://mandate-spec.org/contact/limit/', 'limit'],
-		['https://mandate-spec.org/pt-BR/contact/invalid/', 'invalid']
+		['https://home-mandate.org/contact/sent/', 'sent'],
+		['https://home-mandate.org/de/contact/failed/', 'failed'],
+		['https://home-mandate.org/contact/limit/', 'limit'],
+		['https://home-mandate.org/pt-BR/contact/invalid/', 'invalid']
 	])('reads %s', (url, result) => {
 		expect(resultOf(url, 200, origin)).toBe(result);
 	});
 	it('treats other addresses and origins as failure', () => {
 		expect(resultOf('https://evil.example/contact/sent/', 200, origin)).toBe('failed');
-		expect(resultOf('https://mandate-spec.org/contact', 403, origin)).toBe('failed');
-		expect(resultOf('https://mandate-spec.org/contact/sent/x', 200, origin)).toBe('failed');
+		expect(resultOf('https://home-mandate.org/contact', 403, origin)).toBe('failed');
+		expect(resultOf('https://home-mandate.org/contact/sent/x', 200, origin)).toBe('failed');
 		expect(resultOf('', 500, origin)).toBe('failed');
 	});
 	it('maps a 429 from the proxy to the rate limit', () => {
-		expect(resultOf('https://mandate-spec.org/contact', 429, origin)).toBe('limit');
+		expect(resultOf('https://home-mandate.org/contact', 429, origin)).toBe('limit');
 		expect(resultOf('', 429, origin)).toBe('limit');
 	});
 });

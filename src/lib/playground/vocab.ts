@@ -1,5 +1,5 @@
 // What the playground offers, read from the vocabulary of the specification (via
-// mandate-spec-ts): categories, their actions and the parameters of an action.
+// spec-ts): categories, their actions and the parameters of an action.
 import { isCritical, vocabulary } from './engine.ts';
 
 /** Categories of the vocabulary, in its order. */

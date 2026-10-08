@@ -90,7 +90,7 @@
     ],
     [
      "E-mail",
-     "[contact@mandate-spec.org](mailto:contact@mandate-spec.org)"
+     "[contact@home-mandate.org](mailto:contact@home-mandate.org)"
     ]
    ]
   },
@@ -221,7 +221,7 @@
    "h3": "Contact form"
   },
   {
-   "p": "You can reach our contact form at [mandate-spec.org/contact](/contact). If you send us enquiries via the contact form, your details from the enquiry form, including the contact details you provided there, will be stored by us for the purpose of processing the enquiry and in the event of follow-up questions. We do not pass on this data without your consent."
+   "p": "You can reach our contact form at [home-mandate.org/contact](/contact). If you send us enquiries via the contact form, your details from the enquiry form, including the contact details you provided there, will be stored by us for the purpose of processing the enquiry and in the event of follow-up questions. We do not pass on this data without your consent."
   },
   {
    "p": "Your message is delivered as an e-mail to our mailbox on our own mail server (hosted by Hetzner, see above); the service that receives the form does not store it and logs neither your details nor your IP address. To limit abuse, it counts requests per IP address in memory only; this counter is deleted after about one hour at the latest."

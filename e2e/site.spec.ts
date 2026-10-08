@@ -42,7 +42,7 @@ for (const lang of LANGUAGES) {
 			for (const other of LANGUAGES) {
 				await expect(page.locator(`link[rel=alternate][hreflang=${other.tag}]`)).toHaveAttribute(
 					'href',
-					`https://mandate-spec.org${other.prefix}/imprint/`
+					`https://home-mandate.org${other.prefix}/imprint/`
 				);
 			}
 		});
@@ -64,7 +64,7 @@ test('identifier page links to its schema', async ({ page }) => {
 	const link = page.getByRole('link', { name: 'JSON Schema' });
 	await expect(link).toHaveAttribute('href', '/mandate/v0/mandate.schema.json');
 	const response = await page.request.get('/mandate/v0/mandate.schema.json');
-	expect((await response.json()).$id).toBe('https://mandate-spec.org/mandate/v0/mandate.schema.json');
+	expect((await response.json()).$id).toBe('https://home-mandate.org/mandate/v0/mandate.schema.json');
 });
 
 test('checkpoint identifier has no schema link', async ({ page }) => {

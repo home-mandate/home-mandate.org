@@ -1,5 +1,5 @@
 {
-  "name": "mandate-spec.org",
+  "name": "home-mandate.org",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -26,7 +26,7 @@
     "@eslint/js": "10.0.1",
     "@inlang/paraglide-js": "2.25.4",
     "@inlang/plugin-icu1": "1.1.0",
-    "@mandate-spec/mandate-spec": "github:mandate-spec/mandate-spec-ts#1cdfc014c9229cd320ab1f7e421f03b750cca59c",
+    "@home-mandate/spec": "github:home-mandate/spec-ts#1fb3b89617fbec554ea7469d7d0d11854331dc4b",
     "@messageformat/parser": "5.1.1",
     "@playwright/test": "1.63.0",
     "@sveltejs/adapter-static": "3.0.10",

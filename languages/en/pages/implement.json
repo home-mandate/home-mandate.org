@@ -2,7 +2,7 @@
   "implement_sub_label": "Implement section",
   "implement_sub_implement": "Implement",
   "implement_sub_implementations": "Implementations",
-  "implement_title": "Implement mandate-spec",
+  "implement_title": "Implement the Home-Mandate Specification",
   "implement_intro": "Everything you need to build a home guard, an agent integration or a validator – and to show that it conforms.",
   "implement_model_title": "Data model at a glance",
   "implement_model_body": "A mandate belongs to one agent and holds rules. Each rule names resources (a device, a category or an area), actions and a decision. Rule order never matters: of all matching rules, the strictest decision wins.",
@@ -53,12 +53,12 @@
   "implement_dl_download": "Download",
   "implement_dl_version": "Specification version",
   "implement_list_title": "Implementations",
-  "implement_list_intro": "Projects that implement mandate-spec. A conformance class counts as passed only when the test run is published; otherwise it is what the project declares.",
+  "implement_list_intro": "Projects that implement the Home-Mandate Specification. A conformance class counts as passed only when the test run is published; otherwise it is what the project declares.",
   "implement_list_add": "Add yours via pull request",
   "implement_list_filter": "Show:",
   "implement_list_shown": "{count} of {total} shown",
   "implement_list_empty": "No entries of this kind yet.",
-  "implement_list_caption": "Implementations of mandate-spec",
+  "implement_list_caption": "Implementations of the Home-Mandate Specification",
   "implement_kind_all": "All",
   "implement_kind_guard": "Home guard",
   "implement_kind_integration": "Integration",
@@ -75,5 +75,5 @@
   "implement_list_run": "Published run",
   "implement_badge_passed": "tests passed, run published",
   "implement_badge_declared": "declared, not yet verified",
-  "implement_list_note": "The list is kept in the [site repository](https://github.com/mandate-spec/mandate-spec.org/blob/main/src/lib/content/implementations.ts). Add your project with a pull request; link a published conformance run to have its classes shown as passed."
+  "implement_list_note": "The list is kept in the [site repository](https://github.com/home-mandate/home-mandate.org/blob/main/src/lib/content/implementations.ts). Add your project with a pull request; link a published conformance run to have its classes shown as passed."
 }

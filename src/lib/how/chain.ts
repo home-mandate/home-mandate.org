@@ -5,7 +5,7 @@ import type { K } from '$lib/content/types';
 import { digest, type Json } from './digest';
 import type { Approval, Decision, Mandate } from './mandate-check';
 
-export const AUDIT_TYPE = 'https://mandate-spec.org/audit/v0';
+export const AUDIT_TYPE = 'https://home-mandate.org/audit/v0';
 /** Index of the entry the "change entry 2" button edits. */
 export const TAMPERED = 1;
 

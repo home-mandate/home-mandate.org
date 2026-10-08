@@ -61,7 +61,7 @@ describe('example mandate', () => {
 			{ id: 'e', resource: { area: 'x' }, actions: ['set'], decision: 'allow', constraints: { brightness: { max: 50 } }, extra: 1 } as never
 		];
 		expect(checkMandate(broken, vocabulary)).toEqual([
-			'type is not https://mandate-spec.org/mandate/v0',
+			'type is not https://home-mandate.org/mandate/v0',
 			'default is not deny',
 			'approval: timeout PT5S not between 10 s and 1 h',
 			'approval: no approvers',

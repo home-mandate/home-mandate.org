@@ -9,7 +9,7 @@ import { loadReleaseNotes } from '../src/lib/spec/release-notes.server';
 import { loadSpec, specVersions, tagDate } from '../src/lib/spec/source.server';
 import { spec } from '../src/lib/generated/spec';
 
-const ctx = { repository: 'https://github.com/mandate-spec/mandate-spec', tag: 'v0.2.0-alpha.4', file: 'SPEC-v0.md' };
+const ctx = { repository: 'https://github.com/home-mandate/spec', tag: 'v0.2.0-alpha.4', file: 'SPEC-v0.md' };
 
 const SAMPLE = [
 	'# Title',
@@ -123,10 +123,10 @@ describe('parseChangelog', () => {
 describe('feed', () => {
 	const entries = parseChangelog(parseSpec(SAMPLE, ctx).blocks);
 	const xml = atomFeed(entries, {
-		page: 'https://mandate-spec.org/changelog/',
-		spec: 'https://mandate-spec.org/spec/v0/',
-		self: 'https://mandate-spec.org/changelog/feed.xml',
-		title: 'mandate-spec changelog',
+		page: 'https://home-mandate.org/changelog/',
+		spec: 'https://home-mandate.org/spec/v0/',
+		self: 'https://home-mandate.org/changelog/feed.xml',
+		title: 'Home-Mandate Specification changelog',
 		kinds: { added: 'added', incompatible: 'incompatible' },
 		updated: atomDate('2026-10-05'),
 		entryTitle: (e) => (e.unreleased ? 'Unreleased (as of v0.2.0-alpha.4)' : e.version)
@@ -135,10 +135,10 @@ describe('feed', () => {
 	it('is an Atom feed with one entry per version', () => {
 		expect(xml.startsWith('<?xml version="1.0" encoding="utf-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom"')).toBe(true);
 		expect(xml.match(/<entry>/g)).toHaveLength(2);
-		expect(xml).toContain('<id>https://mandate-spec.org/changelog/#unreleased</id>');
+		expect(xml).toContain('<id>https://home-mandate.org/changelog/#unreleased</id>');
 		expect(xml).toContain('<title>Unreleased (as of v0.2.0-alpha.4)</title>');
 		expect(xml).toContain('<updated>2026-10-05T00:00:00Z</updated>');
-		expect(xml).toContain('<link rel="self" type="application/atom+xml" href="https://mandate-spec.org/changelog/feed.xml"/>');
+		expect(xml).toContain('<link rel="self" type="application/atom+xml" href="https://home-mandate.org/changelog/feed.xml"/>');
 	});
 	it('escapes the HTML content once more for XML', () => {
 		expect(xml).toContain('&lt;strong&gt;incompatible&lt;/strong&gt;');
@@ -147,9 +147,9 @@ describe('feed', () => {
 	});
 	it('dates each entry by its own release when known', () => {
 		const dated = atomFeed(entries, {
-			page: 'https://mandate-spec.org/changelog/',
-			spec: 'https://mandate-spec.org/spec/v0/',
-			self: 'https://mandate-spec.org/changelog/feed.xml',
+			page: 'https://home-mandate.org/changelog/',
+			spec: 'https://home-mandate.org/spec/v0/',
+			self: 'https://home-mandate.org/changelog/feed.xml',
 			title: 't',
 			kinds: {},
 			updated: atomDate('2026-10-05'),
@@ -168,10 +168,10 @@ describe('HTML serialisation', () => {
 	it('escapes every text and attribute', () => {
 		expect(escapeXml(`<a href="x">'&'</a>`)).toBe('&lt;a href=&quot;x&quot;&gt;&apos;&amp;&apos;&lt;/a&gt;');
 		const doc = parseSpec('Text <script>x</script> [l](https://e.example/?a="b"&c) [in](#1-goal) **MUST** _e_ ~~d~~ a  \nb', ctx);
-		const html = blocksHtml(doc.blocks, 'https://mandate-spec.org/spec/v0/');
+		const html = blocksHtml(doc.blocks, 'https://home-mandate.org/spec/v0/');
 		expect(html).toContain('Text &lt;script&gt;x&lt;/script&gt;');
 		expect(html).toContain('<a href="https://e.example/?a=&quot;b&quot;&amp;c">l</a>');
-		expect(html).toContain('<a href="https://mandate-spec.org/spec/v0/#1-goal">in</a>');
+		expect(html).toContain('<a href="https://home-mandate.org/spec/v0/#1-goal">in</a>');
 		expect(html).toContain('<strong><strong>MUST</strong></strong> <em>e</em> <del>d</del> a<br>b');
 	});
 	it('serialises every block type', () => {
@@ -211,7 +211,7 @@ describe('imported specification', () => {
 	it.runIf(available)('parses SPEC-v0.md with the anchors other pages link to', () => {
 		const loaded = loadSpec(tag);
 		expect(loadSpec(tag)).toBe(loaded);
-		expect(loaded.document.title).toMatch(/^mandate-spec v0/);
+		expect(loaded.document.title).toMatch(/^Home-Mandate Specification v0/);
 		const ids = loaded.document.toc.map((e) => e.id);
 		expect(ids).toEqual(expect.arrayContaining(['1-goal', '3-data-model', '31-validity-of-a-mandate', '9-audit-log', 'changelog']));
 		expect(new Set(ids).size).toBe(ids.length);

@@ -4,7 +4,7 @@ import { parseSpec, splitNumber } from '../src/lib/spec/markdown';
 import { createSlugger, slugify } from '../src/lib/spec/slug';
 import type { Block, Inline } from '../src/lib/spec/types';
 
-const ctx = { repository: 'https://github.com/mandate-spec/mandate-spec', tag: 'v0.2.0-alpha.4', file: 'SPEC-v0.md' };
+const ctx = { repository: 'https://github.com/home-mandate/spec', tag: 'v0.2.0-alpha.4', file: 'SPEC-v0.md' };
 const blob = `${ctx.repository}/blob/${ctx.tag}`;
 
 function paragraph(markdown: string): Inline[] {
@@ -137,7 +137,7 @@ describe('parseSpec', () => {
 	const markdown = [
 		'<!-- SPDX-License-Identifier: CC-BY-4.0 -->',
 		'',
-		'# mandate-spec v0 (Draft)',
+		'# Home-Mandate Specification v0 (Draft)',
 		'',
 		'Status: **Working draft**.',
 		'',
@@ -172,7 +172,7 @@ describe('parseSpec', () => {
 	const doc = parseSpec(markdown, ctx);
 
 	it('takes the title from the level-1 heading and removes it from the body', () => {
-		expect(doc.title).toBe('mandate-spec v0 (Draft)');
+		expect(doc.title).toBe('Home-Mandate Specification v0 (Draft)');
 		expect(doc.blocks.some((b) => b.type === 'heading' && b.depth === 1)).toBe(false);
 	});
 	it('drops raw HTML blocks (comments and elements)', () => {

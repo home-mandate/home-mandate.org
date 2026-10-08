@@ -38,7 +38,7 @@ describe('verifyManifest', () => {
 
 describe('schemaTarget', () => {
 	it('maps an $id to its path on the site', () => {
-		expect(schemaTarget({ $id: 'https://mandate-spec.org/mandate/v0/mandate.schema.json' })).toBe(
+		expect(schemaTarget({ $id: 'https://home-mandate.org/mandate/v0/mandate.schema.json' })).toBe(
 			'mandate/v0/mandate.schema.json'
 		);
 	});
@@ -47,12 +47,12 @@ describe('schemaTarget', () => {
 	});
 	it.each([
 		'https://example.org/mandate/v0/mandate.schema.json',
-		'https://mandate-spec.org/../x.schema.json',
-		'https://mandate-spec.org/mandate/v0/../../etc.schema.json',
-		'https://mandate-spec.org/mandate.schema.json',
-		'https://mandate-spec.org/Mandate/v0/x.schema.json',
-		'https://mandate-spec.org/mandate/v0/x.json',
-		'http://mandate-spec.org/mandate/v0/x.schema.json'
+		'https://home-mandate.org/../x.schema.json',
+		'https://home-mandate.org/mandate/v0/../../etc.schema.json',
+		'https://home-mandate.org/mandate.schema.json',
+		'https://home-mandate.org/Mandate/v0/x.schema.json',
+		'https://home-mandate.org/mandate/v0/x.json',
+		'http://home-mandate.org/mandate/v0/x.schema.json'
 	])('rejects %s', (id) => {
 		expect(() => schemaTarget({ $id: id })).toThrow();
 	});
@@ -78,8 +78,8 @@ describe('identifierSchemas', () => {
 
 describe('isOfficialRepository', () => {
 	it('accepts only the official repository', () => {
-		expect(isOfficialRepository('https://github.com/mandate-spec/mandate-spec.git')).toBe(true);
-		expect(isOfficialRepository('https://github.com/evil/mandate-spec.git')).toBe(false);
+		expect(isOfficialRepository('https://github.com/home-mandate/spec.git')).toBe(true);
+		expect(isOfficialRepository('https://github.com/evil/spec.git')).toBe(false);
 		expect(isOfficialRepository('--upload-pack=x')).toBe(false);
 	});
 });

@@ -1,6 +1,6 @@
 {
   "home_title": "AI is coming home. Decide what it may do.",
-  "home_lead": "mandate-spec is an open standard that lets every household say what an AI agent may do – allow, ask or deny.",
+  "home_lead": "The Home-Mandate Specification is an open standard that lets every household say what an AI agent may do – allow, ask or deny.",
   "home_cta_playground": "Try the playground",
   "home_cta_how": "How it works",
   "home_meta": "Open specification · Text CC BY 4.0 · Code Apache 2.0",
@@ -67,7 +67,7 @@
   "home_start_spec_body": "Specification, JSON schemas and conformance tests.",
   "home_start_spec_link": "Go to the spec",
   "home_open_title": "Open and neutral",
-  "home_open_body": "mandate-spec belongs to no product. Any vendor can implement it and check their conformance with public tests.",
+  "home_open_body": "The specification belongs to no product. Any vendor can implement it and check their conformance with public tests.",
   "home_fact_text": "Specification text",
   "home_fact_text_value": "CC BY 4.0",
   "home_fact_code": "Code and schemas",

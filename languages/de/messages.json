@@ -1,10 +1,10 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "site_name": "mandate-spec",
-  "site_description": "mandate-spec ist ein offener Standard, mit dem jeder Haushalt festlegt, was ein KI-Agent darf – erlauben, nachfragen oder ablehnen.",
+  "site_name": "Home-Mandate",
+  "site_description": "Die Home-Mandate-Spezifikation ist ein offener Standard, mit dem jeder Haushalt festlegt, was ein KI-Agent darf – erlauben, nachfragen oder ablehnen.",
   "nav_skip": "Zum Inhalt springen",
   "nav_main": "Hauptnavigation",
-  "nav_home": "Startseite von mandate-spec",
+  "nav_home": "Startseite der Home-Mandate-Spezifikation",
   "nav_why": "Warum",
   "nav_how": "So funktioniert’s",
   "nav_playground": "Spielplatz",

@@ -20,7 +20,7 @@ describe('legalText', () => {
 	it('the imprint names both ways to get in touch', () => {
 		for (const locale of ['de', 'en']) {
 			const text = JSON.stringify(legalText('imprint', locale).text);
-			expect(text).toContain('mailto:contact@mandate-spec.org');
+			expect(text).toContain('mailto:contact@home-mandate.org');
 			expect(text).toContain('(/contact/)');
 		}
 	});

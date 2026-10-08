@@ -85,7 +85,7 @@
     ],
     [
      "E-Mail",
-     "[contact@mandate-spec.org](mailto:contact@mandate-spec.org)"
+     "[contact@home-mandate.org](mailto:contact@home-mandate.org)"
     ]
    ]
   },
@@ -216,7 +216,7 @@
    "h3": "Kontaktformular"
   },
   {
-   "p": "Unser Kontaktformular erreichen Sie unter [mandate-spec.org/contact](/contact). Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter."
+   "p": "Unser Kontaktformular erreichen Sie unter [home-mandate.org/contact](/contact). Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter."
   },
   {
    "p": "Ihre Nachricht wird als E-Mail in unser Postfach auf unserem eigenen Mailserver (Hosting bei Hetzner, siehe oben) zugestellt; der Dienst, der das Formular annimmt, speichert sie nicht und protokolliert weder Ihre Angaben noch Ihre IP-Adresse. Um Missbrauch zu begrenzen, zählt er Anfragen je IP-Adresse ausschließlich im Arbeitsspeicher; dieser Zähler wird nach spätestens etwa einer Stunde gelöscht."

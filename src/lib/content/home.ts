@@ -24,7 +24,7 @@ export interface Mandate {
 
 /** The voice-assistant mandate the hero card shows (format of SPEC-v0.md section 3). */
 export const HOME_MANDATE: Mandate = {
-	type: 'https://mandate-spec.org/mandate/v0',
+	type: 'https://home-mandate.org/mandate/v0',
 	id: 'm-voice-assistant',
 	rules: [
 		{ id: 'r-read-all', resource: { any: true }, actions: ['read'], decision: 'allow' },

@@ -108,7 +108,7 @@ export function atomFeed(entries: ChangelogEntry[], options: FeedOptions): strin
 		`\t<id>${escapeXml(options.page)}</id>`,
 		`\t<title>${escapeXml(options.title)}</title>`,
 		`\t<updated>${escapeXml(options.updated)}</updated>`,
-		`\t<author><name>mandate-spec</name></author>`,
+		`\t<author><name>Home-Mandate Specification</name></author>`,
 		`\t<link rel="self" type="application/atom+xml" href="${escapeXml(options.self)}"/>`,
 		`\t<link rel="alternate" type="text/html" href="${escapeXml(options.page)}"/>`,
 		...items,

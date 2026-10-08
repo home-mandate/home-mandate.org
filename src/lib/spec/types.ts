@@ -57,7 +57,7 @@ export interface LoadedSpec {
 }
 
 export interface LinkContext {
-	/** Repository URL without .git, e.g. https://github.com/mandate-spec/mandate-spec */
+	/** Repository URL without .git, e.g. https://github.com/home-mandate/spec */
 	repository: string;
 	/** Tag of the imported release; relative links point to files at this tag. */
 	tag: string;

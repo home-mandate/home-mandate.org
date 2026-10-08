@@ -1,4 +1,4 @@
-# Supply-chain hardening, same rules as the other mandate-spec and Home-Mandate projects.
+# Supply-chain hardening, same rules as the other Home-Mandate projects.
 # Only versions published at least 7 days ago are installed.
 minimumReleaseAge: 10080
 # Dependency install scripts never run; fail instead of silently skipping one.

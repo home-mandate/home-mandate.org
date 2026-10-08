@@ -123,7 +123,7 @@ describe('downloads', () => {
 describe('conformanceCommands', () => {
 	it('installs the test tool at the imported tag', () => {
 		const [install, exec, http] = conformanceCommands(spec.repository, spec.latest.tag);
-		expect(install?.command).toBe(`go install github.com/mandate-spec/mandate-spec/cmd/mandate-conformance@${spec.latest.tag}`);
+		expect(install?.command).toBe(`go install github.com/home-mandate/spec/cmd/mandate-conformance@${spec.latest.tag}`);
 		expect(exec?.command).toContain('-exec ./your-harness');
 		expect(http?.command).toContain('-authzen');
 	});
@@ -135,7 +135,7 @@ describe('conformanceCommands', () => {
 	it('matches the usage of the test tool in the release', () => {
 		const usage = readFileSync(join(RELEASE, 'internal', 'harness', 'cli.go'), 'utf8');
 		for (const flag of ['-report', '-exec', '-authzen', '-control']) expect(usage).toContain(flag);
-		expect(readFileSync(join(RELEASE, 'README.md'), 'utf8')).toContain('go install github.com/mandate-spec/mandate-spec/cmd/mandate-conformance@');
+		expect(readFileSync(join(RELEASE, 'README.md'), 'utf8')).toContain('go install github.com/home-mandate/spec/cmd/mandate-conformance@');
 	});
 });
 

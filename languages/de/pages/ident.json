@@ -1,9 +1,9 @@
 {
-  "ident_mandate_title": "Diese Adresse kennzeichnet ein mandate-spec-v0-Mandat",
+  "ident_mandate_title": "Diese Adresse kennzeichnet ein Mandat nach der Home-Mandate-Spezifikation v0",
   "ident_mandate_intro": "Wenn du diese Adresse in einer Datei gefunden hast, ist die Datei ein Mandat: Regeln, die festlegen, was ein KI-Agent in einem Haushalt darf.",
-  "ident_audit_title": "Diese Adresse kennzeichnet einen mandate-spec-v0-Protokolleintrag",
+  "ident_audit_title": "Diese Adresse kennzeichnet einen Protokolleintrag nach der Home-Mandate-Spezifikation v0",
   "ident_audit_intro": "Wenn du diese Adresse in einer Datei gefunden hast, enthält die Datei Einträge eines Protokolls: was Agenten angefragt haben und was entschieden wurde, verkettet zu einer Hash-Kette.",
-  "ident_checkpoint_title": "Diese Adresse kennzeichnet einen mandate-spec-v0-Prüfpunkt im Protokoll",
+  "ident_checkpoint_title": "Diese Adresse kennzeichnet einen Prüfpunkt im Protokoll nach der Home-Mandate-Spezifikation v0",
   "ident_checkpoint_intro": "Diese Adresse benennt die signierte Aussage eines Prüfpunkts: den Nachweis, dass ein Protokoll an einer bestimmten Stelle einen bestimmten Eintrag hatte, damit spätere Änderungen auffallen.",
   "ident_schema_title": "JSON-Schema",
   "ident_schema_body": "Maschinenlesbare Definition dieses Formats.",

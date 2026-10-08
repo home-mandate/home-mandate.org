@@ -3,8 +3,8 @@ import { expect, test, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 
 const LANGUAGES = [
-	{ tag: 'en', prefix: '', implement: 'Implement mandate-spec', list: 'Implementations', all: 'All', library: 'Library', guard: 'Home guard', show: 'Show' },
-	{ tag: 'de', prefix: '/de', implement: 'mandate-spec implementieren', list: 'Implementierungen', all: 'Alle', library: 'Bibliothek', guard: 'Wächter', show: 'Zeigen' }
+	{ tag: 'en', prefix: '', implement: 'Implement the Home-Mandate Specification', list: 'Implementations', all: 'All', library: 'Library', guard: 'Home guard', show: 'Show' },
+	{ tag: 'de', prefix: '/de', implement: 'Die Home-Mandate-Spezifikation implementieren', list: 'Implementierungen', all: 'Alle', library: 'Bibliothek', guard: 'Wächter', show: 'Zeigen' }
 ];
 const PAGES = ['/implement/', '/implementations/'];
 
@@ -43,7 +43,7 @@ for (const lang of LANGUAGES) {
 			await expect(page.getByRole('table', { name: 'Rule' }).getByRole('rowheader', { name: 'allow_critical' })).toBeVisible();
 
 			await expect(page.locator('.class-id')).toHaveText(['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored', 'pdp']);
-			await expect(page.locator('#cmd-install')).toHaveText(/^go install github\.com\/mandate-spec\/mandate-spec\/cmd\/mandate-conformance@v\d/);
+			await expect(page.locator('#cmd-install')).toHaveText(/^go install github\.com\/home-mandate\/spec\/cmd\/mandate-conformance@v\d/);
 
 			const links = page.locator('a[download]');
 			await expect(links).toHaveCount(3);
@@ -74,7 +74,7 @@ for (const lang of LANGUAGES) {
 			await expect(entries).toHaveCount(2);
 			await expect(entries.first()).toBeVisible();
 			await expect(entries.first().locator('.badge').first()).toContainText('evaluator');
-			await expect(page.locator('a[href="https://github.com/mandate-spec/mandate-spec.org/blob/main/src/lib/content/implementations.ts"]:visible').first()).toBeVisible();
+			await expect(page.locator('a[href="https://github.com/home-mandate/home-mandate.org/blob/main/src/lib/content/implementations.ts"]:visible').first()).toBeVisible();
 			expect(problems).toEqual([]);
 		});
 

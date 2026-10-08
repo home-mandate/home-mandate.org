@@ -1,4 +1,4 @@
-# Translating mandate-spec.org
+# Translating home-mandate.org
 
 Thank you for helping! The website is written in English; every other language is a
 language pack in this repository. Adding one needs no programming.

@@ -4,7 +4,7 @@
   "changelog_feed_title": "Follow changes",
   "changelog_feed_text": "Subscribe to the Atom feed to get new versions in your feed reader.",
   "changelog_feed_link": "Atom feed",
-  "changelog_feed_name": "mandate-spec changelog",
+  "changelog_feed_name": "Home-Mandate Specification changelog",
   "changelog_english": "The entries are quoted from the specification and are in English.",
   "changelog_as_of": "as of {version}",
   "changelog_in_spec": "In the specification",

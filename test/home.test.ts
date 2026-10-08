@@ -20,7 +20,7 @@ const actionsOf = (category: string) => vocabulary.categories[category]?.actions
 
 describe('the mandate on the home page card', () => {
 	it('is a v0 mandate with default deny', () => {
-		expect(HOME_MANDATE.type).toBe('https://mandate-spec.org/mandate/v0');
+		expect(HOME_MANDATE.type).toBe('https://home-mandate.org/mandate/v0');
 		expect(HOME_MANDATE.default).toBe('deny');
 		expect(typeVersion(HOME_MANDATE.type)).toBe('v0');
 	});

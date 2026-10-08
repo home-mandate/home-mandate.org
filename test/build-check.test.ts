@@ -57,7 +57,7 @@ describe('checkHtml', () => {
 		});
 	});
 	it('allows canonical and hreflang links to our own domain', () => {
-		expect(checkHtml(page('<link rel="canonical" href="https://mandate-spec.org/"><link rel="alternate" hreflang="de" href="https://mandate-spec.org/de/">'))).toEqual([]);
+		expect(checkHtml(page('<link rel="canonical" href="https://home-mandate.org/"><link rel="alternate" hreflang="de" href="https://home-mandate.org/de/">'))).toEqual([]);
 	});
 	it('rejects canonical links to other domains', () => {
 		expect(checkHtml(page('<link rel="canonical" href="https://evil.example/">')).join()).toMatch(/external/);

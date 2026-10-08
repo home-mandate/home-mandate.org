@@ -5,9 +5,9 @@ export interface Manifest {
 	files: { path: string; sha256: string }[];
 }
 
-const SITE = 'https://mandate-spec.org/';
-/** The only repository whose releases may be published under mandate-spec.org. */
-export const OFFICIAL_REPOSITORY = 'https://github.com/mandate-spec/mandate-spec.git';
+const SITE = 'https://home-mandate.org/';
+/** The only repository whose releases may be published under home-mandate.org. */
+export const OFFICIAL_REPOSITORY = 'https://github.com/home-mandate/spec.git';
 /** Trees of a release that the site publishes (only files listed in the manifest). */
 const PUBLISHED = /^(schema\/[a-z0-9-]+\.schema\.json|conformance\/schema\/[a-z0-9-]+\.schema\.json|vocabulary\/v[0-9]+\.json)$/;
 const SCHEMA_PATH = /^[a-z0-9-]+\/v[0-9]+\/[a-z0-9-]+\.schema\.json$/;
@@ -29,7 +29,7 @@ export function verifyManifest(files: Map<string, Buffer>, manifest: Manifest): 
 }
 
 /**
- * Site path for a schema with an $id on mandate-spec.org, undefined for files
+ * Site path for a schema with an $id on home-mandate.org, undefined for files
  * without $id. Anything else under our domain that does not look like
  * <name>/v<N>/<file>.schema.json is an error, never silently skipped.
  */

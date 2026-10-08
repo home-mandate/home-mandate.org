@@ -2,7 +2,7 @@
   "why_title": "Why mandates?",
   "why_intro": "AI agents will soon switch lights, set heating, open doors. A mandate decides in advance what they may do – calmly, clearly, in your home.",
   "why_01": "Agents are moving in",
-  "why_02": "Voice assistants, energy apps and shopping agents are learning to act, not just answer. That is useful – and it means someone has to decide where the limits are. Today that decision often sits with the provider of the agent. mandate-spec puts it back in the household.",
+  "why_02": "Voice assistants, energy apps and shopping agents are learning to act, not just answer. That is useful – and it means someone has to decide where the limits are. Today that decision often sits with the provider of the agent. The Home-Mandate Specification puts it back in the household.",
   "why_03": "A master key or a power of attorney?",
   "why_04_1": "Master key",
   "why_04_1_1": "Opens every door, at any time.",
@@ -20,7 +20,7 @@
   "why_06_3_title": "The home says no",
   "why_06_3_body": "The mandate does not allow it. Nothing happens, and the attempt is logged.",
   "why_07_title": "For techies: what is prompt injection?",
-  "why_07_text": "Agents read text from many sources. If that text contains instructions, a model may follow them. mandate-spec doesn’t try to detect this – it limits the damage: whatever the agent asks, the home guard only executes what the mandate allows.",
+  "why_07_text": "Agents read text from many sources. If that text contains instructions, a model may follow them. The specification doesn’t try to detect this – it limits the damage: whatever the agent asks, the home guard only executes what the mandate allows.",
   "why_08_title": "For techies: why decide at home?",
   "why_08_text": "The decision is made outside the agent: the agent only names a device and an action, everything else – category, area, time – comes from the guard. In the intended setup the guard runs on a device the household controls, so a manipulated agent cannot talk its way past the mandate."
 }

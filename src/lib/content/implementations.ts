@@ -13,7 +13,7 @@ export interface Implementation {
 	kinds: ImplementationKind[];
 	language: string;
 	license: string;
-	/** mandate-spec version it implements. */
+	/** Version of the specification it implements. */
 	spec: string;
 	classes: ConformanceClass[];
 	/** Link to a published conformance run; without it the classes are "declared". */
@@ -22,23 +22,23 @@ export interface Implementation {
 
 export const IMPLEMENTATIONS: Implementation[] = [
 	{
-		name: 'mandate-spec',
-		url: 'https://github.com/mandate-spec/mandate-spec',
-		origin: 'mandate-spec',
+		name: 'home-mandate/spec',
+		url: 'https://github.com/home-mandate/spec',
+		origin: 'Home-Mandate Specification',
 		kinds: ['library', 'tool'],
 		language: 'Go',
 		license: 'Apache-2.0',
-		spec: 'v0.2.0-alpha.5',
+		spec: 'v0.1.0-alpha.1',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored']
 	},
 	{
-		name: 'mandate-spec-ts',
-		url: 'https://github.com/mandate-spec/mandate-spec-ts',
-		origin: 'mandate-spec',
+		name: 'home-mandate/spec-ts',
+		url: 'https://github.com/home-mandate/spec-ts',
+		origin: 'Home-Mandate Specification',
 		kinds: ['library'],
 		language: 'TypeScript',
 		license: 'Apache-2.0',
-		spec: 'v0.2.0-alpha.5',
+		spec: 'v0.1.0-alpha.1',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored']
 	}
 ];

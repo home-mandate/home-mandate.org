@@ -3,7 +3,7 @@
 // example on the "How it works" page relies on. Not a full validator.
 import type { Vocabulary } from './vocabulary';
 
-export const MANDATE_TYPE = 'https://mandate-spec.org/mandate/v0';
+export const MANDATE_TYPE = 'https://home-mandate.org/mandate/v0';
 export const REQUIRED = ['type', 'id', 'principal', 'agent', 'rules', 'default', 'approval', 'limits', 'valid_from', 'created_by', 'created_at'] as const;
 export const DECISIONS = ['allow', 'ask', 'deny'] as const;
 export type Decision = (typeof DECISIONS)[number];

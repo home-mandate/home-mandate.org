@@ -1,10 +1,10 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "site_name": "mandate-spec",
-  "site_description": "mandate-spec is an open standard that lets every household say what an AI agent may do – allow, ask or deny.",
+  "site_name": "Home-Mandate",
+  "site_description": "The Home-Mandate Specification is an open standard that lets every household say what an AI agent may do – allow, ask or deny.",
   "nav_skip": "Skip to content",
   "nav_main": "Main navigation",
-  "nav_home": "mandate-spec home page",
+  "nav_home": "Home-Mandate Specification home page",
   "nav_why": "Why",
   "nav_how": "How it works",
   "nav_playground": "Playground",

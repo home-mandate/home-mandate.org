@@ -2,7 +2,7 @@
 // site rely on (no external resources, no inline styles or handlers, no forms
 // except the contact form).
 
-const OWN_ORIGIN = 'https://mandate-spec.org/';
+const OWN_ORIGIN = 'https://home-mandate.org/';
 // Attributes that make the browser load something by itself (not plain <a> links).
 const LOADING = /<(script|img|link|source|video|audio|iframe|embed|object)\b[^>]*?\s(src|href|srcset|data)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi;
 const STYLE_ATTR = /<[a-z][^>]*\sstyle\s*=/i;

@@ -2,7 +2,7 @@
   "playground_title": "Playground",
   "playground_intro": "Build a mandate by clicking, then test what an agent may do. Everything runs in your browser – nothing is sent anywhere.",
   "playground_intro_short": "Build a mandate by tapping and test it. Everything stays in your browser.",
-  "playground_engine": "Decisions come from mandate-spec-ts, an independent implementation that passes the conformance cases of specification {version}.",
+  "playground_engine": "Decisions come from spec-ts, an independent TypeScript implementation that passes the conformance cases of specification {version}.",
   "playground_s1": "Choose a mandate",
   "playground_s2": "Rules",
   "playground_s3": "Simulate a request",

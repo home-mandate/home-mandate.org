@@ -6,11 +6,11 @@
   "faq_tricked_q": "What if the agent is tricked?",
   "faq_tricked_a": "It can still only do what the mandate allows. Critical actions always need an explicit rule or a person.",
   "faq_product_q": "Do I need to buy something?",
-  "faq_product_a": "No. mandate-spec is a free, open specification. Products and open-source projects can implement it.",
-  "faq_owner_q": "Who owns mandate-spec?",
+  "faq_product_a": "No. The Home-Mandate Specification is free and open. “Home-Mandate for Home Assistant” is one implementation of it; any other product or open-source project can implement it just as well.",
+  "faq_owner_q": "Who owns the specification?",
   "faq_owner_a": "No company. The text is CC BY 4.0, the code Apache 2.0, and changes are discussed in public.",
   "faq_no_answer_q": "What happens if I don’t answer a question on my phone?",
   "faq_no_answer_a": "After the timeout – for example two minutes – the request counts as denied.",
   "faq_matter_q": "How does this relate to Matter or Home Assistant?",
-  "faq_matter_a": "mandate-spec sits above them: it decides whether a command may be sent. Matter or Home Assistant then deliver it."
+  "faq_matter_a": "The specification sits above them: it decides whether a command may be sent. Matter or Home Assistant then deliver it."
 }

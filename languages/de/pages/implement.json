@@ -2,7 +2,7 @@
   "implement_sub_label": "Bereich Implementieren",
   "implement_sub_implement": "Implementieren",
   "implement_sub_implementations": "Implementierungen",
-  "implement_title": "mandate-spec implementieren",
+  "implement_title": "Die Home-Mandate-Spezifikation implementieren",
   "implement_intro": "Alles, um einen Wächter, eine Agent-Anbindung oder einen Validator zu bauen – und zu zeigen, dass er konform ist.",
   "implement_model_title": "Datenmodell im Überblick",
   "implement_model_body": "Ein Mandat gehört zu einem Agenten und enthält Regeln. Jede Regel nennt Ressourcen (ein Gerät, eine Kategorie oder einen Bereich), Aktionen und eine Entscheidung. Die Reihenfolge spielt nie eine Rolle: Von allen passenden Regeln gewinnt die strengste Entscheidung.",
@@ -53,12 +53,12 @@
   "implement_dl_download": "Herunterladen",
   "implement_dl_version": "Version der Spezifikation",
   "implement_list_title": "Implementierungen",
-  "implement_list_intro": "Projekte, die mandate-spec umsetzen. Eine Konformitätsklasse gilt nur als bestanden, wenn der Testlauf veröffentlicht ist; sonst ist sie eine Angabe des Projekts.",
+  "implement_list_intro": "Projekte, die die Home-Mandate-Spezifikation umsetzen. Eine Konformitätsklasse gilt nur als bestanden, wenn der Testlauf veröffentlicht ist; sonst ist sie eine Angabe des Projekts.",
   "implement_list_add": "Per Pull Request eintragen",
   "implement_list_filter": "Zeigen:",
   "implement_list_shown": "{count} von {total} angezeigt",
   "implement_list_empty": "Noch keine Einträge dieser Art.",
-  "implement_list_caption": "Implementierungen von mandate-spec",
+  "implement_list_caption": "Implementierungen der Home-Mandate-Spezifikation",
   "implement_kind_all": "Alle",
   "implement_kind_guard": "Wächter",
   "implement_kind_integration": "Anbindung",
@@ -75,5 +75,5 @@
   "implement_list_run": "Veröffentlichter Lauf",
   "implement_badge_passed": "Tests bestanden, Lauf veröffentlicht",
   "implement_badge_declared": "angegeben, noch nicht geprüft",
-  "implement_list_note": "Die Liste wird im [Repository der Website](https://github.com/mandate-spec/mandate-spec.org/blob/main/src/lib/content/implementations.ts) gepflegt. Trag dein Projekt per Pull Request ein; mit einem Link auf einen veröffentlichten Konformitätslauf werden seine Klassen als bestanden gezeigt."
+  "implement_list_note": "Die Liste wird im [Repository der Website](https://github.com/home-mandate/home-mandate.org/blob/main/src/lib/content/implementations.ts) gepflegt. Trag dein Projekt per Pull Request ein; mit einem Link auf einen veröffentlichten Konformitätslauf werden seine Klassen als bestanden gezeigt."
 }

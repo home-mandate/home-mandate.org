@@ -26,7 +26,7 @@ for (const lang of LANGUAGES) {
 			const problems = watch(page);
 			await page.goto(`${lang.prefix}/spec/v0/`);
 			await expect(page.locator('html')).toHaveAttribute('lang', lang.tag);
-			await expect(page.getByRole('heading', { level: 1 })).toHaveText(/^mandate-spec v0/);
+			await expect(page.getByRole('heading', { level: 1 })).toHaveText(/^Home-Mandate Specification v0/);
 			await expect(page.locator('article[lang=en]')).toBeVisible();
 			await expect(page.locator('h2[id="3-data-model"]')).toContainText('Data model');
 			await expect(page.locator('h3[id="31-validity-of-a-mandate"]')).toBeAttached();
@@ -40,7 +40,7 @@ for (const lang of LANGUAGES) {
 		test('links to the file on GitHub at the imported tag', async ({ page }, info) => {
 			await page.goto(`${lang.prefix}/spec/v0/`);
 			const link = info.project.name === 'mobile' ? page.locator('a.github-phone') : page.locator('.bar a.github');
-			await expect(link).toHaveAttribute('href', /^https:\/\/github\.com\/mandate-spec\/mandate-spec\/blob\/v0\.[^/]+\/SPEC-v0\.md$/);
+			await expect(link).toHaveAttribute('href', /^https:\/\/github\.com\/home-mandate\/spec\/blob\/v0\.[^/]+\/SPEC-v0\.md$/);
 		});
 
 		test('spec has no accessibility violations', async ({ page }, info) => {
@@ -146,5 +146,5 @@ test('print layout hides the navigation and shows version and address', async ({
 	await expect(page.locator('aside.side')).toBeHidden();
 	await expect(page.locator('.bar')).toBeHidden();
 	await expect(page.locator('.print-head')).toBeVisible();
-	await expect(page.locator('.print-head')).toContainText('mandate-spec.org/spec/v0/');
+	await expect(page.locator('.print-head')).toContainText('home-mandate.org/spec/v0/');
 });

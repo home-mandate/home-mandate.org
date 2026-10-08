@@ -2,7 +2,7 @@
   "playground_title": "Spielplatz",
   "playground_intro": "Baue ein Mandat per Klick und teste, was ein Agent darf. Alles läuft in deinem Browser – nichts wird verschickt.",
   "playground_intro_short": "Mandat per Klick bauen und testen. Alles bleibt in deinem Browser.",
-  "playground_engine": "Die Entscheidungen kommen von mandate-spec-ts, einer unabhängigen Implementierung, die die Konformitätsfälle der Spezifikation {version} besteht.",
+  "playground_engine": "Die Entscheidungen kommen von spec-ts, einer unabhängigen TypeScript-Implementierung, die die Konformitätsfälle der Spezifikation {version} besteht.",
   "playground_s1": "Mandat wählen",
   "playground_s2": "Regeln",
   "playground_s3": "Anfrage simulieren",

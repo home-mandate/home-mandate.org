@@ -28,12 +28,12 @@ describe('locale helpers', () => {
 describe('site links', () => {
 	it('links into the specification at the imported tag', () => {
 		expect(specUrl('SPEC-v0.md', '3-data-model')).toBe(
-			`https://github.com/mandate-spec/mandate-spec/blob/${spec.latest.tag}/SPEC-v0.md#3-data-model`
+			`https://github.com/home-mandate/spec/blob/${spec.latest.tag}/SPEC-v0.md#3-data-model`
 		);
 		expect(specUrl('SPEC-v0.md')).not.toContain('#');
 	});
 	it('points vulnerability reports to the specification repository', () => {
-		expect(SECURITY_URL).toBe('https://github.com/mandate-spec/mandate-spec/security/advisories/new');
+		expect(SECURITY_URL).toBe('https://github.com/home-mandate/spec/security/advisories/new');
 	});
 });
 
@@ -46,6 +46,6 @@ describe('localHref', () => {
 		expect(localHref('/mandate/v0/mandate.schema.json', 'de')).toBe('/mandate/v0/mandate.schema.json');
 		expect(localHref('#faq', 'de')).toBe('#faq');
 		expect(localHref('https://github.com/x', 'de')).toBe('https://github.com/x');
-		expect(localHref('mailto:contact@mandate-spec.org', 'de')).toBe('mailto:contact@mandate-spec.org');
+		expect(localHref('mailto:contact@home-mandate.org', 'de')).toBe('mailto:contact@home-mandate.org');
 	});
 });

@@ -1,11 +1,11 @@
-# mandate-spec.org
+# home-mandate.org
 
-Source of the website **https://mandate-spec.org** – the plain-language home of
-[mandate-spec](https://github.com/mandate-spec/mandate-spec), the open, vendor-neutral
+Source of the website **https://home-mandate.org** – the plain-language home of
+the [Home-Mandate Specification](https://github.com/home-mandate/spec), the open, vendor-neutral
 specification of what software agents may do on behalf of a household.
 
 The specification itself, its schemas and conformance tests live in
-[mandate-spec/mandate-spec](https://github.com/mandate-spec/mandate-spec). This repository
+[home-mandate/spec](https://github.com/home-mandate/spec). This repository
 only explains it and serves its published files.
 
 ## What is in here
@@ -45,9 +45,9 @@ hashed scripts.
 ## Published files and URLs
 
 - Every schema of the specification is served under its `$id`, e.g.
-  `https://mandate-spec.org/mandate/v0/mandate.schema.json`, byte-equal to the release in
+  `https://home-mandate.org/mandate/v0/mandate.schema.json`, byte-equal to the release in
   `spec.lock.json`.
-- Identifier URLs used in documents (`https://mandate-spec.org/mandate/v0`,
+- Identifier URLs used in documents (`https://home-mandate.org/mandate/v0`,
   `/audit/v0`, `/audit-checkpoint/v0`) show an explanation to browsers. Clients that
   send `Accept: application/json` or `application/schema+json` get the schema, where one
   exists (`<name>/v<N>/schema.json`).
@@ -71,5 +71,5 @@ before it deploys anything. Nothing on the server is reachable from GitHub.
 ## Licenses
 
 Code under Apache 2.0 ([LICENSE](LICENSE)); texts of the website and the language packs
-under CC BY 4.0 ([LICENSE-docs](LICENSE-docs)). The name "mandate-spec" and its logo are
+under CC BY 4.0 ([LICENSE-docs](LICENSE-docs)). The name "Home-Mandate" and its logo are
 not licensed under either license.

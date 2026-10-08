@@ -2,7 +2,7 @@
   "why_title": "Warum Mandate?",
   "why_intro": "KI-Agenten werden bald Licht schalten, Heizung regeln, Türen öffnen. Ein Mandat legt vorher fest, was sie dürfen – ruhig, klar, bei dir zu Hause.",
   "why_01": "Agenten ziehen ein",
-  "why_02": "Sprachassistenten, Energie-Apps und Einkaufs-Agenten lernen zu handeln, nicht nur zu antworten. Das ist praktisch – und heißt, dass jemand die Grenzen festlegen muss. Heute liegt diese Entscheidung oft beim Anbieter des Agenten. mandate-spec gibt sie dem Haushalt zurück.",
+  "why_02": "Sprachassistenten, Energie-Apps und Einkaufs-Agenten lernen zu handeln, nicht nur zu antworten. Das ist praktisch – und heißt, dass jemand die Grenzen festlegen muss. Heute liegt diese Entscheidung oft beim Anbieter des Agenten. Die Home-Mandate-Spezifikation gibt sie dem Haushalt zurück.",
   "why_03": "Generalschlüssel oder Vollmacht?",
   "why_04_1": "Generalschlüssel",
   "why_04_1_1": "Öffnet jede Tür, jederzeit.",
@@ -20,7 +20,7 @@
   "why_06_3_title": "Das Haus sagt Nein",
   "why_06_3_body": "Das Mandat erlaubt es nicht. Nichts passiert, und der Versuch wird protokolliert.",
   "why_07_title": "Für Techniker: Was ist Prompt-Injection?",
-  "why_07_text": "Agenten lesen Texte aus vielen Quellen. Stehen darin Anweisungen, kann ein Modell ihnen folgen. mandate-spec versucht nicht, das zu erkennen – es begrenzt den Schaden: Egal was der Agent fragt, der Wächter führt nur aus, was das Mandat erlaubt.",
+  "why_07_text": "Agenten lesen Texte aus vielen Quellen. Stehen darin Anweisungen, kann ein Modell ihnen folgen. Die Spezifikation versucht nicht, das zu erkennen – sie begrenzt den Schaden: Egal was der Agent fragt, der Wächter führt nur aus, was das Mandat erlaubt.",
   "why_08_title": "Für Techniker: Warum wird zu Hause entschieden?",
   "why_08_text": "Entschieden wird außerhalb des Agenten: Er nennt nur Gerät und Aktion, alles andere – Kategorie, Bereich, Uhrzeit – kommt vom Wächter. So gedacht läuft der Wächter auf einem Gerät, das der Haushalt kontrolliert. Ein manipulierter Agent kann sich also nicht am Mandat vorbeireden."
 }
