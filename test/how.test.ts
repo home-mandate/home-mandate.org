@@ -9,7 +9,9 @@ import { checkMandate, timeoutSeconds, type Mandate } from '../src/lib/how/manda
 import { plainRows, RULE_TEXTS } from '../src/lib/how/plain.ts';
 import { categoryCount, criticalActions, vocabulary } from '../src/lib/how/vocabulary.ts';
 
-const SPEC = new URL('../.spec-cache/v0.2.0-alpha.4/', import.meta.url);
+// The newest locked release of the specification (the last entry of spec.lock.json).
+const LOCK = JSON.parse(readFileSync(new URL('../spec.lock.json', import.meta.url), 'utf8')) as { versions: { tag: string }[] };
+const SPEC = new URL(`../.spec-cache/${LOCK.versions.at(-1)!.tag}/`, import.meta.url);
 const read = (path: string): unknown => JSON.parse(readFileSync(new URL(path, SPEC), 'utf8'));
 const texts = (tag: string): Record<string, string> => JSON.parse(readFileSync(new URL(`../languages/${tag}/pages/how.json`, import.meta.url), 'utf8'));
 const mandate = example as Mandate;
