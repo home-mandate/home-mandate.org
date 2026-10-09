@@ -26,7 +26,7 @@
     "@eslint/js": "10.0.1",
     "@inlang/paraglide-js": "2.25.4",
     "@inlang/plugin-icu1": "1.1.0",
-    "@home-mandate/spec": "github:home-mandate/spec-ts#0549f1f44b01a878affaa47d56b17fe7a06a1ba6",
+    "@home-mandate/spec": "github:home-mandate/spec-ts#c090926064c494367bdd436bd32f1eadf445e687",
     "@messageformat/parser": "5.1.1",
     "@playwright/test": "1.63.0",
     "@sveltejs/adapter-static": "3.0.10",
