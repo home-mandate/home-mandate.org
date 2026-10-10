@@ -3,6 +3,7 @@
   "versions": [
     { "tag": "v0.1.0-alpha.1", "commit": "df229b532531470feee0422f2c4698d90d608168" },
     { "tag": "v0.1.0-alpha.2", "commit": "616112c01d8843d25a2f7f705f0d0ab643cac75c" },
-    { "tag": "v0.1.0-alpha.3", "commit": "49ef89ef0a43ca52c29ff22ba149c2c12c08ce47" }
+    { "tag": "v0.1.0-alpha.3", "commit": "49ef89ef0a43ca52c29ff22ba149c2c12c08ce47" },
+    { "tag": "v0.1.0-alpha.4", "commit": "05c26bd817a30c035bc4d58c061e7c65633d2951" }
   ]
 }
