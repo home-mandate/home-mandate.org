@@ -71,7 +71,7 @@ for (const lang of LANGUAGES) {
 			await page.goto(`${lang.prefix}/implementations/`);
 			await expect(page.getByRole('heading', { level: 1 })).toHaveText(lang.list);
 			const entries = info.project.name === 'mobile' ? page.locator('.cards [data-kinds]') : page.locator('tbody [data-kinds]');
-			await expect(entries).toHaveCount(2);
+			await expect(entries).toHaveCount(3);
 			await expect(entries.first()).toBeVisible();
 			await expect(entries.first().locator('.badge').first()).toContainText('evaluator');
 			await expect(page.locator('a[href="https://github.com/home-mandate/home-mandate.org/blob/main/src/lib/content/implementations.ts"]:visible').first()).toBeVisible();
@@ -89,9 +89,9 @@ for (const lang of LANGUAGES) {
 			await pill(lang.guard).click();
 			await expect(pill(lang.guard)).toHaveAttribute('aria-pressed', 'true');
 			await expect(pill(lang.all)).toHaveAttribute('aria-pressed', 'false');
-			await expect(entries.filter({ visible: true })).toHaveCount(0);
-			await expect(empty).toBeVisible();
-			await expect(page.locator('[data-filter-status]')).toHaveText(lang.tag === 'en' ? '0 of 2 shown' : '0 von 2 angezeigt');
+			await expect(entries.filter({ visible: true })).toHaveCount(1);
+			await expect(empty).toBeHidden();
+			await expect(page.locator('[data-filter-status]')).toHaveText(lang.tag === 'en' ? '1 of 3 shown' : '1 von 3 angezeigt');
 
 			await pill(lang.library).click();
 			await expect(entries.filter({ visible: true })).toHaveCount(2);
@@ -99,7 +99,7 @@ for (const lang of LANGUAGES) {
 			await pill('Tool').or(pill('Werkzeug')).click();
 			await expect(entries.filter({ visible: true })).toHaveCount(1);
 			await pill(lang.all).click();
-			await expect(entries.filter({ visible: true })).toHaveCount(2);
+			await expect(entries.filter({ visible: true })).toHaveCount(3);
 		});
 	});
 }
@@ -108,7 +108,7 @@ test('without JavaScript the filter is hidden and every entry is shown', async (
 	test.skip(info.project.name !== 'no-js', 'only without JavaScript');
 	await page.goto('/implementations/');
 	await expect(page.locator('[data-filters]')).toBeHidden();
-	await expect(page.locator('tbody [data-kinds]').filter({ visible: true })).toHaveCount(2);
+	await expect(page.locator('tbody [data-kinds]').filter({ visible: true })).toHaveCount(3);
 	await expect(page.locator('tbody [data-empty]')).toBeHidden();
 	await page.goto('/implement/');
 	await expect(page.locator('.command .copy').first()).toBeHidden();
