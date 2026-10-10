@@ -22,6 +22,16 @@ export interface Implementation {
 
 export const IMPLEMENTATIONS: Implementation[] = [
 	{
+		name: 'home-mandate/ha-home-mandate',
+		url: 'https://github.com/home-mandate/ha-home-mandate',
+		origin: 'Home-Mandate for Home Assistant',
+		kinds: ['guard', 'integration'],
+		language: 'Go',
+		license: 'AGPL-3.0-or-later',
+		spec: 'v0.1.0-alpha.4',
+		classes: ['evaluator', 'selection', 'audit', 'audit-anchored', 'pdp']
+	},
+	{
 		name: 'home-mandate/spec',
 		url: 'https://github.com/home-mandate/spec',
 		origin: 'Home-Mandate Specification',
