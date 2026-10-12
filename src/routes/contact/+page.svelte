@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from '$lib/components/PageMeta.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import ContactAside from '$lib/components/contact/ContactAside.svelte';
 	import ContactForm from '$lib/components/contact/ContactForm.svelte';
@@ -7,9 +8,9 @@
 	import { m } from '$lib/paraglide/messages';
 </script>
 
+<PageMeta title="{m.contact_title()} – {m.site_name()}" description={m.contact_intro()} />
+
 <svelte:head>
-	<title>{m.contact_title()} – {m.site_name()}</title>
-	<meta name="description" content={m.contact_intro()} />
 	<script type="module" src={scripts.contact}></script>
 </svelte:head>
 

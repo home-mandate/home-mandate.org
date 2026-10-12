@@ -16,8 +16,10 @@ only explains it and serves its published files.
 | `languages/<tag>/` | Language packs: `meta.json` and `messages.json` per language |
 | `scripts/languages.ts` | Validates the language packs, generates the language list and the Paraglide messages |
 | `scripts/import-spec.ts` | Imports the release in `spec.lock.json`: checks the tag commit and every file against the specification's `conformance/manifest.json`, places each schema under its `$id` URL |
-| `scripts/check-build.ts` | Checks `build/` after every build: schemas byte-equal, every language and identifier page present, `version.json`, no external resources, no inline styles or scripts, no forms |
-| `static/` | Files served as they are (`robots.txt`, `.well-known/security.txt`) |
+| `scripts/sitemap.ts` | Writes `build/sitemap.xml` and `build/llms.txt` from the built pages (canonical, hreflang, noindex as the HTML states them) |
+| `scripts/check-build.ts` | Checks `build/` after every build: schemas byte-equal, every language and identifier page present, `version.json`, no external resources, no inline styles or scripts (JSON-LD only), no forms; per page one description and, unless noindex, title, canonical and Open Graph |
+| `scripts/og-images.ts` | Renders the share images `static/og/<tag>.png` (`pnpm og`, rerun after changing the home title) |
+| `static/` | Files served as they are (`robots.txt`, `.well-known/security.txt`, `og/`) |
 | `Dockerfile` | The published image: `build/` on `nginx-unprivileged` |
 | `.github/workflows/` | `ci.yml` checks every branch and pull request; `deploy.yml` publishes after a merge to `main` |
 

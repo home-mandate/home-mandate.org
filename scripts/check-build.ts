@@ -4,7 +4,8 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
-import { checkHtml, checkProvenance, checkSecurityTxt } from './lib/build-check.ts';
+import { checkHtml, checkProvenance, checkSecurityTxt, checkSeo } from './lib/build-check.ts';
+import { checkRobots } from './lib/sitemap.ts';
 import { sha256 } from './lib/spec.ts';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -42,6 +43,10 @@ for (const { tag } of languages) {
 }
 need('404.html');
 need('robots.txt');
+need('sitemap.xml');
+need('llms.txt');
+for (const tag of ['en', 'de']) need(`og/${tag}.png`);
+problems.push(...checkRobots(readFileSync(join(BUILD, 'robots.txt'), 'utf8')));
 need('.well-known/security.txt');
 problems.push(...checkSecurityTxt(readFileSync(join(BUILD, '.well-known', 'security.txt'), 'utf8'), new Date()));
 
@@ -57,7 +62,8 @@ for (const entry of readdirSync(BUILD, { recursive: true, withFileTypes: true })
 	}
 	if (!entry.name.endsWith('.html')) continue;
 	const path = file.slice(BUILD.length + 1);
-	for (const p of checkHtml(readFileSync(file, 'utf8'), path)) problems.push(`${path}: ${p}`);
+	const html = readFileSync(file, 'utf8');
+	for (const p of [...checkHtml(html, path), ...checkSeo(html)]) problems.push(`${path}: ${p}`);
 }
 
 if (problems.length > 0) {
@@ -65,4 +71,4 @@ if (problems.length > 0) {
 	console.error(`\n${problems.length} problem(s) in build/.`);
 	process.exit(1);
 }
-console.log('build/ checked: schemas, identifier and contact pages, languages, version.json, HTML.');
+console.log('build/ checked: schemas, identifier and contact pages, languages, version.json, robots, sitemap, HTML and SEO.');

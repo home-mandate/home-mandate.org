@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from '$lib/components/PageMeta.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import { faq } from '$lib/content/pages/faq';
 	import { glossary } from '$lib/content/pages/glossary';
@@ -39,9 +40,9 @@
 	const quick = $derived(pages.filter((p) => ['/', '/how-it-works/', '/playground/', '/spec/v0/'].includes(p.path)));
 </script>
 
+<PageMeta title="{m.notfound_title()} – {m.site_name()}" noindex />
+
 <svelte:head>
-	<title>{m.notfound_title()} – {m.site_name()}</title>
-	<meta name="robots" content="noindex" />
 	<script type="module" src={scripts.notfound}></script>
 </svelte:head>
 

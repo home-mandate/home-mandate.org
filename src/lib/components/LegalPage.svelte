@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from './PageMeta.svelte';
 	import Callout from './Callout.svelte';
 	import RichText from './RichText.svelte';
 	import { headingId, legalText } from '$lib/content/legal';
@@ -15,9 +16,7 @@
 	const toc = $derived(text.blocks.flatMap((b) => ('h2' in b ? [b.h2] : [])));
 </script>
 
-<svelte:head>
-	<title>{text.title} – {m.site_name()}</title>
-</svelte:head>
+<PageMeta title="{text.title} – {m.site_name()}" description={text.intro} />
 
 <div class="wrap">
 	<article class="legal-page" lang={legal.lang === locale ? undefined : legal.lang}>
