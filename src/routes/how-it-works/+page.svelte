@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from '$lib/components/PageMeta.svelte';
 	import BuildingBlocks from '$lib/components/how/BuildingBlocks.svelte';
 	import GroundRules from '$lib/components/how/GroundRules.svelte';
 	import HashChain from '$lib/components/how/HashChain.svelte';
@@ -10,9 +11,9 @@
 	let { data } = $props();
 </script>
 
+<PageMeta title="{m.how_title()} – {m.site_name()}" description={m.how_intro()} />
+
 <svelte:head>
-	<title>{m.how_title()} – {m.site_name()}</title>
-	<meta name="description" content={m.how_intro()} />
 	<script type="module" src={scripts.how}></script>
 </svelte:head>
 

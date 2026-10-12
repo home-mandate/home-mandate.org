@@ -17,6 +17,11 @@ describe('legalText', () => {
 		}
 	});
 
+	it('the privacy policy names the client classes the server logs (browser, search engine, AI service, other bot)', () => {
+		expect(JSON.stringify(legalText('privacy', 'de').text)).toMatch(/Browser, Suchmaschinen-Crawler, KI-Dienst, sonstiger automatisierter Abruf \(Bot\) oder Sonstiges/);
+		expect(JSON.stringify(legalText('privacy', 'en').text)).toMatch(/a browser, a search engine crawler, an AI service, another automated request \(bot\) or other/);
+	});
+
 	it('the imprint names both ways to get in touch', () => {
 		for (const locale of ['de', 'en']) {
 			const text = JSON.stringify(legalText('imprint', locale).text);

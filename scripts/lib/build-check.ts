@@ -11,6 +11,7 @@ const HANDLER_ATTR = /<[a-z][^>]*\son[a-z]+\s*=/i;
 // posts to the contact service on our own origin.
 const FORM_PAGE = /^(?:[a-z]{2,3}(?:-[A-Za-z0-9]+)?\/)?contact\/index\.html$/;
 const CONTACT_FORM = /^<form\b(?=[^>]*\saction="\/contact")(?=[^>]*\smethod="post")[^>]*>$/i;
+const JSON_LD = /<script type="application\/ld\+json">([^<]*)<\/script>/gi;
 
 /** Pages (paths relative to build/) that may contain the contact form. */
 export function isFormPage(path: string): boolean {
@@ -40,9 +41,42 @@ export function checkHtml(html: string, path = ''): string[] {
 	if (/<iframe\b/i.test(html)) problems.push('iframe');
 	problems.push(...checkForms(html, path));
 	if (/<style\b/i.test(html)) problems.push('inline style element (blocked by the CSP)');
-	if (/<script\b(?![^>]*\ssrc\s*=)[^>]*>\s*\S/i.test(html)) problems.push('inline script');
+	// JSON-LD is data the browser never runs; every other inline script is out.
+	for (const [, json = ''] of html.matchAll(JSON_LD)) {
+		try {
+			JSON.parse(json);
+		} catch {
+			problems.push('JSON-LD that is not valid JSON');
+		}
+	}
+	if (/<script\b(?![^>]*\ssrc\s*=)[^>]*>\s*\S/i.test(html.replace(JSON_LD, ''))) problems.push('inline script');
 	if (/<base\b/i.test(html)) problems.push('base element');
 	if (/<meta[^>]+http-equiv\s*=\s*["']?refresh/i.test(html)) problems.push('meta refresh');
+	return problems;
+}
+
+const metaContent = (html: string, attr: 'name' | 'property', key: string): string[] =>
+	[...html.matchAll(new RegExp(`<meta\\s+${attr}="${key}"\\s+content="([^"]*)"`, 'gi'))].map((m) => m[1] ?? '');
+
+/**
+ * What search engines and link previews need: one description per page and,
+ * on indexable pages, a title, the canonical address and Open Graph data.
+ */
+export function checkSeo(html: string): string[] {
+	const problems: string[] = [];
+	const descriptions = metaContent(html, 'name', 'description');
+	if (descriptions.length > 1) problems.push(`${descriptions.length} meta descriptions (one per page)`);
+	if (metaContent(html, 'name', 'robots').some((c) => /noindex/i.test(c))) return problems;
+
+	if (!/<title>[^<]+<\/title>/i.test(html)) problems.push('missing <title>');
+	if (descriptions.length === 0) problems.push('missing meta description');
+	const canonical = /<link rel="canonical" href="([^"]+)"/i.exec(html)?.[1];
+	if (canonical === undefined) problems.push('missing canonical link');
+	for (const key of ['og:title', 'og:description', 'og:image']) {
+		if (metaContent(html, 'property', key).length === 0) problems.push(`missing ${key}`);
+	}
+	const [ogUrl] = metaContent(html, 'property', 'og:url');
+	if (ogUrl !== canonical) problems.push(`og:url ${ogUrl} is not the canonical address ${canonical}`);
 	return problems;
 }
 

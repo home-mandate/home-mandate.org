@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from '$lib/components/PageMeta.svelte';
 	import ClassBadge from '$lib/components/implement/ClassBadge.svelte';
 	import SubTabs from '$lib/components/implement/SubTabs.svelte';
 	import Icon from '$lib/components/Icon.svelte';
@@ -22,9 +23,9 @@
 	const shownTemplate = $derived(m.implement_list_shown({ count: '{count}', total: '{total}' }));
 </script>
 
+<PageMeta title="{m.implement_list_title()} – {m.site_name()}" description={m.implement_list_intro()} />
+
 <svelte:head>
-	<title>{m.implement_list_title()} – {m.site_name()}</title>
-	<meta name="description" content={m.implement_list_intro()} />
 	<script type="module" src={scripts.implementations}></script>
 </svelte:head>
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from '$lib/components/PageMeta.svelte';
 	import Playground from '$lib/components/playground/Playground.svelte';
 	import PlaygroundNoScript from '$lib/components/playground/PlaygroundNoScript.svelte';
 	import { playgroundTexts } from '$lib/content/pages/playground';
@@ -11,9 +12,9 @@
 	const texts = playgroundTexts();
 </script>
 
+<PageMeta title="{m.playground_title()} – {m.site_name()}" description={m.playground_intro()} />
+
 <svelte:head>
-	<title>{m.playground_title()} – {m.site_name()}</title>
-	<meta name="description" content={m.playground_intro()} />
 	<script type="module" src={scripts.playground}></script>
 </svelte:head>
 

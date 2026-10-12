@@ -6,15 +6,20 @@
 	import Scenario from '$lib/components/home/Scenario.svelte';
 	import StartCards from '$lib/components/home/StartCards.svelte';
 	import ThreeDecisions from '$lib/components/home/ThreeDecisions.svelte';
-	import { pathIn } from '$lib/locale';
+	import PageMeta from '$lib/components/PageMeta.svelte';
+	import { pathIn, urlIn } from '$lib/locale';
+	import { jsonLdScript, websiteLd } from '$lib/seo';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages';
 
 	const locale = $derived(getLocale());
 </script>
 
+<PageMeta title="{m.site_name()} – {m.home_title()}" description={m.site_description()} />
+
 <svelte:head>
-	<title>{m.site_name()} – {m.home_title()}</title>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- JSON-LD from our own texts, "<" escaped -->
+	{@html jsonLdScript(websiteLd({ name: m.site_name(), description: m.site_description(), url: urlIn('/', locale), locale }))}
 </svelte:head>
 
 <section class="hero" aria-labelledby="home-title">

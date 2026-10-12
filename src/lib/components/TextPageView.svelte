@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from './PageMeta.svelte';
 	import type { Snippet } from 'svelte';
 	import Icon from './Icon.svelte';
 	import TextBlocks from './TextBlocks.svelte';
@@ -12,11 +13,7 @@
 	let { page, children, noindex = false }: { page: TextPage; children?: Snippet; noindex?: boolean } = $props();
 </script>
 
-<svelte:head>
-	<title>{t(page.title)} – {m.site_name()}</title>
-	<meta name="description" content={plain(t(page.intro))} />
-	{#if noindex}<meta name="robots" content="noindex" />{/if}
-</svelte:head>
+<PageMeta title="{t(page.title)} – {m.site_name()}" description={plain(t(page.intro))} {noindex} />
 
 <div class="wrap"><article class="text-page">
 	<header class="intro">

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from '../PageMeta.svelte';
 	import Icon from '../Icon.svelte';
 	import SpecBlocks from './SpecBlocks.svelte';
 	import SpecToc from './SpecToc.svelte';
@@ -8,6 +9,7 @@
 	import { m } from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { SITE_URL, SPEC_REPOSITORY } from '$lib/site';
+	import { jsonLdScript, specLd } from '$lib/seo';
 	import { formatDate } from '$lib/spec/date';
 	import type { LoadedSpec, SpecVersion } from '$lib/spec/types';
 
@@ -26,11 +28,14 @@
 	const first = $derived(spec.document.toc[0]);
 </script>
 
+<PageMeta title="{m.spec_page_title({ version: spec.tag })} – {m.site_name()}" description={m.spec_description({ version: spec.tag })} {noindex} />
+
 <svelte:head>
-	<title>{m.spec_page_title({ version: spec.tag })} – {m.site_name()}</title>
-	<meta name="description" content={m.spec_description({ version: spec.tag })} />
-	{#if noindex}<meta name="robots" content="noindex" />{/if}
 	<script type="module" src={scripts.spec}></script>
+	{#if !noindex}
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -- JSON-LD from our own texts, "<" escaped -->
+		{@html jsonLdScript(specLd({ title: `${m.spec_page_title({ version: spec.tag }, { locale: 'en' })} – ${m.site_name()}`, url: `${SITE_URL}${pathOf(current)}`, version: spec.tag, date: spec.date }))}
+	{/if}
 </svelte:head>
 
 <div class="reader">

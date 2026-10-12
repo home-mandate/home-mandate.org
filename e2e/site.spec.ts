@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
@@ -101,4 +102,17 @@ test('the theme switch stores only ms-theme, only after a choice, and system rem
 	await expect(page.locator('html')).not.toHaveAttribute('data-ms-theme', /.*/);
 	expect(await page.evaluate(() => localStorage.length + sessionStorage.length)).toBe(0);
 	expect(await context.cookies()).toEqual([]);
+});
+
+test('every page in the sitemap is served, and so are the share images', async ({ request }, info) => {
+	test.skip(info.project.name !== 'chromium', 'HTTP only, once is enough');
+	// scripts/sitemap.ts writes into build/ after vite build; vite preview does not serve that file.
+	const sitemap = readFileSync(new URL('../build/sitemap.xml', import.meta.url), 'utf8');
+	const urls = [...sitemap.matchAll(/<loc>https:\/\/home-mandate\.org(\/[^<]*)<\/loc>/g)].map((m) => m[1] ?? '');
+	expect(urls).toContain('/');
+	expect(urls).toContain('/de/faq/');
+	expect(urls).not.toContain('/contact/sent/');
+	for (const path of [...urls, '/og/en.png', '/og/de.png', '/robots.txt']) {
+		expect((await request.get(path)).status(), path).toBe(200);
+	}
 });

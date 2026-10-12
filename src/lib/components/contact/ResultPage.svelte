@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from '../PageMeta.svelte';
 	import Icon from '$lib/components/Icon.svelte';
 	import MailLink from './MailLink.svelte';
 	import { pathIn } from '$lib/locale';
@@ -21,10 +22,7 @@
 	const locale = $derived(getLocale());
 </script>
 
-<svelte:head>
-	<title>{title} – {m.site_name()}</title>
-	<meta name="robots" content="noindex" />
-</svelte:head>
+<PageMeta title="{title} – {m.site_name()}" noindex />
 
 <div class="wrap">
 	<div class="result">

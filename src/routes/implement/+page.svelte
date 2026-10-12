@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageMeta from '$lib/components/PageMeta.svelte';
 	import CommandLine from '$lib/components/implement/CommandLine.svelte';
 	import DownloadCard from '$lib/components/implement/DownloadCard.svelte';
 	import ModelBox from '$lib/components/implement/ModelBox.svelte';
@@ -41,10 +42,7 @@
 	const commands = conformanceCommands(spec.repository, tag);
 </script>
 
-<svelte:head>
-	<title>{m.implement_title()} – {m.site_name()}</title>
-	<meta name="description" content={m.implement_intro()} />
-</svelte:head>
+<PageMeta title="{m.implement_title()} – {m.site_name()}" description={m.implement_intro()} />
 
 <SubTabs current="implement" />
 

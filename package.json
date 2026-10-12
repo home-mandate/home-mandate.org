@@ -13,13 +13,14 @@
     "spec": "node scripts/import-spec.ts",
     "prepare-site": "pnpm languages && pnpm spec && svelte-kit sync && pnpm assets",
     "dev": "pnpm prepare-site && vite dev",
-    "build": "pnpm prepare-site && vite build && node scripts/check-build.ts",
+    "build": "pnpm prepare-site && vite build && node scripts/sitemap.ts && node scripts/check-build.ts",
     "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
     "lint": "pnpm prepare-site && svelte-kit sync && eslint .",
     "typecheck": "pnpm prepare-site && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "test": "pnpm prepare-site && vitest run --coverage",
     "e2e": "playwright test",
-    "assets": "node scripts/assets.ts"
+    "assets": "node scripts/assets.ts",
+    "og": "node scripts/og-images.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

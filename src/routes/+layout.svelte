@@ -9,6 +9,7 @@
 	import { language, languages, urlIn } from '$lib/locale';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages';
+	import { ogImage, ogLocale } from '$lib/seo';
 	import { TRANSLATING_URL } from '$lib/site';
 
 	let { children } = $props();
@@ -25,7 +26,6 @@
 	<!-- Theme before the first paint: a classic script, not deferred. -->
 	<script src={scripts.themeBoot}></script>
 	<script type="module" src={scripts.site}></script>
-	<meta name="description" content={m.site_description()} />
 	<link rel="icon" href="/favicon.ico" sizes="48x48" />
 	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 	<link rel="apple-touch-icon" href="/icons/icon-180.png" />
@@ -35,6 +35,19 @@
 			<link rel="alternate" hreflang={l.tag} href={urlIn(path, l.tag)} />
 		{/each}
 		<link rel="alternate" hreflang="x-default" href={urlIn(path, 'en')} />
+		<!-- Link previews; title and description come from each page (PageMeta). -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={m.site_name()} />
+		<meta property="og:url" content={urlIn(path, locale)} />
+		<meta property="og:locale" content={ogLocale(locale)} />
+		{#each languages.filter((l) => l.tag !== locale) as l (l.tag)}
+			<meta property="og:locale:alternate" content={ogLocale(l.tag)} />
+		{/each}
+		<meta property="og:image" content={ogImage(locale)} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content={m.site_description()} />
+		<meta name="twitter:card" content="summary_large_image" />
 	{/if}
 </svelte:head>
 
