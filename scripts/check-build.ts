@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { checkHtml, checkProvenance, checkSecurityTxt, checkSeo } from './lib/build-check.ts';
-import { checkRobots } from './lib/sitemap.ts';
+import { checkIndexNowKey, checkRobots } from './lib/sitemap.ts';
 import { sha256 } from './lib/spec.ts';
 
 const ROOT = new URL('..', import.meta.url).pathname;
@@ -47,6 +47,8 @@ need('sitemap.xml');
 need('llms.txt');
 for (const tag of ['en', 'de']) need(`og/${tag}.png`);
 problems.push(...checkRobots(readFileSync(join(BUILD, 'robots.txt'), 'utf8')));
+need('indexnow.txt');
+problems.push(...checkIndexNowKey(readFileSync(join(BUILD, 'indexnow.txt'), 'utf8')));
 need('.well-known/security.txt');
 problems.push(...checkSecurityTxt(readFileSync(join(BUILD, '.well-known', 'security.txt'), 'utf8'), new Date()));
 

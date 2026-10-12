@@ -92,3 +92,8 @@ export function checkRobots(text: string): string[] {
 	if (/^Disallow:\s*\/\s*$/m.test(text)) problems.push('robots.txt: Disallow: / shuts crawlers out of the whole site');
 	return problems;
 }
+
+/** indexnow.txt holds the public IndexNow key (indexnow.org): 8-128 of a-z, A-Z, 0-9 and "-". */
+export function checkIndexNowKey(text: string): string[] {
+	return /^[A-Za-z0-9-]{8,128}$/.test(text.trim()) ? [] : ['indexnow.txt: not a valid IndexNow key (8-128 letters, digits, "-")'];
+}

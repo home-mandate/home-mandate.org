@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkRobots, llmsTxt, pageInfo, sitemapXml, type PageInfo } from '../scripts/lib/sitemap.ts';
+import { checkIndexNowKey, checkRobots, llmsTxt, pageInfo, sitemapXml, type PageInfo } from '../scripts/lib/sitemap.ts';
 
 const head = (inner: string) => `<!doctype html><html lang="en"><head>${inner}</head><body></body></html>`;
 const imprint = head(
@@ -106,5 +106,14 @@ describe('checkRobots', () => {
 
 	it('must not shut out any crawler from the whole site', () => {
 		expect(checkRobots('User-agent: *\nDisallow: /\nSitemap: https://home-mandate.org/sitemap.xml\n').join()).toMatch(/Disallow: \//);
+	});
+});
+
+describe('checkIndexNowKey', () => {
+	it('accepts a key of 8 to 128 letters, digits and dashes', () => {
+		expect(checkIndexNowKey('0123456789abcdef0123456789abcdef\n')).toEqual([]);
+	});
+	it.each(['', 'short', 'with space inside', 'ü'.repeat(10), 'a'.repeat(129)])('rejects %j', (key) => {
+		expect(checkIndexNowKey(key).join()).toMatch(/indexnow\.txt/);
 	});
 });
