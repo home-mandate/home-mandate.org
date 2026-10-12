@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkHtml, checkProvenance, isFormPage } from '../scripts/lib/build-check.ts';
+import { checkHtml, checkProvenance, checkSeo, isFormPage } from '../scripts/lib/build-check.ts';
 
 const csp = '<meta http-equiv="content-security-policy" content="default-src \'none\'; script-src \'self\'">';
 const page = (head: string, body = '') => `<!doctype html><html lang="en"><head>${csp}${head}</head><body>${body}</body></html>`;
@@ -61,6 +61,58 @@ describe('checkHtml', () => {
 	});
 	it('rejects canonical links to other domains', () => {
 		expect(checkHtml(page('<link rel="canonical" href="https://evil.example/">')).join()).toMatch(/external/);
+	});
+	describe('structured data', () => {
+		it('allows JSON-LD with valid JSON', () => {
+			expect(checkHtml(page('<script type="application/ld+json">{"@type":"WebSite"}</script>'))).toEqual([]);
+		});
+		it('rejects JSON-LD that is not valid JSON', () => {
+			expect(checkHtml(page('<script type="application/ld+json">{"@type":</script>')).join()).toMatch(/JSON-LD/);
+		});
+		it('still rejects other inline scripts', () => {
+			expect(checkHtml(page('<script type="module">alert(1)</script>')).join()).toMatch(/inline script/);
+			expect(checkHtml(page('<script type="application/ld+json">{}</script><script>alert(1)</script>')).join()).toMatch(/inline script/);
+		});
+	});
+});
+
+describe('checkSeo', () => {
+	const seo =
+		'<title>Imprint – Home-Mandate</title>' +
+		'<meta name="description" content="Who runs the site."/>' +
+		'<link rel="canonical" href="https://home-mandate.org/imprint/"/>' +
+		'<meta property="og:title" content="Imprint"/>' +
+		'<meta property="og:description" content="Who runs the site."/>' +
+		'<meta property="og:url" content="https://home-mandate.org/imprint/"/>' +
+		'<meta property="og:image" content="https://home-mandate.org/og/en.png"/>';
+
+	it('accepts an indexable page with title, one description, canonical and Open Graph', () => {
+		expect(checkSeo(page(seo))).toEqual([]);
+	});
+	it('rejects two descriptions', () => {
+		expect(checkSeo(page(`${seo}<meta name="description" content="again"/>`)).join()).toMatch(/2 meta descriptions/);
+	});
+	it.each([
+		['<title>', /<title>/],
+		['name="description"', /meta description/],
+		['rel="canonical"', /canonical/],
+		['og:title', /og:title/],
+		['og:image', /og:image/]
+	])('requires %s on an indexable page', (needle, message) => {
+		const without = seo
+			.split(/(?=<)/)
+			.filter((tag) => !tag.includes(needle))
+			.join('');
+		expect(checkSeo(page(without)).join()).toMatch(message);
+	});
+	it('requires og:url to equal the canonical address', () => {
+		const moved = seo.replace('og:url" content="https://home-mandate.org/imprint/', 'og:url" content="https://home-mandate.org/x/');
+		expect(checkSeo(page(moved)).join()).toMatch(/og:url/);
+	});
+	it('asks nothing of noindex pages except at most one description', () => {
+		expect(checkSeo(page('<meta name="robots" content="noindex"/>'))).toEqual([]);
+		const twice = '<meta name="robots" content="noindex"/><meta name="description" content="a"/><meta name="description" content="b"/>';
+		expect(checkSeo(page(twice)).join()).toMatch(/2 meta descriptions/);
 	});
 });
 
