@@ -184,7 +184,7 @@
    "h3": "Server-Log-Dateien"
   },
   {
-   "p": "Unser Webserver protokolliert erfolgreiche Seitenaufrufe ohne personenbezogene Daten: Zeitpunkt, aufgerufene Adresse, Methode, Statuscode, Größe und Dauer der Antwort, außerdem nur die Domain der Seite, von der Sie kamen (zum Beispiel „reddit.com“, nicht die vollständige Adresse), ein Kampagnenkennzeichen, falls der Link eines enthält (zum Beispiel „?ref=forum“), und eine grobe Einordnung des abrufenden Programms als Browser, automatisierter Abruf (Bot) oder Sonstiges. Ihre IP-Adresse, die vollständige Browserkennung (User-Agent) und die vollständige Herkunftsadresse werden nicht gespeichert. Diese Protokolle werden nach 30 Tagen automatisch gelöscht. Nur bei fehlerhaften Anfragen (zum Beispiel einer nicht vorhandenen Seite) speichert der vorgelagerte Server zusätzlich:"
+   "p": "Unser Webserver protokolliert erfolgreiche Seitenaufrufe ohne personenbezogene Daten: Zeitpunkt, aufgerufene Adresse, Methode, Statuscode, Größe und Dauer der Antwort, außerdem nur die Domain der Seite, von der Sie kamen (zum Beispiel „reddit.com“, nicht die vollständige Adresse), ein Kampagnenkennzeichen, falls der Link eines enthält (zum Beispiel „?ref=forum“), und eine grobe Einordnung des abrufenden Programms als Browser, automatisierter Abruf (Bot) oder Sonstiges. Ihre IP-Adresse, die vollständige Browserkennung (User-Agent) und die vollständige Herkunftsadresse werden nicht gespeichert. Diese Protokolle werden spätestens nach 14 Tagen automatisch gelöscht. Nur bei fehlerhaften Anfragen (zum Beispiel einer nicht vorhandenen Seite) speichert der vorgelagerte Server zusätzlich:"
   },
   {
    "ul": [
