@@ -1,6 +1,6 @@
 {
  "title": "Privacy policy",
- "intro": "How we handle your data. As of 7 October 2026.",
+ "intro": "How we handle your data. As of 12 October 2026.",
  "blocks": [
   {
    "callout": "info",
@@ -189,7 +189,7 @@
    "h3": "Server log files"
   },
   {
-   "p": "Our web server logs successful page requests without personal data: only the time, the requested address, method, status code, size and duration of the response – without IP address, browser details or referrer. Only for failed requests (for example a page that does not exist) does the upstream server additionally store:"
+   "p": "Our web server logs successful page requests without personal data: the time, the requested address, method, status code, size and duration of the response, and in addition only the domain of the page you came from (for example “reddit.com”, not the full address), a campaign tag if the link contains one (for example “?ref=forum”), and a rough classification of the requesting program as a browser, an automated request (bot) or other. Your IP address, the full browser identification (user agent) and the full referring address are not stored. These logs are deleted automatically after 30 days. Only for failed requests (for example a page that does not exist) does the upstream server additionally store:"
   },
   {
    "ul": [
@@ -200,7 +200,10 @@
    ]
   },
   {
-   "p": "These error logs are deleted automatically after 14 days. Browser type, operating system and referrer are not logged."
+   "p": "These error logs are deleted automatically after 14 days. Browser type, operating system and referrer are not logged for them."
+  },
+  {
+   "p": "From the logs of successful page requests we count how often each page was requested, through which domains and campaign tags visitors arrived, and how many requests came from bots. The counts contain no details of individual visits or persons; they are evaluated on our own server and not passed on to third parties. No cookies are set and no scripts for audience measurement are loaded."
   },
   {
    "p": "This data is not merged with other data sources."
