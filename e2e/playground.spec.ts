@@ -117,6 +117,24 @@ test.describe('desktop', () => {
 		await expect(result(page).locator('.pg-verdict')).toContainText('allow');
 	});
 
+	test('a temperature in °F carries only temperature_f, which a limit in °C does not match', async ({ page }) => {
+		const unit = page.locator('#pg-req-unit');
+		await expect(page.locator('#pg-req-unit-field')).toBeHidden();
+		await page.locator('#pg-req-category').selectOption('climate');
+		await page.locator('#pg-req-action').selectOption('set_temperature');
+		await expect(page.locator('#pg-req-unit-field')).toBeVisible();
+		await expect(unit.locator('option')).toHaveText(['°C', '°F']);
+		await page.locator('[data-focus="2:temperature:max"]').fill('22.5');
+		await expect(result(page).locator('.pg-verdict')).toContainText('allow');
+		await unit.selectOption('temperature_f');
+		await expect(page.locator('#pg-req-value-label')).toHaveText('temperature in °F');
+		await expect(page.locator('#pg-req-value')).toHaveValue('70');
+		await expect(result(page).locator('.pg-verdict')).toContainText('deny');
+		await unit.selectOption('temperature');
+		await expect(page.locator('#pg-req-value')).toHaveValue('21');
+		await expect(result(page).locator('.pg-verdict')).toContainText('allow');
+	});
+
 	test('time windows use the household time zone', async ({ page }) => {
 		await page.locator('input[name="pg-example"][value="energy"]').check({ force: true });
 		await page.locator('#pg-req-category').selectOption('other');

@@ -3,6 +3,7 @@
 // so no HTML string is ever produced or inserted. Raw HTML blocks (such as the
 // SPDX comment at the top of SPEC-v0.md) are dropped.
 import { Lexer, type Token, type Tokens } from 'marked';
+import { diagramFor } from './diagrams';
 import { convertInline, plainText } from './inline';
 import { createSlugger } from './slug';
 import type { Align, Block, Inline, LinkContext, SpecDocument, TocEntry } from './types';
@@ -64,8 +65,12 @@ function convertBlock(token: Tokens.Generic, ctx: LinkContext, slug: (text: stri
 		}
 		case 'table':
 			return table(token as Tokens.Table, ctx);
-		case 'code':
-			return { type: 'code', lang: (token.lang as string | undefined)?.split(/\s/)[0] ?? '', text: token.text };
+		case 'code': {
+			const lang = (token.lang as string | undefined)?.split(/\s/)[0] ?? '';
+			// The site draws Mermaid diagrams itself and refuses ones it does not know.
+			if (lang === 'mermaid') return { type: 'diagram', id: diagramFor(token.text) };
+			return { type: 'code', lang, text: token.text };
+		}
 		case 'blockquote':
 			return { type: 'blockquote', blocks: convertBlocks(token.tokens ?? [], ctx, slug) };
 		case 'hr':

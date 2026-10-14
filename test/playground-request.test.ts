@@ -3,6 +3,7 @@ import { evaluate, parseMandate } from '../src/lib/playground/engine.ts';
 import { computeMatrix, moveInMatrix } from '../src/client/playground/matrix.ts';
 import {
 	buildRequest,
+	chosenParameter,
 	defaultParameter,
 	localTimestamp,
 	offsetAt,
@@ -71,6 +72,26 @@ describe('buildRequest', () => {
 		expect(buildRequest({ ...input, category: 'acme:robot', action: 'go' }).parameters).toBeUndefined();
 		expect(defaultParameter('cover', 'set_position', 'position')).toBe(50);
 	});
+	it('carries exactly one parameter of a quantity that has one per unit (section 4.5)', () => {
+		const climate = { ...input, category: 'climate', action: 'set_temperature', parameters: { temperature: 2200, temperature_f: 7200 } };
+		expect(buildRequest(climate).parameters).toEqual({ temperature: 2200 });
+		expect(buildRequest({ ...climate, parameter: 'temperature_f' }).parameters).toEqual({ temperature_f: 7200 });
+		expect(buildRequest({ ...climate, parameter: 'brightness' }).parameters).toEqual({ temperature: 2200 });
+		expect(buildRequest({ ...input, category: 'light', action: 'set', parameter: 'temperature_f' }).parameters).toEqual({ brightness: 50 });
+	});
+	it('starts a temperature at room temperature in its unit', () => {
+		expect(defaultParameter('climate', 'set_temperature', 'temperature')).toBe(2100);
+		expect(defaultParameter('climate', 'set_temperature', 'temperature_f')).toBe(7000);
+	});
+	it('chooses the parameter of the request', () => {
+		expect(chosenParameter('climate', 'set_temperature')?.name).toBe('temperature');
+		expect(chosenParameter('climate', 'set_temperature', 'temperature_f')?.name).toBe('temperature_f');
+		expect(chosenParameter('lock', 'unlock', 'temperature_f')).toBeUndefined();
+	});
+	it('only set_temperature has several parameters, one per unit', () => {
+		const several = CATEGORIES.flatMap((c) => actionsOf(c).filter((a) => parametersOf(c, a).length > 1).map((a) => `${c}.${a}`));
+		expect(several).toEqual(['climate.set_temperature']);
+	});
 });
 
 describe('units', () => {
@@ -102,7 +123,10 @@ describe('vocabulary helpers', () => {
 		expect(actionsOf(undefined)).toBe(ACTIONS);
 	});
 	it('knows parameters and their scale', () => {
-		expect(parametersOf('climate', 'set_temperature')).toEqual([{ name: 'temperature', unit: 'degree Celsius', scale: 100 }]);
+		expect(parametersOf('climate', 'set_temperature')).toEqual([
+			{ name: 'temperature', unit: 'degree Celsius', scale: 100 },
+			{ name: 'temperature_f', unit: 'degree Fahrenheit', scale: 100 }
+		]);
 		expect(parametersOf(undefined, 'set')).toEqual([{ name: 'brightness', unit: 'percent', scale: 1, minimum: 0, maximum: 100 }]);
 		expect(commonParameters('light', ['set', 'read'])).toEqual([]);
 		expect(commonParameters('light', ['*'])).toEqual([]);

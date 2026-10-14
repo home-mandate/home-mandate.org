@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PageMeta from '$lib/components/PageMeta.svelte';
+	import OverviewDiagram from '$lib/components/diagrams/OverviewDiagram.svelte';
 	import CommandLine from '$lib/components/implement/CommandLine.svelte';
 	import DownloadCard from '$lib/components/implement/DownloadCard.svelte';
 	import ModelBox from '$lib/components/implement/ModelBox.svelte';
@@ -51,6 +52,17 @@
 		<h1>{m.implement_title()}</h1>
 		<p class="lead">{m.implement_intro()}</p>
 	</header>
+
+	<section class="overview" aria-labelledby="overview">
+		<div class="text">
+			<h2 id="overview">{m.implement_overview_title()}</h2>
+			<p class="muted">{m.implement_overview_body()}</p>
+			{#if data.overviewAnchor}
+				<a class="text-link" href={`${pathIn('/spec/v0/', locale)}#${data.overviewAnchor}`}>{m.implement_overview_link()} <span aria-hidden="true">→</span></a>
+			{/if}
+		</div>
+		<OverviewDiagram />
+	</section>
 
 	<section class="split model" aria-labelledby="model">
 		<div class="text">
@@ -154,6 +166,15 @@
 	.text .text-link {
 		align-self: flex-start;
 		min-block-size: 44px;
+	}
+	.overview {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		padding-block-end: clamp(32px, 4.5vw, 64px);
+	}
+	.overview .text p {
+		max-inline-size: 44em;
 	}
 	.model {
 		padding-block-end: clamp(32px, 4.5vw, 64px);

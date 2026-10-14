@@ -18,6 +18,9 @@ export interface ListItem {
 
 export type Align = 'left' | 'center' | 'right' | null;
 
+/** A Mermaid diagram of the specification that the site draws itself (src/lib/spec/diagrams.ts). */
+export type DiagramId = 'overview';
+
 export type Block =
 	| { type: 'heading'; depth: number; id: string; number: string; title: Inline[]; text: string }
 	/** tight: a list item's text without its own paragraph. */
@@ -25,6 +28,7 @@ export type Block =
 	| { type: 'list'; ordered: boolean; start: number; items: ListItem[] }
 	| { type: 'table'; align: Align[]; header: Inline[][]; rows: Inline[][][] }
 	| { type: 'code'; lang: string; text: string }
+	| { type: 'diagram'; id: DiagramId }
 	| { type: 'blockquote'; blocks: Block[] }
 	| { type: 'hr' };
 

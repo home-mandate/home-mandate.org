@@ -28,7 +28,7 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['guard', 'integration'],
 		language: 'Go',
 		license: 'AGPL-3.0-or-later',
-		spec: 'v0.1.0-alpha.4',
+		spec: 'v0.1.0-rc.1',
 		classes: ['evaluator', 'selection', 'audit', 'audit-anchored', 'pdp']
 	},
 	{
@@ -38,7 +38,7 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library', 'tool'],
 		language: 'Go',
 		license: 'Apache-2.0',
-		spec: 'v0.1.0-alpha.4',
+		spec: 'v0.1.0-rc.2',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored']
 	},
 	{
@@ -48,7 +48,7 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library'],
 		language: 'TypeScript',
 		license: 'Apache-2.0',
-		spec: 'v0.1.0-alpha.4',
+		spec: 'v0.1.0-rc.1',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored']
 	}
 ];

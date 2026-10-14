@@ -1,0 +1,17 @@
+flowchart LR
+  A["Agent<br/>(an assistant, a script, …)"]
+  H["Human<br/>(the household)"]
+  subgraph IMPL["Implementation"]
+    PEP["PEP<br/>receives requests,<br/>enforces decisions"]
+    PDP["PDP<br/>evaluation rule"]
+    LOG[("Audit log")]
+  end
+  SH["Smart-home platform<br/>(e.g. Home Assistant, Matter)"]
+
+  A -. "request: resource + action<br/>e.g. MCP over HTTPS, OAuth 2.1" .-> PEP
+  PEP -- "AuthZEN request (Section 6)" --> PDP
+  PDP -- "allow / ask / deny" --> PEP
+  PEP -- "entries (Section 9)" --> LOG
+  PEP -. "on ask: approval (Section 11.1)" .-> H
+  H -. "sets the mandate (Section 3)" .-> IMPL
+  PEP -. "command, e.g. platform API" .-> SH

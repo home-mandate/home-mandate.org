@@ -166,6 +166,10 @@ function wireRequestForm(pg: Playground): void {
 		syncValue(form, texts, locale, pg.state.values);
 		evaluateNow();
 	});
+	form.unit.addEventListener('change', () => {
+		syncValue(form, texts, locale, pg.state.values);
+		evaluateNow();
+	});
 	form.value.addEventListener('input', () => {
 		pg.state = { ...pg.state, values: readValue(form, pg.state.values) };
 		evaluateNow();

@@ -7,6 +7,9 @@ import { join } from 'node:path';
 import { CASE_FILES, caseCounts, type CaseFiles } from './conformance';
 import { dataModel, type DataModel } from './model';
 import { DOWNLOADS, type Download } from './downloads';
+import { spec } from '../generated/spec';
+import { parseSpec } from '../spec/markdown';
+import type { LinkContext } from '../spec/types';
 
 export interface ImplementData {
 	model: DataModel;
@@ -14,10 +17,17 @@ export interface ImplementData {
 	downloads: Download[];
 	/** Number of device categories in the vocabulary. */
 	categories: number;
+	/** Anchor of section 1.1 (overview) in the imported release, or null if it has none. */
+	overviewAnchor: string | null;
 }
 
 function json(path: string): Record<string, unknown> {
 	return JSON.parse(readFileSync(path, 'utf8')) as Record<string, unknown>;
+}
+
+/** Anchor of section 1.1 of the specification text, or null for a release without it. */
+export function overviewAnchor(markdown: string, ctx: LinkContext): string | null {
+	return parseSpec(markdown, ctx).toc.find((entry) => entry.number === '1.1')?.id ?? null;
 }
 
 /**
@@ -42,6 +52,7 @@ export function implementData(root: string, tag: string): ImplementData {
 		model: dataModel(json(join(served, 'mandate', 'v0', 'mandate.schema.json'))),
 		counts: caseCounts(files),
 		downloads,
-		categories: Object.keys(categories).length
+		categories: Object.keys(categories).length,
+		overviewAnchor: overviewAnchor(readFileSync(join(release, 'SPEC-v0.md'), 'utf8'), { repository: spec.repository, tag, file: 'SPEC-v0.md' })
 	};
 }
