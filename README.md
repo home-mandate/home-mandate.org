@@ -21,7 +21,7 @@ only explains it and serves its published files.
 | `scripts/og-images.ts` | Renders the share images `static/og/<tag>.png` (`pnpm og`, rerun after changing the home title) |
 | `static/` | Files served as they are (`robots.txt`, `.well-known/security.txt`, `og/`, `indexnow.txt` – the public IndexNow key; the server reports new pages to Bing and others after each deploy) |
 | `Dockerfile` | The published image: `build/` on `nginx-unprivileged` |
-| `.github/workflows/` | `ci.yml` checks every branch and pull request; `deploy.yml` publishes after a merge to `main` |
+| `.github/workflows/` | `ci.yml` checks every branch push (lint, types, tests); `integration.yml` every pull request (build, E2E, image); `deploy.yml` publishes after a merge to `main` |
 
 ## Develop
 
