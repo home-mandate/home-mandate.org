@@ -1,6 +1,7 @@
 // Implementations listed on /implementations/ and the home page. Additions come
-// as pull requests. Conformance counts as "passed" only with a link to a
-// published conformance run; otherwise it is what the project itself declares.
+// as pull requests. A conformance class counts as "passed" only if a pinned report
+// of mandate-conformance shows it (checked at build time by
+// scripts/import-conformance.ts); otherwise it is what the project itself declares.
 
 export type ImplementationKind = 'guard' | 'integration' | 'library' | 'tool';
 export type ConformanceClass = 'evaluator' | 'selection' | 'signatures' | 'audit' | 'audit-anchored' | 'pdp';
@@ -16,8 +17,15 @@ export interface Implementation {
 	/** Version of the specification it implements. */
 	spec: string;
 	classes: ConformanceClass[];
-	/** Link to a published conformance run; without it the classes are "declared". */
-	conformanceRun?: string;
+	/** Published reports of mandate-conformance; without them the classes are "declared". */
+	conformance?: ConformanceEvidence;
+}
+
+export interface ConformanceEvidence {
+	/** Where the run is published, e.g. the release the reports are attached to. */
+	run: string;
+	/** The report files under `url` (https) with their SHA-256; they must have run the cases of `spec`. */
+	reports: { url: string; sha256: string }[];
 }
 
 export const IMPLEMENTATIONS: Implementation[] = [

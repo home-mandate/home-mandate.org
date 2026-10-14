@@ -7,6 +7,7 @@
 	import { IMPLEMENTATIONS, type ImplementationKind } from '$lib/content/implementations';
 	import { scripts } from '$lib/generated/client';
 	import { KIND_FILTERS, kindCounts, kindsAttribute, type KindFilter } from '$lib/implement/list';
+	import { conformanceRun, isPassed, VERIFIED } from '$lib/implement/verified';
 	import { m } from '$lib/paraglide/messages';
 	import { IMPLEMENTATIONS_FILE_URL } from '$lib/site';
 
@@ -19,6 +20,7 @@
 	};
 	const counts = kindCounts(IMPLEMENTATIONS);
 	const kinds = (list: ImplementationKind[]): string => list.map((k) => KIND_LABEL[k]()).join(', ');
+	const run = (name: string): string | undefined => conformanceRun(VERIFIED, name);
 	// The browser script fills in the numbers.
 	const shownTemplate = $derived(m.implement_list_shown({ count: '{count}', total: '{total}' }));
 </script>
@@ -80,9 +82,9 @@
 						<td class="mono small">{impl.spec}</td>
 						<td>
 							<span class="badges">
-								{#each impl.classes as c (c)}<ClassBadge id={c} passed={impl.conformanceRun !== undefined} />{/each}
+								{#each impl.classes as c (c)}<ClassBadge id={c} passed={isPassed(VERIFIED, impl.name, c)} />{/each}
 							</span>
-							{#if impl.conformanceRun}<a class="run" href={impl.conformanceRun}>{m.implement_list_run()}</a>{/if}
+							{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}</a>{/if}
 						</td>
 						<td>
 							<a class="open" href={impl.url}>
@@ -113,9 +115,9 @@
 				<span class="origin">{impl.origin}</span>
 				<span class="facts">{kinds(impl.kinds)} · {impl.language} · {impl.license} · {impl.spec}</span>
 				<span class="badges">
-					{#each impl.classes as c (c)}<ClassBadge id={c} passed={impl.conformanceRun !== undefined} small />{/each}
+					{#each impl.classes as c (c)}<ClassBadge id={c} passed={isPassed(VERIFIED, impl.name, c)} small />{/each}
 				</span>
-				{#if impl.conformanceRun}<a class="run" href={impl.conformanceRun}>{m.implement_list_run()}</a>{/if}
+				{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}</a>{/if}
 			</li>
 		{/each}
 		<li class="card empty" data-empty hidden>{m.implement_list_empty()}</li>
