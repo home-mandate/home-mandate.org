@@ -106,21 +106,29 @@ describe('implementationRows', () => {
 	});
 
 	it('lists at most three implementations', () => {
-		const rows = implementationRows([impl('a'), impl('b'), impl('c'), impl('d')]);
+		const rows = implementationRows([impl('a'), impl('b'), impl('c'), impl('d')], {});
 		expect(rows.map((r) => r.name)).toEqual(['a', 'b', 'c']);
 	});
 
 	it('joins language, license and spec version', () => {
-		expect(implementationRows([impl('a')])[0]?.meta).toBe('Go · Apache-2.0 · v0.2.0-alpha.4');
+		expect(implementationRows([impl('a')], {})[0]?.meta).toBe('Go · Apache-2.0 · v0.2.0-alpha.4');
 	});
 
-	it('counts as passed only with a conformance run link', () => {
-		const rows = implementationRows([impl('a'), impl('b', { conformanceRun: '' }), impl('c', { conformanceRun: 'https://ci/run/1' })]);
-		expect(rows.map((r) => r.passed)).toEqual([false, false, true]);
+	it('counts as passed only if a checked report backs every declared class', () => {
+		const verified = {
+			b: { run: 'https://r/b', classes: { evaluator: { cases: 3, passed: 3 } } },
+			c: { run: 'https://r/c', classes: { evaluator: { cases: 3, passed: 3 } } }
+		};
+		const rows = implementationRows([impl('a'), impl('b'), impl('c', { classes: ['evaluator', 'pdp'] })], verified);
+		expect(rows.map((r) => r.passed)).toEqual([false, true, false]);
+	});
+
+	it('does not count an entry without classes as passed', () => {
+		expect(implementationRows([impl('a', { classes: [] })], {})[0]?.passed).toBe(false);
 	});
 
 	it('shows the declared classes of the real list', () => {
-		const rows = implementationRows(IMPLEMENTATIONS);
+		const rows = implementationRows(IMPLEMENTATIONS, {});
 		expect(rows.length).toBe(Math.min(3, IMPLEMENTATIONS.length));
 		expect(rows[0]?.classes).toEqual(IMPLEMENTATIONS[0]?.classes);
 	});

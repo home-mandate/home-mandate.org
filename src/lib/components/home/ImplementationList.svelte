@@ -2,14 +2,15 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import { implementationRows } from '$lib/content/home';
 	import { IMPLEMENTATIONS, type ImplementationKind } from '$lib/content/implementations';
+	import { VERIFIED } from '$lib/implement/verified';
 	import { pathIn } from '$lib/locale';
 	import { getLocale } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages';
 	import { IMPLEMENTATIONS_FILE_URL } from '$lib/site';
 
 	// The first implementations of the list; conformance classes count as
-	// "passed" only with a published conformance run, otherwise as declared.
-	const rows = implementationRows(IMPLEMENTATIONS);
+	// "passed" only if a checked conformance report backs them, otherwise as declared.
+	const rows = implementationRows(IMPLEMENTATIONS, VERIFIED);
 	const kindNames: Record<ImplementationKind, () => string> = {
 		guard: m.home_impl_kind_guard,
 		integration: m.home_impl_kind_integration,

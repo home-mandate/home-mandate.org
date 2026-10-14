@@ -3,6 +3,7 @@
 // from the mandate and cannot drift from it (test/home.test.ts checks the
 // mandate against the vocabulary of the specification).
 import type { IconName } from '$lib/icons';
+import { isPassed, type VerifiedList } from '$lib/implement/verified';
 import type { Implementation, ImplementationKind } from './implementations';
 import type { K, Tone } from './types';
 
@@ -90,18 +91,18 @@ export interface ImplementationRow {
 	kinds: ImplementationKind[];
 	meta: string;
 	classes: string[];
-	/** True only with a link to a published conformance run. */
+	/** True only if a checked conformance report backs every declared class. */
 	passed: boolean;
 }
 
 /** The first implementations, shaped for the table on the home page. */
-export function implementationRows(list: readonly Implementation[], max = HOME_IMPLEMENTATIONS): ImplementationRow[] {
+export function implementationRows(list: readonly Implementation[], verified: VerifiedList, max = HOME_IMPLEMENTATIONS): ImplementationRow[] {
 	return list.slice(0, max).map((impl) => ({
 		name: impl.name,
 		url: impl.url,
 		kinds: impl.kinds,
 		meta: [impl.language, impl.license, impl.spec].join(' · '),
 		classes: impl.classes,
-		passed: typeof impl.conformanceRun === 'string' && impl.conformanceRun !== ''
+		passed: impl.classes.length > 0 && impl.classes.every((cls) => isPassed(verified, impl.name, cls))
 	}));
 }

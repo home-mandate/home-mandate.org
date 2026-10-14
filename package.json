@@ -11,7 +11,8 @@
   "scripts": {
     "languages": "node scripts/languages.ts",
     "spec": "node scripts/import-spec.ts",
-    "prepare-site": "pnpm languages && pnpm spec && svelte-kit sync && pnpm assets",
+    "conformance": "node scripts/import-conformance.ts",
+    "prepare-site": "pnpm languages && pnpm spec && pnpm conformance && svelte-kit sync && pnpm assets",
     "dev": "pnpm prepare-site && vite dev",
     "build": "pnpm prepare-site && vite build && node scripts/sitemap.ts && node scripts/check-build.ts",
     "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
