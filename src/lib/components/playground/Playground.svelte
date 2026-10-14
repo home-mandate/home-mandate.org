@@ -105,6 +105,9 @@
 					<label class="pg-field"><span>{m.playground_req_time()}</span>
 						<input id="pg-req-time" type="time" step="60" value={DEFAULT.time} required />
 					</label>
+					<label class="pg-field pg-wide" id="pg-req-unit-field" hidden><span>{m.playground_req_unit()}</span>
+						<select id="pg-req-unit"></select>
+					</label>
 					<div class="pg-field pg-wide" id="pg-req-value-field" hidden>
 						<label for="pg-req-value" id="pg-req-value-label">{m.playground_req_value()}</label>
 						<input id="pg-req-value" type="text" inputmode="decimal" autocomplete="off" />

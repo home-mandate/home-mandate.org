@@ -26,7 +26,8 @@ export function parameterLabel(texts: Texts, name: string): string {
 const UNIT_KEYS: Record<string, string> = {
 	percent: 'unit_percent',
 	'percent open': 'unit_percent_open',
-	'degree Celsius': 'unit_celsius'
+	'degree Celsius': 'unit_celsius',
+	'degree Fahrenheit': 'unit_fahrenheit'
 };
 
 export function unitLabel(texts: Texts, parameter: Pick<ParameterInfo, 'unit'>): string {

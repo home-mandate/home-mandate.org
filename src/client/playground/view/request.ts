@@ -1,6 +1,6 @@
 // Step 3: the request form. The page renders it; this reads it and keeps the action
 // list and the value field in line with the chosen device category.
-import { DAYS, defaultEntityId, defaultParameter, type RequestInput } from '../../../lib/playground/request.ts';
+import { chosenParameter, DAYS, defaultEntityId, defaultParameter, type RequestInput } from '../../../lib/playground/request.ts';
 import { actionLabel, parameterLabel, tx, unitLabel, type Texts } from '../../../lib/playground/texts.ts';
 import { decimalPlaces, formatUnit, toUnit } from '../../../lib/playground/units.ts';
 import { actionsOf, parametersOf } from '../../../lib/playground/vocab.ts';
@@ -12,6 +12,9 @@ export interface RequestForm {
 	action: HTMLSelectElement;
 	day: HTMLSelectElement;
 	time: HTMLInputElement;
+	/** Shown when the action has a parameter per unit (temperature in °C or °F). */
+	unitField: HTMLElement;
+	unit: HTMLSelectElement;
 	valueField: HTMLElement;
 	valueLabel: HTMLElement;
 	value: HTMLInputElement;
@@ -29,6 +32,8 @@ export function findForm(): RequestForm {
 		action: required('#pg-req-action'),
 		day: required('#pg-req-day'),
 		time: required('#pg-req-time'),
+		unitField: required('#pg-req-unit-field'),
+		unit: required('#pg-req-unit'),
 		valueField: required('#pg-req-value-field'),
 		valueLabel: required('#pg-req-value-label'),
 		value: required('#pg-req-value'),
@@ -40,9 +45,18 @@ export function findForm(): RequestForm {
 	};
 }
 
-/** The parameter of the chosen action (the vocabulary has at most one per action). */
+/** The parameter the request carries: the chosen unit's, or the action's only one. */
 function parameter(form: RequestForm) {
-	return parametersOf(form.category.value, form.action.value)[0];
+	return chosenParameter(form.category.value, form.action.value, form.unit.value);
+}
+
+/** Offers the units of the action's parameters; hidden when it has fewer than two. */
+function syncUnit(form: RequestForm, texts: Texts): void {
+	const params = parametersOf(form.category.value, form.action.value);
+	const current = form.unit.value;
+	form.unitField.hidden = params.length < 2;
+	form.unit.replaceChildren(...params.map((p) => h('option', { value: p.name, selected: p.name === current }, unitLabel(texts, p))));
+	if (!params.some((p) => p.name === current)) form.unit.value = params[0]?.name ?? '';
 }
 
 /** Sets the form to a category and action (from the overview) and updates dependent fields. */
@@ -63,6 +77,7 @@ export function syncCategory(form: RequestForm, texts: Texts, locale: string, ac
 }
 
 export function syncValue(form: RequestForm, texts: Texts, locale: string, values: Record<string, number>): void {
+	syncUnit(form, texts);
 	const p = parameter(form);
 	form.valueField.hidden = p === undefined;
 	if (!p) return;
@@ -95,6 +110,7 @@ export function readRequest(form: RequestForm, values: Record<string, number>): 
 		critical: form.critical.checked,
 		day: Math.min(Math.max(Number(form.day.value) || 0, 0), DAYS.length - 1),
 		time,
-		parameters: values
+		parameters: values,
+		parameter: form.unit.value
 	};
 }
