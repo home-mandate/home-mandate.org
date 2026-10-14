@@ -1,12 +1,12 @@
-# Checks on every push to a branch and on pull requests against main.
-# Nothing is published here; publishing happens only in deploy.yml after a merge.
+# Unit stage: lint, types and tests on every push to a branch other than main. Changes
+# reach main only through a pull request, so there is no run after the merge. Build, E2E
+# and the image run in integration.yml; publishing happens only in deploy.yml.
 name: CI
 
 on:
   push:
     branches-ignore: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -17,11 +17,11 @@ concurrency:
 
 jobs:
   check:
-    name: Lint, types, tests, build
+    name: Lint, types, tests
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
-      SITE_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+      SITE_COMMIT: ${{ github.sha }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -35,15 +35,3 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm build
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm e2e
-      - name: Image builds and serves the site
-        run: |
-          docker build --build-arg REVISION="$SITE_COMMIT" -t site:test .
-          docker run -d --name site -p 8080:8080 --read-only --tmpfs /tmp --cap-drop ALL \
-            --security-opt no-new-privileges site:test
-          for _ in $(seq 1 30); do curl -fsS -o /dev/null http://127.0.0.1:8080/ && break; sleep 1; done
-          test "$(curl -fsS http://127.0.0.1:8080/version.json | jq -r .commit)" = "$SITE_COMMIT"
-          test "$(docker inspect --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}' site:test)" = "$SITE_COMMIT"
-          docker rm -f site
