@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { spec } from '../src/lib/generated/spec';
-import { implementData } from '../src/lib/implement/build-data';
+import { implementData, overviewAnchor } from '../src/lib/implement/build-data';
 import { conformanceCommands, modulePath } from '../src/lib/implement/commands';
 import { CONFORMANCE_CLASSES, caseCounts } from '../src/lib/implement/conformance';
 import { DOWNLOADS, kilobytes, shortHash } from '../src/lib/implement/downloads';
@@ -153,5 +153,21 @@ describe('implementData', () => {
 		expect(data.categories).toBeGreaterThan(0);
 		expect(data.counts.evaluator).toBeGreaterThan(0);
 		expect(data.counts['audit-anchored']).toBeGreaterThan(0);
+	});
+
+	it('links the overview only when the imported release has section 1.1', () => {
+		const markdown = readFileSync(join(RELEASE, 'SPEC-v0.md'), 'utf8');
+		const expected = /^### 1\.1 /m.test(markdown) ? '11-overview-informative' : null;
+		expect(implementData(ROOT, spec.latest.tag).overviewAnchor).toBe(expected);
+	});
+});
+
+describe('overviewAnchor', () => {
+	const ctx = { repository: 'https://github.com/home-mandate/spec', tag: 'v0.1.0-rc.2', file: 'SPEC-v0.md' };
+	it('is the anchor of section 1.1', () => {
+		expect(overviewAnchor('# T\n\n## 1. Goal\n\n### 1.1 Overview (informative)\n\n## 2. Terminology\n', ctx)).toBe('11-overview-informative');
+	});
+	it('is null for a release without section 1.1', () => {
+		expect(overviewAnchor('# T\n\n## 1. Goal\n\n## 2. Terminology\n', ctx)).toBeNull();
 	});
 });

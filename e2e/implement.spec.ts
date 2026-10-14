@@ -3,8 +3,8 @@ import { expect, test, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 
 const LANGUAGES = [
-	{ tag: 'en', prefix: '', implement: 'Implement the Home-Mandate Specification', list: 'Implementations', all: 'All', library: 'Library', guard: 'Home guard', show: 'Show' },
-	{ tag: 'de', prefix: '/de', implement: 'Die Home-Mandate-Spezifikation implementieren', list: 'Implementierungen', all: 'Alle', library: 'Bibliothek', guard: 'Wächter', show: 'Zeigen' }
+	{ tag: 'en', prefix: '', implement: 'Implement the Home-Mandate Specification', list: 'Implementations', all: 'All', library: 'Library', guard: 'Home guard', show: 'Show', overview: 'Who talks to whom', figure: 'Diagram: how agent, implementation, smart-home platform and human work together' },
+	{ tag: 'de', prefix: '/de', implement: 'Die Home-Mandate-Spezifikation implementieren', list: 'Implementierungen', all: 'Alle', library: 'Bibliothek', guard: 'Wächter', show: 'Zeigen', overview: 'Wer mit wem spricht', figure: 'Diagramm: wie Agent, Implementierung, Smart-Home-Plattform und Mensch zusammenspielen' }
 ];
 const PAGES = ['/implement/', '/implementations/'];
 
@@ -55,6 +55,27 @@ for (const lang of LANGUAGES) {
 				await expect(card.locator('.full')).toHaveText(sha);
 			}
 			expect(problems).toEqual([]);
+		});
+
+		test('/implement/ shows who talks to whom, with protocol names untranslated', async ({ page }) => {
+			const problems = watch(page);
+			await page.goto(`${lang.prefix}/implement/`);
+			await expect(page.getByRole('heading', { level: 2, name: lang.overview })).toBeVisible();
+			const figure = page.getByRole('figure', { name: lang.figure });
+			await expect(figure).toBeVisible();
+			for (const text of ['PEP', 'PDP', 'MCP · HTTPS · OAuth 2.1', 'AuthZEN', 'Home Assistant, Matter', '§ 11.1']) {
+				await expect(figure).toContainText(text);
+			}
+			await expect(figure.locator('.edge.dashed')).toHaveCount(4);
+			await expect(figure.locator('.edge.solid')).toHaveCount(3);
+			expect(problems).toEqual([]);
+		});
+
+		test('the overview fits a 320 px screen', async ({ page }) => {
+			await page.setViewportSize({ width: 320, height: 800 });
+			await page.goto(`${lang.prefix}/implement/`);
+			await expect(page.getByRole('figure', { name: lang.figure })).toBeVisible();
+			expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 		});
 
 		test('the full checksum opens with "Show"', async ({ page }) => {

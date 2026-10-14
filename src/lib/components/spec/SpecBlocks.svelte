@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CodeBlock from '../CodeBlock.svelte';
+	import OverviewDiagram from '../diagrams/OverviewDiagram.svelte';
 	import SpecBlocks from './SpecBlocks.svelte';
 	import SpecInline from './SpecInline.svelte';
 	import { m } from '$lib/paraglide/messages';
@@ -56,6 +57,9 @@
 		</div>
 	{:else if block.type === 'code'}
 		<CodeBlock code={block.text} file={block.lang || undefined} id="{prefix}-code-{i}" />
+	{:else if block.type === 'diagram'}
+		<!-- block.id is 'overview', the only diagram src/lib/spec/diagrams.ts knows. -->
+		<div class="diagram"><OverviewDiagram english /></div>
 	{:else if block.type === 'blockquote'}
 		<blockquote><SpecBlocks blocks={block.blocks} prefix="{prefix}-{i}" /></blockquote>
 	{:else if block.type === 'hr'}
@@ -64,6 +68,9 @@
 {/each}
 
 <style>
+	.diagram {
+		margin-block: 8px;
+	}
 	.heading {
 		display: flex;
 		align-items: baseline;
