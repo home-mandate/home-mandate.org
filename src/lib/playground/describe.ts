@@ -3,9 +3,9 @@
 // the rule and the texts, so that the page (at build time) and the browser agree.
 import { readRule, type RuleView } from './model.ts';
 import type { JsonObject } from './model.ts';
-import { actionLabel, capitalize, categoryLabel, joinOr, parameterLabel, tx, unitLabel, type Texts } from './texts.ts';
+import { actionLabel, capitalize, categoryLabel, joinOr, parameterLabel, parameterValueLabel, tx, unitLabel, type Texts } from './texts.ts';
 import { formatUnit } from './units.ts';
-import { commonParameters } from './vocab.ts';
+import { commonParameters, type ParameterInfo } from './vocab.ts';
 
 export interface Language {
 	texts: Texts;
@@ -43,12 +43,22 @@ export function whenPhrase(lang: Language, view: RuleView): string {
 	return out;
 }
 
-/** " (temperature at most 23 °C)" for the constraints of the rule. */
+/** A value of a constraint as people read it: "21.5" for 2150 in 0.01 °C, "heating" for "heat". */
+function valuePhrase(lang: Language, info: ParameterInfo, value: number | string): string {
+	return typeof value === 'number' ? formatUnit(value, info.scale, lang.locale) : parameterValueLabel(lang.texts, info.name, value);
+}
+
+/** " (temperature at most 23 °C)" or " (mode only heating or auto)" for the constraints of the rule. */
 export function limitsPhrase(lang: Language, view: RuleView): string {
 	const { texts, locale } = lang;
 	const params = commonParameters(view.category, view.actions);
 	const parts = Object.entries(view.constraints).map(([name, limits]) => {
-		const info = params.find((p) => p.name === name) ?? { name, unit: '', scale: 1 };
+		const info: ParameterInfo = params.find((p) => p.name === name) ?? { name, type: 'integer', unit: '', scale: 1 };
+		if (limits.oneOf !== undefined) {
+			const values = joinOr(texts, limits.oneOf.map((v) => valuePhrase(lang, info, v)));
+			const unit = limits.oneOf.some((v) => typeof v === 'number') ? unitLabel(texts, info) : '';
+			return tx(texts, 'desc_one_of', { param: parameterLabel(texts, name), values, unit }).trim();
+		}
 		const vars = {
 			param: parameterLabel(texts, name),
 			unit: unitLabel(texts, info),

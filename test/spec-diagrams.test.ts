@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { parseSpec } from '../src/lib/spec/markdown';
 import { diagramFor } from '../src/lib/spec/diagrams';
 
-const ctx = { repository: 'https://github.com/home-mandate/spec', tag: 'v0.1.0-rc.2', file: 'SPEC-v0.md' };
+const ctx = { repository: 'https://github.com/home-mandate/spec', tag: 'v0.1.0-rc.3', file: 'SPEC-v0.md' };
 // The Mermaid block of SPEC-v0 section 1.1, as the marked lexer returns it.
 const OVERVIEW = readFileSync(new URL('./fixtures/spec-overview.mmd', import.meta.url), 'utf8').replace(/\n$/, '');
 const fenced = (source: string, lang = 'mermaid'): string => `### 1.1 Overview (informative)\n\n\`\`\`${lang}\n${source}\n\`\`\`\n`;

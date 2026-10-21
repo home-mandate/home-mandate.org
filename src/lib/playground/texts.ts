@@ -23,6 +23,11 @@ export function parameterLabel(texts: Texts, name: string): string {
 	return texts[`param_${name}`] ?? name;
 }
 
+/** A permitted value of a string parameter in the page's language: "heating" for mode "heat". */
+export function parameterValueLabel(texts: Texts, name: string, value: string): string {
+	return texts[`value_${name}_${value}`] ?? value;
+}
+
 const UNIT_KEYS: Record<string, string> = {
 	percent: 'unit_percent',
 	'percent open': 'unit_percent_open',

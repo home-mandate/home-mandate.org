@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test, type Page, type TestInfo } from '@playwright/test';
+import { expect, test, type Locator, type Page, type TestInfo } from '@playwright/test';
 
 const LANGUAGES = [
 	{ tag: 'en', prefix: '', title: 'Playground', ask: 'ask', deny: 'deny', allow: 'allow', invalid: 'Not valid', subject: 'Voice assistant may …', tabTest: 'Test' },
@@ -23,6 +23,8 @@ async function axe(page: Page): Promise<string[]> {
 const only = (info: TestInfo, ...projects: string[]) => test.skip(!projects.includes(info.project.name), `only in ${projects.join(', ')}`);
 
 const result = (page: Page) => page.locator('#pg-result');
+/** A pill of the rule editor: its checkbox is visually hidden, people click the label. */
+const pill = (page: Page, focus: string): Locator => page.locator('label.pg-pill').filter({ has: page.locator(focus) });
 
 for (const lang of LANGUAGES) {
 	test.describe(lang.tag, () => {
@@ -133,6 +135,52 @@ test.describe('desktop', () => {
 		await unit.selectOption('temperature');
 		await expect(page.locator('#pg-req-value')).toHaveValue('21');
 		await expect(result(page).locator('.pg-verdict')).toContainText('allow');
+	});
+
+	test('a mode limited to a list of permitted values (one_of)', async ({ page }) => {
+		await pill(page, '[data-focus="2:act:set_mode"]').click();
+		await pill(page, '[data-focus="2:act:set_temperature"]').click();
+		await pill(page, '[data-focus="2:mode:heat"]').click();
+		await expect(page.locator('#pg-json')).toHaveValue(/"one_of": \[\s*"heat"\s*\]/);
+		await expect(page.locator('#pg-rule-2 .pg-words')).toContainText('mode only heating');
+		await page.locator('#pg-req-category').selectOption('climate');
+		await page.locator('#pg-req-action').selectOption('set_mode');
+		await expect(page.locator('#pg-req-value-field')).toBeHidden();
+		const choice = page.locator('#pg-req-choice');
+		await expect(choice).toHaveValue('off');
+		await expect(result(page).locator('.pg-verdict')).toContainText('deny');
+		await expect(result(page)).toContainText('outside its limits');
+		await choice.selectOption('heat');
+		await expect(result(page).locator('.pg-verdict')).toContainText('allow');
+	});
+
+	test('a resource in several areas matches a rule for one of them', async ({ page }) => {
+		await page.locator('#pg-req-category').selectOption('switch');
+		await page.locator('#pg-req-action').selectOption('turn_on');
+		await page.locator('[data-focus="0:scope"]').selectOption('switch');
+		await pill(page, '[data-focus="0:act:turn_on"]').click();
+		await page.locator('[data-focus="0:area"]').fill('ground_floor');
+		await expect(result(page).locator('.pg-verdict')).toContainText('deny');
+		await page.locator('.pg-more summary').click();
+		await page.locator('#pg-req-areas').fill('living_room, ground_floor');
+		await expect(result(page).locator('.pg-verdict')).toContainText('allow');
+		await expect(result(page)).toContainText('in areas “living_room, ground_floor”');
+	});
+
+	test('audit mode records a denial without enforcing it', async ({ page }) => {
+		await page.locator('#pg-req-category').selectOption('switch');
+		await page.locator('#pg-req-action').selectOption('turn_on');
+		await expect(result(page).locator('.pg-verdict')).toContainText('Refused');
+		await page.locator('#pg-audit').check();
+		await expect(page.locator('#pg-json')).toHaveValue(/"enforce": false/);
+		await expect(result(page).locator('.pg-verdict')).toContainText('Refused, but not enforced');
+		await expect(result(page).locator('.pg-audit-note')).toBeVisible();
+		await page.locator('#pg-req-category').selectOption('lock');
+		await page.locator('#pg-req-action').selectOption('open');
+		await page.locator('[data-focus="3:decision"]').selectOption('deny');
+		await expect(result(page).locator('.pg-audit-note')).toHaveCount(0);
+		await page.locator('#pg-audit').uncheck();
+		await expect(page.locator('#pg-json')).not.toHaveValue(/"enforce"/);
 	});
 
 	test('time windows use the household time zone', async ({ page }) => {

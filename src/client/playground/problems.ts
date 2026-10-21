@@ -27,7 +27,11 @@ const RULE_MESSAGES: Pattern[] = [
 	{ re: /^action (\S+) not in the vocabulary$/, key: 'err_action_unknown', names: ['action'] },
 	{ re: /^time window with equal start and end$/, key: 'err_window_equal', names: [] },
 	{ re: /^constraint (\S+) has min greater than max$/, key: 'err_min_max', names: ['param'] },
-	{ re: /^(\S+) has no parameter (\S+)$/, key: 'err_no_parameter', names: ['action', 'param'] },
+	{ re: /^(\S+) has no parameter (\S+) that the constraint fits$/, key: 'err_no_parameter', names: ['action', 'param'] },
+	{ re: /^constraint (\S+) has one_of together with min or max$/, key: 'err_one_of_range', names: ['param'] },
+	{ re: /^constraint (\S+) needs 1 to \d+ values$/, key: 'err_one_of_size', names: ['param'] },
+	{ re: /^constraint (\S+) (?:has a value that is no parameter value|mixes integers and strings)$/, key: 'err_one_of_value', names: ['param'] },
+	{ re: /^constraint (\S+) has a value twice$/, key: 'err_one_of_twice', names: ['param'] },
 	{ re: /^timeout outside 10 s to 1 h$/, key: 'err_timeout', names: [] },
 	{ re: /^approver not displayable$/, key: 'err_not_displayable', names: [] }
 ];

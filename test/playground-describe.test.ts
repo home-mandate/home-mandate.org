@@ -62,6 +62,14 @@ describe('plain-language renderer', () => {
 		expect(describeRule(en, 'A', min)[0]).toContain('(temperature at least 18 °C)');
 	});
 
+	it('describes a list of permitted values in the page language', () => {
+		const view = readRule({ id: 'r', resource: { category: 'climate' }, actions: ['set_mode'], decision: 'allow', constraints: { mode: { one_of: ['heat', 'auto'] } } });
+		expect(describeRule(en, 'A', view)).toEqual(['Heating: A may set mode (mode only heating or automatic).']);
+		expect(describeRule(de, 'A', view)).toEqual(['Heizung: A darf Modus einstellen (Modus nur Heizen oder automatisch).']);
+		const numbers = readRule({ id: 'r', resource: { category: 'light' }, actions: ['set'], decision: 'allow', constraints: { brightness: { one_of: [20, 40] } } });
+		expect(describeRule(en, 'A', numbers)[0]).toContain('(brightness only 20 or 40 %)');
+	});
+
 	it('describes days before the time window, and unknown decisions', () => {
 		const view: RuleView = {
 			id: 'r',

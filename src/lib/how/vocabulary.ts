@@ -4,7 +4,7 @@ import data from '../../../.generated/static/vocabulary/v0.json';
 
 export interface ActionInfo {
 	critical?: boolean;
-	parameters?: Record<string, { unit: string; minimum?: number; maximum?: number }>;
+	parameters?: Record<string, { type: 'integer' | 'string'; unit?: string; minimum?: number; maximum?: number; values?: string[] }>;
 }
 export interface Vocabulary {
 	categories: Record<string, { actions: Record<string, ActionInfo> }>;

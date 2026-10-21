@@ -6,6 +6,7 @@
     { "tag": "v0.1.0-alpha.3", "commit": "49ef89ef0a43ca52c29ff22ba149c2c12c08ce47" },
     { "tag": "v0.1.0-alpha.4", "commit": "05c26bd817a30c035bc4d58c061e7c65633d2951" },
     { "tag": "v0.1.0-rc.1", "commit": "d326e49409fea94da9eafa6ce1ae399196333bd1" },
-    { "tag": "v0.1.0-rc.2", "commit": "286c1eeec8c169224fc43de5a7d63ddf4a1193c3" }
+    { "tag": "v0.1.0-rc.2", "commit": "286c1eeec8c169224fc43de5a7d63ddf4a1193c3" },
+    { "tag": "v0.1.0-rc.3", "commit": "1db6625f2c4710120e9c31e712d079c88c8c2ae4" }
   ]
 }

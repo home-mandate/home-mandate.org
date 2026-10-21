@@ -163,7 +163,7 @@ describe('implementData', () => {
 });
 
 describe('overviewAnchor', () => {
-	const ctx = { repository: 'https://github.com/home-mandate/spec', tag: 'v0.1.0-rc.2', file: 'SPEC-v0.md' };
+	const ctx = { repository: 'https://github.com/home-mandate/spec', tag: 'v0.1.0-rc.3', file: 'SPEC-v0.md' };
 	it('is the anchor of section 1.1', () => {
 		expect(overviewAnchor('# T\n\n## 1. Goal\n\n### 1.1 Overview (informative)\n\n## 2. Terminology\n', ctx)).toBe('11-overview-informative');
 	});

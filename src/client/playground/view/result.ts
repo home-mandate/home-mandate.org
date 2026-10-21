@@ -1,5 +1,6 @@
 // Step 4: the decision of the evaluation, why, which rules apply and, for a critical
-// action, what that means. Also the short result line of the phone layout.
+// action, what that means; for a deny the mandate only records (audit mode, SPEC-v0
+// section 4.6), that it is not enforced. Also the short result line of the phone layout.
 import type { Mandate, Request, Result } from '../../../lib/playground/engine.ts';
 import { formatTimeout, matchingRules, reasonText, requestIsCritical, requestPhrase } from '../explain.ts';
 import { joinOr, tx, type Texts } from '../../../lib/playground/texts.ts';
@@ -33,10 +34,16 @@ export function renderResult(container: HTMLElement, texts: Texts, mandate: Mand
 				h('div', {}, h('strong', {}, tx(texts, 'critical_title')), h('p', {}, tx(texts, 'critical_body')))
 			)
 		: null;
+	const unenforced = result.enforced === false;
+	const audit = unenforced
+		? h('div', { class: 'pg-critical-note pg-audit-note' }, icon('warning', 20), h('div', {}, h('strong', {}, tx(texts, 'audit_title')), h('p', {}, tx(texts, 'audit_body'))))
+		: null;
+	const head = unenforced ? 'head_deny_unenforced' : `head_${result.decision}`;
 	container.replaceChildren(
-		h('div', { class: 'pg-verdict' }, chip(result.decision, 'xl'), h('h3', { class: 'pg-verdict-head' }, tx(texts, `head_${result.decision}`))),
+		h('div', { class: 'pg-verdict' }, chip(result.decision, 'xl'), h('h3', { class: 'pg-verdict-head' }, tx(texts, head))),
 		h('p', { class: 'pg-reason', 'data-reason': result.reason }, reasonText(texts, result, request, mandate)),
 		...(approval ? [approval] : []),
+		...(audit ? [audit] : []),
 		h('h4', { class: 'pg-eyebrow' }, tx(texts, 'matched')),
 		list,
 		...(critical ? [critical] : [])

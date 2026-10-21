@@ -8,7 +8,7 @@ import { explainProblem } from '../src/client/playground/problems.ts';
 import { buildRequest, type RequestInput } from '../src/lib/playground/request.ts';
 import { example, exampleDoc, specText, texts } from './playground-fixtures.ts';
 
-const input: RequestInput = { category: 'lock', action: 'unlock', area: '', entityId: '', critical: false, day: 2, time: '19:00', parameters: {} };
+const input: RequestInput = { category: 'lock', action: 'unlock', areas: '', entityId: '', critical: false, day: 2, time: '19:00', parameters: {} };
 const en = texts('en');
 const de = texts('de');
 
@@ -93,7 +93,7 @@ describe('reason texts', () => {
 		const mandate = parseMandate(example('voice-assistant'));
 		const ask = buildRequest(input);
 		expect(reasonText(en, evaluate(mandate, ask), ask, mandate)).toBe('Rule “r-locks” applies: “unlock” for locks needs confirmation by user-1.');
-		const deny = buildRequest({ ...input, category: 'alarm', action: 'disarm', area: 'hall' });
+		const deny = buildRequest({ ...input, category: 'alarm', action: 'disarm', areas: 'hall' });
 		expect(reasonText(de, evaluate(mandate, deny), deny, mandate)).toBe('Regel „r-no-alarm“ greift: „unscharf schalten“ bei Alarmanlage im Bereich „hall“ ist nicht erlaubt.');
 		const energy = parseMandate(example('energy-agent'));
 		const late = buildRequest({ ...input, category: 'sensor', action: 'read', day: 0 });
@@ -101,6 +101,13 @@ describe('reason texts', () => {
 		expect(reasonText(en, evaluate(energy, expired), expired, energy)).toBe('The mandate expired on 2027-10-01, so everything is denied.');
 		const early = { ...late, time: '2026-09-30T23:59:00+02:00' };
 		expect(reasonText(en, evaluate(energy, early), early, energy)).toBe('The mandate is only valid from 2026-10-01, so everything is denied.');
+	});
+
+	it('names every area of a resource in several', () => {
+		const mandate = parseMandate(example('voice-assistant'));
+		const deny = buildRequest({ ...input, category: 'alarm', action: 'disarm', areas: 'hall, ground_floor' });
+		expect(reasonText(en, evaluate(mandate, deny), deny, mandate)).toContain('for alarm in areas “hall, ground_floor” is not allowed');
+		expect(reasonText(de, evaluate(mandate, deny), deny, mandate)).toContain('bei Alarmanlage in den Bereichen „hall, ground_floor“');
 	});
 
 	it('explains the critical demotion', () => {
@@ -169,6 +176,23 @@ describe('problems', () => {
 		expect(analyse(expires).problem).toMatchObject({ key: 'err_expires' });
 		const timeout = voiceWith((doc) => ({ ...doc, approval: { timeout: 'PT2H', approvers: ['a'] } }));
 		expect(analyse(timeout).problem).toMatchObject({ key: 'err_timeout' });
+	});
+
+	it('reports lists of permitted values the specification does not accept', () => {
+		const rule = (constraint: JsonObject): JsonObject => ({ id: 'm', resource: { category: 'climate' }, actions: ['set_mode'], decision: 'allow', constraints: { mode: constraint } });
+		const problem = (constraint: JsonObject) => analyse(voiceWith((doc) => ({ ...doc, rules: [rule(constraint)] }))).problem;
+		expect(problem({ one_of: ['heat', 'heat'] })).toMatchObject({ rule: { number: 1, id: 'm' } });
+		expect(problem({ one_of: ['warm'] })).toMatchObject({ key: 'err_no_parameter', vars: { action: 'set_mode', param: 'mode' } });
+		const messages: [string, string][] = [
+			['rule m: constraint mode has one_of together with min or max', 'err_one_of_range'],
+			['rule m: constraint mode needs 1 to 32 values', 'err_one_of_size'],
+			['rule m: constraint mode has a value that is no parameter value', 'err_one_of_value'],
+			['rule m: constraint mode mixes integers and strings', 'err_one_of_value'],
+			['rule m: constraint mode has a value twice', 'err_one_of_twice']
+		];
+		for (const [message, key] of messages) {
+			expect(explainProblem('{}', new MandateError(message), {}), message).toMatchObject({ key, vars: { param: 'mode' } });
+		}
 	});
 
 	it('keeps the technical message and falls back to a general text', () => {

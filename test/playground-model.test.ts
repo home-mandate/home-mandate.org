@@ -6,12 +6,14 @@ import {
 	fileName,
 	formatDoc,
 	freeRuleId,
+	isAuditMode,
 	normalize,
 	parseApprovers,
 	readRule,
 	removeRule,
 	ruleEntries,
 	rulesOf,
+	setAuditMode,
 	updateRule,
 	writeRule,
 	type JsonObject,
@@ -57,6 +59,37 @@ describe('rule view round trip', () => {
 			constraints: { temperature: { min: 1600, max: 2300 } },
 			allow_critical: true
 		});
+	});
+});
+
+describe('one_of constraints (section 4.5)', () => {
+	const rule = { id: 'r', resource: { category: 'climate' }, actions: ['set_mode'], decision: 'allow', constraints: { mode: { one_of: ['heat', 'auto'] } } };
+
+	it('reads and writes a list of permitted values unchanged', () => {
+		expect(readRule(rule).constraints).toEqual({ mode: { oneOf: ['heat', 'auto'] } });
+		expect(writeRule(readRule(rule))).toEqual(rule);
+	});
+	it('drops an empty list, and min and max beside a list', () => {
+		const view = readRule(rule);
+		expect(writeRule({ ...view, constraints: { mode: { oneOf: [] } } })).not.toHaveProperty('constraints');
+		expect(writeRule({ ...view, constraints: { mode: { oneOf: ['heat'], min: 1 } } }).constraints).toEqual({ mode: { one_of: ['heat'] } });
+	});
+	it('writes a mandate the specification accepts', () => {
+		valid({ ...exampleDoc('voice-assistant'), rules: [rule] });
+		valid(updateRule({ ...exampleDoc('voice-assistant'), rules: [rule] }, 0, (v) => ({ ...v, constraints: { mode: { oneOf: ['off'] } } })));
+	});
+});
+
+describe('audit mode (section 4.6)', () => {
+	it('switches "enforce": false on and off', () => {
+		const doc = exampleDoc('voice-assistant');
+		const audit = setAuditMode(doc, true);
+		expect([isAuditMode(doc), isAuditMode(audit), audit.enforce]).toEqual([false, true, false]);
+		valid(audit);
+		const back = setAuditMode(audit, false);
+		expect('enforce' in back).toBe(false);
+		expect(back).toEqual(doc);
+		expect(isAuditMode(null)).toBe(false);
 	});
 });
 

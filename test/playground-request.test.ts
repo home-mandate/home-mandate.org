@@ -4,6 +4,7 @@ import { computeMatrix, moveInMatrix } from '../src/client/playground/matrix.ts'
 import {
 	buildRequest,
 	chosenParameter,
+	parseAreas,
 	defaultParameter,
 	localTimestamp,
 	offsetAt,
@@ -18,7 +19,7 @@ import { example } from './playground-fixtures.ts';
 const input: RequestInput = {
 	category: 'lock',
 	action: 'unlock',
-	area: '',
+	areas: '',
 	entityId: '',
 	critical: false,
 	day: 2,
@@ -62,9 +63,27 @@ describe('buildRequest', () => {
 			timezone: 'Europe/Berlin'
 		});
 	});
-	it('passes area, device id and the critical marking', () => {
-		const request = buildRequest({ ...input, area: ' hall ', entityId: ' lock.front ', critical: true });
-		expect(request.resource).toEqual({ entity_id: 'lock.front', category: 'lock', area: 'hall', critical: true });
+	it('passes areas, device id and the critical marking', () => {
+		const request = buildRequest({ ...input, areas: ' hall ', entityId: ' lock.front ', critical: true });
+		expect(request.resource).toEqual({ entity_id: 'lock.front', category: 'lock', areas: ['hall'], critical: true });
+	});
+	it('passes a set of areas, separated by commas or spaces (section 3.4)', () => {
+		expect(parseAreas('living_room, ground_floor  house')).toEqual(['living_room', 'ground_floor', 'house']);
+		expect(parseAreas(' , ')).toEqual([]);
+		expect(buildRequest({ ...input, areas: 'hall,ground_floor' }).resource.areas).toEqual(['hall', 'ground_floor']);
+	});
+	it('matches a rule for one area when the resource lies in several', () => {
+		const mandate = parseMandate(example('voice-assistant'));
+		const rule = { ...input, category: 'light', action: 'turn_on' };
+		const floor = { ...mandate, rules: [{ ...mandate.rules[1]!, resource: { area: 'ground_floor' } }] };
+		expect(evaluate(floor, buildRequest({ ...rule, areas: 'living_room, ground_floor' })).decision).toBe('allow');
+		expect(evaluate(floor, buildRequest({ ...rule, areas: 'living_room' })).reason).toBe('no_match');
+		expect(evaluate(mandate, buildRequest({ ...rule, areas: 'hall hall' })).reason).toBe('invalid_request');
+	});
+	it('carries a string parameter: the first permitted value by default (mode)', () => {
+		expect(defaultParameter('climate', 'set_mode', 'mode')).toBe('off');
+		expect(buildRequest({ ...input, category: 'climate', action: 'set_mode' }).parameters).toEqual({ mode: 'off' });
+		expect(buildRequest({ ...input, category: 'climate', action: 'set_mode', parameters: { mode: 'heat' } }).parameters).toEqual({ mode: 'heat' });
 	});
 	it('carries the parameters of the action, with defaults', () => {
 		expect(buildRequest({ ...input, category: 'climate', action: 'set_temperature' }).parameters).toEqual({ temperature: 2100 });
@@ -124,13 +143,16 @@ describe('vocabulary helpers', () => {
 	});
 	it('knows parameters and their scale', () => {
 		expect(parametersOf('climate', 'set_temperature')).toEqual([
-			{ name: 'temperature', unit: 'degree Celsius', scale: 100 },
-			{ name: 'temperature_f', unit: 'degree Fahrenheit', scale: 100 }
+			{ name: 'temperature', type: 'integer', unit: 'degree Celsius', scale: 100 },
+			{ name: 'temperature_f', type: 'integer', unit: 'degree Fahrenheit', scale: 100 }
 		]);
-		expect(parametersOf(undefined, 'set')).toEqual([{ name: 'brightness', unit: 'percent', scale: 1, minimum: 0, maximum: 100 }]);
+		expect(parametersOf(undefined, 'set')).toEqual([{ name: 'brightness', type: 'integer', unit: 'percent', scale: 1, minimum: 0, maximum: 100 }]);
+		expect(parametersOf('climate', 'set_mode')).toEqual([
+			{ name: 'mode', type: 'string', unit: '', scale: 1, values: ['off', 'auto', 'cool', 'heat', 'emergency_heat', 'precooling', 'fan_only', 'dry', 'sleep'] }
+		]);
 		expect(commonParameters('light', ['set', 'read'])).toEqual([]);
 		expect(commonParameters('light', ['*'])).toEqual([]);
-		expect(parameterInfo('x', {})).toEqual({ name: 'x', unit: '', scale: 1 });
+		expect(parameterInfo('x', {})).toEqual({ name: 'x', type: 'integer', unit: '', scale: 1 });
 	});
 	it('knows critical actions', () => {
 		expect(criticalSomewhere(undefined, 'unlock')).toBe(true);

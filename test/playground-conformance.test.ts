@@ -1,14 +1,20 @@
 // The playground agrees with the specification: the conformance cases of the imported
 // specification run through src/lib/playground/engine.ts, the very module the page
 // script bundles for evaluation and validation.
+import { exactNumber } from '@home-mandate/spec/browser';
 import { describe, expect, it } from 'vitest';
 import { evaluate, tryParseMandate, type Request } from '../src/lib/playground/engine.ts';
 import { specText } from './playground-fixtures.ts';
 
 type Case = Record<string, unknown> & { id: string; why: string };
 
+/** Numbers by their exact value (SPEC-v0 section 4.5): a fraction never becomes an integer. */
+function exact(_key: string, value: unknown, context?: { source?: string }): unknown {
+	return typeof value === 'number' && context?.source !== undefined ? exactNumber(context.source) : value;
+}
+
 function cases(path: string): Case[] {
-	return (JSON.parse(specText(path)) as { cases: Case[] }).cases;
+	return (JSON.parse(specText(path), exact as never) as { cases: Case[] }).cases;
 }
 
 function mandateText(c: Case): string {
@@ -37,6 +43,7 @@ describe('playground engine against the conformance cases', () => {
 		expect(result.reason, c.why).toBe(c.reason);
 		expect(result.rule_id ?? null, c.why).toBe(c.rule_id ?? null);
 		if (typeof c.approval_timeout === 'string') expect(result.approval?.timeout).toBe(c.approval_timeout);
+		expect(result.enforced ?? true, c.why).toBe(c.enforced ?? true);
 	});
 
 	it.each(cases('conformance/invalid-v0.json').map((c) => [c.id, c] as const))('invalid mandate %s is rejected', (_id, c) => {
