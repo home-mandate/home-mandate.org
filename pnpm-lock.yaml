@@ -177,8 +177,8 @@ importers:
         specifier: 10.0.1
         version: 10.0.1(eslint@10.11.0(jiti@2.7.0))
       '@home-mandate/spec':
-        specifier: github:home-mandate/spec-ts#87c5b8c6fbeb7094a44b02de2fdbd8f810e994cd
-        version: https://codeload.github.com/home-mandate/spec-ts/tar.gz/87c5b8c6fbeb7094a44b02de2fdbd8f810e994cd
+        specifier: github:home-mandate/spec-ts#80870935c14c4b00b184c62552fb3e7e632ffc01
+        version: https://codeload.github.com/home-mandate/spec-ts/tar.gz/80870935c14c4b00b184c62552fb3e7e632ffc01
       '@inlang/paraglide-js':
         specifier: 2.25.4
         version: 2.25.4(typescript@6.0.3)(vite@8.3.1(@types/node@24.13.6)(jiti@2.7.0))
@@ -390,9 +390,9 @@ packages:
     resolution: {integrity: sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@home-mandate/spec@https://codeload.github.com/home-mandate/spec-ts/tar.gz/87c5b8c6fbeb7094a44b02de2fdbd8f810e994cd':
-    resolution: {gitHosted: true, integrity: sha512-D9G3mwc+vqV+U3wWpSCf2InPqgi1VuOA7K93S7ik8k3Xo+vSG7GI2vwJzYp+WTvv/uBvfWjXGpkxO1+tHBzHVQ==, tarball: https://codeload.github.com/home-mandate/spec-ts/tar.gz/87c5b8c6fbeb7094a44b02de2fdbd8f810e994cd}
-    version: 0.1.0-rc.1
+  '@home-mandate/spec@https://codeload.github.com/home-mandate/spec-ts/tar.gz/80870935c14c4b00b184c62552fb3e7e632ffc01':
+    resolution: {gitHosted: true, integrity: sha512-hml/ZjtxufnYIfhRRHlMZVWkEW4GNX1e5EoM2D7V4LFaQguJTBi4Ojv9026lcW7Pz8JwsnFu0HBgJkTtov9G4A==, tarball: https://codeload.github.com/home-mandate/spec-ts/tar.gz/80870935c14c4b00b184c62552fb3e7e632ffc01}
+    version: 0.1.0-rc.3
     engines: {node: '>=24'}
     hasBin: true
 
@@ -1830,7 +1830,7 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@home-mandate/spec@https://codeload.github.com/home-mandate/spec-ts/tar.gz/87c5b8c6fbeb7094a44b02de2fdbd8f810e994cd': {}
+  '@home-mandate/spec@https://codeload.github.com/home-mandate/spec-ts/tar.gz/80870935c14c4b00b184c62552fb3e7e632ffc01': {}
 
   '@humanfs/core@0.19.2':
     dependencies:

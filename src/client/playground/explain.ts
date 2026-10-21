@@ -42,11 +42,17 @@ export function requestIsCritical(request: Request): boolean {
 	return isCritical(request.resource, request.action);
 }
 
+/** " in area “hall”", " in areas “hall, ground_floor”" or nothing. */
+export function areasPhrase(texts: Texts, areas: readonly string[] | undefined): string {
+	if (!areas || areas.length === 0) return '';
+	if (areas.length === 1) return tx(texts, 'desc_area_also', { area: areas[0] ?? '' });
+	return tx(texts, 'desc_areas_also', { areas: areas.join(', ') });
+}
+
 /** "“unlock” on locks in area “hall”" for the reason texts. */
 export function requestPhrase(texts: Texts, request: Request): { action: string; device: string } {
 	const category = request.resource.category ?? '';
-	let device = categoryLabel(texts, category);
-	if (request.resource.area !== undefined) device += tx(texts, 'desc_area_also', { area: request.resource.area });
+	const device = categoryLabel(texts, category) + areasPhrase(texts, request.resource.areas);
 	return { action: actionLabel(texts, request.action), device };
 }
 

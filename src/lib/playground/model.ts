@@ -14,9 +14,12 @@ export const DECISIONS: readonly DecisionValue[] = ['allow', 'ask', 'deny'];
 export const WEEKDAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const;
 export type Weekday = (typeof WEEKDAYS)[number];
 
+/** A constraint (SPEC-v0 section 4.5): a range of an integer, or a list of permitted values. */
 export interface Limits {
 	min?: number;
 	max?: number;
+	/** one_of: the permitted values; then min and max are absent. */
+	oneOf?: (number | string)[];
 }
 
 /** One rule as the editor shows it (SPEC-v0 section 3). */
@@ -71,6 +74,9 @@ function readLimits(raw: Json | undefined): Record<string, Limits> {
 		const limits: Limits = {};
 		if (typeof value.min === 'number') limits.min = value.min;
 		if (typeof value.max === 'number') limits.max = value.max;
+		if (Array.isArray(value.one_of)) {
+			limits.oneOf = value.one_of.filter((v): v is number | string => typeof v === 'number' || typeof v === 'string');
+		}
 		out[name] = limits;
 	}
 	return out;
@@ -119,8 +125,12 @@ export function writeRule(view: RuleView): JsonObject {
 	const constraints: JsonObject = {};
 	for (const [name, limits] of Object.entries(view.constraints)) {
 		const value: JsonObject = {};
-		if (limits.min !== undefined) value.min = limits.min;
-		if (limits.max !== undefined) value.max = limits.max;
+		if (limits.oneOf !== undefined) {
+			if (limits.oneOf.length > 0) value.one_of = [...limits.oneOf];
+		} else {
+			if (limits.min !== undefined) value.min = limits.min;
+			if (limits.max !== undefined) value.max = limits.max;
+		}
 		if (Object.keys(value).length > 0) constraints[name] = value;
 	}
 	if (Object.keys(constraints).length > 0) rule.constraints = constraints;
@@ -189,6 +199,17 @@ export function addRule(doc: JsonObject): JsonObject {
 	const rules = Array.isArray(doc.rules) ? doc.rules : [];
 	const rule: JsonObject = { id: freeRuleId(doc), resource: { category: 'light' }, actions: ['read'], decision: 'allow' };
 	return withRules(doc, [...rules, rule]);
+}
+
+/** Whether the mandate is in audit mode ("enforce": false, SPEC-v0 section 4.6). */
+export function isAuditMode(doc: JsonObject | null): boolean {
+	return doc?.enforce === false;
+}
+
+/** The mandate in or out of audit mode: with "enforce": false, or without the member. */
+export function setAuditMode(doc: JsonObject, on: boolean): JsonObject {
+	const { enforce: _enforce, ...rest } = doc;
+	return on ? { ...rest, enforce: false } : rest;
 }
 
 /** Text of the approvers field: "a, b" → ["a", "b"]. */

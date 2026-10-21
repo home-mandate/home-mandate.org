@@ -3,10 +3,10 @@
 // document, the JSON and the evaluation follow from there.
 import { describeRule, type Language } from '../../../lib/playground/describe.ts';
 import { formatTimeout } from '../explain.ts';
-import { DECISIONS, readRule, ruleEntries, WEEKDAYS, type JsonObject, type RuleView } from '../../../lib/playground/model.ts';
-import { actionLabel, categoryLabel, parameterLabel, tx, unitLabel } from '../../../lib/playground/texts.ts';
+import { DECISIONS, readRule, ruleEntries, WEEKDAYS, type JsonObject, type Limits, type RuleView } from '../../../lib/playground/model.ts';
+import { actionLabel, categoryLabel, joinOr, parameterLabel, parameterValueLabel, tx, unitLabel } from '../../../lib/playground/texts.ts';
 import { formatUnit, toUnit } from '../../../lib/playground/units.ts';
-import { actionsOf, CATEGORIES, commonParameters, criticalSomewhere, isCategory } from '../../../lib/playground/vocab.ts';
+import { actionsOf, CATEGORIES, commonParameters, criticalSomewhere, isCategory, type ParameterInfo } from '../../../lib/playground/vocab.ts';
 import { setInvalid } from '../../lib/dom.ts';
 import { clear, h, icon, rerender } from './dom.ts';
 
@@ -202,9 +202,59 @@ function timeRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement {
 	return h('div', { class: 'pg-group' }, row, dayPills(ctx, i, view.weekdays));
 }
 
+/** The constraint of a parameter with its values changed: no constraint once none is left. */
+function withValues(r: RuleView, name: string, values: (number | string)[]): RuleView {
+	const constraints: Record<string, Limits> = { ...r.constraints };
+	if (values.length === 0) delete constraints[name];
+	else constraints[name] = { oneOf: values };
+	return { ...r, constraints };
+}
+
+/** A string parameter with permitted values (mode): one pill per value, the checked ones are its one_of. */
+function choiceRow(ctx: RulesContext, i: number, p: ParameterInfo, values: readonly string[], limits: Limits): HTMLElement {
+	const t = ctx.lang.texts;
+	const chosen = limits.oneOf ?? [];
+	const toggle = (value: string) => (on: boolean) =>
+		ctx.edit(i, (r) => {
+			const current = r.constraints[p.name]?.oneOf ?? [];
+			return withValues(r, p.name, values.filter((v) => (v === value ? on : current.includes(v))));
+		}, true);
+	return h(
+		'fieldset',
+		{ class: 'pg-row pg-pills' },
+		h('legend', { class: 'pg-param' }, tx(t, 'field_one_of', { param: parameterLabel(t, p.name) })),
+		...values.map((v) => pill(`${i}:${p.name}:${v}`, parameterValueLabel(t, p.name, v), chosen.includes(v), toggle(v)))
+	);
+}
+
+/** An integer parameter: from and up to, in displayed units. A list of values (from the JSON) is shown as it is. */
+function rangeRow(ctx: RulesContext, i: number, p: ParameterInfo, limits: Limits): HTMLElement {
+	const { texts: t, locale } = ctx.lang;
+	const label = h('span', { class: 'pg-param' }, parameterLabel(t, p.name));
+	const unit = h('span', { class: 'pg-unit' }, unitLabel(t, p));
+	if (limits.oneOf !== undefined) {
+		const values = joinOr(t, limits.oneOf.map((v) => (typeof v === 'number' ? formatUnit(v, p.scale, locale) : v)));
+		return h('div', { class: 'pg-row' }, label, h('span', {}, tx(t, 'field_one_of_values', { values })), unit);
+	}
+	const field = (key: 'min' | 'max') =>
+		textField(
+			`${i}:${p.name}:${key}`,
+			tx(t, key === 'min' ? 'field_min' : 'field_max'),
+			limits[key] === undefined ? '' : formatUnit(limits[key], p.scale, locale),
+			(value, el) => {
+				const n = value.trim() === '' ? undefined : toUnit(value, p.scale);
+				const bad = n !== undefined && !Number.isSafeInteger(n);
+				setInvalid(el, bad);
+				if (bad) return;
+				ctx.edit(i, (r) => ({ ...r, constraints: { ...r.constraints, [p.name]: { ...(r.constraints[p.name] ?? {}), [key]: n } } }), false);
+			},
+			{ inputmode: 'decimal', class: 'pg-num-input' }
+		);
+	return h('div', { class: 'pg-row' }, label, field('min'), field('max'), unit);
+}
+
 function limitsRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement | null {
 	if (view.decision !== 'allow' || view.actions.includes('*')) return null;
-	const { texts: t, locale } = ctx.lang;
 	const params = commonParameters(view.category, view.actions);
 	if (params.length === 0) return null;
 	return h(
@@ -212,21 +262,7 @@ function limitsRow(ctx: RulesContext, i: number, view: RuleView): HTMLElement | 
 		{ class: 'pg-group' },
 		...params.map((p) => {
 			const limits = view.constraints[p.name] ?? {};
-			const field = (key: 'min' | 'max') =>
-				textField(
-					`${i}:${p.name}:${key}`,
-					tx(t, key === 'min' ? 'field_min' : 'field_max'),
-					limits[key] === undefined ? '' : formatUnit(limits[key], p.scale, locale),
-					(value, el) => {
-						const n = value.trim() === '' ? undefined : toUnit(value, p.scale);
-						const bad = n !== undefined && !Number.isSafeInteger(n);
-						setInvalid(el, bad);
-						if (bad) return;
-						ctx.edit(i, (r) => ({ ...r, constraints: { ...r.constraints, [p.name]: { ...(r.constraints[p.name] ?? {}), [key]: n } } }), false);
-					},
-					{ inputmode: 'decimal', class: 'pg-num-input' }
-				);
-			return h('div', { class: 'pg-row' }, h('span', { class: 'pg-param' }, parameterLabel(t, p.name)), field('min'), field('max'), h('span', { class: 'pg-unit' }, unitLabel(t, p)));
+			return p.type === 'string' && p.values !== undefined ? choiceRow(ctx, i, p, p.values, limits) : rangeRow(ctx, i, p, limits);
 		})
 	);
 }

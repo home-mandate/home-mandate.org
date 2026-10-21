@@ -14,6 +14,7 @@ export {
 	vocabulary,
 	type Decision,
 	type Mandate,
+	type ParameterValue,
 	type Request,
 	type Result,
 	type Rule

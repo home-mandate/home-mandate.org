@@ -15,7 +15,7 @@ type Entry = Unlinked & { prev: string | null };
 interface Request {
 	id: string;
 	at: string;
-	entity: { entity_id: string; category: string; area?: string };
+	entity: { entity_id: string; category: string; areas?: string[] };
 	action: string;
 	parameters?: Record<string, number>;
 	decision: Decision;
@@ -25,10 +25,10 @@ interface Request {
 
 const DAY = '2026-10-12';
 const REQUESTS: Request[] = [
-	{ id: '01a13111-6c20-7101-8a01-00005eed0101', at: '19:02', entity: { entity_id: 'light.living_room', category: 'light', area: 'living_room' }, action: 'turn_on', decision: 'allow', rule: 'r-lights', what: 'how_log_1' },
+	{ id: '01a13111-6c20-7101-8a01-00005eed0101', at: '19:02', entity: { entity_id: 'light.living_room', category: 'light', areas: ['living_room'] }, action: 'turn_on', decision: 'allow', rule: 'r-lights', what: 'how_log_1' },
 	{ id: '01a13114-3940-7102-9a02-00005eed0102', at: '19:05', entity: { entity_id: 'alarm.house', category: 'alarm' }, action: 'disarm', decision: 'deny', rule: 'r-no-alarm', what: 'how_log_2' },
-	{ id: '01a13115-2420-7103-aa03-00005eed0103', at: '19:06', entity: { entity_id: 'lock.front_door', category: 'lock', area: 'hall' }, action: 'unlock', decision: 'ask', rule: 'r-locks', what: 'how_log_3' },
-	{ id: '01a13116-0e80-7104-ba04-00005eed0104', at: '19:07', entity: { entity_id: 'climate.living_room', category: 'climate', area: 'living_room' }, action: 'set_temperature', parameters: { temperature: 2100 }, decision: 'allow', rule: 'r-climate', what: 'how_log_4' }
+	{ id: '01a13115-2420-7103-aa03-00005eed0103', at: '19:06', entity: { entity_id: 'lock.front_door', category: 'lock', areas: ['hall'] }, action: 'unlock', decision: 'ask', rule: 'r-locks', what: 'how_log_3' },
+	{ id: '01a13116-0e80-7104-ba04-00005eed0104', at: '19:07', entity: { entity_id: 'climate.living_room', category: 'climate', areas: ['living_room'] }, action: 'set_temperature', parameters: { temperature: 2100 }, decision: 'allow', rule: 'r-climate', what: 'how_log_4' }
 ];
 
 function time(at: string, seconds = '00'): string {

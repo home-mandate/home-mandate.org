@@ -3,10 +3,10 @@
 // script only holds the state in memory and draws it. Nothing is stored or sent.
 // Copying the JSON is the shared copy button of site.ts (lib/copy.ts).
 import { analyse, type Analysis } from '../playground/analyse.ts';
-import { evaluate } from '../../lib/playground/engine.ts';
+import { evaluate, type ParameterValue } from '../../lib/playground/engine.ts';
 import { emptyMandate, isExampleId, type ExampleId } from '../../lib/playground/examples.ts';
 import { computeMatrix } from '../playground/matrix.ts';
-import { addRule, agentName, fileName, formatDoc, isObject, removeRule, updateRule, type JsonObject, type RuleView } from '../../lib/playground/model.ts';
+import { addRule, agentName, fileName, formatDoc, isAuditMode, isObject, removeRule, setAuditMode, updateRule, type JsonObject, type RuleView } from '../../lib/playground/model.ts';
 import { buildRequest, DAYS, type RequestInput } from '../../lib/playground/request.ts';
 import { tx, type Texts } from '../../lib/playground/texts.ts';
 import { required } from '../lib/dom.ts';
@@ -24,7 +24,7 @@ type Source = 'example' | 'rules' | 'field' | 'json';
 
 interface State {
 	analysis: Analysis;
-	values: Record<string, number>;
+	values: Record<string, ParameterValue>;
 	/** The last document that was a JSON object: what the rule editor shows. */
 	doc: JsonObject | null;
 }
@@ -36,6 +36,7 @@ interface Playground {
 	examples: Record<string, string>;
 	form: RequestForm;
 	rulesEl: HTMLElement;
+	audit: HTMLInputElement;
 	json: JsonElements;
 	phone: MediaQueryList;
 	showTab: (id: string, focus?: boolean) => void;
@@ -53,6 +54,7 @@ function create(root: HTMLElement): Playground {
 		examples,
 		form: findForm(),
 		rulesEl: required('#pg-rules'),
+		audit: required('#pg-audit'),
 		json: { textarea: required('#pg-json'), gutter: required('#pg-gutter'), badge: required('#pg-badge'), problem: required('#pg-problem') },
 		phone,
 		showTab: initPhoneTabs(root, phone),
@@ -100,6 +102,7 @@ function setText(pg: Playground, text: string, source: Source): void {
 	if (source === 'field') refreshRules(pg.rulesEl, doc, rulesContext(pg));
 	else if (source !== 'json' || analysis.doc) renderRules(pg.rulesEl, doc, rulesContext(pg));
 	const count = Array.isArray(doc?.rules) ? doc.rules.length : 0;
+	pg.audit.checked = isAuditMode(doc);
 	required('#pg-rule-count').textContent = count === 1 ? tx(pg.texts, 'rules_one') : tx(pg.texts, 'rules_other', { count });
 	renderGutter(pg.json, analysis.problem?.line);
 	renderValidity(pg.json, pg.texts, analysis.problem, (index) => goToRule(pg, index));
@@ -154,6 +157,14 @@ function wireAddRule(pg: Playground): void {
 	});
 }
 
+/** Step 2: audit mode of the whole mandate ("enforce": false). */
+function wireAuditMode(pg: Playground): void {
+	pg.audit.addEventListener('change', () => {
+		if (!pg.state.doc) return;
+		setText(pg, formatDoc(setAuditMode(pg.state.doc, pg.audit.checked)), 'rules');
+	});
+}
+
 /** Step 3: the request form. */
 function wireRequestForm(pg: Playground): void {
 	const { form, texts, locale } = pg;
@@ -170,11 +181,13 @@ function wireRequestForm(pg: Playground): void {
 		syncValue(form, texts, locale, pg.state.values);
 		evaluateNow();
 	});
-	form.value.addEventListener('input', () => {
+	const readNow = (): void => {
 		pg.state = { ...pg.state, values: readValue(form, pg.state.values) };
 		evaluateNow();
-	});
-	for (const el of [form.day, form.time, form.area, form.entity, form.critical]) {
+	};
+	form.value.addEventListener('input', readNow);
+	form.choice.addEventListener('change', readNow);
+	for (const el of [form.day, form.time, form.areas, form.entity, form.critical]) {
 		el.addEventListener(el instanceof HTMLSelectElement || el.type === 'checkbox' ? 'change' : 'input', evaluateNow);
 	}
 }
@@ -189,6 +202,7 @@ function start(root: HTMLElement): void {
 	const pg = create(root);
 	wireExamples(pg);
 	wireAddRule(pg);
+	wireAuditMode(pg);
 	wireRequestForm(pg);
 	wireJson(pg);
 	syncCategory(pg.form, pg.texts, pg.locale, pg.form.action.value, pg.state.values);

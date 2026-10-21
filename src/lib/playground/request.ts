@@ -1,7 +1,7 @@
 // The simulated request: what the PEP would pass to the evaluation (SPEC-v0 section 4).
 // The point in time is a day of a fixed reference week at a clock time in the
 // household time zone, written as an RFC 3339 timestamp with that zone's offset.
-import type { Request } from './engine.ts';
+import type { ParameterValue, Request } from './engine.ts';
 import { isCategory, parameterInfo, parametersOf, type ParameterInfo } from './vocab.ts';
 import { vocabulary } from './engine.ts';
 
@@ -17,8 +17,11 @@ const DEFAULT_OTHER = 21;
 export interface RequestInput {
 	category: string;
 	action: string;
-	/** Empty: the resource has no area. */
-	area: string;
+	/**
+	 * The areas of the resource as typed, separated by commas or spaces (SPEC-v0
+	 * section 3.4: its room and every location above it). Empty: no area.
+	 */
+	areas: string;
 	/** Empty: the default identifier of the category. */
 	entityId: string;
 	/** The directory marks the resource as critical. */
@@ -27,14 +30,22 @@ export interface RequestInput {
 	day: number;
 	/** "HH:MM" */
 	time: string;
-	/** Values per parameter name, in the unit of the vocabulary. */
-	parameters: Readonly<Record<string, number>>;
+	/** Values per parameter name: integers in the unit of the vocabulary, or strings. */
+	parameters: Readonly<Record<string, ParameterValue>>;
 	/**
 	 * The parameter the request carries when the action has one per unit
 	 * (temperature in °C or °F, SPEC-v0 section 4.5). Missing or not one of
 	 * the action's: the first.
 	 */
 	parameter?: string;
+}
+
+/**
+ * The set of areas a request carries: the typed identifiers in their order. Duplicates
+ * stay, so that the evaluation reports the request as invalid, as a PEP would.
+ */
+export function parseAreas(text: string): string[] {
+	return text.split(/[\s,]+/).filter((a) => a !== '');
 }
 
 /** Identifier of a resource of the category when none is given. */
@@ -76,10 +87,14 @@ export function requestTime(day: number, time: string, zone = HOUSEHOLD_ZONE): s
 	return localTimestamp(referenceDate(day), time, zone);
 }
 
-/** Default value of a parameter in the unit of the vocabulary: the middle of its range. */
-export function defaultParameter(category: string, action: string, name: string): number {
+/**
+ * Default value of a parameter: the first permitted value of a string, the middle of the
+ * range of an integer in the unit of the vocabulary, otherwise a room temperature.
+ */
+export function defaultParameter(category: string, action: string, name: string): ParameterValue {
 	const raw = vocabulary[category]?.actions[action]?.parameters?.[name];
 	const info = parameterInfo(name, raw ?? {});
+	if (info.type === 'string') return info.values?.[0] ?? '';
 	if (info.minimum !== undefined && info.maximum !== undefined) return Math.round((info.minimum + info.maximum) / 2);
 	return (DEFAULT_DISPLAYED[info.unit] ?? DEFAULT_OTHER) * info.scale;
 }
@@ -95,7 +110,7 @@ export function chosenParameter(category: string, action: string, name?: string)
 }
 
 /** Parameters the request carries: the chosen one of the action, with the given or default value. */
-export function requestParameters(input: RequestInput): Record<string, number> {
+export function requestParameters(input: RequestInput): Record<string, ParameterValue> {
 	const p = chosenParameter(input.category, input.action, input.parameter);
 	if (!p) return {};
 	return { [p.name]: input.parameters[p.name] ?? defaultParameter(input.category, input.action, p.name) };
@@ -106,7 +121,8 @@ export function buildRequest(input: RequestInput, zone = HOUSEHOLD_ZONE): Reques
 		entity_id: input.entityId.trim() === '' ? defaultEntityId(input.category) : input.entityId.trim(),
 		category: input.category
 	};
-	if (input.area.trim() !== '') resource.area = input.area.trim();
+	const areas = parseAreas(input.areas);
+	if (areas.length > 0) resource.areas = areas;
 	if (input.critical) resource.critical = true;
 	const request: Request = { resource, action: input.action, time: requestTime(input.day, input.time, zone), timezone: zone };
 	const parameters = isCategory(input.category) ? requestParameters(input) : {};

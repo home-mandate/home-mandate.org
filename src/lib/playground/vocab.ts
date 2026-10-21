@@ -26,24 +26,38 @@ export function hasAction(category: string, action: string): boolean {
 
 export interface ParameterInfo {
 	name: string;
-	/** Unit as the vocabulary writes it, without a scale prefix ("degree Celsius"). */
+	/** An integer in a unit, or a string (SPEC-v0 section 4.5). */
+	type: 'integer' | 'string';
+	/** Unit as the vocabulary writes it, without a scale prefix ("degree Celsius"); empty for a string. */
 	unit: string;
 	/** Steps per displayed unit: 100 for "0.01 degree Celsius". */
 	scale: number;
 	minimum?: number;
 	maximum?: number;
+	/** The permitted values of a string parameter, in vocabulary order. */
+	values?: readonly string[];
+}
+
+interface RawParameter {
+	type?: string;
+	unit?: string;
+	minimum?: number;
+	maximum?: number;
+	values?: readonly string[];
 }
 
 const SCALED = /^(0\.0*1) (.+)$/;
 
-export function parameterInfo(name: string, raw: { unit?: string; minimum?: number; maximum?: number }): ParameterInfo {
+export function parameterInfo(name: string, raw: RawParameter): ParameterInfo {
+	const type = raw.type === 'string' ? 'string' : 'integer';
 	const unit = raw.unit ?? '';
 	const scaled = SCALED.exec(unit);
 	const info: ParameterInfo = scaled
-		? { name, unit: scaled[2] ?? '', scale: Math.round(1 / Number(scaled[1])) }
-		: { name, unit, scale: 1 };
+		? { name, type, unit: scaled[2] ?? '', scale: Math.round(1 / Number(scaled[1])) }
+		: { name, type, unit, scale: 1 };
 	if (raw.minimum !== undefined) info.minimum = raw.minimum;
 	if (raw.maximum !== undefined) info.maximum = raw.maximum;
+	if (raw.values !== undefined) info.values = [...raw.values];
 	return info;
 }
 

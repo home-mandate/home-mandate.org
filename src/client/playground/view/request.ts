@@ -1,7 +1,10 @@
 // Step 3: the request form. The page renders it; this reads it and keeps the action
-// list and the value field in line with the chosen device category.
+// list and the value field in line with the chosen device category. An integer
+// parameter is typed in displayed units; a string parameter with permitted values
+// (mode) is chosen from a list.
+import type { ParameterValue } from '../../../lib/playground/engine.ts';
 import { chosenParameter, DAYS, defaultEntityId, defaultParameter, type RequestInput } from '../../../lib/playground/request.ts';
-import { actionLabel, parameterLabel, tx, unitLabel, type Texts } from '../../../lib/playground/texts.ts';
+import { actionLabel, parameterLabel, parameterValueLabel, tx, unitLabel, type Texts } from '../../../lib/playground/texts.ts';
 import { decimalPlaces, formatUnit, toUnit } from '../../../lib/playground/units.ts';
 import { actionsOf, parametersOf } from '../../../lib/playground/vocab.ts';
 import { required, setInvalid } from '../../lib/dom.ts';
@@ -20,7 +23,11 @@ export interface RequestForm {
 	value: HTMLInputElement;
 	/** Shown (and linked with aria-describedby) while the value does not parse. */
 	valueError: HTMLElement;
-	area: HTMLInputElement;
+	/** Shown instead of the value field for a string parameter with permitted values. */
+	choiceField: HTMLElement;
+	choiceLabel: HTMLElement;
+	choice: HTMLSelectElement;
+	areas: HTMLInputElement;
 	entity: HTMLInputElement;
 	entityHint: HTMLElement;
 	critical: HTMLInputElement;
@@ -38,7 +45,10 @@ export function findForm(): RequestForm {
 		valueLabel: required('#pg-req-value-label'),
 		value: required('#pg-req-value'),
 		valueError: required('#pg-req-value-error'),
-		area: required('#pg-req-area'),
+		choiceField: required('#pg-req-choice-field'),
+		choiceLabel: required('#pg-req-choice-label'),
+		choice: required('#pg-req-choice'),
+		areas: required('#pg-req-areas'),
 		entity: required('#pg-req-entity'),
 		entityHint: required('#pg-req-entity-hint'),
 		critical: required('#pg-req-critical')
@@ -60,13 +70,13 @@ function syncUnit(form: RequestForm, texts: Texts): void {
 }
 
 /** Sets the form to a category and action (from the overview) and updates dependent fields. */
-export function setRequest(form: RequestForm, texts: Texts, locale: string, category: string, action: string, values: Record<string, number>): void {
+export function setRequest(form: RequestForm, texts: Texts, locale: string, category: string, action: string, values: Record<string, ParameterValue>): void {
 	form.category.value = category;
 	syncCategory(form, texts, locale, action, values);
 }
 
 /** Refills the action list for the category and shows the value field if needed. */
-export function syncCategory(form: RequestForm, texts: Texts, locale: string, action: string, values: Record<string, number>): void {
+export function syncCategory(form: RequestForm, texts: Texts, locale: string, action: string, values: Record<string, ParameterValue>): void {
 	const category = form.category.value;
 	const actions = actionsOf(category);
 	form.action.replaceChildren(...actions.map((a) => h('option', { value: a, selected: a === action }, actionLabel(texts, a))));
@@ -76,23 +86,40 @@ export function syncCategory(form: RequestForm, texts: Texts, locale: string, ac
 	syncValue(form, texts, locale, values);
 }
 
-export function syncValue(form: RequestForm, texts: Texts, locale: string, values: Record<string, number>): void {
+export function syncValue(form: RequestForm, texts: Texts, locale: string, values: Record<string, ParameterValue>): void {
 	syncUnit(form, texts);
 	const p = parameter(form);
-	form.valueField.hidden = p === undefined;
+	const choices = p?.type === 'string' ? p.values : undefined;
+	form.valueField.hidden = p === undefined || choices !== undefined;
+	form.choiceField.hidden = choices === undefined;
 	if (!p) return;
-	form.valueLabel.textContent = tx(texts, 'req_value_unit', { param: parameterLabel(texts, p.name), unit: unitLabel(texts, p) });
 	const value = values[p.name] ?? defaultParameter(form.category.value, form.action.value, p.name);
-	form.value.value = formatUnit(value, p.scale, locale);
+	if (choices !== undefined) {
+		form.choiceLabel.textContent = parameterLabel(texts, p.name);
+		form.choice.replaceChildren(...choices.map((v) => h('option', { value: v, selected: v === value }, parameterValueLabel(texts, p.name, v))));
+		return;
+	}
+	if (p.type === 'string') {
+		form.valueLabel.textContent = parameterLabel(texts, p.name);
+		form.value.value = String(value);
+		setInvalid(form.value, false, form.valueError);
+		return;
+	}
+	form.valueLabel.textContent = tx(texts, 'req_value_unit', { param: parameterLabel(texts, p.name), unit: unitLabel(texts, p) });
+	form.value.value = typeof value === 'number' ? formatUnit(value, p.scale, locale) : value;
 	const places = decimalPlaces(p.scale);
 	form.valueError.textContent = places === 0 ? tx(texts, 'req_value_whole') : tx(texts, 'req_value_decimals', { places });
 	setInvalid(form.value, false, form.valueError);
 }
 
 /** Reads the value field into the per-parameter values (unchanged if it does not parse). */
-export function readValue(form: RequestForm, values: Record<string, number>): Record<string, number> {
+export function readValue(form: RequestForm, values: Record<string, ParameterValue>): Record<string, ParameterValue> {
 	const p = parameter(form);
 	if (!p) return values;
+	if (p.type === 'string') {
+		const text = (p.values === undefined ? form.value.value : form.choice.value).trim();
+		return text === '' ? values : { ...values, [p.name]: text };
+	}
 	const n = toUnit(form.value.value, p.scale);
 	// A value with too many decimals stays in the request: the evaluation calls it invalid.
 	const next = form.value.value.trim() === '' ? values : { ...values, [p.name]: n };
@@ -100,12 +127,12 @@ export function readValue(form: RequestForm, values: Record<string, number>): Re
 	return next;
 }
 
-export function readRequest(form: RequestForm, values: Record<string, number>): RequestInput {
+export function readRequest(form: RequestForm, values: Record<string, ParameterValue>): RequestInput {
 	const time = /^\d{2}:\d{2}/.exec(form.time.value)?.[0] ?? '00:00';
 	return {
 		category: form.category.value,
 		action: form.action.value,
-		area: form.area.value,
+		areas: form.areas.value,
 		entityId: form.entity.value,
 		critical: form.critical.checked,
 		day: Math.min(Math.max(Number(form.day.value) || 0, 0), DAYS.length - 1),

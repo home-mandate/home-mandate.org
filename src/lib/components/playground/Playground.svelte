@@ -76,6 +76,11 @@
 			</div>
 			<div id="pg-rules" class="pg-rules"></div>
 			<p class="pg-default"><Icon name="minus" size={16} />{m.playground_default_note()}</p>
+			<label class="pg-check pg-audit">
+				<input id="pg-audit" type="checkbox" aria-describedby="pg-audit-hint" />
+				<span>{m.playground_audit_mode()}</span>
+			</label>
+			<p class="pg-hint" id="pg-audit-hint">{m.playground_audit_mode_hint()}</p>
 			<button type="button" class="btn btn-secondary btn-sm pg-add" id="pg-add"><Icon name="plus" size={18} />{m.playground_add_rule()}</button>
 			<p class="pg-chain">
 				<span>{m.playground_strict_note()}</span>
@@ -113,12 +118,17 @@
 						<input id="pg-req-value" type="text" inputmode="decimal" autocomplete="off" />
 						<span class="pg-field-error" id="pg-req-value-error" hidden></span>
 					</div>
+					<div class="pg-field pg-wide" id="pg-req-choice-field" hidden>
+						<label for="pg-req-choice" id="pg-req-choice-label">{m.playground_req_value()}</label>
+						<select id="pg-req-choice"></select>
+					</div>
 				</div>
 				<details class="pg-more">
 					<summary><Icon name="chevron" size={16} />{m.playground_req_more()}</summary>
 					<div class="pg-form">
-						<label class="pg-field"><span>{m.playground_req_area()} <span class="muted">({m.playground_field_optional()})</span></span>
-							<input id="pg-req-area" type="text" autocomplete="off" spellcheck="false" />
+						<label class="pg-field"><span>{m.playground_req_areas()} <span class="muted">({m.playground_field_optional()})</span></span>
+							<input id="pg-req-areas" type="text" autocomplete="off" spellcheck="false" aria-describedby="pg-req-areas-hint" />
+							<span class="pg-hint" id="pg-req-areas-hint">{m.playground_req_areas_hint()}</span>
 						</label>
 						<label class="pg-field"><span>{m.playground_req_entity()}</span>
 							<input id="pg-req-entity" type="text" autocomplete="off" spellcheck="false" placeholder={defaultEntityId(DEFAULT.category)} aria-describedby="pg-req-entity-hint" />
