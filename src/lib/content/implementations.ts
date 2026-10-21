@@ -39,14 +39,14 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		spec: 'v0.1.0-rc.1',
 		classes: ['evaluator', 'selection', 'audit', 'audit-anchored', 'pdp'],
 		conformance: {
-			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.5',
+			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.6',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.5/conformance-report-process.json',
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.6/conformance-report-process.json',
 					sha256: 'e23e5d5b9aceb4c118a8a04978efc3494cadf18624ec78f4ab2498b4fa6c0d74'
 				},
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.5/conformance-report-http.json',
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.6/conformance-report-http.json',
 					sha256: '1e1303ed303457be011db83ba405b62c814fdd58fea42f0391a5fd2ca9b89ec7'
 				}
 			]
