@@ -14,5 +14,7 @@
   "faq_matter_q": "Wie hängt das mit Matter oder Home Assistant zusammen?",
   "faq_matter_a": "Die Spezifikation sitzt darüber: Sie entscheidet, ob ein Befehl gesendet werden darf. Matter oder Home Assistant stellen ihn dann zu.",
   "faq_app_q": "Reicht nicht die App meines Smart Homes?",
-  "faq_app_a": "Sie ist für Menschen gebaut, denen du vertraust. Ein Mandat gibt jedem Agenten eigene Grenzen: einzelne Aktionen, Höchstwerte, Uhrzeiten, eine Rückfrage aufs Handy und ein Protokoll. [Beispiele im Alltag](/everyday/)"
+  "faq_app_a": "Sie ist für Menschen gebaut, denen du vertraust. Ein Mandat gibt jedem Agenten eigene Grenzen: einzelne Aktionen, Höchstwerte, Uhrzeiten, eine Rückfrage aufs Handy und ein Protokoll. [Beispiele im Alltag](/everyday/)",
+  "faq_trial_q": "Kann ich ein Mandat erst ausprobieren, bevor es etwas sperrt?",
+  "faq_trial_a": "Ja, im Probebetrieb. Was die Regeln des Mandats ablehnen würden, wird trotzdem ausgeführt und im Protokoll als „nicht durchgesetzt“ vermerkt. So siehst du, was du noch anpassen musst. Rückfragen gelten weiter: Lehnst du ab, passiert nichts. Kritische Aktionen wie Tür entriegeln bleiben gesperrt. Wirksam wird der Probebetrieb erst, wenn jemand aus dem Haushalt genau diese Version bestätigt."
 }

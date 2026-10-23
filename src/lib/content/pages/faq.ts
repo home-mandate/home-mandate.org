@@ -11,7 +11,8 @@ export const faq: TextPage = {
 			{ id: 'owner', q: 'faq_owner_q', a: 'faq_owner_a' },
 			{ id: 'no-answer', q: 'faq_no_answer_q', a: 'faq_no_answer_a' },
 			{ id: 'matter', q: 'faq_matter_q', a: 'faq_matter_a' },
-			{ id: 'app', q: 'faq_app_q', a: 'faq_app_a' }
+			{ id: 'app', q: 'faq_app_q', a: 'faq_app_a' },
+			{ id: 'trial', q: 'faq_trial_q', a: 'faq_trial_a' }
 		] }
 	]
 };

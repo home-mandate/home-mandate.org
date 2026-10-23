@@ -14,5 +14,7 @@
   "faq_matter_q": "How does this relate to Matter or Home Assistant?",
   "faq_matter_a": "The specification sits above them: it decides whether a command may be sent. Matter or Home Assistant then deliver it.",
   "faq_app_q": "Isn’t my smart home app enough?",
-  "faq_app_a": "It is built for people you trust. A mandate gives every agent limits of its own: single actions, maximum values, times of day, a confirmation on your phone and a log. [Examples from everyday life](/everyday/)"
+  "faq_app_a": "It is built for people you trust. A mandate gives every agent limits of its own: single actions, maximum values, times of day, a confirmation on your phone and a log. [Examples from everyday life](/everyday/)",
+  "faq_trial_q": "Can I try a mandate before it blocks anything?",
+  "faq_trial_a": "Yes, in audit mode. Whatever the mandate’s rules would deny is carried out anyway and logged as “not enforced”, so you see what still needs changing. Confirmations still apply: if you decline, nothing happens. Critical actions such as unlocking a door stay blocked. Audit mode takes effect only once someone in the household confirms exactly that version."
 }
