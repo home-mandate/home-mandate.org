@@ -1,62 +1,50 @@
 <script lang="ts">
-	let { size = 30, wordmark = true }: { size?: number; wordmark?: boolean } = $props();
+	// header: mark and name. footer: mark, name and tagline (the tagline is the
+	// home title, so the header leaves it out).
+	let { variant = 'header' }: { variant?: 'header' | 'footer' } = $props();
+
+	const file = $derived(variant === 'footer' ? 'lockup-tagline' : 'lockup');
+	// The header link carries the name; the footer image stands alone. Its text is
+	// English in every language, like the image.
+	const alt = $derived(variant === 'footer' ? 'Home-Mandate – AI is coming home. Decide what it may do.' : '');
+	// Aspect ratio of both files (viewBox), so the page does not shift while they load.
+	const width = $derived(variant === 'footer' ? 1764 : 1758);
+	const height = 423;
 </script>
 
-<!-- House with the three decision dots; colours from the brand and decision tokens. -->
-<span class="logo">
-	<svg width={size} height={size} viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-		<path class="house" d="M4 15L16 5l12 10M7 12.5V27h18V12.5" stroke-width="2.6" />
-		<circle class="allow" cx="11.5" cy="20.5" r="2.2" />
-		<circle class="ask" cx="16" cy="20.5" r="2.2" />
-		<circle class="deny" cx="20.5" cy="20.5" r="2.2" />
-	</svg>
-	{#if wordmark}<span class="word" dir="ltr">Home-Mandate</span>{/if}
-</span>
+<!-- House with key. Both variants are in the markup; the tokens show one of them,
+     by the theme switch and by the system setting, without a flash. -->
+<img class="logo {variant} light" src="/logo/{file}-light.svg" {alt} lang="en" {width} {height} />
+<img class="logo {variant} dark" src="/logo/{file}-dark.svg" {alt} lang="en" {width} {height} />
 
 <style>
 	.logo {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
-		white-space: nowrap;
+		inline-size: auto;
+		max-inline-size: 100%;
 	}
-	.house {
-		stroke: var(--ms-brand-1);
+	.light {
+		display: var(--ms-logo-light, block);
 	}
-	.allow {
-		fill: var(--ms-allow-fg);
+	.dark {
+		display: var(--ms-logo-dark, none);
 	}
-	.ask {
-		fill: var(--ms-ask-fg);
+	/* The original proportions: the name is about 30 % of the height. */
+	.header {
+		block-size: 48px;
 	}
-	.deny {
-		fill: var(--ms-deny-fg);
+	.footer {
+		block-size: 88px;
 	}
-	.word {
-		font-size: 20px;
-		font-weight: 650;
-		letter-spacing: -0.01em;
+	/* The header's menu breakpoint (SiteHeader.svelte): a 64 px bar. */
+	@media (max-width: 1239px) {
+		.header {
+			block-size: 40px;
+		}
 	}
 	@media (max-width: 767px) {
-		.word {
-			font-size: 18px;
-		}
-	}
-	/* "Home-Mandate" is wider than the old wordmark; keep the header within 375 px. */
-	@media (max-width: 400px) {
-		.logo {
-			gap: 8px;
-		}
-		.word {
-			font-size: 16px;
-		}
-	}
-	@media (forced-colors: active) {
-		.house {
-			stroke: CanvasText;
-		}
-		circle {
-			fill: CanvasText;
+		.footer {
+			block-size: auto;
+			inline-size: 340px;
 		}
 	}
 </style>

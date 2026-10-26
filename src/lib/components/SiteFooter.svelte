@@ -17,7 +17,7 @@
 	{#if variant === 'full'}
 		<div class="wrap grid">
 			<div class="about">
-				<Logo size={26} />
+				<Logo variant="footer" />
 				<p class="muted">{m.footer_license()}</p>
 			</div>
 			<div class="col">

@@ -11,6 +11,16 @@ describe('systemThemeCss', () => {
 		expect(css).not.toContain('--ms-bg: #F5F5FA;');
 	});
 
+	it('shows exactly one logo variant: the dark one in the system dark scheme', () => {
+		const tokens = readFileSync('src/styles/tokens.css', 'utf8');
+		const light = /:root, \[data-ms-theme="light"\] \{([^}]*)\}/.exec(tokens)?.[1] ?? '';
+		expect(light).toContain('--ms-logo-light: block;');
+		expect(light).toContain('--ms-logo-dark: none;');
+		const css = systemThemeCss(tokens);
+		expect(css).toContain('--ms-logo-light: none;');
+		expect(css).toContain('--ms-logo-dark: block;');
+	});
+
 	it('fails when the dark block is missing', () => {
 		expect(() => systemThemeCss(':root { --ms-bg: #fff; }')).toThrow(/dark/);
 	});
