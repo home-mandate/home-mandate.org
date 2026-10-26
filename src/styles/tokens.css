@@ -11,9 +11,8 @@
   --ms-btn-bg: #272757;
   --ms-btn-fg: #FFFFFF;
   --ms-btn2-bg: #FFFFFF;
-  --ms-brand-1: #0F0E47;
-  --ms-brand-2: #505081;
-  --ms-brand-3: #8686AC;
+  --ms-logo-light: block; /* logo variant switch: the light or the dark <img> of Logo.svelte */
+  --ms-logo-dark: none;
   --ms-band-bg: #272757;
   --ms-band-fg: #ECECF6;
   --ms-allow-fg: #0B6670; --ms-allow-bg: #E3F4EC; --ms-allow-border: #A8DCC4;
@@ -35,9 +34,8 @@
   --ms-btn-bg: #C9C9F5;
   --ms-btn-fg: #0F0E47;
   --ms-btn2-bg: #1A1952;
-  --ms-brand-1: #ECECF6;
-  --ms-brand-2: #8686AC;
-  --ms-brand-3: #505081;
+  --ms-logo-light: none;
+  --ms-logo-dark: block;
   --ms-band-bg: #0A0938;
   --ms-band-fg: #A9A9CC;
   --ms-allow-fg: #7EE3C8; --ms-allow-bg: rgba(126,227,200,.10); --ms-allow-border: rgba(126,227,200,.38);

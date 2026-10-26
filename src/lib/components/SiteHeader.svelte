@@ -88,7 +88,8 @@
 	}
 	.home {
 		display: flex;
-		flex: none;
+		flex: 0 1 auto;
+		min-inline-size: 0;
 		color: var(--ms-text);
 		text-decoration: none;
 		border-radius: 8px;

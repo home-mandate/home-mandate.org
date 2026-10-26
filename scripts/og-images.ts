@@ -11,6 +11,9 @@ const ROOT = new URL('..', import.meta.url).pathname;
 const OUT = join(ROOT, 'static', 'og');
 const TAGS = ['en', 'de'];
 
+// The logo without the tagline: the title below is the tagline in English.
+const LOGO = `data:image/svg+xml;base64,${readFileSync(join(ROOT, 'static', 'logo', 'lockup-light.svg')).toString('base64')}`;
+
 const escapeHtml = (text: string): string => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 function html(m: Record<string, string>): string {
@@ -20,8 +23,7 @@ function html(m: Record<string, string>): string {
 		body{box-sizing:border-box;padding:72px 80px;background:#F5F5FA;color:#0F0E47;
 			font-family:system-ui,"Segoe UI","Noto Sans","Helvetica Neue",Arial,sans-serif;
 			display:flex;flex-direction:column;justify-content:space-between;border-top:14px solid #272757}
-		.brand{display:flex;align-items:center;gap:20px;font-size:34px;font-weight:700;letter-spacing:-.01em}
-		.brand svg{width:64px;height:64px}
+		.brand{display:block;align-self:flex-start;height:88px;width:auto}
 		h1{margin:0;font-size:68px;line-height:1.08;letter-spacing:-.02em;max-width:1000px}
 		.foot{display:flex;justify-content:space-between;align-items:center;font-size:28px;color:#505081}
 		.chips{display:flex;gap:14px}
@@ -30,7 +32,7 @@ function html(m: Record<string, string>): string {
 		.ask{color:#8F5A00;background:#FBF0D9;border-color:#EBCB8A}
 		.deny{color:#B0213A;background:#FBE6E9;border-color:#EFB1BB}
 	</style></head><body>
-		<div class="brand">${readFileSync(join(ROOT, 'static', 'favicon.svg'), 'utf8').replace(/<style>.*<\/style>/, '<style>.h{stroke:#0F0E47}.a{fill:#0B6670}.q{fill:#8F5A00}.d{fill:#B0213A}</style>')}${escapeHtml(m.site_name ?? '')}</div>
+		<img class="brand" src="${LOGO}" alt="">
 		<h1>${escapeHtml(m.home_title ?? '')}</h1>
 		<div class="foot"><span>home-mandate.org</span><span class="chips">${chip('allow', m.common_allow ?? '')}${chip('ask', m.common_ask ?? '')}${chip('deny', m.common_deny ?? '')}</span></div>
 	</body></html>`;
