@@ -10,7 +10,8 @@ const LANGUAGES = [
 		how: 'How it works',
 		words: ['allow', 'allow', 'allow', 'ask', 'deny', 'deny', 'deny'],
 		allImpl: 'All implementations',
-		addImpl: 'Add yours via pull request.'
+		addImpl: 'Add yours via pull request.',
+		footerSource: 'Source code of this website'
 	},
 	{
 		tag: 'de',
@@ -20,7 +21,8 @@ const LANGUAGES = [
 		how: 'So funktioniert’s',
 		words: ['erlauben', 'erlauben', 'erlauben', 'nachfragen', 'ablehnen', 'ablehnen', 'ablehnen'],
 		allImpl: 'Alle Implementierungen',
-		addImpl: 'Per Pull Request eintragen.'
+		addImpl: 'Per Pull Request eintragen.',
+		footerSource: 'Quellcode dieser Website'
 	}
 ];
 
@@ -88,9 +90,11 @@ for (const lang of LANGUAGES) {
 			);
 		});
 
-		test('uses the full footer', async ({ page }) => {
-			await page.goto(`${lang.prefix}/`);
-			await expect(page.locator('footer.footer.full')).toHaveCount(1);
+		test('every page uses the same footer', async ({ page }) => {
+			for (const path of ['/', '/implementations/home-assistant/', '/imprint/']) {
+				await page.goto(`${lang.prefix}${path}`);
+				await expect(page.getByRole('contentinfo').getByRole('link', { name: lang.footerSource })).toBeVisible();
+			}
 		});
 
 		test('has no accessibility violations', async ({ page }, info) => {

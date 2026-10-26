@@ -19,7 +19,6 @@
 	const path = $derived(page.url.pathname);
 	// The 404 page is served for unknown addresses: no canonical or alternates.
 	const indexable = $derived(page.route.id !== '/404');
-	const home = $derived(page.route.id === '/');
 </script>
 
 <svelte:head>
@@ -68,7 +67,7 @@
 	{@render children()}
 </main>
 
-<SiteFooter variant={home ? 'full' : 'compact'} />
+<SiteFooter />
 
 <style>
 	.skip {
