@@ -26,7 +26,7 @@
   "everyday_vs_vendor": "Another vendor?",
   "everyday_vs_vendor_app": "The rules only apply in this app.",
   "everyday_vs_vendor_mandate": "An open standard: any agent and any platform can implement it.",
-  "everyday_app_not_instead": "A mandate does not replace your smart home platform – it sits in front of it. The platform carries out; the mandate decides beforehand whether an agent may do it at all. For Home Assistant there is “Home-Mandate for Home Assistant”; any other platform can implement the specification just as well.",
+  "everyday_app_not_instead": "A mandate does not replace your smart home platform – it sits in front of it. The platform carries out; the mandate decides beforehand whether an agent may do it at all. For Home Assistant there is [Home-Mandate for Home Assistant](/implementations/home-assistant/); any other platform can implement the specification just as well.",
   "everyday_ha_title": "For technicians: how is this in Home Assistant today?",
   "everyday_ha_text_1": "Devices are exposed to voice and AI assistants per device, on or off. Every AI assistant that connects through Assist or the MCP server sees the same exposed devices. There are no time windows, no limits on values and no confirmation before an action is carried out.",
   "everyday_ha_text_2": "Applications without OAuth use long-lived access tokens, valid for ten years. A confirmation before a tool call is asked, if at all, by the AI client itself. As of October 2026.",

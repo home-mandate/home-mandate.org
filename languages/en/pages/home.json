@@ -3,6 +3,8 @@
   "home_lead": "The Home-Mandate Specification is an open standard that lets every household say what an AI agent may do – allow, ask or deny.",
   "home_cta_playground": "Try the playground",
   "home_cta_how": "How it works",
+  "home_ha_hint": "Using Home Assistant?",
+  "home_ha_link": "Set limits for AI agents there",
   "home_meta": "Open specification · Text CC BY 4.0 · Code Apache 2.0",
   "home_card_label": "Mandate",
   "home_card_name": "Voice assistant",

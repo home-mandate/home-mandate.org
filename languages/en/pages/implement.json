@@ -73,6 +73,7 @@
   "implement_col_link": "Link",
   "implement_list_open": "Open {name}",
   "implement_list_run": "Published run",
+  "implement_list_guide": "Guide on this site",
   "implement_badge_passed": "tests passed, run published",
   "implement_badge_declared": "declared, not yet verified",
   "implement_list_note": "The list is kept in the [site repository](https://github.com/home-mandate/home-mandate.org/blob/main/src/lib/content/implementations.ts). Add your project with a pull request. To have classes shown as passed, attach the reports of mandate-conformance to your release and add their links with their SHA-256; each build of the site checks them against the cases of the specification version you name.",

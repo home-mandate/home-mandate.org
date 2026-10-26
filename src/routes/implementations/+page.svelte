@@ -9,6 +9,8 @@
 	import { KIND_FILTERS, kindCounts, kindsAttribute, type KindFilter } from '$lib/implement/list';
 	import { conformanceRun, isPassed, VERIFIED } from '$lib/implement/verified';
 	import { m } from '$lib/paraglide/messages';
+	import { localHref } from '$lib/locale';
+	import { getLocale } from '$lib/paraglide/runtime';
 	import { IMPLEMENTATIONS_FILE_URL } from '$lib/site';
 
 	const KIND_LABEL: Record<KindFilter, () => string> = {
@@ -21,6 +23,7 @@
 	const counts = kindCounts(IMPLEMENTATIONS);
 	const kinds = (list: ImplementationKind[]): string => list.map((k) => KIND_LABEL[k]()).join(', ');
 	const run = (name: string): string | undefined => conformanceRun(VERIFIED, name);
+	const local = (path: string): string => localHref(path, getLocale());
 	// The browser script fills in the numbers.
 	const shownTemplate = $derived(m.implement_list_shown({ count: '{count}', total: '{total}' }));
 </script>
@@ -74,7 +77,10 @@
 				{#each IMPLEMENTATIONS as impl (impl.name)}
 					<tr data-kinds={kindsAttribute(impl.kinds)}>
 						<th scope="row">
-							<span class="who"><span class="name mono">{impl.name}</span><span class="origin">{impl.origin}</span></span>
+							<span class="who"
+								><span class="name mono">{impl.name}</span><span class="origin">{impl.origin}</span
+								>{#if impl.guide}<a class="guide" href={local(impl.guide)}>{m.implement_list_guide()}</a>{/if}</span
+							>
 						</th>
 						<td>{kinds(impl.kinds)}</td>
 						<td>{impl.language}</td>
@@ -113,6 +119,7 @@
 					>
 				</h2>
 				<span class="origin">{impl.origin}</span>
+				{#if impl.guide}<a class="guide" href={local(impl.guide)}>{m.implement_list_guide()}</a>{/if}
 				<span class="facts">{kinds(impl.kinds)} · {impl.language} · {impl.license} · {impl.spec}</span>
 				<span class="badges">
 					{#each impl.classes as c (c)}<ClassBadge id={c} passed={isPassed(VERIFIED, impl.name, c)} small />{/each}
@@ -243,6 +250,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 5px;
+	}
+	.guide {
+		font-size: 13.5px;
 	}
 	.run {
 		display: inline-block;

@@ -26,7 +26,7 @@
   "everyday_vs_vendor": "Anderer Anbieter?",
   "everyday_vs_vendor_app": "Die Regeln gelten nur in dieser App.",
   "everyday_vs_vendor_mandate": "Ein offener Standard: Jeder Agent und jede Plattform kann ihn umsetzen.",
-  "everyday_app_not_instead": "Ein Mandat ersetzt deine Smart-Home-Plattform nicht – es sitzt davor. Die Plattform führt aus, das Mandat entscheidet vorher, ob ein Agent das überhaupt darf. Für Home Assistant gibt es dafür „Home-Mandate for Home Assistant“; jede andere Plattform kann die Spezifikation ebenso umsetzen.",
+  "everyday_app_not_instead": "Ein Mandat ersetzt deine Smart-Home-Plattform nicht – es sitzt davor. Die Plattform führt aus, das Mandat entscheidet vorher, ob ein Agent das überhaupt darf. Für Home Assistant gibt es dafür [Home-Mandate for Home Assistant](/implementations/home-assistant/); jede andere Plattform kann die Spezifikation ebenso umsetzen.",
   "everyday_ha_title": "Für Techniker: Wie ist das heute bei Home Assistant?",
   "everyday_ha_text_1": "Geräte werden für Sprach- und KI-Assistenten pro Gerät freigegeben, ein oder aus. Alle KI-Assistenten, die über Assist oder den MCP-Server zugreifen, sehen dieselben freigegebenen Geräte. Zeitfenster, Grenzen für Werte oder eine Rückfrage vor der Ausführung gibt es dort nicht.",
   "everyday_ha_text_2": "Für Anwendungen ohne OAuth gibt es Langzeit-Zugangstoken; sie gelten zehn Jahre. Eine Rückfrage vor einem Werkzeugaufruf stellt höchstens der KI-Client selbst. Stand: Oktober 2026.",

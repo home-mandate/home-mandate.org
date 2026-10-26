@@ -33,6 +33,10 @@
 				>
 				<a class="btn btn-secondary" href={pathIn('/how-it-works/', locale)}>{m.home_cta_how()}</a>
 			</div>
+			<p class="platform">
+				<Icon name="home" size={18} />{m.home_ha_hint()}
+				<a href={pathIn('/implementations/home-assistant/', locale)}>{m.home_ha_link()}</a>
+			</p>
 			<p class="meta">{m.home_meta()}</p>
 		</div>
 		<MandateCard />
@@ -73,6 +77,23 @@
 		flex-wrap: wrap;
 		gap: 12px;
 		margin-block-start: 8px;
+	}
+	.platform {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 4px 8px;
+		margin-block-start: 4px;
+		font-size: 15.5px;
+	}
+	.platform :global(svg) {
+		color: var(--ms-text-muted);
+	}
+	.platform a {
+		display: inline-flex;
+		align-items: center;
+		min-block-size: 44px;
+		font-weight: 600;
 	}
 	.meta {
 		margin-block-start: 4px;

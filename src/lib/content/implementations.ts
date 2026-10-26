@@ -19,6 +19,8 @@ export interface Implementation {
 	classes: ConformanceClass[];
 	/** Published reports of mandate-conformance; without them the classes are "declared". */
 	conformance?: ConformanceEvidence;
+	/** Path of a guide on this site for the platform it serves, e.g. /implementations/home-assistant/. */
+	guide?: string;
 }
 
 export interface ConformanceEvidence {
@@ -38,6 +40,7 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		license: 'AGPL-3.0-or-later',
 		spec: 'v0.1.0-rc.3',
 		classes: ['evaluator', 'selection', 'audit', 'audit-anchored', 'pdp'],
+		guide: '/implementations/home-assistant/',
 		conformance: {
 			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.8',
 			reports: [

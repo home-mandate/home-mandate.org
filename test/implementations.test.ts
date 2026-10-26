@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { IMPLEMENTATIONS } from '../src/lib/content/implementations';
 import { conformanceRun, isPassed } from '../src/lib/implement/verified';
@@ -45,6 +46,13 @@ describe('implementation list', () => {
 				expect(report.sha256).toMatch(/^[0-9a-f]{64}$/);
 			}
 			if (impl.conformance !== undefined) expect(impl.conformance.run).toMatch(/^https:\/\//);
+		}
+	});
+	it('points guides at pages of this site', () => {
+		for (const { guide } of IMPLEMENTATIONS) {
+			if (guide === undefined) continue;
+			expect(guide).toMatch(/^\/[a-z0-9-/]+\/$/);
+			expect(existsSync(new URL(`../src/routes${guide}+page.svelte`, import.meta.url))).toBe(true);
 		}
 	});
 });
