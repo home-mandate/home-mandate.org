@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkIndexNowKey, checkRobots, llmsTxt, pageInfo, sitemapXml, type PageInfo } from '../scripts/lib/sitemap.ts';
+import { checkIndexNowKey, checkRobots, llmsFullTxt, llmsTxt, pageInfo, pageText, sitemapXml, type PageInfo } from '../scripts/lib/sitemap.ts';
 
 const head = (inner: string) => `<!doctype html><html lang="en"><head>${inner}</head><body></body></html>`;
 const imprint = head(
@@ -35,6 +35,11 @@ describe('pageInfo', () => {
 		});
 	});
 
+	it('reads the date of the last change when the page names one', () => {
+		expect(pageInfo(head('<meta property="article:modified_time" content="2026-10-21"/>')).modified).toBe('2026-10-21');
+		expect(pageInfo(imprint)).not.toHaveProperty('modified');
+	});
+
 	it('notices pages that ask not to be indexed', () => {
 		expect(pageInfo(head('<meta name="robots" content="noindex" />')).noindex).toBe(true);
 	});
@@ -68,6 +73,12 @@ describe('sitemapXml', () => {
 		expect(xml.indexOf('/a/')).toBeLessThan(xml.indexOf('/b/'));
 	});
 
+	it('names the last change only where the page has a date', () => {
+		const xml = sitemapXml([page('https://home-mandate.org/spec/v0/', { modified: '2026-10-21' }), page('https://home-mandate.org/faq/')]);
+		expect(xml).toContain('<loc>https://home-mandate.org/spec/v0/</loc>\n\t\t<lastmod>2026-10-21</lastmod>');
+		expect(xml.match(/<lastmod>/g)).toHaveLength(1);
+	});
+
 	it('escapes XML special characters', () => {
 		expect(sitemapXml([page('https://home-mandate.org/?a=1&b=2')])).toContain('<loc>https://home-mandate.org/?a=1&amp;b=2</loc>');
 	});
@@ -95,6 +106,39 @@ describe('llmsTxt', () => {
 		expect(text).toContain('- [Frequently asked questions](https://home-mandate.org/faq/): Short answers.');
 		expect(text).not.toContain('/de/');
 		expect(text).not.toContain('contact/sent');
+	});
+});
+
+describe('pageText', () => {
+	it('keeps the main content as plain text with headings and list items', () => {
+		const html =
+			'<header><a href="/">Home</a></header><main id="main"><nav><a href="#a">Contents</a></nav>' +
+			'<h1 class="x">Why &amp; how</h1><p>One <a href="/b/">link<span class="visually-hidden"> (opens another website)</span></a>.</p>' +
+			'<svg aria-hidden="true"><text>icon</text></svg><ul><li>first</li><li>second</li></ul>' +
+			'<h2 id="a"><span class="num">1</span> <span class="title">Goal</span></h2><button>Copy</button><script>x()</script></main><footer>Imprint</footer>';
+		expect(pageText(html)).toBe('# Why & how\n\nOne link.\n\n- first\n- second\n\n## 1 Goal');
+	});
+
+	it('is empty for a page without main content', () => {
+		expect(pageText('<html><body><p>x</p></body></html>')).toBe('');
+	});
+});
+
+describe('llmsFullTxt', () => {
+	const site = { name: 'Home-Mandate', summary: 'Open standard.', languages: ['en', 'de'] };
+	it('puts the text of every English indexable page under its title and address', () => {
+		const text = llmsFullTxt(
+			[
+				{ info: page('https://home-mandate.org/faq/', { title: 'FAQ – Home-Mandate' }), text: '# FAQ\n\nAnswers.' },
+				{ info: page('https://home-mandate.org/de/faq/', { title: 'Fragen – Home-Mandate' }), text: 'Antworten.' },
+				{ info: page('https://home-mandate.org/old/', { noindex: true }), text: 'Old.' }
+			],
+			site
+		);
+		expect(text.startsWith('# Home-Mandate\n\n> Open standard.\n')).toBe(true);
+		expect(text).toContain('---\n\nSource: https://home-mandate.org/faq/\n\n# FAQ\n\nAnswers.\n');
+		expect(text).not.toContain('Antworten');
+		expect(text).not.toContain('Old.');
 	});
 });
 

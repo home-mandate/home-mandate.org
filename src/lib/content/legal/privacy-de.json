@@ -21,7 +21,7 @@
    "p": "Wer ist verantwortlich für die Datenerfassung auf dieser Website? Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur verantwortlichen Stelle“ in dieser Datenschutzerklärung entnehmen."
   },
   {
-   "p": "Wie erfassen wir Ihre Daten? Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in unser [Kontaktformular](/contact) eingeben."
+   "p": "Wie erfassen wir Ihre Daten? Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in unser [Kontaktformular](/contact/) eingeben."
   },
   {
    "p": "Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten."
@@ -219,7 +219,7 @@
    "h3": "Kontaktformular"
   },
   {
-   "p": "Unser Kontaktformular erreichen Sie unter [home-mandate.org/contact](/contact). Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter."
+   "p": "Unser Kontaktformular erreichen Sie unter [home-mandate.org/contact](/contact/). Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter."
   },
   {
    "p": "Ihre Nachricht wird als E-Mail in unser Postfach auf unserem eigenen Mailserver (Hosting bei Hetzner, siehe oben) zugestellt; der Dienst, der das Formular annimmt, speichert sie nicht und protokolliert weder Ihre Angaben noch Ihre IP-Adresse. Um Missbrauch zu begrenzen, zählt er Anfragen je IP-Adresse ausschließlich im Arbeitsspeicher; dieser Zähler wird nach spätestens etwa einer Stunde gelöscht."

@@ -35,7 +35,6 @@
 		{/each}
 		<link rel="alternate" hreflang="x-default" href={urlIn(path, 'en')} />
 		<!-- Link previews; title and description come from each page (PageMeta). -->
-		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content={m.site_name()} />
 		<meta property="og:url" content={urlIn(path, locale)} />
 		<meta property="og:locale" content={ogLocale(locale)} />

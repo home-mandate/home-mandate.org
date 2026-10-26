@@ -12,7 +12,7 @@
 		{#each toc as entry (entry.id)}
 			<li class:sub={entry.depth > 2}>
 				<a href="#{entry.id}" data-toc-target={entry.id}
-					><span class="num">{entry.number}</span><span class="text">{entry.text}</span></a
+					><span class="num">{`${entry.number} `}</span><span class="text">{entry.text}</span></a
 				>
 			</li>
 		{/each}

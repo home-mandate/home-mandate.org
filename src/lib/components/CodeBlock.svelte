@@ -44,6 +44,7 @@
 		inset-inline-end: 6px;
 	}
 	.copy {
+		position: relative;
 		display: inline-flex;
 		align-items: center;
 		min-block-size: 32px;
@@ -54,6 +55,12 @@
 		font-size: 13px;
 		font-weight: 600;
 		cursor: pointer;
+	}
+	/* A 44 px target for fingers; the button itself stays 32 px high. */
+	.copy::after {
+		content: '';
+		position: absolute;
+		inset: -6px;
 	}
 	.copy span {
 		display: inline-flex;

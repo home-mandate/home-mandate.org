@@ -111,13 +111,11 @@
 	<ul class="cards">
 		{#each IMPLEMENTATIONS as impl (impl.name)}
 			<li class="card" data-kinds={kindsAttribute(impl.kinds)}>
-				<h2 class="card-name">
-					<a href={impl.url}
-						><span class="mono">{impl.name}</span><Icon name="arrow-up-right" size={18} /><span class="visually-hidden"
-							>{m.common_external()}</span
-						></a
-					>
-				</h2>
+				<!-- The heading holds the name only; the hint for screen readers stays outside it. -->
+				<a class="card-link" href={impl.url}
+					><h2 class="card-name mono">{impl.name}</h2>
+					<Icon name="arrow-up-right" size={18} /><span class="visually-hidden">{m.common_external()}</span></a
+				>
 				<span class="origin">{impl.origin}</span>
 				{#if impl.guide}<a class="guide" href={local(impl.guide)}>{m.implement_list_guide()}</a>{/if}
 				<span class="facts">{kinds(impl.kinds)} · {impl.language} · {impl.license} · {impl.spec}</span>
@@ -300,7 +298,7 @@
 		font-size: 16px;
 		font-weight: 600;
 	}
-	.card-name a {
+	.card-link {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

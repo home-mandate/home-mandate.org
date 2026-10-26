@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
@@ -74,6 +75,22 @@ test('every imported release has its own address', async ({ page }) => {
 	const response = await page.goto(`/spec/v0/${tag}/`);
 	expect(response?.status()).toBe(200);
 	await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex');
+});
+
+test('only the current release is indexed and in the sitemap', async ({ page }) => {
+	await page.goto('/spec/v0/');
+	await expect(page.locator('meta[name=robots]')).toHaveCount(0);
+	const hrefs = await page.locator('details.version').first().locator('a').evaluateAll((links) => links.map((a) => a.getAttribute('href') ?? ''));
+	const older = [...new Set(hrefs)].filter((href) => href !== '/spec/v0/');
+	expect(older.length).toBeGreaterThan(0);
+	for (const href of older) {
+		await page.goto(href);
+		await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'noindex');
+	}
+	// scripts/sitemap.ts writes into build/ after vite build; vite preview does not serve that file.
+	const sitemap = readFileSync(new URL('../build/sitemap.xml', import.meta.url), 'utf8');
+	expect(sitemap).not.toMatch(/\/spec\/v0\/v\d/);
+	expect(sitemap).toContain('<loc>https://home-mandate.org/spec/v0/</loc>');
 });
 
 test('the Atom feed is valid XML with entries', async ({ request }) => {

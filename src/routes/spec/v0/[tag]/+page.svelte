@@ -4,5 +4,6 @@
 	let { data } = $props();
 </script>
 
-<!-- The latest release under its tag duplicates /spec/v0/: not indexed. -->
-<SpecReader spec={data.spec} versions={data.versions} file={data.file} noindex={data.latest} />
+<!-- Releases under their tag are not indexed: the latest duplicates /spec/v0/,
+     older ones are nearly the same text. They stay reachable and followed. -->
+<SpecReader spec={data.spec} versions={data.versions} file={data.file} noindex />
