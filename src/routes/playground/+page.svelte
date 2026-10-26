@@ -12,7 +12,7 @@
 	const texts = playgroundTexts();
 </script>
 
-<PageMeta title="{m.playground_title()} – {m.site_name()}" description={m.playground_intro()} />
+<PageMeta title="{m.playground_meta_title()} – {m.site_name()}" description={m.playground_intro()} />
 
 <svelte:head>
 	<script type="module" src={scripts.playground}></script>

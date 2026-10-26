@@ -1,6 +1,12 @@
 {
   "security_title": "Sicherheit & Datenschutz",
   "security_intro": "Ehrlich darüber, was ein Mandat schützt – und was nicht.",
+  "security_h_protected": "Was ein Mandat schützt – und was nicht",
+  "security_protected_text": "Ein Mandat macht einen KI-Agenten nicht klüger oder ehrlicher. Es begrenzt, was der Agent tun kann – egal, was er gelesen hat oder was man ihm erzählt. Deshalb hilft es gegen [Prompt-Injection](/why/), und deshalb hilft es nicht, wo jemand am Wächter selbst vorbeikommt.",
+  "security_h_decided": "Wo entschieden wird",
+  "security_h_report": "Sicherheitslücke melden",
+  "security_meta_title": "Was ein Mandat im Smart Home schützt",
+  "security_meta_description": "Wogegen ein Mandat dein Smart Home schützt – Prompt-Injection, getäuschte Agenten, geänderte Protokolle – und wogegen nicht. Entschieden wird bei dir.",
   "security_01_1": "Was geschützt ist",
   "security_01_1_1": "Ein manipulierter Agent kann nur tun, was das Mandat erlaubt.",
   "security_01_1_2": "Kritische Aktionen brauchen eine ausdrückliche Regel oder einen Menschen.",
@@ -12,7 +18,7 @@
   "security_01_2_3": "Geräte, die sich am Wächter vorbei steuern lassen.",
   "security_01_2_4": "Was der Anbieter des Agenten mit deinen Gesprächen macht.",
   "security_02_title": "Entschieden außerhalb des Agenten",
-  "security_02_text": "Der Wächter, der Anfragen prüft, gehört nicht zum Agenten. So gedacht werden Mandate und Protokolle auf einem Gerät bei dir zu Hause gespeichert und ausgewertet, und nur Rückfragen gehen aufs Handy. Nichts wird an uns geschickt. Diese Website selbst nutzt keine Cookies und kein Tracking.",
+  "security_02_text": "Der Wächter, der Anfragen prüft, gehört nicht zum Agenten. So gedacht werden Mandate und Protokolle auf einem Gerät bei dir zu Hause gespeichert und ausgewertet, und nur Rückfragen gehen aufs Handy. Nichts wird an uns geschickt. Diese Website selbst nutzt keine Cookies und kein Tracking. [Wie der Wächter entscheidet](/how-it-works/)",
   "security_03_title": "Sicherheitslücke gefunden?",
   "security_03_text": "Bitte melde sie vertraulich über GitHub. Wir bestätigen jede Meldung innerhalb von 72 Stunden.",
   "security_03_link": "So meldest du"

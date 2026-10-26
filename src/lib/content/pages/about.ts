@@ -4,9 +4,12 @@ import type { TextPage } from '../types';
 export const about: TextPage = {
 	title: 'about_title',
 	intro: 'about_intro',
+	metaDescription: 'about_meta_description',
 	blocks: [
 		{ h2: 'about_01', id: 'principles' },
 		{ list: [{ title: 'about_02_1_title', body: 'about_02_1_body' }, { title: 'about_02_2_title', body: 'about_02_2_body' }, { title: 'about_02_3_title', body: 'about_02_3_body' }, { title: 'about_02_4_title', body: 'about_02_4_body' }] },
+		{ h2: 'about_maintainer_title', id: 'maintainer' },
+		{ p: 'about_maintainer_text' },
 		{ h2: 'about_03', id: 'how-changes-happen' },
 		{ process: [{ icon: 'issue', title: 'about_04_1_title', body: 'about_04_1_body' }, { icon: 'spec', title: 'about_04_2_title', body: 'about_04_2_body' }, { icon: 'test', title: 'about_04_3_title', body: 'about_04_3_body' }, { icon: 'code', title: 'about_04_4_title', body: 'about_04_4_body' }] },
 		{ h2: 'about_05', id: 'get-involved' },

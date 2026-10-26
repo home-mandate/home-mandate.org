@@ -3,8 +3,15 @@ import type { TextPage } from '../types';
 export const faq: TextPage = {
 	title: 'faq_title',
 	intro: 'faq_intro',
+	metaTitle: 'faq_meta_title',
+	metaDescription: 'faq_meta_description',
 	blocks: [
 		{ faq: [
+			{ id: 'what', q: 'faq_what_q', a: 'faq_what_a' },
+			{ id: 'door', q: 'faq_door_q', a: 'faq_door_a' },
+			{ id: 'agents', q: 'faq_agents_q', a: 'faq_agents_a' },
+			{ id: 'assist', q: 'faq_assist_q', a: 'faq_assist_a' },
+			{ id: 'today', q: 'faq_today_q', a: 'faq_today_a' },
 			{ id: 'data', q: 'faq_data_q', a: 'faq_data_a' },
 			{ id: 'tricked', q: 'faq_tricked_q', a: 'faq_tricked_a' },
 			{ id: 'product', q: 'faq_product_q', a: 'faq_product_a' },

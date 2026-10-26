@@ -93,7 +93,12 @@ for (const lang of LANGUAGES) {
 		test('every page uses the same footer', async ({ page }) => {
 			for (const path of ['/', '/implementations/home-assistant/', '/imprint/']) {
 				await page.goto(`${lang.prefix}${path}`);
-				await expect(page.getByRole('contentinfo').getByRole('link', { name: lang.footerSource })).toBeVisible();
+				const footer = page.getByRole('contentinfo');
+				await expect(footer.getByRole('link', { name: lang.footerSource })).toBeVisible();
+				for (const target of ['/about/', '/glossary/', '/security/', '/privacy/', '/imprint/']) {
+					// The imprint is also linked by the language menu while it is the current page.
+					await expect(footer.locator(`a[href="${lang.prefix}${target}"]`).first()).toBeVisible();
+				}
 			}
 		});
 

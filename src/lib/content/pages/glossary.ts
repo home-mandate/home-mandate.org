@@ -3,6 +3,8 @@ import type { TextPage } from '../types';
 export const glossary: TextPage = {
 	title: 'glossary_title',
 	intro: 'glossary_intro',
+	metaTitle: 'glossary_meta_title',
+	metaDescription: 'glossary_meta_description',
 	blocks: [
 		{ glossary: [
 			{ term: 'glossary_agent_term', code: 'agent', def: 'glossary_agent_def' },

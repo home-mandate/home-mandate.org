@@ -1,6 +1,7 @@
 {
   "contact_title": "Kontakt",
   "contact_intro": "Fragen zur Spezifikation, Hinweise, Presse – schreib uns.",
+  "contact_meta_description": "Schreib dem Home-Mandate-Projekt: Fragen zur Spezifikation, Hinweise, Implementierungen oder Presse. Sicherheitslücken meldest du vertraulich auf GitHub.",
   "contact_name": "Name",
   "contact_email": "E-Mail",
   "contact_message": "Nachricht",

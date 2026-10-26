@@ -87,7 +87,7 @@ describe('specLd', () => {
 			dateModified: '2026-10-21',
 			isBasedOn: 'https://github.com/home-mandate/spec/blob/v0.1.0/SPEC-v0.md',
 			isPartOf: { '@type': 'WebSite', url: 'https://home-mandate.org/' },
-			author: { '@id': 'https://home-mandate.org/#organization' }
+			author: { '@type': 'Person', name: 'Markus Mazurczak', jobTitle: 'Maintainer', affiliation: { '@id': 'https://home-mandate.org/#organization' } }
 		});
 	});
 

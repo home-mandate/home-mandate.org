@@ -1,6 +1,8 @@
 {
   "how_title": "How it works",
   "how_intro": "An agent asks. Your home checks the mandate. Then it answers allow, ask or deny – and writes it down.",
+  "how_meta_title": "How a mandate checks AI agents",
+  "how_meta_description": "An AI agent asks, your home checks its mandate and answers allow, ask or deny – then writes it into a tamper-evident log. Rules and critical actions.",
   "how_blocks_title": "Five building blocks",
   "how_block_household": "Household",
   "how_block_household_body": "The people who live there. They write the mandate.",
@@ -93,5 +95,15 @@
   "how_log_bad_body": "Entry 2 was edited, so its fingerprint changed. The fingerprint stored in entry 3 no longer matches – the check fails at entry 3.",
   "how_log_limits": "The chain is not signed: whoever can rewrite the whole log can also recompute every fingerprint. It becomes evidence together with a copy or a signed checkpoint kept outside the log.",
   "how_log_tech": "For techies: the four entries",
-  "how_log_tech_text": "Digest of an entry: \"sha256:\" + hex(SHA-256(JCS(entry))), over the complete entry including prev. The first entry has prev null. Exchange format: JSON Lines."
+  "how_log_tech_text": "Digest of an entry: \"sha256:\" + hex(SHA-256(JCS(entry))), over the complete entry including prev. The first entry has prev null. Exchange format: JSON Lines.",
+  "how_more_title": "Read on",
+  "how_more_play_title": "Try it yourself",
+  "how_more_play_body": "Build a mandate in the playground and send requests against it.",
+  "how_more_play_link": "Open the playground",
+  "how_more_rules_title": "The rules in detail",
+  "how_more_rules_body": "How a request is evaluated, word for word, in the specification.",
+  "how_more_rules_link": "Evaluation rule",
+  "how_more_log_title": "The log in detail",
+  "how_more_log_body": "Entries, events, hash chain and signed checkpoints.",
+  "how_more_log_link": "Audit log"
 }

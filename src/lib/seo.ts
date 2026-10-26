@@ -15,6 +15,8 @@ const ORGANIZATION: Ld = {
 	sameAs: ['https://github.com/home-mandate', SPEC_REPOSITORY, SITE_REPOSITORY]
 };
 const WEBSITE: Ld = { '@type': 'WebSite', name: 'Home-Mandate', url: `${SITE_URL}/` };
+/** Maintainer of the specification (named on /about/). */
+const MAINTAINER: Ld = { '@type': 'Person', name: 'Markus Mazurczak', jobTitle: 'Maintainer', affiliation: { '@id': ORGANIZATION_ID } };
 const SPEC_LICENSE = 'https://creativecommons.org/licenses/by/4.0/';
 // Languages with their own share image under static/og/<tag>.png.
 const OG_IMAGES = ['en', 'de'];
@@ -58,7 +60,7 @@ export function specLd(spec: { title: string; url: string; version: string; date
 		license: SPEC_LICENSE,
 		...(spec.source ? { isBasedOn: spec.source } : {}),
 		isPartOf: WEBSITE,
-		author: { '@id': ORGANIZATION_ID },
+		author: MAINTAINER,
 		publisher: ORGANIZATION
 	};
 }

@@ -13,7 +13,7 @@
 	let { page, children, noindex = false }: { page: TextPage; children?: Snippet; noindex?: boolean } = $props();
 </script>
 
-<PageMeta title="{t(page.title)} – {m.site_name()}" description={plain(t(page.intro))} {noindex} />
+<PageMeta title="{t(page.metaTitle ?? page.title)} – {m.site_name()}" description={plain(t(page.metaDescription ?? page.intro))} {noindex} />
 
 <div class="wrap"><article class="text-page">
 	<header class="intro">

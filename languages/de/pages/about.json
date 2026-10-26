@@ -1,6 +1,7 @@
 {
   "about_title": "Über die Home-Mandate-Spezifikation",
   "about_intro": "Ein kleines, offenes Projekt. Es gehört niemandem, damit alle es nutzen können.",
+  "about_meta_description": "Wer die Home-Mandate-Spezifikation pflegt, die Grundsätze des offenen Standards für KI-Agenten im Smart Home, wie Änderungen entstehen, wie du mitmachst.",
   "about_01": "Grundsätze",
   "about_02_1_title": "Neutral",
   "about_02_1_body": "Kein Hersteller entscheidet allein. Jede Implementierung wird gleich behandelt.",
@@ -10,6 +11,8 @@
   "about_02_3_body": "Was nicht erlaubt ist, ist verboten.",
   "about_02_4_title": "Offen",
   "about_02_4_body": "Text, Code und Diskussionen sind öffentlich.",
+  "about_maintainer_title": "Wer sich darum kümmert",
+  "about_maintainer_text": "Gepflegt wird die Spezifikation von Markus Mazurczak als Maintainer. Er kümmert sich um den Text, die Konformitätsfälle und die Releases. Entschieden wird öffentlich in der [Home-Mandate-Organisation auf GitHub](https://github.com/home-mandate), wo alle Änderungen vorschlagen können. Das Projekt gehört trotzdem niemandem.",
   "about_03": "Wie Änderungen entstehen",
   "about_04_1_title": "Issue",
   "about_04_1_body": "Jemand beschreibt ein Problem oder eine Idee.",

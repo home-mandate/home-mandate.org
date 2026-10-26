@@ -3,6 +3,7 @@ import type { TextPage } from '../types';
 export const why: TextPage = {
 	title: 'why_title',
 	intro: 'why_intro',
+	metaTitle: 'why_meta_title',
 	blocks: [
 		{ h2: 'why_01', id: 'agents-are-moving-in' },
 		{ p: 'why_02' },

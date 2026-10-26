@@ -1,6 +1,8 @@
 {
   "glossary_title": "Glossary",
   "glossary_intro": "The words used on this site and in the specification.",
+  "glossary_meta_title": "Glossary: mandate, agent, allow, ask, deny",
+  "glossary_meta_description": "The terms of the Home-Mandate Specification in plain words: agent, mandate, allow, ask, deny, critical action, home guard, audit log and more.",
   "glossary_agent_term": "Agent",
   "glossary_agent_def": "Software that wants to act on devices, e.g. a voice assistant.",
   "glossary_allow_term": "Allow",

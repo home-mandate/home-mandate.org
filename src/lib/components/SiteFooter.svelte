@@ -19,8 +19,11 @@
 		</div>
 		<div class="col">
 			<p class="eyebrow">{m.footer_project()}</p>
-			<a href={SPEC_REPOSITORY}>{m.nav_github()}<span class="visually-hidden"> {m.common_external()}</span></a>
+			<a href={local('/about/')}>{m.footer_about()}</a>
+			<a href={local('/glossary/')}>{m.footer_glossary()}</a>
+			<a href={local('/security/')}>{m.footer_security_page()}</a>
 			<a href={local('/changelog/')}>{m.footer_changelog()}</a>
+			<a href={SPEC_REPOSITORY}>{m.nav_github()}<span class="visually-hidden"> {m.common_external()}</span></a>
 			<a href={SECURITY_URL}>{m.footer_security()}<span class="visually-hidden"> {m.common_external()}</span></a>
 			<a href={SITE_REPOSITORY}>{m.footer_source()}<span class="visually-hidden"> {m.common_external()}</span></a>
 		</div>

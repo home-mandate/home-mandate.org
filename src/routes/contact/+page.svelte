@@ -8,7 +8,7 @@
 	import { m } from '$lib/paraglide/messages';
 </script>
 
-<PageMeta title="{m.contact_title()} – {m.site_name()}" description={m.contact_intro()} />
+<PageMeta title="{m.contact_title()} – {m.site_name()}" description={m.contact_meta_description()} />
 
 <svelte:head>
 	<script type="module" src={scripts.contact}></script>

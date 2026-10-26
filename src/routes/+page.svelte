@@ -15,7 +15,7 @@
 	const locale = $derived(getLocale());
 </script>
 
-<PageMeta title="{m.site_name()} – {m.home_title()}" description={m.site_description()} />
+<PageMeta title={m.home_meta_title()} description={m.site_description()} />
 
 <svelte:head>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -- JSON-LD from our own texts, "<" escaped -->

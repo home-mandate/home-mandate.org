@@ -1,6 +1,8 @@
 {
   "how_title": "So funktioniert’s",
   "how_intro": "Ein Agent fragt. Dein Zuhause prüft das Mandat. Dann antwortet es: erlauben, nachfragen oder ablehnen – und schreibt es auf.",
+  "how_meta_title": "Wie ein Mandat KI-Agenten prüft",
+  "how_meta_description": "Ein KI-Agent fragt, dein Zuhause prüft sein Mandat und antwortet: erlauben, nachfragen oder ablehnen – und schreibt es in ein fälschungssicheres Protokoll.",
   "how_blocks_title": "Fünf Bausteine",
   "how_block_household": "Haushalt",
   "how_block_household_body": "Die Menschen, die dort wohnen. Sie schreiben das Mandat.",
@@ -93,5 +95,15 @@
   "how_log_bad_body": "Eintrag 2 wurde bearbeitet, also hat sich sein Fingerabdruck geändert. Der in Eintrag 3 gespeicherte Fingerabdruck passt nicht mehr – die Prüfung schlägt bei Eintrag 3 fehl.",
   "how_log_limits": "Die Kette ist nicht signiert: Wer das ganze Protokoll neu schreiben kann, kann auch jeden Fingerabdruck neu berechnen. Zum Beweis wird sie erst zusammen mit einer Kopie oder einem signierten Checkpoint außerhalb des Protokolls.",
   "how_log_tech": "Für Techniker: die vier Einträge",
-  "how_log_tech_text": "Digest eines Eintrags: \"sha256:\" + hex(SHA-256(JCS(Eintrag))), über den vollständigen Eintrag einschließlich prev. Der erste Eintrag hat prev null. Austauschformat: JSON Lines."
+  "how_log_tech_text": "Digest eines Eintrags: \"sha256:\" + hex(SHA-256(JCS(Eintrag))), über den vollständigen Eintrag einschließlich prev. Der erste Eintrag hat prev null. Austauschformat: JSON Lines.",
+  "how_more_title": "Weiterlesen",
+  "how_more_play_title": "Selbst ausprobieren",
+  "how_more_play_body": "Baue im Spielplatz ein Mandat und schicke Anfragen dagegen.",
+  "how_more_play_link": "Zum Spielplatz",
+  "how_more_rules_title": "Die Regeln im Detail",
+  "how_more_rules_body": "Wie eine Anfrage ausgewertet wird, Wort für Wort in der Spezifikation.",
+  "how_more_rules_link": "Auswertungsregel",
+  "how_more_log_title": "Das Protokoll im Detail",
+  "how_more_log_body": "Einträge, Ereignisse, Hash-Kette und signierte Prüfpunkte.",
+  "how_more_log_link": "Protokoll"
 }

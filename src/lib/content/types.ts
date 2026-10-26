@@ -29,6 +29,10 @@ export type Block =
 export interface TextPage {
 	title: K;
 	intro: K;
+	/** Title in the browser tab and search results, when it should differ from the heading. */
+	metaTitle?: K;
+	/** Description for search results, when it should differ from the lead. */
+	metaDescription?: K;
 	eyebrow?: string;
 	icon?: IconName;
 	blocks: Block[];
