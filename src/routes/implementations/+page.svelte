@@ -9,6 +9,8 @@
 	import { KIND_FILTERS, kindCounts, kindsAttribute, type KindFilter } from '$lib/implement/list';
 	import { conformanceRun, isPassed, VERIFIED } from '$lib/implement/verified';
 	import { m } from '$lib/paraglide/messages';
+	import { localHref } from '$lib/locale';
+	import { getLocale } from '$lib/paraglide/runtime';
 	import { IMPLEMENTATIONS_FILE_URL } from '$lib/site';
 
 	const KIND_LABEL: Record<KindFilter, () => string> = {
@@ -21,6 +23,7 @@
 	const counts = kindCounts(IMPLEMENTATIONS);
 	const kinds = (list: ImplementationKind[]): string => list.map((k) => KIND_LABEL[k]()).join(', ');
 	const run = (name: string): string | undefined => conformanceRun(VERIFIED, name);
+	const local = (path: string): string => localHref(path, getLocale());
 	// The browser script fills in the numbers.
 	const shownTemplate = $derived(m.implement_list_shown({ count: '{count}', total: '{total}' }));
 </script>
@@ -74,7 +77,10 @@
 				{#each IMPLEMENTATIONS as impl (impl.name)}
 					<tr data-kinds={kindsAttribute(impl.kinds)}>
 						<th scope="row">
-							<span class="who"><span class="name mono">{impl.name}</span><span class="origin">{impl.origin}</span></span>
+							<span class="who"
+								><span class="name mono">{impl.name}</span><span class="origin">{impl.origin}</span
+								>{#if impl.guide}<a class="guide" href={local(impl.guide)}>{m.implement_list_guide()}</a>{/if}</span
+							>
 						</th>
 						<td>{kinds(impl.kinds)}</td>
 						<td>{impl.language}</td>
@@ -84,7 +90,7 @@
 							<span class="badges">
 								{#each impl.classes as c (c)}<ClassBadge id={c} passed={isPassed(VERIFIED, impl.name, c)} />{/each}
 							</span>
-							{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}</a>{/if}
+							{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}<span class="visually-hidden"> {m.common_external()}</span></a>{/if}
 						</td>
 						<td>
 							<a class="open" href={impl.url}>
@@ -105,19 +111,18 @@
 	<ul class="cards">
 		{#each IMPLEMENTATIONS as impl (impl.name)}
 			<li class="card" data-kinds={kindsAttribute(impl.kinds)}>
-				<h2 class="card-name">
-					<a href={impl.url}
-						><span class="mono">{impl.name}</span><Icon name="arrow-up-right" size={18} /><span class="visually-hidden"
-							>{m.common_external()}</span
-						></a
-					>
-				</h2>
+				<!-- The heading holds the name only; the hint for screen readers stays outside it. -->
+				<a class="card-link" href={impl.url}
+					><h2 class="card-name mono">{impl.name}</h2>
+					<Icon name="arrow-up-right" size={18} /><span class="visually-hidden">{m.common_external()}</span></a
+				>
 				<span class="origin">{impl.origin}</span>
+				{#if impl.guide}<a class="guide" href={local(impl.guide)}>{m.implement_list_guide()}</a>{/if}
 				<span class="facts">{kinds(impl.kinds)} · {impl.language} · {impl.license} · {impl.spec}</span>
 				<span class="badges">
 					{#each impl.classes as c (c)}<ClassBadge id={c} passed={isPassed(VERIFIED, impl.name, c)} small />{/each}
 				</span>
-				{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}</a>{/if}
+				{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}<span class="visually-hidden"> {m.common_external()}</span></a>{/if}
 			</li>
 		{/each}
 		<li class="card empty" data-empty hidden>{m.implement_list_empty()}</li>
@@ -244,6 +249,9 @@
 		flex-wrap: wrap;
 		gap: 5px;
 	}
+	.guide {
+		font-size: 13.5px;
+	}
 	.run {
 		display: inline-block;
 		margin-block-start: 6px;
@@ -290,7 +298,7 @@
 		font-size: 16px;
 		font-weight: 600;
 	}
-	.card-name a {
+	.card-link {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;

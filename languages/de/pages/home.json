@@ -1,8 +1,11 @@
 {
   "home_title": "KI kommt nach Hause. Bestimme, was sie darf.",
+  "home_meta_title": "Home-Mandate – Was KI-Agenten im Smart Home dürfen",
   "home_lead": "Die Home-Mandate-Spezifikation ist ein offener Standard, mit dem jeder Haushalt festlegt, was ein KI-Agent darf – erlauben, nachfragen oder ablehnen.",
   "home_cta_playground": "Spielplatz ausprobieren",
   "home_cta_how": "So funktioniert’s",
+  "home_ha_hint": "Du nutzt Home Assistant?",
+  "home_ha_link": "So setzt du KI-Agenten dort Grenzen",
   "home_meta": "Offene Spezifikation · Text CC BY 4.0 · Code Apache 2.0",
   "home_card_label": "Mandat",
   "home_card_name": "Sprachassistent",

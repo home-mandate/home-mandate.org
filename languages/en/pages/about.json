@@ -1,6 +1,7 @@
 {
   "about_title": "About the Home-Mandate Specification",
   "about_intro": "A small, open project. It belongs to nobody, so that everybody can use it.",
+  "about_meta_description": "Who maintains the Home-Mandate Specification, the principles of this open standard for AI agents in the smart home, how changes happen and how to join.",
   "about_01": "Principles",
   "about_02_1_title": "Neutral",
   "about_02_1_body": "No vendor decides alone. Every implementation is treated the same.",
@@ -10,6 +11,8 @@
   "about_02_3_body": "Anything not allowed is denied.",
   "about_02_4_title": "Open",
   "about_02_4_body": "Text, code and discussions are public.",
+  "about_maintainer_title": "Who looks after it",
+  "about_maintainer_text": "The specification is maintained by Markus Mazurczak as maintainer. He looks after the text, the conformance cases and the releases. Decisions are made in public in the [Home-Mandate organisation on GitHub](https://github.com/home-mandate), where anyone can propose changes. The project still belongs to nobody.",
   "about_03": "How changes happen",
   "about_04_1_title": "Issue",
   "about_04_1_body": "Someone describes a problem or idea.",

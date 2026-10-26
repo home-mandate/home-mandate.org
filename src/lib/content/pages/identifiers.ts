@@ -10,6 +10,7 @@ function page(kind: 'mandate' | 'audit' | 'checkpoint', path: string, code: stri
 	return {
 		title: `ident_${kind}_title`,
 		intro: `ident_${kind}_intro`,
+		metaTitle: `ident_${kind}_meta_title`,
 		eyebrow: `${SITE}/${path}`,
 		blocks: [{ code }, cards]
 	};

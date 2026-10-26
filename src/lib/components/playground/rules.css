@@ -171,6 +171,11 @@
 	background: var(--ms-deny-bg);
 	border-color: var(--ms-deny-border);
 }
+/* Until the script has filled in the rules, what follows them stays invisible:
+   it would otherwise be shown first and then pushed down (layout shift). */
+html.js .pg-rules:empty ~ * {
+	visibility: hidden;
+}
 .pg-check {
 	display: inline-flex;
 	align-items: flex-start;

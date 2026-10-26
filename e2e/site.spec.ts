@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
-const PAGES = ['/', '/everyday/', '/imprint/', '/privacy/', '/mandate/v0/', '/audit/v0/', '/audit-checkpoint/v0/'];
+const PAGES = ['/', '/everyday/', '/implementations/home-assistant/', '/imprint/', '/privacy/', '/mandate/v0/', '/audit/v0/', '/audit-checkpoint/v0/'];
 const LANGUAGES = [
 	{ tag: 'en', prefix: '', title: 'AI is coming home. Decide what it may do.', name: 'English' },
 	{ tag: 'de', prefix: '/de', title: 'KI kommt nach Hause. Bestimme, was sie darf.', name: 'Deutsch' }
@@ -37,6 +37,16 @@ for (const lang of LANGUAGES) {
 				expect(result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(' ')}`)).toEqual([]);
 			});
 		}
+
+		test('links that open a new tab say so to screen readers', async ({ page }) => {
+			const hint = lang.tag === 'de' ? '(öffnet eine andere Website in einem neuen Tab)' : '(opens another website in a new tab)';
+			for (const path of [...PAGES, '/implementations/', '/spec/v0/']) {
+				await page.goto(`${lang.prefix}${path}`);
+				for (const link of await page.locator('a[target=_blank]').all()) {
+					expect(await link.textContent(), `${path} ${await link.getAttribute('href')}`).toContain(hint);
+				}
+			}
+		});
 
 		test('every page names its other languages (hreflang)', async ({ page }) => {
 			await page.goto(`${lang.prefix}/imprint/`);

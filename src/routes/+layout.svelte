@@ -19,7 +19,6 @@
 	const path = $derived(page.url.pathname);
 	// The 404 page is served for unknown addresses: no canonical or alternates.
 	const indexable = $derived(page.route.id !== '/404');
-	const home = $derived(page.route.id === '/');
 </script>
 
 <svelte:head>
@@ -36,7 +35,6 @@
 		{/each}
 		<link rel="alternate" hreflang="x-default" href={urlIn(path, 'en')} />
 		<!-- Link previews; title and description come from each page (PageMeta). -->
-		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content={m.site_name()} />
 		<meta property="og:url" content={urlIn(path, locale)} />
 		<meta property="og:locale" content={ogLocale(locale)} />
@@ -59,7 +57,7 @@
 	<div class="partial" role="note">
 		<div class="wrap inner">
 			<Icon name="info" />
-			<p>{m.lang_partial()} <a href={TRANSLATING_URL}>{m.lang_help()}</a></p>
+			<p>{m.lang_partial()} <a href={TRANSLATING_URL}>{m.lang_help()}<span class="visually-hidden"> {m.common_external()}</span></a></p>
 		</div>
 	</div>
 {/if}
@@ -68,7 +66,7 @@
 	{@render children()}
 </main>
 
-<SiteFooter variant={home ? 'full' : 'compact'} />
+<SiteFooter />
 
 <style>
 	.skip {

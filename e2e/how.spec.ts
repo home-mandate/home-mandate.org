@@ -20,12 +20,13 @@ const chain = (page: Page) => page.locator('[data-how-chain]');
 
 for (const lang of LANGUAGES) {
 	test.describe(lang.tag, () => {
-		test('shows all five sections without errors', async ({ page }) => {
+		test('shows all five sections and where to read on, without errors', async ({ page }) => {
 			const problems = watch(page);
 			await page.goto(`${lang.prefix}/how-it-works/`);
 			await expect(page.locator('html')).toHaveAttribute('lang', lang.tag);
 			await expect(page.getByRole('heading', { level: 1 })).toHaveText(lang.title);
-			await expect(page.getByRole('heading', { level: 2 })).toHaveCount(5);
+			await expect(page.getByRole('heading', { level: 2 })).toHaveCount(6);
+			await expect(page.locator('.read-on a.link-card')).toHaveCount(3);
 			await expect(page.locator('.tiles li')).toHaveCount(5);
 			await expect(page.locator('.plain li')).toHaveCount(7);
 			await expect(page.locator('.critical li')).toHaveCount(8);

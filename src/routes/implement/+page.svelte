@@ -43,7 +43,7 @@
 	const commands = conformanceCommands(spec.repository, tag);
 </script>
 
-<PageMeta title="{m.implement_title()} – {m.site_name()}" description={m.implement_intro()} />
+<PageMeta title="{m.implement_meta_title()} – {m.site_name()}" description={m.implement_meta_description()} />
 
 <SubTabs current="implement" />
 
@@ -125,7 +125,7 @@
 	<div class="wrap">
 		<div class="dl-head">
 			<h2 id="downloads">{m.implement_dl_title()}</h2>
-			<p class="muted">{m.implement_dl_note()}</p>
+			<p class="muted"><RichText text={m.implement_dl_note()} /></p>
 		</div>
 		<div class="dl-grid">
 			{#each data.downloads as d (d.id)}

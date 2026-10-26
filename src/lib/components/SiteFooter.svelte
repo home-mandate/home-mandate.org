@@ -6,60 +6,47 @@
 	import { m } from '$lib/paraglide/messages';
 	import { SECURITY_URL, SITE_REPOSITORY, SPEC_REPOSITORY, TRANSLATING_URL } from '$lib/site';
 
-	// "full" (home page): four columns. "compact" (all other pages): one row.
-	let { variant = 'compact' }: { variant?: 'full' | 'compact' } = $props();
-
+	// The same footer on every page: about, project, legal and language columns.
 	const locale = $derived(getLocale());
 	const local = (path: string) => pathIn(path, locale);
 </script>
 
-<footer class="footer {variant}" aria-label={m.footer_label()}>
-	{#if variant === 'full'}
-		<div class="wrap grid">
-			<div class="about">
-				<Logo variant="footer" />
-				<p class="muted">{m.footer_license()}</p>
-			</div>
-			<div class="col">
-				<p class="eyebrow">{m.footer_project()}</p>
-				<a href={SPEC_REPOSITORY}>{m.nav_github()}</a>
-				<a href={local('/changelog/')}>{m.footer_changelog()}</a>
-				<a href={SECURITY_URL}>{m.footer_security()}</a>
-				<a href={SITE_REPOSITORY}>{m.footer_source()}</a>
-			</div>
-			<div class="col">
-				<p class="eyebrow">{m.footer_legal()}</p>
-				<a href={local('/contact/')}>{m.footer_contact()}</a>
-				<a href={local('/imprint/')}>{m.footer_imprint()}</a>
-				<a href={local('/privacy/')}>{m.footer_privacy()}</a>
-			</div>
-			<div class="col">
-				<p class="eyebrow">{m.footer_language()}</p>
-				{#each languages as language (language.tag)}
-					<a
-						href={pathIn(page.url.pathname, language.tag)}
-						hreflang={language.tag}
-						lang={language.tag}
-						dir={language.dir}
-						aria-current={language.tag === locale ? 'true' : undefined}>{language.name}</a
-					>
-				{/each}
-				<a href={TRANSLATING_URL}>{m.footer_translate()}</a>
-			</div>
-		</div>
-	{:else}
-		<div class="wrap row">
+<footer class="footer" aria-label={m.footer_label()}>
+	<div class="wrap grid">
+		<div class="about">
+			<Logo variant="footer" />
 			<p class="muted">{m.footer_license()}</p>
-			<ul>
-				<li><a href={SPEC_REPOSITORY}>{m.nav_github()}</a></li>
-				<li><a href={local('/contact/')}>{m.footer_contact()}</a></li>
-				<li><a href={local('/changelog/')}>{m.footer_changelog()}</a></li>
-				<li><a href={local('/imprint/')}>{m.footer_imprint()}</a></li>
-				<li><a href={local('/privacy/')}>{m.footer_privacy()}</a></li>
-				<li><a href={SECURITY_URL}>{m.footer_security()}</a></li>
-			</ul>
 		</div>
-	{/if}
+		<div class="col">
+			<p class="eyebrow">{m.footer_project()}</p>
+			<a href={local('/about/')}>{m.footer_about()}</a>
+			<a href={local('/glossary/')}>{m.footer_glossary()}</a>
+			<a href={local('/security/')}>{m.footer_security_page()}</a>
+			<a href={local('/changelog/')}>{m.footer_changelog()}</a>
+			<a href={SPEC_REPOSITORY}>{m.nav_github()}<span class="visually-hidden"> {m.common_external()}</span></a>
+			<a href={SECURITY_URL}>{m.footer_security()}<span class="visually-hidden"> {m.common_external()}</span></a>
+			<a href={SITE_REPOSITORY}>{m.footer_source()}<span class="visually-hidden"> {m.common_external()}</span></a>
+		</div>
+		<div class="col">
+			<p class="eyebrow">{m.footer_legal()}</p>
+			<a href={local('/contact/')}>{m.footer_contact()}</a>
+			<a href={local('/imprint/')}>{m.footer_imprint()}</a>
+			<a href={local('/privacy/')}>{m.footer_privacy()}</a>
+		</div>
+		<div class="col">
+			<p class="eyebrow">{m.footer_language()}</p>
+			{#each languages as language (language.tag)}
+				<a
+					href={pathIn(page.url.pathname, language.tag)}
+					hreflang={language.tag}
+					lang={language.tag}
+					dir={language.dir}
+					aria-current={language.tag === locale ? 'true' : undefined}>{language.name}</a
+				>
+			{/each}
+			<a href={TRANSLATING_URL}>{m.footer_translate()}<span class="visually-hidden"> {m.common_external()}</span></a>
+		</div>
+	</div>
 </footer>
 
 <style>
@@ -96,25 +83,6 @@
 	.col a[aria-current='true'] {
 		font-weight: 650;
 	}
-	.row {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		justify-content: space-between;
-		gap: 16px 32px;
-		padding-block: 32px;
-	}
-	.row a {
-		text-decoration: underline;
-	}
-	ul {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px 24px;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
 	@media (max-width: 1023px) {
 		.grid {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -131,10 +99,6 @@
 			min-block-size: 44px;
 		}
 		.col {
-			gap: 0;
-		}
-		ul {
-			flex-direction: column;
 			gap: 0;
 		}
 	}

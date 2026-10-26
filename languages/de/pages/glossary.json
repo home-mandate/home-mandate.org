@@ -1,6 +1,8 @@
 {
   "glossary_title": "Glossar",
   "glossary_intro": "Die Begriffe dieser Seite und der Spezifikation.",
+  "glossary_meta_title": "Glossar: Mandat, Agent, erlauben, ablehnen",
+  "glossary_meta_description": "Die Begriffe der Home-Mandate-Spezifikation in einfachen Worten: Agent, Mandat, erlauben, nachfragen, ablehnen, kritische Aktion, Wächter und Protokoll.",
   "glossary_agent_term": "Agent",
   "glossary_agent_def": "Software, die Geräte steuern will, z. B. ein Sprachassistent.",
   "glossary_allow_term": "Erlauben",

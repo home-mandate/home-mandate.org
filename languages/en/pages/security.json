@@ -1,6 +1,12 @@
 {
   "security_title": "Security & privacy",
   "security_intro": "Honest about what a mandate protects – and what it doesn’t.",
+  "security_h_protected": "What a mandate protects – and what it doesn’t",
+  "security_protected_text": "A mandate does not make an AI agent smarter or more honest. It limits what the agent can do, whatever it has read or been told. That is why it helps against [prompt injection](/why/), and why it cannot help where the guard itself is bypassed.",
+  "security_h_decided": "Where the decision is made",
+  "security_h_report": "Reporting a vulnerability",
+  "security_meta_title": "What a mandate protects your smart home from",
+  "security_meta_description": "What a mandate protects your smart home against – prompt injection, tricked agents, changed logs – and what not. Decided at home, not by the AI agent.",
   "security_01_1": "What is protected",
   "security_01_1_1": "A manipulated agent can only do what the mandate allows.",
   "security_01_1_2": "Critical actions need an explicit rule or a person.",
@@ -12,7 +18,7 @@
   "security_01_2_3": "Devices that can be controlled without the guard.",
   "security_01_2_4": "What the agent’s provider does with your conversations.",
   "security_02_title": "Decided outside the agent",
-  "security_02_text": "The guard that checks requests is not part of the agent. In the intended setup, mandates and logs are stored and evaluated on a device in your home, and only confirmation questions go to your phone. Nothing is sent to us. This website itself uses no cookies and no tracking.",
+  "security_02_text": "The guard that checks requests is not part of the agent. In the intended setup, mandates and logs are stored and evaluated on a device in your home, and only confirmation questions go to your phone. Nothing is sent to us. This website itself uses no cookies and no tracking. [How the guard decides](/how-it-works/)",
   "security_03_title": "Found a vulnerability?",
   "security_03_text": "Please report it privately on GitHub. We acknowledge every report within 72 hours.",
   "security_03_link": "How to report"

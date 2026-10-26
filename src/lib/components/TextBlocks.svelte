@@ -10,12 +10,14 @@
 	import { t } from '$lib/content/text';
 	import type { Block } from '$lib/content/types';
 	import { localHref } from '$lib/locale';
+	import { m } from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
 
 	let { blocks }: { blocks: Block[] } = $props();
 
 	const locale = $derived(getLocale());
 	const href = (target: string) => localHref(target, locale);
+	const external = (target: string) => target.startsWith('https://');
 	const marks = { allow: 'check', ask: 'ask', deny: 'close' } as const;
 	const toc = $derived(blocks.flatMap((b) => ('h2' in b ? [{ id: b.id, text: t(b.h2) }] : [])));
 </script>
@@ -34,10 +36,20 @@
 	{:else if 'toc' in block}
 		<nav class="toc" aria-labelledby="toc-{i}">
 			<span class="eyebrow" id="toc-{i}">{t(block.toc)}</span>
-			{#each toc as entry (entry.id)}<a href="#{entry.id}">{entry.text}</a>{/each}
+			<ol>
+				{#each toc as entry, n (entry.id)}
+					<li>
+						<a href="#{entry.id}"
+							><span class="toc-n mono" aria-hidden="true">{String(n + 1).padStart(2, '0')}</span><span class="toc-text"
+								>{entry.text}</span
+							><Icon name="arrow" size={16} /></a
+						>
+					</li>
+				{/each}
+			</ol>
 		</nav>
 	{:else if 'compare' in block}
-		<div class="grid two">
+		<div class="grid {block.compare.length === 3 ? 'three' : 'two'}">
 			{#each block.compare as col (col.title)}
 				<div class="compare {col.tone}">
 					<p class="compare-title"><span class="tile"><Icon name={col.icon} /></span><strong>{t(col.title)}</strong></p>
@@ -64,7 +76,9 @@
 	{:else if 'callout' in block}
 		<Callout title={t(block.callout)} icon={block.icon} tone={block.tone}>
 			{#each block.text as para (para)}<p><RichText text={t(para)} /></p>{/each}
-			{#if block.link}<a class="text-link" href={href(block.link.href)}>{t(block.link.text)}<Icon name="arrow" size={18} /></a>{/if}
+			{#if block.link}<a class="text-link" href={href(block.link.href)}
+					>{t(block.link.text)}<Icon name="arrow" size={18} />{#if external(block.link.href)}<span class="visually-hidden"> {m.common_external()}</span>{/if}</a
+				>{/if}
 		</Callout>
 	{:else if 'faq' in block}
 		<div class="faq">
@@ -128,6 +142,7 @@
 					<strong>{t(card.title)}</strong>
 					<span class="muted">{t(card.body)}</span>
 					<span class="more">{t(card.link)}<Icon name="arrow" size={18} /></span>
+					{#if external(card.href)}<span class="visually-hidden"> {m.common_external()}</span>{/if}
 				</a>
 			{/each}
 		</div>
@@ -200,25 +215,66 @@
 	.toc {
 		display: flex;
 		flex-direction: column;
-		gap: 2px;
-		padding: 16px 20px;
+		gap: 12px;
+		padding: 20px 24px 12px;
 		border: 1px solid var(--ms-border);
+		border-inline-start: 3px solid var(--ms-accent);
 		border-radius: 12px;
 		background: var(--ms-surface);
 	}
-	.toc .eyebrow {
-		margin-block-end: 6px;
+	.toc ol {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 32px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.toc li {
+		border-block-start: 1px solid var(--ms-border);
 	}
 	.toc a {
 		display: flex;
 		align-items: center;
-		min-block-size: 40px;
+		gap: 14px;
+		min-block-size: 48px;
 		color: var(--ms-text);
 		font-weight: 500;
 		text-decoration: none;
 	}
-	.toc a:hover {
+	.toc-n {
+		flex: none;
+		font-size: 13px;
+		color: var(--ms-text-muted);
+	}
+	.toc-text {
+		flex: 1;
+	}
+	.toc a :global(svg) {
+		flex: none;
+		opacity: 0;
+		transform: translateX(-4px);
+		transition:
+			opacity var(--ms-dur) var(--ms-ease),
+			transform var(--ms-dur) var(--ms-ease);
+	}
+	.toc a:hover,
+	.toc a:focus-visible {
 		color: var(--ms-accent);
+	}
+	.toc a:hover .toc-n,
+	.toc a:focus-visible .toc-n {
+		color: var(--ms-accent);
+	}
+	.toc a:hover :global(svg),
+	.toc a:focus-visible :global(svg) {
+		opacity: 1;
+		transform: none;
+	}
+	@media (max-width: 767px) {
+		.toc ol {
+			grid-template-columns: minmax(0, 1fr);
+		}
 	}
 	.grid {
 		display: grid;

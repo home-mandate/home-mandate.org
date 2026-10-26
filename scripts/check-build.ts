@@ -45,6 +45,7 @@ need('404.html');
 need('robots.txt');
 need('sitemap.xml');
 need('llms.txt');
+need('llms-full.txt');
 for (const tag of ['en', 'de']) need(`og/${tag}.png`);
 problems.push(...checkRobots(readFileSync(join(BUILD, 'robots.txt'), 'utf8')));
 need('indexnow.txt');

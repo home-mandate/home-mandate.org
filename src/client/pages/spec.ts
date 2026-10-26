@@ -21,7 +21,7 @@ function sections(doc: Document): Section[] {
 		const heading = doc.getElementById(id);
 		if (seen.has(id) || !heading) continue;
 		seen.add(id);
-		const number = link.querySelector('.num')?.textContent ?? '';
+		const number = link.querySelector('.num')?.textContent?.trim() ?? '';
 		const text = link.querySelector('.text')?.textContent ?? '';
 		out.push({ id, heading, number, text });
 	}

@@ -3,6 +3,8 @@ import type { TextPage } from '../types';
 export const everyday: TextPage = {
 	title: 'everyday_title',
 	intro: 'everyday_intro',
+	metaTitle: 'everyday_meta_title',
+	metaDescription: 'everyday_meta_description',
 	blocks: [
 		{ h2: 'everyday_app_title', id: 'is-my-smart-home-app-not-enough' },
 		{ p: 'everyday_app_lead' },

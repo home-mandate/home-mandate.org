@@ -17,10 +17,11 @@
 
 {#each blocks as block, i (i)}
 	{#if block.type === 'heading'}
-		<!-- The anchor link sits next to the heading, so it is not part of its name. -->
+		<!-- The anchor link sits next to the heading, so it is not part of its name.
+	     The space after the number keeps "1 Goal" apart when the text is read out or copied. -->
 		<div class="heading d{block.depth}">
 			<svelte:element this={level(block.depth)} id={block.id}>
-				{#if block.number}<span class="num">{block.number}</span>{/if}<span class="title"><SpecInline nodes={block.title} /></span>
+				{#if block.number}<span class="num">{`${block.number} `}</span>{/if}<span class="title"><SpecInline nodes={block.title} /></span>
 			</svelte:element>
 			<a class="anchor no-print" href="#{block.id}" aria-label={m.spec_anchor({ section: block.text })} lang={locale}>#</a>
 		</div>
@@ -109,6 +110,7 @@
 		min-inline-size: 0;
 	}
 	.anchor {
+		position: relative;
 		display: inline-grid;
 		place-items: center;
 		min-inline-size: 24px;
@@ -121,6 +123,12 @@
 	.anchor:hover,
 	.anchor:focus-visible {
 		opacity: 1;
+	}
+	/* A 44 px target for fingers around the small "#" (WCAG 2.5.5). */
+	.anchor::after {
+		content: '';
+		position: absolute;
+		inset: -10px;
 	}
 	ul,
 	ol {
