@@ -1,6 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { languages } from '$lib/generated/languages';
+import { externalLinksInNewTab } from '$lib/links';
 
 // Locale per request in AsyncLocalStorage: safe while prerendering in parallel.
 export const handle: Handle = ({ event, resolve }) =>
@@ -8,6 +9,6 @@ export const handle: Handle = ({ event, resolve }) =>
 		event.request = request;
 		const dir = languages.find((l) => l.tag === locale)?.dir ?? 'ltr';
 		return resolve(event, {
-			transformPageChunk: ({ html }) => html.replace('%paraglide.lang%', locale).replace('%paraglide.dir%', dir)
+			transformPageChunk: ({ html }) => externalLinksInNewTab(html.replace('%paraglide.lang%', locale).replace('%paraglide.dir%', dir))
 		});
 	});

@@ -90,7 +90,7 @@
 							<span class="badges">
 								{#each impl.classes as c (c)}<ClassBadge id={c} passed={isPassed(VERIFIED, impl.name, c)} />{/each}
 							</span>
-							{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}</a>{/if}
+							{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}<span class="visually-hidden"> {m.common_external()}</span></a>{/if}
 						</td>
 						<td>
 							<a class="open" href={impl.url}>
@@ -124,7 +124,7 @@
 				<span class="badges">
 					{#each impl.classes as c (c)}<ClassBadge id={c} passed={isPassed(VERIFIED, impl.name, c)} small />{/each}
 				</span>
-				{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}</a>{/if}
+				{#if run(impl.name)}<a class="run" href={run(impl.name)}>{m.implement_list_run()}<span class="visually-hidden"> {m.common_external()}</span></a>{/if}
 			</li>
 		{/each}
 		<li class="card empty" data-empty hidden>{m.implement_list_empty()}</li>

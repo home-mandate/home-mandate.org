@@ -45,7 +45,7 @@
 					</li>
 				{/each}
 			</ul>
-			<p class="add">{m.home_impl_add()} <a href={IMPLEMENTATIONS_FILE_URL}>{m.home_impl_pr()}</a></p>
+			<p class="add">{m.home_impl_add()} <a href={IMPLEMENTATIONS_FILE_URL}>{m.home_impl_pr()}<span class="visually-hidden"> {m.common_external()}</span></a></p>
 		</div>
 		<a class="text-link all" href={pathIn('/implementations/', getLocale())}
 			>{m.home_impl_all()}<Icon name="arrow" size={18} stroke={2} /></a

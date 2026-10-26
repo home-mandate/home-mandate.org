@@ -38,6 +38,16 @@ for (const lang of LANGUAGES) {
 			});
 		}
 
+		test('links that open a new tab say so to screen readers', async ({ page }) => {
+			const hint = lang.tag === 'de' ? '(öffnet eine andere Website in einem neuen Tab)' : '(opens another website in a new tab)';
+			for (const path of [...PAGES, '/implementations/', '/spec/v0/']) {
+				await page.goto(`${lang.prefix}${path}`);
+				for (const link of await page.locator('a[target=_blank]').all()) {
+					expect(await link.textContent(), `${path} ${await link.getAttribute('href')}`).toContain(hint);
+				}
+			}
+		});
+
 		test('every page names its other languages (hreflang)', async ({ page }) => {
 			await page.goto(`${lang.prefix}/imprint/`);
 			for (const other of LANGUAGES) {

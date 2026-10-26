@@ -19,10 +19,10 @@
 		</div>
 		<div class="col">
 			<p class="eyebrow">{m.footer_project()}</p>
-			<a href={SPEC_REPOSITORY}>{m.nav_github()}</a>
+			<a href={SPEC_REPOSITORY}>{m.nav_github()}<span class="visually-hidden"> {m.common_external()}</span></a>
 			<a href={local('/changelog/')}>{m.footer_changelog()}</a>
-			<a href={SECURITY_URL}>{m.footer_security()}</a>
-			<a href={SITE_REPOSITORY}>{m.footer_source()}</a>
+			<a href={SECURITY_URL}>{m.footer_security()}<span class="visually-hidden"> {m.common_external()}</span></a>
+			<a href={SITE_REPOSITORY}>{m.footer_source()}<span class="visually-hidden"> {m.common_external()}</span></a>
 		</div>
 		<div class="col">
 			<p class="eyebrow">{m.footer_legal()}</p>
@@ -41,7 +41,7 @@
 					aria-current={language.tag === locale ? 'true' : undefined}>{language.name}</a
 				>
 			{/each}
-			<a href={TRANSLATING_URL}>{m.footer_translate()}</a>
+			<a href={TRANSLATING_URL}>{m.footer_translate()}<span class="visually-hidden"> {m.common_external()}</span></a>
 		</div>
 	</div>
 </footer>

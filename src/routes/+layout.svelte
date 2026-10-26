@@ -58,7 +58,7 @@
 	<div class="partial" role="note">
 		<div class="wrap inner">
 			<Icon name="info" />
-			<p>{m.lang_partial()} <a href={TRANSLATING_URL}>{m.lang_help()}</a></p>
+			<p>{m.lang_partial()} <a href={TRANSLATING_URL}>{m.lang_help()}<span class="visually-hidden"> {m.common_external()}</span></a></p>
 		</div>
 	</div>
 {/if}

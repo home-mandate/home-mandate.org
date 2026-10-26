@@ -10,12 +10,14 @@
 	import { t } from '$lib/content/text';
 	import type { Block } from '$lib/content/types';
 	import { localHref } from '$lib/locale';
+	import { m } from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
 
 	let { blocks }: { blocks: Block[] } = $props();
 
 	const locale = $derived(getLocale());
 	const href = (target: string) => localHref(target, locale);
+	const external = (target: string) => target.startsWith('https://');
 	const marks = { allow: 'check', ask: 'ask', deny: 'close' } as const;
 	const toc = $derived(blocks.flatMap((b) => ('h2' in b ? [{ id: b.id, text: t(b.h2) }] : [])));
 </script>
@@ -74,7 +76,9 @@
 	{:else if 'callout' in block}
 		<Callout title={t(block.callout)} icon={block.icon} tone={block.tone}>
 			{#each block.text as para (para)}<p><RichText text={t(para)} /></p>{/each}
-			{#if block.link}<a class="text-link" href={href(block.link.href)}>{t(block.link.text)}<Icon name="arrow" size={18} /></a>{/if}
+			{#if block.link}<a class="text-link" href={href(block.link.href)}
+					>{t(block.link.text)}<Icon name="arrow" size={18} />{#if external(block.link.href)}<span class="visually-hidden"> {m.common_external()}</span>{/if}</a
+				>{/if}
 		</Callout>
 	{:else if 'faq' in block}
 		<div class="faq">
@@ -138,6 +142,7 @@
 					<strong>{t(card.title)}</strong>
 					<span class="muted">{t(card.body)}</span>
 					<span class="more">{t(card.link)}<Icon name="arrow" size={18} /></span>
+					{#if external(card.href)}<span class="visually-hidden"> {m.common_external()}</span>{/if}
 				</a>
 			{/each}
 		</div>

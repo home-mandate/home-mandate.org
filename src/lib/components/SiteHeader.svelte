@@ -32,7 +32,7 @@
 	</nav>
 
 	<div class="tools desktop">
-		<a class="github" href={SPEC_REPOSITORY}><Icon name="github" size={18} /><span class="github-word">{m.nav_github()}</span></a>
+		<a class="github" href={SPEC_REPOSITORY}><Icon name="github" size={18} /><span class="github-word">{m.nav_github()}</span><span class="visually-hidden"> {m.common_external()}</span></a>
 		<LanguagePicker />
 		<ThemeSwitch group="theme-header" />
 	</div>
