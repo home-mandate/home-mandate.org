@@ -12,6 +12,11 @@ on:
 permissions:
   contents: read
 
+# Trivy fails on HIGH or CRITICAL vulnerabilities that already have a fix. Pinned by
+# digest (signature checked), never through the Trivy actions or a moving tag.
+env:
+  TRIVY: ghcr.io/aquasecurity/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c
+
 concurrency:
   group: integration-${{ github.ref }}
   cancel-in-progress: true
@@ -45,3 +50,7 @@ jobs:
           test "$(curl -fsS http://127.0.0.1:8080/version.json | jq -r .commit)" = "$SITE_COMMIT"
           test "$(docker inspect --format '{{ index .Config.Labels "org.opencontainers.image.revision" }}' site:test)" = "$SITE_COMMIT"
           docker rm -f site
+      - name: No fixable vulnerabilities in the image
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock "$TRIVY" image \
+            --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 --no-progress site:test

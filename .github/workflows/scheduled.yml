@@ -1,6 +1,7 @@
 name: Scheduled
 
-# Vulnerabilities in dependencies become known without a commit: pnpm audit every night.
+# Vulnerabilities in dependencies become known without a commit: pnpm audit and a Trivy scan
+# of the published image every night.
 # Advisories that do not apply are ignored in pnpm-workspace.yaml, with the reason. A failure
 # opens an issue, or comments on the open one; main itself is never changed.
 on:
@@ -10,6 +11,11 @@ on:
 
 permissions:
   contents: read
+
+# Same scan as in integration.yml. A finding here means: the published image is out of date,
+# a new build of main fixes it (see the apk upgrade in the Dockerfile).
+env:
+  TRIVY: ghcr.io/aquasecurity/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c
 
 jobs:
   security:
@@ -26,9 +32,19 @@ jobs:
           node-version: 24
       - run: pnpm audit
 
+  image:
+    name: Security (published image)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: No fixable vulnerabilities in the image
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock "$TRIVY" image \
+            --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 --no-progress ghcr.io/home-mandate/home-mandate.org:main
+
   report:
     name: Report a failure
-    needs: [security]
+    needs: [security, image]
     if: failure() && github.event_name == 'schedule'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
