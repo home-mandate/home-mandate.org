@@ -69,6 +69,9 @@ commit tag, signed with cosign (keyless, GitHub OIDC), given build provenance, a
 then tagged `main`. The server checks the signature, the workflow identity and the commit
 before it deploys anything. Nothing on the server is reachable from GitHub.
 
+Every night `scheduled.yml` runs `pnpm audit`; a failure opens an issue. Advisories that do
+not apply to the site are ignored in `pnpm-workspace.yaml`, each with the reason.
+
 ## Contributing and translating
 
 - Translations: see [TRANSLATING.md](TRANSLATING.md). A new language needs no code change.
