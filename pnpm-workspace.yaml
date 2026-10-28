@@ -14,3 +14,14 @@ saveExact: true
 overrides:
   source-map-js: 1.2.2
   cookie: 0.7.2
+# Advisories that do not apply here (re-check when SvelteKit 3 or the parent updates):
+# @sveltejs/kit < 3.0.0: GHSA-pfhg-q3qv-9q6r, low: open redirect via use:enhance; the site
+# uses no use:enhance. GHSA-27mw-82g8-phjj, low: XSS via setHeaders cache-control on
+# prerendered pages; the site never calls setHeaders.
+# deepmerge <= 4.3.1: GHSA-gcqx-w48m-w2h4, low, no fixed version. Only
+# @sveltejs/vite-plugin-svelte uses it, at build time, to merge our own Svelte config.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-pfhg-q3qv-9q6r
+    - GHSA-27mw-82g8-phjj
+    - GHSA-gcqx-w48m-w2h4
