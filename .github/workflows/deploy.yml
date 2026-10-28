@@ -5,10 +5,11 @@
 # Job "publish" only packs build/ into the image and:
 #   1. checks that this commit is still the head of main (a re-run of an old run
 #      must not sign and roll the site back)
-#   2. pushes the image by commit tag only (sha-<commit>)
-#   3. signs the pushed digest with cosign keyless (GitHub OIDC, no key in the repo)
-#   4. records build provenance
-#   5. only then points the tag "main" at that digest
+#   2. builds the image and scans it with Trivy (nothing is pushed on a finding)
+#   3. pushes the image by commit tag only (sha-<commit>)
+#   4. signs the pushed digest with cosign keyless (GitHub OIDC, no key in the repo)
+#   5. records build provenance
+#   6. only then points the tag "main" at that digest
 #
 # The server pulls "main" every 15 minutes, resolves its digest, and deploys it only if the
 # signature was made by this workflow file, in this repository, on refs/heads/main, for a
@@ -30,6 +31,8 @@ concurrency:
 env:
   IMAGE: ghcr.io/home-mandate/home-mandate.org
   SITE_COMMIT: ${{ github.sha }}
+  # Same scan as in integration.yml.
+  TRIVY: ghcr.io/aquasecurity/trivy:0.76.1@sha256:790fd66d1697395d8693d1acaa1ea702406a20f109b6fc7bac8db623eca6c06c
 
 jobs:
   build:
@@ -104,6 +107,20 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build for the scan
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          platforms: linux/amd64
+          load: true
+          provenance: false
+          sbom: false
+          build-args: REVISION=${{ github.sha }}
+          tags: site:scan
+      - name: No fixable vulnerabilities in the image
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock "$TRIVY" image \
+            --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 --no-progress site:scan
       - name: Build and push (commit tag only)
         id: push
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0

@@ -2,7 +2,13 @@
 # Built by .github/workflows/deploy.yml after "pnpm build" (build/ must exist).
 # The server configuration (nginx.conf, TLS, headers) is not part of the image;
 # the operator mounts it.
-FROM docker.io/nginxinc/nginx-unprivileged:1.29-alpine@sha256:0c79d56aee561a1d81c63f00eee5fb5fe29279560cdc55e91425133104c7fbe6
+FROM docker.io/nginxinc/nginx-unprivileged:1.31-alpine3.24@sha256:b5047b9b76845eac124358373c6852377c52e4b05834a47647e955dd91cb8f1e
+
+# Alpine fixes reach its package repository before nginx rebuilds the image (brotli 1.2.1
+# for CVE-2026-111497, for example), so every build installs them. The image runs as 101.
+USER root
+RUN apk upgrade --no-cache
+USER 101
 
 ARG REVISION
 LABEL org.opencontainers.image.title="home-mandate.org" \
