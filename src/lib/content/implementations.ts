@@ -38,19 +38,19 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['guard', 'integration'],
 		language: 'Go',
 		license: 'AGPL-3.0-or-later',
-		spec: 'v0.1.0-rc.3',
+		spec: 'v0.1.0-rc.4',
 		classes: ['evaluator', 'selection', 'audit', 'audit-anchored', 'pdp'],
 		guide: '/implementations/home-assistant/',
 		conformance: {
-			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.8',
+			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.9',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.8/conformance-report-process.json',
-					sha256: '9e9efd87bed07d4df7da1f9a038943ec6de2e4aebac7268c887ab1501f70220c'
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.9/conformance-report-process.json',
+					sha256: '10e08ce9aba0879225edb289a54bf805a49c24bae09fd9f180526a7aee3c6bfe'
 				},
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.8/conformance-report-http.json',
-					sha256: '258a1b19c9f23951578d772c936ba70dcfeef078c1e3ade5fbdb36fda79a9e7f'
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.9/conformance-report-http.json',
+					sha256: 'a9a56c9c13cbfdd490a8b317be841718846e4200491823790778c15d0533bd29'
 				}
 			]
 		}
@@ -62,14 +62,14 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library', 'tool'],
 		language: 'Go',
 		license: 'Apache-2.0',
-		spec: 'v0.1.0-rc.3',
+		spec: 'v0.1.0-rc.4',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored'],
 		conformance: {
-			run: 'https://github.com/home-mandate/spec/releases/tag/v0.1.0-rc.3',
+			run: 'https://github.com/home-mandate/spec/releases/tag/v0.1.0-rc.4',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/spec/releases/download/v0.1.0-rc.3/conformance-report.json',
-					sha256: '41f8dee714e7f8be6f3fe2e87e4de1b8308d93488b9fdfb783ea9e1f828dab78'
+					url: 'https://github.com/home-mandate/spec/releases/download/v0.1.0-rc.4/conformance-report.json',
+					sha256: '22696f5f40947420c8ad6cb5f70fbb68f596a70e65649ed435fc5f18d1d75af8'
 				}
 			]
 		}
@@ -81,14 +81,14 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library'],
 		language: 'TypeScript',
 		license: 'Apache-2.0',
-		spec: 'v0.1.0-rc.3',
+		spec: 'v0.1.0-rc.4',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored'],
 		conformance: {
-			run: 'https://github.com/home-mandate/spec-ts/releases/tag/v0.1.0-rc.3',
+			run: 'https://github.com/home-mandate/spec-ts/releases/tag/v0.1.0-rc.4',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/spec-ts/releases/download/v0.1.0-rc.3/conformance-report.json',
-					sha256: '8a67b3ea801982742975c7cd99ebcafb9c9b4c79f2a6e8b5be0b860173a8c6a7'
+					url: 'https://github.com/home-mandate/spec-ts/releases/download/v0.1.0-rc.4/conformance-report.json',
+					sha256: '50ceef8ae30c2955b3f561fcd1347b9b35af37614868a30fe7c780f0534fed61'
 				}
 			]
 		}
