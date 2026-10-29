@@ -38,19 +38,19 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['guard', 'integration'],
 		language: 'Go',
 		license: 'AGPL-3.0-or-later',
-		spec: 'v0.1.0-rc.4',
+		spec: 'v0.1.0-rc.5',
 		classes: ['evaluator', 'selection', 'audit', 'audit-anchored', 'pdp'],
 		guide: '/implementations/home-assistant/',
 		conformance: {
-			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.9',
+			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.10',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.9/conformance-report-process.json',
-					sha256: '10e08ce9aba0879225edb289a54bf805a49c24bae09fd9f180526a7aee3c6bfe'
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.10/conformance-report-process.json',
+					sha256: '5ffc3372b3add111aaecd073c71d6bc5aa479b61e9b88760ce841564766fe38f'
 				},
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.9/conformance-report-http.json',
-					sha256: 'a9a56c9c13cbfdd490a8b317be841718846e4200491823790778c15d0533bd29'
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.10/conformance-report-http.json',
+					sha256: '3a239e0a7ca0f246e4a3b0b9fa9bedb478e2e8f750309a87f956456587c878e2'
 				}
 			]
 		}
@@ -62,14 +62,14 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library', 'tool'],
 		language: 'Go',
 		license: 'Apache-2.0',
-		spec: 'v0.1.0-rc.4',
+		spec: 'v0.1.0-rc.5',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored'],
 		conformance: {
-			run: 'https://github.com/home-mandate/spec/releases/tag/v0.1.0-rc.4',
+			run: 'https://github.com/home-mandate/spec/releases/tag/v0.1.0-rc.5',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/spec/releases/download/v0.1.0-rc.4/conformance-report.json',
-					sha256: '22696f5f40947420c8ad6cb5f70fbb68f596a70e65649ed435fc5f18d1d75af8'
+					url: 'https://github.com/home-mandate/spec/releases/download/v0.1.0-rc.5/conformance-report.json',
+					sha256: '2b0736cbbe3b8c8f49b6b255697c4ca69eccfaa845ffb882dcd65f8660ada9ea'
 				}
 			]
 		}
