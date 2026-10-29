@@ -1,6 +1,7 @@
 // Step 4: the decision of the evaluation, why, which rules apply and, for a critical
 // action, what that means; for a deny the mandate only records (audit mode, SPEC-v0
-// section 4.6), that it is not enforced. Also the short result line of the phone layout.
+// section 4.6), that it is not enforced, and whether a person confirms it first. Also the
+// short result line of the phone layout.
 import type { Mandate, Request, Result } from '../../../lib/playground/engine.ts';
 import { formatTimeout, matchingRules, reasonText, requestIsCritical, requestPhrase } from '../explain.ts';
 import { joinOr, tx, type Texts } from '../../../lib/playground/texts.ts';
@@ -23,7 +24,9 @@ export function renderResult(container: HTMLElement, texts: Texts, mandate: Mand
 				)
 			)
 		: h('p', { class: 'pg-none' }, tx(texts, 'none_matched'));
-	const approval = result.decision === 'ask' && result.approval
+	// A deny the mandate does not enforce asks first when a matching rule asks (confirm, section 4.6).
+	const asks = result.decision === 'ask' || result.confirm === true;
+	const approval = asks && result.approval
 		? h('p', { class: 'pg-approval' }, tx(texts, 'approval', { approvers: joinOr(texts, result.approval.approvers), timeout: formatTimeout(texts, result.approval.timeout) }))
 		: null;
 	const critical = requestIsCritical(request)
@@ -36,9 +39,9 @@ export function renderResult(container: HTMLElement, texts: Texts, mandate: Mand
 		: null;
 	const unenforced = result.enforced === false;
 	const audit = unenforced
-		? h('div', { class: 'pg-critical-note pg-audit-note' }, icon('warning', 20), h('div', {}, h('strong', {}, tx(texts, 'audit_title')), h('p', {}, tx(texts, 'audit_body'))))
+		? h('div', { class: 'pg-critical-note pg-audit-note' }, icon('warning', 20), h('div', {}, h('strong', {}, tx(texts, 'audit_title')), h('p', {}, tx(texts, result.confirm ? 'audit_confirm_body' : 'audit_body'))))
 		: null;
-	const head = unenforced ? 'head_deny_unenforced' : `head_${result.decision}`;
+	const head = unenforced ? (result.confirm ? 'head_deny_confirm' : 'head_deny_unenforced') : `head_${result.decision}`;
 	container.replaceChildren(
 		h('div', { class: 'pg-verdict' }, chip(result.decision, 'xl'), h('h3', { class: 'pg-verdict-head' }, tx(texts, head))),
 		h('p', { class: 'pg-reason', 'data-reason': result.reason }, reasonText(texts, result, request, mandate)),

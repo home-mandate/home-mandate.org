@@ -183,6 +183,21 @@ test.describe('desktop', () => {
 		await expect(page.locator('#pg-json')).not.toHaveValue(/"enforce"/);
 	});
 
+	test('audit mode asks first when a rule that asks matches the denied request', async ({ page }) => {
+		await page.locator('#pg-req-category').selectOption('light');
+		await page.locator('#pg-req-action').selectOption('turn_on');
+		await page.locator('[data-focus="1:decision"]').selectOption('ask');
+		await page.locator('[data-focus="4:scope"]').selectOption('light');
+		await expect(result(page).locator('.pg-verdict')).toContainText('Refused');
+		await page.locator('#pg-audit').check();
+		await expect(result(page).locator('.pg-verdict')).toContainText('Refused, not enforced: a person must confirm');
+		await expect(result(page).locator('.pg-approval')).toBeVisible();
+		await expect(result(page).locator('.pg-audit-note')).toContainText('only after a person confirms it');
+		await page.locator('[data-focus="1:decision"]').selectOption('allow');
+		await expect(result(page).locator('.pg-verdict')).toContainText('Refused, but not enforced');
+		await expect(result(page).locator('.pg-approval')).toHaveCount(0);
+	});
+
 	test('time windows use the household time zone', async ({ page }) => {
 		await page.locator('input[name="pg-example"][value="energy"]').check({ force: true });
 		await page.locator('#pg-req-category').selectOption('other');
