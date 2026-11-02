@@ -6,7 +6,7 @@ import type { ParameterValue } from '../../../lib/playground/engine.ts';
 import { chosenParameter, DAYS, defaultEntityId, defaultParameter, type RequestInput } from '../../../lib/playground/request.ts';
 import { actionLabel, parameterLabel, parameterValueLabel, tx, unitLabel, type Texts } from '../../../lib/playground/texts.ts';
 import { decimalPlaces, formatUnit, toUnit } from '../../../lib/playground/units.ts';
-import { actionsOf, parametersOf } from '../../../lib/playground/vocab.ts';
+import { actionsOf, requestableParameters } from '../../../lib/playground/vocab.ts';
 import { required, setInvalid } from '../../lib/dom.ts';
 import { h } from './dom.ts';
 
@@ -60,9 +60,9 @@ function parameter(form: RequestForm) {
 	return chosenParameter(form.category.value, form.action.value, form.unit.value);
 }
 
-/** Offers the units of the action's parameters; hidden when it has fewer than two. */
+/** Offers the units of the parameters a request can carry on its own; hidden below two. */
 function syncUnit(form: RequestForm, texts: Texts): void {
-	const params = parametersOf(form.category.value, form.action.value);
+	const params = requestableParameters(form.category.value, form.action.value);
 	const current = form.unit.value;
 	form.unitField.hidden = params.length < 2;
 	form.unit.replaceChildren(...params.map((p) => h('option', { value: p.name, selected: p.name === current }, unitLabel(texts, p))));

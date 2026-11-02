@@ -72,6 +72,26 @@ export function parametersOf(category: string | undefined, action: string): Para
 	return [...found.values()];
 }
 
+/**
+ * Parameters a request for the action can carry on its own. An action that requires one
+ * of several alternatives (`required_one_of`, SPEC-v0 section 4.5) is requestable only
+ * with a parameter that is an alternative by itself: `temperature`, not one end of a
+ * `temperature_low`/`temperature_high` pair. Without alternatives, every parameter.
+ */
+export function requestableParameters(category: string | undefined, action: string): ParameterInfo[] {
+	const categories = category === undefined ? CATEGORIES : isCategory(category) ? [category] : [];
+	const alone = new Set<string>();
+	let restricted = false;
+	for (const c of categories) {
+		const alternatives = vocabulary[c]?.actions[action]?.required_one_of;
+		if (alternatives === undefined) continue;
+		restricted = true;
+		for (const alternative of alternatives) if (alternative.length === 1 && alternative[0] !== undefined) alone.add(alternative[0]);
+	}
+	const params = parametersOf(category, action);
+	return restricted ? params.filter((p) => alone.has(p.name)) : params;
+}
+
 /** Parameters that every listed action has (the only ones a constraint may name). */
 export function commonParameters(category: string | undefined, actions: readonly string[]): ParameterInfo[] {
 	if (actions.length === 0 || actions.includes('*')) return [];

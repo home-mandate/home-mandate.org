@@ -13,7 +13,7 @@ import {
 	type RequestInput
 } from '../src/lib/playground/request.ts';
 import { formatUnit, fromUnit, toUnit } from '../src/lib/playground/units.ts';
-import { ACTIONS, CATEGORIES, actionsOf, commonParameters, criticalSomewhere, parameterInfo, parametersOf } from '../src/lib/playground/vocab.ts';
+import { ACTIONS, CATEGORIES, actionsOf, commonParameters, criticalSomewhere, parameterInfo, parametersOf, requestableParameters } from '../src/lib/playground/vocab.ts';
 import { example } from './playground-fixtures.ts';
 
 const input: RequestInput = {
@@ -144,7 +144,11 @@ describe('vocabulary helpers', () => {
 	it('knows parameters and their scale', () => {
 		expect(parametersOf('climate', 'set_temperature')).toEqual([
 			{ name: 'temperature', type: 'integer', unit: 'degree Celsius', scale: 100 },
-			{ name: 'temperature_f', type: 'integer', unit: 'degree Fahrenheit', scale: 100 }
+			{ name: 'temperature_f', type: 'integer', unit: 'degree Fahrenheit', scale: 100 },
+			{ name: 'temperature_low', type: 'integer', unit: 'degree Celsius', scale: 100 },
+			{ name: 'temperature_high', type: 'integer', unit: 'degree Celsius', scale: 100 },
+			{ name: 'temperature_low_f', type: 'integer', unit: 'degree Fahrenheit', scale: 100 },
+			{ name: 'temperature_high_f', type: 'integer', unit: 'degree Fahrenheit', scale: 100 }
 		]);
 		expect(parametersOf(undefined, 'set')).toEqual([{ name: 'brightness', type: 'integer', unit: 'percent', scale: 1, minimum: 0, maximum: 100 }]);
 		expect(parametersOf('climate', 'set_mode')).toEqual([
@@ -153,6 +157,19 @@ describe('vocabulary helpers', () => {
 		expect(commonParameters('light', ['set', 'read'])).toEqual([]);
 		expect(commonParameters('light', ['*'])).toEqual([]);
 		expect(parameterInfo('x', {})).toEqual({ name: 'x', type: 'integer', unit: '', scale: 1 });
+	});
+	it('offers for a request only parameters that are a complete alternative on their own', () => {
+		// set_temperature requires one of: temperature, temperature_f, or a low/high pair
+		// (vocabulary v0.1); a request with only one end of a pair is invalid.
+		expect(requestableParameters('climate', 'set_temperature').map((p) => p.name)).toEqual(['temperature', 'temperature_f']);
+		expect(requestableParameters('climate', 'set_mode').map((p) => p.name)).toEqual(['mode']);
+		expect(requestableParameters('light', 'set').map((p) => p.name)).toEqual(['brightness']);
+		expect(requestableParameters(undefined, 'set_temperature').map((p) => p.name)).toEqual(['temperature', 'temperature_f']);
+		expect(requestableParameters('lock', 'unlock')).toEqual([]);
+		expect(chosenParameter('climate', 'set_temperature', 'temperature_low')?.name).toBe('temperature');
+		const climate = { ...input, category: 'climate', action: 'set_temperature', parameters: { temperature_low: 1800 } };
+		const result = evaluate(parseMandate(example('voice-assistant')), buildRequest({ ...climate, parameter: 'temperature_low' }));
+		expect(result.reason).not.toBe('invalid_request');
 	});
 	it('knows critical actions', () => {
 		expect(criticalSomewhere(undefined, 'unlock')).toBe(true);

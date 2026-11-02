@@ -2,7 +2,7 @@
 // The point in time is a day of a fixed reference week at a clock time in the
 // household time zone, written as an RFC 3339 timestamp with that zone's offset.
 import type { ParameterValue, Request } from './engine.ts';
-import { isCategory, parameterInfo, parametersOf, type ParameterInfo } from './vocab.ts';
+import { isCategory, parameterInfo, requestableParameters, type ParameterInfo } from './vocab.ts';
 import { vocabulary } from './engine.ts';
 
 export const HOUSEHOLD_ZONE = 'Europe/Berlin';
@@ -100,12 +100,12 @@ export function defaultParameter(category: string, action: string, name: string)
 }
 
 /**
- * The parameter a request for the action carries. The vocabulary gives an action
- * several parameters only for one quantity in several units, and a PEP derives
- * exactly one of them (SPEC-v0 section 4.5): the chosen one, otherwise the first.
+ * The parameter a request for the action carries: one of those that make a valid request
+ * on their own (one quantity in one of several units, SPEC-v0 section 4.5), the chosen
+ * one, otherwise the first.
  */
 export function chosenParameter(category: string, action: string, name?: string): ParameterInfo | undefined {
-	const params = parametersOf(category, action);
+	const params = requestableParameters(category, action);
 	return params.find((p) => p.name === name) ?? params[0];
 }
 

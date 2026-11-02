@@ -71,7 +71,7 @@ describe('fieldsOf and dataModel', () => {
 		expect(model.mandate.find((f) => f.name === 'default')).toEqual({ name: 'default', type: '"deny"', optional: false });
 		expect(model.mandate.find((f) => f.name === 'rules')?.type).toBe('Rule[]');
 		expect(model.mandate.find((f) => f.name === 'expires')).toEqual({ name: 'expires', type: 'date-time', optional: true });
-		expect(model.rule.map((f) => f.name)).toEqual(['id', 'resource', 'actions', 'decision', 'conditions', 'constraints', 'approval', 'allow_critical']);
+		expect(model.rule.map((f) => f.name)).toEqual(['id', 'resource', 'actions', 'decision', 'note', 'conditions', 'constraints', 'approval', 'allow_critical']);
 		expect(model.rule.find((f) => f.name === 'decision')?.type).toBe('allow|ask|deny');
 		expect(model.rules).toEqual({ min: 0, max: '200' });
 		expect(() => dataModel({ properties: {} })).toThrow(/rules array/);
