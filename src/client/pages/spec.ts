@@ -59,6 +59,10 @@ function initActiveSection(doc: Document): void {
 	};
 	const observer = new IntersectionObserver(schedule, { rootMargin: `-${READING_LINE}px 0px 0px 0px`, threshold: [0, 1] });
 	for (const s of all) observer.observe(s.heading);
+	// A jump can land a heading in the band above the reading line without any observed
+	// heading changing state (a long section whose subsections start below the fold):
+	// the scroll itself schedules the update too; the frame coalesces both.
+	window.addEventListener('scroll', schedule, { passive: true });
 	window.addEventListener('hashchange', schedule);
 	update();
 }

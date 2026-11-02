@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { changelogSection, kindOf, parseChangelog, withoutKindWord } from '../src/lib/spec/changelog';
+import { changelogSection, hasChanges, kindOf, parseChangelog, versionOf, withoutKindWord } from '../src/lib/spec/changelog';
 import { atomDate, formatDate } from '../src/lib/spec/date';
 import { atomFeed, blocksHtml, escapeXml, inlineHtml } from '../src/lib/spec/feed';
 import { plainText } from '../src/lib/spec/inline';
@@ -79,6 +79,23 @@ describe('withoutKindWord', () => {
 	it('leaves a paragraph that does not start with text', () => {
 		const intro = [{ type: 'code' as const, text: 'x' }];
 		expect(withoutKindWord(intro)).toBe(intro);
+	});
+});
+
+describe('versionOf and hasChanges', () => {
+	it('takes the tag from a heading with the release date, and the text otherwise', () => {
+		expect(versionOf('v0.1.0 (2026-11-02)')).toBe('v0.1.0');
+		expect(versionOf(' Unreleased ')).toBe('Unreleased');
+		expect(versionOf('History as mandate-spec')).toBe('History as mandate-spec');
+		expect(versionOf('v0.1.0 (soon)')).toBe('v0.1.0 (soon)');
+	});
+	it('an Unreleased that says nothing yet is not shown, a dated release keeps its tag', () => {
+		const text = ['## Changelog', '', '### Unreleased', '', 'Nothing yet.', '', '### v0.1.0 (2026-11-02)', '', 'First release.', '', 'Fixed:', '- f'].join('\n');
+		const entries = parseChangelog(parseSpec(text, ctx).blocks);
+		expect(entries.map((e) => [e.version, e.unreleased, hasChanges(e)])).toEqual([
+			['Unreleased', true, false],
+			['v0.1.0', false, true]
+		]);
 	});
 });
 
