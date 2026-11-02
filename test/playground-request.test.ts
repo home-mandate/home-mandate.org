@@ -168,8 +168,11 @@ describe('vocabulary helpers', () => {
 		expect(requestableParameters('lock', 'unlock')).toEqual([]);
 		expect(chosenParameter('climate', 'set_temperature', 'temperature_low')?.name).toBe('temperature');
 		const climate = { ...input, category: 'climate', action: 'set_temperature', parameters: { temperature_low: 1800 } };
-		const result = evaluate(parseMandate(example('voice-assistant')), buildRequest({ ...climate, parameter: 'temperature_low' }));
-		expect(result.reason).not.toBe('invalid_request');
+		const request = buildRequest({ ...climate, parameter: 'temperature_low' });
+		expect(request.parameters).toEqual({ temperature: 2100 });
+		const result = evaluate(parseMandate(example('voice-assistant')), request);
+		expect(result.decision).toBe('allow');
+		expect(result.reason).toBe('rule');
 	});
 	it('knows critical actions', () => {
 		expect(criticalSomewhere(undefined, 'unlock')).toBe(true);

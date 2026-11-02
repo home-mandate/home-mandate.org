@@ -79,17 +79,18 @@ export function parametersOf(category: string | undefined, action: string): Para
  * `temperature_low`/`temperature_high` pair. Without alternatives, every parameter.
  */
 export function requestableParameters(category: string | undefined, action: string): ParameterInfo[] {
+	const found = new Map<string, ParameterInfo>();
 	const categories = category === undefined ? CATEGORIES : isCategory(category) ? [category] : [];
-	const alone = new Set<string>();
-	let restricted = false;
 	for (const c of categories) {
-		const alternatives = vocabulary[c]?.actions[action]?.required_one_of;
-		if (alternatives === undefined) continue;
-		restricted = true;
-		for (const alternative of alternatives) if (alternative.length === 1 && alternative[0] !== undefined) alone.add(alternative[0]);
+		const info = vocabulary[c]?.actions[action];
+		if (!info) continue;
+		const alone = info.required_one_of?.flatMap((alternative) => (alternative.length === 1 ? [...alternative] : []));
+		for (const [name, raw] of Object.entries(info.parameters ?? {})) {
+			if (alone !== undefined && !alone.includes(name)) continue;
+			if (!found.has(name)) found.set(name, parameterInfo(name, raw));
+		}
 	}
-	const params = parametersOf(category, action);
-	return restricted ? params.filter((p) => alone.has(p.name)) : params;
+	return [...found.values()];
 }
 
 /** Parameters that every listed action has (the only ones a constraint may name). */
