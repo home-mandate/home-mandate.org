@@ -38,19 +38,19 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['guard', 'integration'],
 		language: 'Go',
 		license: 'AGPL-3.0-or-later',
-		spec: 'v0.1.0-rc.5',
+		spec: 'v0.1.0',
 		classes: ['evaluator', 'selection', 'audit', 'audit-anchored', 'pdp'],
 		guide: '/implementations/home-assistant/',
 		conformance: {
-			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.10',
+			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0-rc.11',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.10/conformance-report-process.json',
-					sha256: '5ffc3372b3add111aaecd073c71d6bc5aa479b61e9b88760ce841564766fe38f'
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.11/conformance-report-process.json',
+					sha256: '53cae8721d2d0e32d7862ae2765a62e2cd8982d0135741b81e06168f0f7d1187'
 				},
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.10/conformance-report-http.json',
-					sha256: '3a239e0a7ca0f246e4a3b0b9fa9bedb478e2e8f750309a87f956456587c878e2'
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0-rc.11/conformance-report-http.json',
+					sha256: 'e08eeaf9cd14ac19f885f1153de4ee00ac4ed83f76418734c2488ddbcd4b01a7'
 				}
 			]
 		}
