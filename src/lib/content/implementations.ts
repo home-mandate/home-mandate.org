@@ -84,11 +84,11 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		spec: 'v0.1.0',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored'],
 		conformance: {
-			run: 'https://github.com/home-mandate/spec-ts/releases/tag/v0.1.0',
+			run: 'https://github.com/home-mandate/spec-ts/releases/tag/v0.1.1',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/spec-ts/releases/download/v0.1.0/conformance-report.json',
-					sha256: '3836a03d0525c7e7a0274daf81d40c037ba861e0b9897fa55354f0bebde0d0b1'
+					url: 'https://github.com/home-mandate/spec-ts/releases/download/v0.1.1/conformance-report.json',
+					sha256: 'b2d2d838bfe2f56af2fb7c17a9d991a70b4e564562762b12564cee3a123f0bd6'
 				}
 			]
 		}
