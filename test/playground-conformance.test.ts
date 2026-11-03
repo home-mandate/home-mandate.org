@@ -44,6 +44,7 @@ describe('playground engine against the conformance cases', () => {
 		expect(result.rule_id ?? null, c.why).toBe(c.rule_id ?? null);
 		if (typeof c.approval_timeout === 'string') expect(result.approval?.timeout).toBe(c.approval_timeout);
 		expect(result.enforced ?? true, c.why).toBe(c.enforced ?? true);
+		expect(result.confirm ?? false, c.why).toBe(c.confirm ?? false);
 	});
 
 	it.each(cases('conformance/invalid-v0.json').map((c) => [c.id, c] as const))('invalid mandate %s is rejected', (_id, c) => {

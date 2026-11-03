@@ -81,7 +81,8 @@ export function parseChangelog(blocks: Block[]): ChangelogEntry[] {
 		if (block.type === 'heading') {
 			if (block.depth !== 3) continue;
 			flush();
-			entries.push({ version: block.text.trim(), id: block.id, unreleased: /^unreleased$/i.test(block.text.trim()), groups: [] });
+			const version = versionOf(block.text);
+			entries.push({ version, id: block.id, unreleased: /^unreleased$/i.test(version), groups: [] });
 			continue;
 		}
 		const entry = entries[entries.length - 1];
@@ -103,6 +104,18 @@ export function parseChangelog(blocks: Block[]): ChangelogEntry[] {
 		if (pending && entry) entry.groups.push(group(pending, []));
 		pending = undefined;
 	}
+}
+
+/** The version a heading names: its tag without a date in parentheses ("v0.1.0 (2026-11-02)"). */
+export function versionOf(heading: string): string {
+	const text = heading.trim();
+	const dated = /^(\S+)\s+\(\d{4}-\d{2}-\d{2}\)$/.exec(text);
+	return dated?.[1] ?? text;
+}
+
+/** Whether the entry lists a change; an "Unreleased" that says "Nothing yet." does not. */
+export function hasChanges(entry: ChangelogEntry): boolean {
+	return entry.groups.some((g) => g.items.length > 0);
 }
 
 function group(intro: Inline[] | undefined, items: ListItem[]): ChangeGroup {
