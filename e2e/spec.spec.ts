@@ -57,7 +57,8 @@ for (const lang of LANGUAGES) {
 			await expect(page.locator('link[rel=alternate][type="application/atom+xml"]')).toHaveAttribute('href', '/changelog/feed.xml');
 			await expect(page.getByRole('link', { name: lang.feed })).toHaveAttribute('href', '/changelog/feed.xml');
 			await expect(page.locator('.changelog article')).not.toHaveCount(0);
-			await expect(page.locator('.changelog article').first().locator('.kind').first()).toBeVisible();
+			// Not on every version: a badge appears only where the text names a kind.
+			await expect(page.locator('.changelog article .kind').first()).toBeVisible();
 			expect(problems).toEqual([]);
 		});
 

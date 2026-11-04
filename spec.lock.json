@@ -10,6 +10,7 @@
     { "tag": "v0.1.0-rc.3", "commit": "1db6625f2c4710120e9c31e712d079c88c8c2ae4" },
     { "tag": "v0.1.0-rc.4", "commit": "9ead22f50410cc6bc95fa93cf64fdc9088604f12" },
     { "tag": "v0.1.0-rc.5", "commit": "106c025b30f4c596e7f95fda88a399a67c4a9b1a" },
-    { "tag": "v0.1.0", "commit": "b41f6223172840358aa8c12bf998dda80c726e94" }
+    { "tag": "v0.1.0", "commit": "b41f6223172840358aa8c12bf998dda80c726e94" },
+    { "tag": "v0.1.1", "commit": "d53a8c48e26d8ce3941b3d1b87fe2d44a7ddbf76" }
   ]
 }
