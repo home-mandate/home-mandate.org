@@ -10,7 +10,7 @@
   "faq_assist_q": "How is this different from exposing devices to Assist?",
   "faq_assist_a": "Exposing a device is a yes or no per device, and it applies to every assistant at once. A mandate is per agent: single actions instead of whole devices, limits such as 22 °C at most, times of day, a confirmation on your phone, a limit on actions per hour and a log of every decision. Assist keeps working as before. [Examples from everyday life](/everyday/)",
   "faq_today_q": "What do I need to use it today?",
-  "faq_today_a": "For Home Assistant: Home Assistant OS 2026.9 or later (or Home Assistant Container), Home-Mandate for Home Assistant, the Companion app on the phones that should answer confirmations, and an AI assistant that speaks MCP. Agents outside your home network must reach Home-Mandate over HTTPS. It is still a release candidate. Without installing anything, you can [try a mandate in the playground](/playground/).",
+  "faq_today_a": "For Home Assistant: Home Assistant OS 2026.9 or later (or Home Assistant Container), Home-Mandate for Home Assistant, the Companion app on the phones that should answer confirmations, and an AI assistant that speaks MCP. Agents outside your home network must reach Home-Mandate over HTTPS. It is the first version. Without installing anything, you can [try a mandate in the playground](/playground/).",
   "faq_meta_title": "FAQ: AI agents, Home Assistant, smart home",
   "faq_meta_description": "Answers on AI agents in your smart home: can an agent open the door, does data leave the house, which assistants work, Home Assistant and audit mode.",
   "faq_data_q": "Does my data leave the house?",

@@ -1,8 +1,8 @@
 {
   "ha_title": "Home Assistant: decide what AI agents may do",
   "ha_intro": "Home-Mandate for Home Assistant sits between your AI agents and your home. For every device and action it decides: allow, ask or deny – with approval on your phone, an emergency stop and a tamper-evident log.",
-  "ha_status_title": "Experimental release candidate",
-  "ha_status_text": "Home-Mandate for Home Assistant is not final yet. Expect rough edges, read the [limits of this version](https://github.com/home-mandate/ha-home-mandate#limits-of-this-version) and keep backups.",
+  "ha_status_title": "First version",
+  "ha_status_text": "Home-Mandate for Home Assistant has reached version 0.1, its first version. Read the [limits of this version](https://github.com/home-mandate/ha-home-mandate#limits-of-this-version) and keep backups.",
   "ha_toc": "On this page",
   "ha_why_title": "Why a token is not enough",
   "ha_why_text_1": "An AI agent that holds a Home Assistant token can do everything that token can: unlock the front door, disarm the alarm, open the garage. A prompt injection in an e-mail or a web page the agent reads is enough to make it try. Exposing devices to assistants only knows on or off – no time windows, no limits on values, no confirmation before an action.",

@@ -10,7 +10,7 @@
   "faq_assist_q": "Was ist anders, als Geräte für Assist freizugeben?",
   "faq_assist_a": "Eine Freigabe ist ein Ja oder Nein pro Gerät, und sie gilt für alle Assistenten zugleich. Ein Mandat gilt pro Agent: einzelne Aktionen statt ganzer Geräte, Grenzen wie höchstens 22 °C, Uhrzeiten, eine Rückfrage aufs Handy, eine Obergrenze an Aktionen pro Stunde und ein Protokoll jeder Entscheidung. Assist funktioniert weiter wie bisher. [Beispiele im Alltag](/everyday/)",
   "faq_today_q": "Was brauche ich, um es heute zu nutzen?",
-  "faq_today_a": "Für Home Assistant: Home Assistant OS ab 2026.9 (oder Home Assistant Container), Home-Mandate for Home Assistant, die Companion-App auf den Handys, die Rückfragen beantworten sollen, und einen KI-Assistenten, der MCP spricht. Agenten außerhalb deines Heimnetzes müssen Home-Mandate über HTTPS erreichen. Es ist noch ein Release Candidate. Ohne etwas zu installieren, kannst du [ein Mandat im Spielplatz ausprobieren](/playground/).",
+  "faq_today_a": "Für Home Assistant: Home Assistant OS ab 2026.9 (oder Home Assistant Container), Home-Mandate for Home Assistant, die Companion-App auf den Handys, die Rückfragen beantworten sollen, und einen KI-Assistenten, der MCP spricht. Agenten außerhalb deines Heimnetzes müssen Home-Mandate über HTTPS erreichen. Es ist die erste Version. Ohne etwas zu installieren, kannst du [ein Mandat im Spielplatz ausprobieren](/playground/).",
   "faq_meta_title": "FAQ: KI-Agenten, Home Assistant, Smart Home",
   "faq_meta_description": "Antworten zu KI-Agenten im Smart Home: Kann ein Agent die Tür öffnen, verlassen Daten das Haus, welche Assistenten gehen, Home Assistant und Probebetrieb.",
   "faq_data_q": "Verlassen meine Daten das Haus?",
