@@ -2,7 +2,7 @@
   "ha_title": "Home Assistant: Festlegen, was KI-Agenten dürfen",
   "ha_intro": "Home-Mandate for Home Assistant sitzt zwischen deinen KI-Agenten und deinem Zuhause. Für jedes Gerät und jede Aktion entscheidet es: erlauben, nachfragen oder ablehnen – mit Freigabe auf dem Handy, Not-Aus und einem Protokoll, das sich nicht unbemerkt ändern lässt.",
   "ha_status_title": "Erste Version",
-  "ha_status_text": "Home-Mandate for Home Assistant ist in Version 0.1 erschienen, der ersten Version. Lies die [Grenzen dieser Version](https://github.com/home-mandate/ha-home-mandate#limits-of-this-version) und mach Backups.",
+  "ha_status_text": "Das ist die erste Version von Home-Mandate for Home Assistant. Lies die [Grenzen dieser Version](https://github.com/home-mandate/ha-home-mandate#limits-of-this-version) und mach Backups.",
   "ha_toc": "Auf dieser Seite",
   "ha_why_title": "Warum ein Token nicht reicht",
   "ha_why_text_1": "Ein KI-Agent mit einem Home-Assistant-Token kann alles, was dieser Token kann: die Haustür aufschließen, die Alarmanlage abschalten, das Garagentor öffnen. Eine Prompt-Injection in einer E-Mail oder Webseite, die der Agent liest, genügt, damit er es versucht. Geräte für Assistenten freizugeben kennt nur an oder aus – keine Zeitfenster, keine Grenzwerte, keine Rückfrage vor einer Aktion.",
