@@ -5,7 +5,9 @@
 FROM docker.io/nginxinc/nginx-unprivileged:1.31-alpine3.24@sha256:b5047b9b76845eac124358373c6852377c52e4b05834a47647e955dd91cb8f1e
 
 # Alpine fixes reach its package repository before nginx rebuilds the image (brotli 1.2.1
-# for CVE-2026-111497, for example), so every build installs them. The image runs as 101.
+# for CVE-2026-111497, libxslt 1.1.43-r4 for CVE-2026-87636 and CVE-2026-9947, for example),
+# so every build installs them. Such a fix only reaches the site with the next merge to main:
+# the nightly scan reports it, and a merge rebuilds the image. The image runs as 101.
 USER root
 RUN apk upgrade --no-cache
 USER 101
