@@ -42,15 +42,15 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		classes: ['evaluator', 'selection', 'audit', 'audit-anchored', 'pdp'],
 		guide: '/implementations/home-assistant/',
 		conformance: {
-			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.0',
+			run: 'https://github.com/home-mandate/ha-home-mandate/releases/tag/v0.1.1',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0/conformance-report-process.json',
-					sha256: '03f8a3b7d134893e314f3fc2055e3eb5001afad63f2ab519dc876d9853fe317f'
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.1/conformance-report-process.json',
+					sha256: 'b1aa38794027e9e262cc32671f518029aae788d5593a09ea4f8ad65eb807d6c1'
 				},
 				{
-					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.0/conformance-report-http.json',
-					sha256: '8ed00d2c88dc1e215b233e5bbc9fe1672d42ef56af984123b03f80f437f4b52b'
+					url: 'https://github.com/home-mandate/ha-home-mandate/releases/download/v0.1.1/conformance-report-http.json',
+					sha256: 'b270904e33214566e67ee3a12826087002b5cef247060da3539a52046d9525c1'
 				}
 			]
 		}
