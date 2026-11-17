@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Icon from '../Icon.svelte';
 	import SpecInline from './SpecInline.svelte';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import type { Inline } from '$lib/spec/types';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import type { Inline } from '#lib/spec/types.ts';
 
 	// Inline nodes of the specification (recursive). Text is always text:
 	// nothing here is inserted as HTML.

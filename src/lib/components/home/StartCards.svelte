@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte';
-	import { pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import Icon from '#lib/components/Icon.svelte';
+	import { pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 
 	const locale = getLocale();
 	const entries = [

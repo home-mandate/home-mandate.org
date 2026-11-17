@@ -1,11 +1,11 @@
 <script lang="ts">
 	import SpecBlocks from '../spec/SpecBlocks.svelte';
 	import SpecInline from '../spec/SpecInline.svelte';
-	import { pathIn } from '$lib/locale';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import type { ChangeKind, ReleaseNotes } from '$lib/spec/changelog';
-	import { formatDate } from '$lib/spec/date';
+	import { pathIn } from '#lib/locale.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import type { ChangeKind, ReleaseNotes } from '#lib/spec/changelog.ts';
+	import { formatDate } from '#lib/spec/date.ts';
 
 	// Versions of the specification with their changes. The text is quoted
 	// from the specification (English); badges only where the text names a kind.

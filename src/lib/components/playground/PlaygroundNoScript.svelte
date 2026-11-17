@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
-	import Decision from '$lib/components/Decision.svelte';
-	import RichText from '$lib/components/RichText.svelte';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { describeMandate } from '$lib/playground/describe';
-	import { agentName, rulesOf, type JsonObject } from '$lib/playground/model';
-	import type { Texts } from '$lib/playground/texts';
+	import Callout from '#lib/components/Callout.svelte';
+	import Decision from '#lib/components/Decision.svelte';
+	import RichText from '#lib/components/RichText.svelte';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { describeMandate } from '#lib/playground/describe.ts';
+	import { agentName, rulesOf, type JsonObject } from '#lib/playground/model.ts';
+	import type { Texts } from '#lib/playground/texts.ts';
 
 	// Without JavaScript: the notice, and the voice assistant example in plain language.
 	let { example, texts }: { example: string; texts: Texts } = $props();

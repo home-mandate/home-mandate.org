@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Callout from '$lib/components/Callout.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import TextPageView from '$lib/components/TextPageView.svelte';
-	import ChangelogList from '$lib/components/changelog/ChangelogList.svelte';
-	import { changelog } from '$lib/content/pages/changelog';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
+	import Callout from '#lib/components/Callout.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import TextPageView from '#lib/components/TextPageView.svelte';
+	import ChangelogList from '#lib/components/changelog/ChangelogList.svelte';
+	import { changelog } from '#lib/content/pages/changelog.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
 
 	let { data } = $props();
 

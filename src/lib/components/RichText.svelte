@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Icon from './Icon.svelte';
-	import { localHref } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
-	import { segments } from '$lib/rich';
+	import { localHref } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { segments } from '#lib/rich.ts';
 
 	// Text with [inline](/links/); internal paths get the language prefix.
 	let { text }: { text: string } = $props();

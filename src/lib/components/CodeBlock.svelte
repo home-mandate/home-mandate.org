@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from './Icon.svelte';
-	import { m } from '$lib/paraglide/messages';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// Code with an optional file name and a copy button (shown with JavaScript only).
 	let { code, file, id }: { code: string; file?: string; id: string } = $props();

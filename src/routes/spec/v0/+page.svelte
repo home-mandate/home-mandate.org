@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SpecReader from '$lib/components/spec/SpecReader.svelte';
+	import SpecReader from '#lib/components/spec/SpecReader.svelte';
 
 	let { data } = $props();
 </script>

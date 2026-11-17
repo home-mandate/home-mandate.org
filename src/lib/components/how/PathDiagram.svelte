@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Decision from '../Decision.svelte';
 	import Icon from '../Icon.svelte';
-	import { DEFAULT_PATH, PATHS } from '$lib/how/path';
-	import { m } from '$lib/paraglide/messages';
+	import { DEFAULT_PATH, PATHS } from '#lib/how/path.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// All three paths are in the HTML; data-path on the root (set by the page
 	// script from the radio group) decides which parts show. [data-when] lists

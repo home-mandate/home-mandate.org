@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { m } from '$lib/paraglide/messages';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// SPEC-v0 section 1.1 as a drawing: who talks to whom, and which of those
 	// interfaces the specification defines (solid) or leaves open (dashed).

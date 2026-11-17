@@ -1,7 +1,7 @@
 // The identifier URLs (W9): https://home-mandate.org/<kind>/v0 names a format.
 // Browsers get this explanation; software asking for JSON gets the schema
 // (content negotiation in the web server).
-import { spec } from '$lib/generated/spec';
+import { spec } from '#lib/generated/spec.ts';
 import type { Block, TextPage } from '../types';
 
 const SITE = 'https://home-mandate.org';

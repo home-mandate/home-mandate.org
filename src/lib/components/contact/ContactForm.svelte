@@ -3,12 +3,12 @@
 	import 'altcha/altcha.css';
 	import Banner from './Banner.svelte';
 	import FieldError from './FieldError.svelte';
-	import RichText from '$lib/components/RichText.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import { MAX_LINKS, MAX_MESSAGE, MAX_NAME, MAX_EMAIL, type Problem } from '$lib/contact/validate';
-	import { scripts } from '$lib/generated/client';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import RichText from '#lib/components/RichText.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import { MAX_LINKS, MAX_MESSAGE, MAX_NAME, MAX_EMAIL, type Problem } from '#lib/contact/validate.ts';
+	import { scripts } from '#lib/generated/client.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// The form only works with JavaScript (ALTCHA), so it is hidden without it
 	// (.js-only); src/client/pages/contact.ts does validation and sending.

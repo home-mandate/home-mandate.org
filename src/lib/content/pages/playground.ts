@@ -1,7 +1,7 @@
 // Texts of the playground for the browser script: every playground_* message of the
 // current language, with its placeholders kept as {name} (the script fills them).
-import { m } from '$lib/paraglide/messages';
-import type { Texts } from '$lib/playground/texts';
+import { m } from '#lib/paraglide/messages.js';
+import type { Texts } from '#lib/playground/texts.ts';
 
 const PREFIX = 'playground_';
 

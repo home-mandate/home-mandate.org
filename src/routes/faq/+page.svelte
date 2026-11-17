@@ -1,9 +1,9 @@
 <script lang="ts">
-	import TextPageView from '$lib/components/TextPageView.svelte';
-	import { faq } from '$lib/content/pages/faq';
-	import { t } from '$lib/content/text';
-	import { plain } from '$lib/rich';
-	import { faqPageLd, jsonLdScript } from '$lib/seo';
+	import TextPageView from '#lib/components/TextPageView.svelte';
+	import { faq } from '#lib/content/pages/faq.ts';
+	import { t } from '#lib/content/text.ts';
+	import { plain } from '#lib/rich.ts';
+	import { faqPageLd, jsonLdScript } from '#lib/seo.ts';
 
 	const questions = faq.blocks.flatMap((b) => ('faq' in b ? b.faq : []));
 </script>

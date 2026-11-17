@@ -1,5 +1,5 @@
 // Fixed facts about the site and links into the specification repository.
-import { spec } from '$lib/generated/spec';
+import { spec } from '#lib/generated/spec.ts';
 
 export const SITE_URL = 'https://home-mandate.org';
 export const SITE_REPOSITORY = 'https://github.com/home-mandate/home-mandate.org';

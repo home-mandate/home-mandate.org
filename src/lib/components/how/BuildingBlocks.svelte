@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Icon from '../Icon.svelte';
-	import { t } from '$lib/content/text';
-	import type { K } from '$lib/content/types';
-	import { BLOCKS } from '$lib/how/blocks';
-	import { categoryCount, vocabulary } from '$lib/how/vocabulary';
-	import { m } from '$lib/paraglide/messages';
+	import { t } from '#lib/content/text.ts';
+	import type { K } from '#lib/content/types.ts';
+	import { BLOCKS } from '#lib/how/blocks.ts';
+	import { categoryCount, vocabulary } from '#lib/how/vocabulary.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// The five terms of the model with their term in SPEC-v0 section 2.
 	const count = categoryCount(vocabulary);

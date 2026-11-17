@@ -1,7 +1,7 @@
 // The conformance classes of an implementation that a checked report backs (see
 // scripts/import-conformance.ts); every other declared class is "declared".
-import type { ConformanceClass } from '$lib/content/implementations';
-import { conformance } from '$lib/generated/conformance';
+import type { ConformanceClass } from '#lib/content/implementations.ts';
+import { conformance } from '#lib/generated/conformance.ts';
 
 export interface VerifiedConformance {
 	/** Where the run is published. */

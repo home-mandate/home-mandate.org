@@ -3,10 +3,10 @@
 	import type { Snippet } from 'svelte';
 	import Icon from './Icon.svelte';
 	import TextBlocks from './TextBlocks.svelte';
-	import { t } from '$lib/content/text';
-	import type { TextPage } from '$lib/content/types';
-	import { m } from '$lib/paraglide/messages';
-	import { plain } from '$lib/rich';
+	import { t } from '#lib/content/text.ts';
+	import type { TextPage } from '#lib/content/types.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { plain } from '#lib/rich.ts';
 
 	// One template for all text pages (why, security, faq, ...): title, lead,
 	// blocks. Pages may add their own content after the blocks.

@@ -1,4 +1,4 @@
-import { SECURITY_URL } from '$lib/site';
+import { SECURITY_URL } from '#lib/site.ts';
 import type { TextPage } from '../types';
 
 export const security: TextPage = {

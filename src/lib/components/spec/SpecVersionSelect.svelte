@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '../Icon.svelte';
-	import { m } from '$lib/paraglide/messages';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// Imported releases of the specification. Every entry is a plain link (works
 	// without JavaScript, nothing is stored). With a single release there is

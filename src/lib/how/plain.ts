@@ -1,8 +1,8 @@
 // The plain-language view of the example mandate: one row per rule plus the
 // default. The decision of every row comes from the JSON itself, so the chips
 // cannot drift from the mandate; the sentence is looked up by rule id.
-import type { IconName } from '$lib/icons';
-import type { K } from '$lib/content/types';
+import type { IconName } from '#lib/icons.ts';
+import type { K } from '#lib/content/types.ts';
 import type { Decision, Mandate } from './mandate-check';
 
 export interface PlainRow {

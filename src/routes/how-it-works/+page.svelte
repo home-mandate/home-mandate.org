@@ -1,14 +1,14 @@
 <script lang="ts">
-	import PageMeta from '$lib/components/PageMeta.svelte';
-	import BuildingBlocks from '$lib/components/how/BuildingBlocks.svelte';
-	import GroundRules from '$lib/components/how/GroundRules.svelte';
-	import HashChain from '$lib/components/how/HashChain.svelte';
-	import MandateViews from '$lib/components/how/MandateViews.svelte';
-	import PathDiagram from '$lib/components/how/PathDiagram.svelte';
-	import TextBlocks from '$lib/components/TextBlocks.svelte';
-	import type { Block } from '$lib/content/types';
-	import { scripts } from '$lib/generated/client';
-	import { m } from '$lib/paraglide/messages';
+	import PageMeta from '#lib/components/PageMeta.svelte';
+	import BuildingBlocks from '#lib/components/how/BuildingBlocks.svelte';
+	import GroundRules from '#lib/components/how/GroundRules.svelte';
+	import HashChain from '#lib/components/how/HashChain.svelte';
+	import MandateViews from '#lib/components/how/MandateViews.svelte';
+	import PathDiagram from '#lib/components/how/PathDiagram.svelte';
+	import TextBlocks from '#lib/components/TextBlocks.svelte';
+	import type { Block } from '#lib/content/types.ts';
+	import { scripts } from '#lib/generated/client.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	let { data } = $props();
 

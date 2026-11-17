@@ -6,12 +6,12 @@
 	import RichText from './RichText.svelte';
 	import StepNumber from './StepNumber.svelte';
 	import TechDetails from './TechDetails.svelte';
-	import { ALPHABET, groupByInitial } from '$lib/content/glossary';
-	import { t } from '$lib/content/text';
-	import type { Block } from '$lib/content/types';
-	import { localHref } from '$lib/locale';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
+	import { ALPHABET, groupByInitial } from '#lib/content/glossary.ts';
+	import { t } from '#lib/content/text.ts';
+	import type { Block } from '#lib/content/types.ts';
+	import { localHref } from '#lib/locale.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
 
 	let { blocks }: { blocks: Block[] } = $props();
 

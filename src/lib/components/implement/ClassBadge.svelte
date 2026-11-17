@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from '../Icon.svelte';
-	import type { ConformanceClass } from '$lib/content/implementations';
-	import { m } from '$lib/paraglide/messages';
+	import type { ConformanceClass } from '#lib/content/implementations.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// A conformance class of an implementation: "passed" only with a published
 	// run, otherwise "declared". The state is in the text, not only in the look.

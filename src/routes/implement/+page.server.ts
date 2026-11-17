@@ -1,5 +1,5 @@
-import { implementData } from '$lib/implement/build-data';
-import { spec } from '$lib/generated/spec';
+import { implementData } from '#lib/implement/build-data.ts';
+import { spec } from '#lib/generated/spec.ts';
 import type { PageServerLoad } from './$types';
 
 // Runs once per language while prerendering: everything is derived from the

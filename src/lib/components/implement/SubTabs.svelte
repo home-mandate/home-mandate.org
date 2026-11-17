@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import { pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// Second navigation level of the Implement section: plain links.
 	let { current }: { current: 'implement' | 'implementations' } = $props();

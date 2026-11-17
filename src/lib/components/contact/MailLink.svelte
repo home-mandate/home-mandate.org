@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CONTACT_EMAIL } from '$lib/site';
+	import { CONTACT_EMAIL } from '#lib/site.ts';
 
 	// The contact address, set in mono like in the design. size: box (aside),
 	// large (no-JS box), small (banners).

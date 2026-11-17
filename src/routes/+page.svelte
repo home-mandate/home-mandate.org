@@ -1,16 +1,16 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte';
-	import ImplementationList from '$lib/components/home/ImplementationList.svelte';
-	import MandateCard from '$lib/components/home/MandateCard.svelte';
-	import OpenFacts from '$lib/components/home/OpenFacts.svelte';
-	import Scenario from '$lib/components/home/Scenario.svelte';
-	import StartCards from '$lib/components/home/StartCards.svelte';
-	import ThreeDecisions from '$lib/components/home/ThreeDecisions.svelte';
-	import PageMeta from '$lib/components/PageMeta.svelte';
-	import { pathIn, urlIn } from '$lib/locale';
-	import { jsonLdScript, websiteLd } from '$lib/seo';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import Icon from '#lib/components/Icon.svelte';
+	import ImplementationList from '#lib/components/home/ImplementationList.svelte';
+	import MandateCard from '#lib/components/home/MandateCard.svelte';
+	import OpenFacts from '#lib/components/home/OpenFacts.svelte';
+	import Scenario from '#lib/components/home/Scenario.svelte';
+	import StartCards from '#lib/components/home/StartCards.svelte';
+	import ThreeDecisions from '#lib/components/home/ThreeDecisions.svelte';
+	import PageMeta from '#lib/components/PageMeta.svelte';
+	import { pathIn, urlIn } from '#lib/locale.ts';
+	import { jsonLdScript, websiteLd } from '#lib/seo.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 
 	const locale = $derived(getLocale());
 </script>

@@ -2,8 +2,8 @@
 // below; every row names the rule it shows, so the decision on the card is read
 // from the mandate and cannot drift from it (test/home.test.ts checks the
 // mandate against the vocabulary of the specification).
-import type { IconName } from '$lib/icons';
-import { isPassed, type VerifiedList } from '$lib/implement/verified';
+import type { IconName } from '#lib/icons.ts';
+import { isPassed, type VerifiedList } from '#lib/implement/verified.ts';
 import type { Implementation, ImplementationKind } from './implementations';
 import type { K, Tone } from './types';
 

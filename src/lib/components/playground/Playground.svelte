@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Decision from '$lib/components/Decision.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import StepNumber from '$lib/components/StepNumber.svelte';
-	import type { IconName } from '$lib/icons';
-	import { m } from '$lib/paraglide/messages';
-	import { DAYS, HOUSEHOLD_ZONE, REFERENCE_MONDAY, defaultEntityId } from '$lib/playground/request';
-	import { categoryLabel, actionLabel, type Texts } from '$lib/playground/texts';
-	import { CATEGORIES, actionsOf } from '$lib/playground/vocab';
+	import Decision from '#lib/components/Decision.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import StepNumber from '#lib/components/StepNumber.svelte';
+	import type { IconName } from '#lib/icons.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { DAYS, HOUSEHOLD_ZONE, REFERENCE_MONDAY, defaultEntityId } from '#lib/playground/request.ts';
+	import { categoryLabel, actionLabel, type Texts } from '#lib/playground/texts.ts';
+	import { CATEGORIES, actionsOf } from '#lib/playground/vocab.ts';
 	import './playground.css';
 	import './rules.css';
 	import './request.css';

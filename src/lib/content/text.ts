@@ -1,4 +1,4 @@
-import { m } from '$lib/paraglide/messages';
+import { m } from '#lib/paraglide/messages.js';
 import type { K } from './types';
 
 /** Text of a message key without parameters (page texts never have any). */

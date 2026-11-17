@@ -1,11 +1,11 @@
 <script lang="ts">
-	import TextPageView from '$lib/components/TextPageView.svelte';
-	import { glossary } from '$lib/content/pages/glossary';
-	import { t } from '$lib/content/text';
-	import { urlIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { plain } from '$lib/rich';
-	import { definedTermSetLd, jsonLdScript } from '$lib/seo';
+	import TextPageView from '#lib/components/TextPageView.svelte';
+	import { glossary } from '#lib/content/pages/glossary.ts';
+	import { t } from '#lib/content/text.ts';
+	import { urlIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { plain } from '#lib/rich.ts';
+	import { definedTermSetLd, jsonLdScript } from '#lib/seo.ts';
 
 	// The terms of the glossary also as schema.org data (DefinedTermSet).
 	const locale = $derived(getLocale());

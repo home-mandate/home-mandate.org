@@ -1,11 +1,11 @@
 <script lang="ts">
-	import PageMeta from '$lib/components/PageMeta.svelte';
-	import Playground from '$lib/components/playground/Playground.svelte';
-	import PlaygroundNoScript from '$lib/components/playground/PlaygroundNoScript.svelte';
-	import { playgroundTexts } from '$lib/content/pages/playground';
-	import { scripts } from '$lib/generated/client';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
+	import PageMeta from '#lib/components/PageMeta.svelte';
+	import Playground from '#lib/components/playground/Playground.svelte';
+	import PlaygroundNoScript from '#lib/components/playground/PlaygroundNoScript.svelte';
+	import { playgroundTexts } from '#lib/content/pages/playground.ts';
+	import { scripts } from '#lib/generated/client.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();

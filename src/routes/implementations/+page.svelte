@@ -1,17 +1,17 @@
 <script lang="ts">
-	import PageMeta from '$lib/components/PageMeta.svelte';
-	import ClassBadge from '$lib/components/implement/ClassBadge.svelte';
-	import SubTabs from '$lib/components/implement/SubTabs.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import RichText from '$lib/components/RichText.svelte';
-	import { IMPLEMENTATIONS, type ImplementationKind } from '$lib/content/implementations';
-	import { scripts } from '$lib/generated/client';
-	import { KIND_FILTERS, kindCounts, kindsAttribute, type KindFilter } from '$lib/implement/list';
-	import { conformanceRun, isPassed, VERIFIED } from '$lib/implement/verified';
-	import { m } from '$lib/paraglide/messages';
-	import { localHref } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { IMPLEMENTATIONS_FILE_URL } from '$lib/site';
+	import PageMeta from '#lib/components/PageMeta.svelte';
+	import ClassBadge from '#lib/components/implement/ClassBadge.svelte';
+	import SubTabs from '#lib/components/implement/SubTabs.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import RichText from '#lib/components/RichText.svelte';
+	import { IMPLEMENTATIONS, type ImplementationKind } from '#lib/content/implementations.ts';
+	import { scripts } from '#lib/generated/client.ts';
+	import { KIND_FILTERS, kindCounts, kindsAttribute, type KindFilter } from '#lib/implement/list.ts';
+	import { conformanceRun, isPassed, VERIFIED } from '#lib/implement/verified.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { localHref } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { IMPLEMENTATIONS_FILE_URL } from '#lib/site.ts';
 
 	const KIND_LABEL: Record<KindFilter, () => string> = {
 		all: m.implement_kind_all,

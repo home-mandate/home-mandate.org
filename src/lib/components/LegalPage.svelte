@@ -2,9 +2,9 @@
 	import PageMeta from './PageMeta.svelte';
 	import Callout from './Callout.svelte';
 	import RichText from './RichText.svelte';
-	import { headingId, legalText } from '$lib/content/legal';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import { headingId, legalText } from '#lib/content/legal/index.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// Privacy policy and imprint: German is binding, English a translation,
 	// other languages read the English text (marked with lang="en").

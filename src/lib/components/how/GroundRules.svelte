@@ -1,12 +1,12 @@
 <script lang="ts">
 	import Icon from '../Icon.svelte';
 	import StepNumber from '../StepNumber.svelte';
-	import { t } from '$lib/content/text';
-	import type { K } from '$lib/content/types';
-	import { criticalLabel } from '$lib/how/critical';
-	import { ICONS, type IconName } from '$lib/icons';
-	import { criticalActions, vocabulary } from '$lib/how/vocabulary';
-	import { m } from '$lib/paraglide/messages';
+	import { t } from '#lib/content/text.ts';
+	import type { K } from '#lib/content/types.ts';
+	import { criticalLabel } from '#lib/how/critical.ts';
+	import { ICONS, type IconName } from '#lib/icons.ts';
+	import { criticalActions, vocabulary } from '#lib/how/vocabulary.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// The evaluation rule of SPEC-v0 section 4 (and 11.1 for unanswered asks)
 	// in five sentences, next to the critical actions of the vocabulary.

@@ -1,16 +1,16 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
-	import Icon from '$lib/components/Icon.svelte';
-	import SiteFooter from '$lib/components/SiteFooter.svelte';
-	import SiteHeader from '$lib/components/SiteHeader.svelte';
-	import StatusBand from '$lib/components/StatusBand.svelte';
-	import { scripts } from '$lib/generated/client';
-	import { language, languages, urlIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
-	import { ogImage, ogLocale } from '$lib/seo';
-	import { TRANSLATING_URL } from '$lib/site';
+	import Icon from '#lib/components/Icon.svelte';
+	import SiteFooter from '#lib/components/SiteFooter.svelte';
+	import SiteHeader from '#lib/components/SiteHeader.svelte';
+	import StatusBand from '#lib/components/StatusBand.svelte';
+	import { scripts } from '#lib/generated/client.ts';
+	import { language, languages, urlIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { ogImage, ogLocale } from '#lib/seo.ts';
+	import { TRANSLATING_URL } from '#lib/site.ts';
 
 	let { children } = $props();
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ICONS, MIRRORED, type IconName } from '$lib/icons';
+	import { ICONS, MIRRORED, type IconName } from '#lib/icons.ts';
 
 	let {
 		name,

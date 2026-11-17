@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte';
+	import Icon from '#lib/components/Icon.svelte';
 
 	// Error text at a field, filled by the contact script after the first
 	// submit. Empty while hidden, so aria-describedby adds nothing.

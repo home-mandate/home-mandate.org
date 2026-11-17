@@ -2,8 +2,8 @@
 // release (.spec-cache/<tag>/examples/), exactly as published.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { EXAMPLE_FILES } from '$lib/playground/examples';
-import { spec } from '$lib/generated/spec';
+import { EXAMPLE_FILES } from '#lib/playground/examples.ts';
+import { spec } from '#lib/generated/spec.ts';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = () => {

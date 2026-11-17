@@ -1,6 +1,6 @@
 // The changelog of the latest imported release, with dates where they are
 // known: the date of a release tag that was imported. Nothing else is dated.
-import { spec } from '$lib/generated/spec';
+import { spec } from '#lib/generated/spec.ts';
 import { hasChanges, parseChangelog, type DatedEntry, type ReleaseNotes } from './changelog';
 import { loadSpec, specVersions, tagDate } from './source.server';
 export function loadReleaseNotes(tag: string = spec.latest.tag, root = process.cwd()): ReleaseNotes {

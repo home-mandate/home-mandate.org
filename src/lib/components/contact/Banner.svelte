@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import Icon from '$lib/components/Icon.svelte';
+	import Icon from '#lib/components/Icon.svelte';
 	import MailLink from './MailLink.svelte';
-	import type { IconName } from '$lib/icons';
+	import type { IconName } from '#lib/icons.ts';
 
 	// Result banner above the form (failed, rate limit, not accepted, error
 	// summary). Hidden until the contact script shows it and moves focus to it.

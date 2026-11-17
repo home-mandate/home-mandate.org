@@ -1,7 +1,7 @@
 // Language helpers on top of the Paraglide runtime.
-import { languages, type Language } from '$lib/generated/languages';
-import { deLocalizeHref, localizeHref } from '$lib/paraglide/runtime';
-import { SITE_URL } from '$lib/site';
+import { languages, type Language } from '#lib/generated/languages.ts';
+import { deLocalizeHref, localizeHref } from '#lib/paraglide/runtime.js';
+import { SITE_URL } from '#lib/site.ts';
 
 export type { Language };
 export { languages };
