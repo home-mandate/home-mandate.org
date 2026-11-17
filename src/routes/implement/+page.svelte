@@ -1,18 +1,18 @@
 <script lang="ts">
-	import PageMeta from '$lib/components/PageMeta.svelte';
-	import OverviewDiagram from '$lib/components/diagrams/OverviewDiagram.svelte';
-	import CommandLine from '$lib/components/implement/CommandLine.svelte';
-	import DownloadCard from '$lib/components/implement/DownloadCard.svelte';
-	import ModelBox from '$lib/components/implement/ModelBox.svelte';
-	import SubTabs from '$lib/components/implement/SubTabs.svelte';
-	import RichText from '$lib/components/RichText.svelte';
-	import { spec } from '$lib/generated/spec';
-	import { conformanceCommands, type CommandId } from '$lib/implement/commands';
-	import { CONFORMANCE_CLASSES, type SpecClass } from '$lib/implement/conformance';
-	import type { DownloadId } from '$lib/implement/downloads';
-	import { pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import PageMeta from '#lib/components/PageMeta.svelte';
+	import OverviewDiagram from '#lib/components/diagrams/OverviewDiagram.svelte';
+	import CommandLine from '#lib/components/implement/CommandLine.svelte';
+	import DownloadCard from '#lib/components/implement/DownloadCard.svelte';
+	import ModelBox from '#lib/components/implement/ModelBox.svelte';
+	import SubTabs from '#lib/components/implement/SubTabs.svelte';
+	import RichText from '#lib/components/RichText.svelte';
+	import { spec } from '#lib/generated/spec.ts';
+	import { conformanceCommands, type CommandId } from '#lib/implement/commands.ts';
+	import { CONFORMANCE_CLASSES, type SpecClass } from '#lib/implement/conformance.ts';
+	import type { DownloadId } from '#lib/implement/downloads.ts';
+	import { pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();

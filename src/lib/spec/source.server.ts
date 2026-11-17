@@ -4,7 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { spec } from '$lib/generated/spec';
+import { spec } from '#lib/generated/spec.ts';
 import { parseSpec } from './markdown';
 import type { LoadedSpec, SpecVersion } from './types';
 

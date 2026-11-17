@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { basePath, language, languages, localHref, pathIn, urlIn } from '$lib/locale';
-import { SECURITY_URL, SITE_URL, specUrl } from '$lib/site';
-import { spec } from '$lib/generated/spec';
+import { basePath, language, languages, localHref, pathIn, urlIn } from '#lib/locale.ts';
+import { SECURITY_URL, SITE_URL, specUrl } from '#lib/site.ts';
+import { spec } from '#lib/generated/spec.ts';
 
 describe('locale helpers', () => {
 	it('lists English first', () => {

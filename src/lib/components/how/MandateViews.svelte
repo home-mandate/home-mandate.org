@@ -2,14 +2,14 @@
 	import CodeBlock from '../CodeBlock.svelte';
 	import Decision from '../Decision.svelte';
 	import Icon from '../Icon.svelte';
-	import example from '$lib/content/example-mandate.json';
-	import exampleText from '$lib/content/example-mandate.json?raw';
-	import { t } from '$lib/content/text';
-	import type { Mandate } from '$lib/how/mandate-check';
-	import { plainRows } from '$lib/how/plain';
-	import { pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import example from '#lib/content/example-mandate.json';
+	import exampleText from '#lib/content/example-mandate.json?raw';
+	import { t } from '#lib/content/text.ts';
+	import type { Mandate } from '#lib/how/mandate-check.ts';
+	import { plainRows } from '#lib/how/plain.ts';
+	import { pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// One mandate (src/lib/content/example-mandate.json), shown as sentences and
 	// as the JSON file itself. WAI-ARIA tabs with JavaScript; without it both

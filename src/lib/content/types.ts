@@ -1,8 +1,8 @@
 // Structure of a text page. Text is never written here: every K is the key of
 // a message in languages/<tag>/pages/<page>.json, so translators only touch
 // texts and the structure stays the same in every language.
-import type { IconName } from '$lib/icons';
-import type { m } from '$lib/paraglide/messages';
+import type { IconName } from '#lib/icons.ts';
+import type { m } from '#lib/paraglide/messages.js';
 
 export type K = keyof typeof m;
 export type Tone = 'allow' | 'ask' | 'deny';

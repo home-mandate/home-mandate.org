@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { loadSpec, SPEC_FILE, specVersions } from '$lib/spec/source.server';
+import { loadSpec, SPEC_FILE, specVersions } from '#lib/spec/source.server.ts';
 import type { EntryGenerator, PageServerLoad } from './$types';
 
 // A permanent address for every imported release: /spec/v0/<tag>/. Older

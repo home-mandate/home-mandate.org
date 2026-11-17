@@ -1,14 +1,14 @@
 <script lang="ts">
-	import PageMeta from '$lib/components/PageMeta.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import { faq } from '$lib/content/pages/faq';
-	import { glossary } from '$lib/content/pages/glossary';
-	import { t } from '$lib/content/text';
-	import type { Block, K } from '$lib/content/types';
-	import { scripts } from '$lib/generated/client';
-	import { pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import PageMeta from '#lib/components/PageMeta.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import { faq } from '#lib/content/pages/faq.ts';
+	import { glossary } from '#lib/content/pages/glossary.ts';
+	import { t } from '#lib/content/text.ts';
+	import type { Block, K } from '#lib/content/types.ts';
+	import { scripts } from '#lib/generated/client.ts';
+	import { pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 
 	const locale = $derived(getLocale());
 	const local = (path: string) => pathIn(path, locale);

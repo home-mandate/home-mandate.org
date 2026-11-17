@@ -1,4 +1,4 @@
-import { SPEC_REPOSITORY, TRANSLATING_URL } from '$lib/site';
+import { SPEC_REPOSITORY, TRANSLATING_URL } from '#lib/site.ts';
 import type { TextPage } from '../types';
 
 export const about: TextPage = {

@@ -1,7 +1,7 @@
 // The audit log excerpt on the "How it works" page: four decision entries for
 // the example mandate, hash-chained as in SPEC-v0 section 9.4, and the same
 // log after someone edited entry 2. Computed at build time with real SHA-256.
-import type { K } from '$lib/content/types';
+import type { K } from '#lib/content/types.ts';
 import { digest, type Json } from './digest';
 import type { Approval, Decision, Mandate } from './mandate-check';
 

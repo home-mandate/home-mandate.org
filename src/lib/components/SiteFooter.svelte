@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import Logo from './Logo.svelte';
-	import { languages, pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
-	import { SECURITY_URL, SITE_REPOSITORY, SPEC_REPOSITORY, TRANSLATING_URL } from '$lib/site';
+	import { languages, pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { SECURITY_URL, SITE_REPOSITORY, SPEC_REPOSITORY, TRANSLATING_URL } from '#lib/site.ts';
 
 	// The same footer on every page: about, project, legal and language columns.
 	const locale = $derived(getLocale());

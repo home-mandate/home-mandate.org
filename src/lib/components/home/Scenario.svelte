@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Decision from '$lib/components/Decision.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import StepNumber from '$lib/components/StepNumber.svelte';
-	import { m } from '$lib/paraglide/messages';
+	import Decision from '#lib/components/Decision.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import StepNumber from '#lib/components/StepNumber.svelte';
+	import { m } from '#lib/paraglide/messages.js';
 </script>
 
 {#snippet agent()}

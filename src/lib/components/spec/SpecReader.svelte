@@ -4,14 +4,14 @@
 	import SpecBlocks from './SpecBlocks.svelte';
 	import SpecToc from './SpecToc.svelte';
 	import SpecVersionSelect from './SpecVersionSelect.svelte';
-	import { scripts } from '$lib/generated/client';
-	import { pathIn, urlIn } from '$lib/locale';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { SITE_URL, SPEC_REPOSITORY } from '$lib/site';
-	import { breadcrumbLd, jsonLdScript, specLd } from '$lib/seo';
-	import { formatDate } from '$lib/spec/date';
-	import type { LoadedSpec, SpecVersion } from '$lib/spec/types';
+	import { scripts } from '#lib/generated/client.ts';
+	import { pathIn, urlIn } from '#lib/locale.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { SITE_URL, SPEC_REPOSITORY } from '#lib/site.ts';
+	import { breadcrumbLd, jsonLdScript, specLd } from '#lib/seo.ts';
+	import { formatDate } from '#lib/spec/date.ts';
+	import type { LoadedSpec, SpecVersion } from '#lib/spec/types.ts';
 
 	// The specification reader: the English text of one imported release with
 	// its table of contents, version choice, link to GitHub and a print layout.

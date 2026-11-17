@@ -1,12 +1,12 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte';
-	import { implementationRows } from '$lib/content/home';
-	import { IMPLEMENTATIONS, type ImplementationKind } from '$lib/content/implementations';
-	import { VERIFIED } from '$lib/implement/verified';
-	import { pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
-	import { IMPLEMENTATIONS_FILE_URL } from '$lib/site';
+	import Icon from '#lib/components/Icon.svelte';
+	import { implementationRows } from '#lib/content/home.ts';
+	import { IMPLEMENTATIONS, type ImplementationKind } from '#lib/content/implementations.ts';
+	import { VERIFIED } from '#lib/implement/verified.ts';
+	import { pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { IMPLEMENTATIONS_FILE_URL } from '#lib/site.ts';
 
 	// The first implementations of the list; conformance classes count as
 	// "passed" only if a checked conformance report backs them, otherwise as declared.

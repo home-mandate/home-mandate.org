@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { m } from '$lib/paraglide/messages';
+	import { m } from '#lib/paraglide/messages.js';
 </script>
 
 <p class="band"><span class="dot" aria-hidden="true"></span>{m.common_status()}</p>

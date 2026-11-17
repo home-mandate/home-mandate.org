@@ -5,7 +5,7 @@
 //   project.inlang/settings.json     inlang project for Paraglide
 //   src/lib/paraglide/               compiled message functions (Paraglide)
 //   src/lib/generated/languages.ts   list for the language menu, hreflang, prerendering
-//   .generated/languages.json        the same list for svelte.config.js
+//   .generated/languages.json        the same list for vite.config.ts
 // Adding a language never needs a code change: add languages/<tag>/ and open a PR.
 // Run with: node scripts/languages.ts
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';

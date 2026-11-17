@@ -1,8 +1,8 @@
-import { m } from '$lib/paraglide/messages';
-import { SITE_URL } from '$lib/site';
-import { atomDate } from '$lib/spec/date';
-import { atomFeed } from '$lib/spec/feed';
-import { loadReleaseNotes } from '$lib/spec/release-notes.server';
+import { m } from '#lib/paraglide/messages.js';
+import { SITE_URL } from '#lib/site.ts';
+import { atomDate } from '#lib/spec/date.ts';
+import { atomFeed } from '#lib/spec/feed.ts';
+import { loadReleaseNotes } from '#lib/spec/release-notes.server.ts';
 import type { RequestHandler } from './$types';
 
 // Atom feed of the changelog, written once at build time. The entries are the

@@ -10,16 +10,9 @@ blockExoticSubdeps: true
 saveExact: true
 # Security fixes for transitive dependencies (remove once the parents require them):
 # source-map-js < 1.2.2: GHSA-68fv-2mgg-jv7q (lint and test tooling only).
-# cookie < 0.7.0: GHSA-pxg6-pf52-xh8x (SvelteKit; the prerendered site sets no cookies).
 overrides:
   source-map-js: 1.2.2
-  cookie: 0.7.2
-# Advisories that do not apply here (re-check when SvelteKit 3 or the parent updates):
-# @sveltejs/kit < 3.0.0: GHSA-pfhg-q3qv-9q6r, low: open redirect via use:enhance; the site
-# uses no use:enhance. GHSA-27mw-82g8-phjj, low: XSS via setHeaders cache-control on
-# prerendered pages; the site never calls setHeaders.
-# deepmerge <= 4.3.1: GHSA-gcqx-w48m-w2h4, low, no fixed version. Only
-# @sveltejs/vite-plugin-svelte uses it, at build time, to merge our own Svelte config.
+# Advisories that do not apply here (re-check when the parent updates):
 # minimatch < 11.0.1: GHSA-g3hv-75wg-m249, moderate: denial of service via globparts
 # amplification in crafted patterns. Only eslint, @eslint/config-array and
 # @typescript-eslint/typescript-estree use it, at lint time, with the patterns of our own
@@ -27,7 +20,4 @@ overrides:
 # parents do not accept yet (they require ^10); remove once they require >= 11.0.1.
 auditConfig:
   ignoreGhsas:
-    - GHSA-pfhg-q3qv-9q6r
-    - GHSA-27mw-82g8-phjj
-    - GHSA-gcqx-w48m-w2h4
     - GHSA-g3hv-75wg-m249

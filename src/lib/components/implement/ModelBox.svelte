@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { Field } from '$lib/implement/model';
-	import { m } from '$lib/paraglide/messages';
+	import type { Field } from '#lib/implement/model.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// One type of the data model as a two-column table: field and type.
 	let { title, fields, primary = false }: { title: string; fields: Field[]; primary?: boolean } = $props();

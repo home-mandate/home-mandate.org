@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '../Icon.svelte';
-	import { m } from '$lib/paraglide/messages';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// One shell command with a label and a copy button (the button needs
 	// JavaScript, the command is always readable and selectable).

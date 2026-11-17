@@ -1,11 +1,11 @@
 <script lang="ts">
 	import PageMeta from '../PageMeta.svelte';
-	import Icon from '$lib/components/Icon.svelte';
+	import Icon from '#lib/components/Icon.svelte';
 	import MailLink from './MailLink.svelte';
-	import { pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
-	import type { IconName } from '$lib/icons';
+	import { pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import type { IconName } from '#lib/icons.ts';
 
 	// Landing pages of the contact service's 303 (/contact/{sent,failed,limit,invalid}/).
 	// Static pages: reloading one sends nothing. Not for search engines.

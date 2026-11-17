@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TocEntry } from '$lib/spec/types';
+	import type { TocEntry } from '#lib/spec/types.ts';
 
 	// Table of contents. The page script (src/client/pages/spec.ts) marks the
 	// section in view with aria-current="location"; without JavaScript it is a

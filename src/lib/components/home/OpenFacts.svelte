@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { m } from '$lib/paraglide/messages';
+	import { m } from '#lib/paraglide/messages.js';
 
 	const facts = [
 		{ term: m.home_fact_text(), value: m.home_fact_text_value() },

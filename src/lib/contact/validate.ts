@@ -1,6 +1,6 @@
 // Client-side checks of the contact form. They mirror validate.go of the
 // contact-relay service (limits, e-mail pattern, character rules, link count),
-// so a message that passes here is accepted by the server. No $lib imports:
+// so a message that passes here is accepted by the server. No #lib imports:
 // the browser script (src/client/pages/contact.ts) bundles this file directly.
 
 export const MAX_NAME = 100;

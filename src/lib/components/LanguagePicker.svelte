@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import Icon from './Icon.svelte';
-	import { languages, pathIn } from '$lib/locale';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
-	import { TRANSLATING_URL } from '$lib/site';
+	import { languages, pathIn } from '#lib/locale.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { TRANSLATING_URL } from '#lib/site.ts';
 
 	// <details> works without JavaScript; every entry is a plain link to the same
 	// page in that language (the URL is the choice, nothing is stored).

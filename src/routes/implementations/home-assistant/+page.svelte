@@ -1,11 +1,11 @@
 <script lang="ts">
-	import TextPageView from '$lib/components/TextPageView.svelte';
-	import SubTabs from '$lib/components/implement/SubTabs.svelte';
-	import { homeAssistant } from '$lib/content/pages/home-assistant';
-	import { urlIn } from '$lib/locale';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { breadcrumbLd, jsonLdScript } from '$lib/seo';
+	import TextPageView from '#lib/components/TextPageView.svelte';
+	import SubTabs from '#lib/components/implement/SubTabs.svelte';
+	import { homeAssistant } from '#lib/content/pages/home-assistant.ts';
+	import { urlIn } from '#lib/locale.ts';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { breadcrumbLd, jsonLdScript } from '#lib/seo.ts';
 
 	const locale = $derived(getLocale());
 </script>

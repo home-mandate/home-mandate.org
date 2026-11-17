@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Icon from '$lib/components/Icon.svelte';
+	import Icon from '#lib/components/Icon.svelte';
 	import MailLink from './MailLink.svelte';
-	import { m } from '$lib/paraglide/messages';
-	import { SECURITY_URL, SPEC_REPOSITORY } from '$lib/site';
+	import { m } from '#lib/paraglide/messages.js';
+	import { SECURITY_URL, SPEC_REPOSITORY } from '#lib/site.ts';
 
 	// The e-mail address as an equal alternative to the form, topics and
 	// the places that fit some requests better.

@@ -4,11 +4,11 @@
 	import LanguagePicker from './LanguagePicker.svelte';
 	import Logo from './Logo.svelte';
 	import ThemeSwitch from './ThemeSwitch.svelte';
-	import { basePath, pathIn } from '$lib/locale';
-	import { NAV, activeNav, type NavId } from '$lib/nav';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
-	import { SPEC_REPOSITORY } from '$lib/site';
+	import { basePath, pathIn } from '#lib/locale.ts';
+	import { NAV, activeNav, type NavId } from '#lib/nav.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
+	import { SPEC_REPOSITORY } from '#lib/site.ts';
 
 	const labels: Record<NavId, () => string> = {
 		why: m.nav_why,

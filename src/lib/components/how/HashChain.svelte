@@ -3,10 +3,10 @@
 	import Decision from '../Decision.svelte';
 	import Icon from '../Icon.svelte';
 	import TechDetails from '../TechDetails.svelte';
-	import { t } from '$lib/content/text';
-	import type { ChainView } from '$lib/how/chain';
-	import { shortDigest } from '$lib/how/digest';
-	import { m } from '$lib/paraglide/messages';
+	import { t } from '#lib/content/text.ts';
+	import type { ChainView } from '#lib/how/chain.ts';
+	import { shortDigest } from '#lib/how/digest.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// Four real log entries, hash-chained (SPEC-v0 section 9.4), computed at
 	// build time both intact and with entry 2 edited. data-tampered on the root

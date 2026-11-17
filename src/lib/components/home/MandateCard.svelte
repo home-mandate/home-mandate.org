@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Decision from '$lib/components/Decision.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import { CARD_ROWS, HOME_MANDATE, rowDecision, typeVersion } from '$lib/content/home';
-	import { t } from '$lib/content/text';
-	import { m } from '$lib/paraglide/messages';
+	import Decision from '#lib/components/Decision.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import { CARD_ROWS, HOME_MANDATE, rowDecision, typeVersion } from '#lib/content/home.ts';
+	import { t } from '#lib/content/text.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// The hero card: the rules of the voice-assistant mandate as house rules.
 	const rows = CARD_ROWS.map((row) => ({ ...row, decision: rowDecision(HOME_MANDATE, row.rule) }));

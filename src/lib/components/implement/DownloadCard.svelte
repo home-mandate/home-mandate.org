@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Icon from '../Icon.svelte';
-	import { kilobytes, shortHash, type Download } from '$lib/implement/downloads';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import { m } from '$lib/paraglide/messages';
+	import { kilobytes, shortHash, type Download } from '#lib/implement/downloads.ts';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// A file of the specification: what it is, size, SHA-256 (short, expandable
 	// with <details>, copyable with JavaScript) and the download link.

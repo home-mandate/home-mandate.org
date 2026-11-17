@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from './Icon.svelte';
-	import { m } from '$lib/paraglide/messages';
+	import { m } from '#lib/paraglide/messages.js';
 
 	// Three radio buttons; site.ts applies and remembers the choice. Hidden
 	// without JavaScript: then the site simply follows the system setting.

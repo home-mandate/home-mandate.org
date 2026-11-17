@@ -1,11 +1,11 @@
 <script lang="ts">
-	import PageMeta from '$lib/components/PageMeta.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import ContactAside from '$lib/components/contact/ContactAside.svelte';
-	import ContactForm from '$lib/components/contact/ContactForm.svelte';
-	import MailLink from '$lib/components/contact/MailLink.svelte';
-	import { scripts } from '$lib/generated/client';
-	import { m } from '$lib/paraglide/messages';
+	import PageMeta from '#lib/components/PageMeta.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import ContactAside from '#lib/components/contact/ContactAside.svelte';
+	import ContactForm from '#lib/components/contact/ContactForm.svelte';
+	import MailLink from '#lib/components/contact/MailLink.svelte';
+	import { scripts } from '#lib/generated/client.ts';
+	import { m } from '#lib/paraglide/messages.js';
 </script>
 
 <PageMeta title="{m.contact_title()} – {m.site_name()}" description={m.contact_meta_description()} />

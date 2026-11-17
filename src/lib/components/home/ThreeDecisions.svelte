@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Decision from '$lib/components/Decision.svelte';
-	import Icon from '$lib/components/Icon.svelte';
-	import type { IconName } from '$lib/icons';
-	import type { Tone } from '$lib/content/types';
-	import { m } from '$lib/paraglide/messages';
+	import Decision from '#lib/components/Decision.svelte';
+	import Icon from '#lib/components/Icon.svelte';
+	import type { IconName } from '#lib/icons.ts';
+	import type { Tone } from '#lib/content/types.ts';
+	import { m } from '#lib/paraglide/messages.js';
 
 	const cards: { value: Tone; quote: string; body: string; icon: IconName; example: string }[] = [
 		{ value: 'allow', quote: m.home_allow_quote(), body: m.home_allow_body(), icon: 'light', example: m.home_allow_example() },

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import Icon from './Icon.svelte';
-	import type { IconName } from '$lib/icons';
+	import type { IconName } from '#lib/icons.ts';
 
 	// Notice box. Tones: info (neutral), tip (allow colours), warn (ask colours),
 	// critical (deny colours, octagon icon). The icon is decoration; the title

@@ -3,9 +3,9 @@
 	import OverviewDiagram from '../diagrams/OverviewDiagram.svelte';
 	import SpecBlocks from './SpecBlocks.svelte';
 	import SpecInline from './SpecInline.svelte';
-	import { m } from '$lib/paraglide/messages';
-	import { getLocale } from '$lib/paraglide/runtime';
-	import type { Block } from '$lib/spec/types';
+	import { m } from '#lib/paraglide/messages.js';
+	import { getLocale } from '#lib/paraglide/runtime.js';
+	import type { Block } from '#lib/spec/types.ts';
 
 	// Block nodes of the specification (recursive for lists and quotes).
 	// prefix keeps the ids of code blocks unique on the page.
