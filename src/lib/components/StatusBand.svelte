@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { spec } from '#lib/generated/spec.ts';
 	import { m } from '#lib/paraglide/messages.js';
+	import { statusVersion } from '#lib/spec/version.ts';
+
+	const version = statusVersion(spec.versions.map((v) => v.tag));
 </script>
 
-<p class="band"><span class="dot" aria-hidden="true"></span>{m.common_status()}</p>
+<p class="band"><span class="dot" aria-hidden="true"></span>{m.common_status({ version })}</p>
 
 <style>
 	.band {

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '../Icon.svelte';
 	import { m } from '#lib/paraglide/messages.js';
+	import { isRelease } from '#lib/spec/version.ts';
 
 	// Imported releases of the specification. Every entry is a plain link (works
 	// without JavaScript, nothing is stored). With a single release there is
@@ -12,7 +13,8 @@
 	}
 	let { versions, current, compact = false }: { versions: Option[]; current: string; compact?: boolean } = $props();
 
-	const note = (latest: boolean) => (latest ? `${m.spec_latest()} · ${m.spec_draft()}` : m.spec_draft());
+	const stage = (tag: string) => (isRelease(tag) ? m.spec_released() : m.spec_draft());
+	const note = (v: Option) => (v.latest ? `${m.spec_latest()} · ${stage(v.tag)}` : stage(v.tag));
 	const active = $derived(versions.find((v) => v.tag === current));
 </script>
 
@@ -21,14 +23,14 @@
 		<summary>
 			<span class="visually-hidden">{m.spec_version()}:</span>
 			<span class="tag">{current}</span>
-			{#if !compact && active}<span class="note">{note(active.latest)}</span>{/if}
+			{#if !compact && active}<span class="note">{note(active)}</span>{/if}
 			<Icon name="chevron" size={14} stroke={2} />
 		</summary>
 		<ul class="panel">
 			{#each versions as v (v.tag)}
 				<li>
 					<a href={v.href} aria-current={v.tag === current ? 'page' : undefined}>
-						<span class="tag">{v.tag}</span><span class="note">{note(v.latest)}</span>
+						<span class="tag">{v.tag}</span><span class="note">{note(v)}</span>
 						{#if v.tag === current}<Icon name="check" size={16} stroke={2.4} />{/if}
 					</a>
 				</li>
@@ -39,7 +41,7 @@
 	<p class="version static" class:compact>
 		<span class="visually-hidden">{m.spec_version()}:</span>
 		<span class="tag">{current}</span>
-		{#if !compact && active}<span class="note">{note(active.latest)}</span>{/if}
+		{#if !compact && active}<span class="note">{note(active)}</span>{/if}
 	</p>
 {/if}
 

@@ -7,6 +7,8 @@
   "spec_latest": "latest",
   "spec_draft": "draft",
   "spec_draft_badge": "Draft",
+  "spec_released": "released",
+  "spec_released_badge": "Released",
   "spec_github": "View on GitHub",
   "spec_print": "Print view",
   "spec_contents": "Contents",

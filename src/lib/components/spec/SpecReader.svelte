@@ -11,6 +11,7 @@
 	import { SITE_URL, SPEC_REPOSITORY } from '#lib/site.ts';
 	import { breadcrumbLd, jsonLdScript, specLd } from '#lib/seo.ts';
 	import { formatDate } from '#lib/spec/date.ts';
+	import { isRelease } from '#lib/spec/version.ts';
 	import type { LoadedSpec, SpecVersion } from '#lib/spec/types.ts';
 
 	// The specification reader: the English text of one imported release with
@@ -19,6 +20,8 @@
 
 	const locale = $derived(getLocale());
 	const latest = $derived(versions.find((v) => v.latest) ?? versions[0]);
+	const released = $derived(isRelease(spec.tag));
+	const badge = $derived(released ? m.spec_released_badge() : m.spec_draft_badge());
 	const isOld = $derived(latest !== undefined && latest.tag !== spec.tag);
 	const pathOf = (v: SpecVersion) => (v.latest ? '/spec/v0/' : `/spec/v0/${v.tag}/`);
 	const options = $derived(versions.map((v) => ({ ...v, href: pathIn(pathOf(v), locale) })));
@@ -107,9 +110,9 @@
 		</aside>
 
 		<article class="content" lang="en" data-spec-content>
-			<div class="print-head" aria-hidden="true"><span>Home-Mandate Specification {spec.tag} · {m.spec_draft_badge()}</span><span>{printUrl}</span></div>
+			<div class="print-head" aria-hidden="true"><span>Home-Mandate Specification {spec.tag} · {badge}</span><span>{printUrl}</span></div>
 			<div class="meta">
-				<span class="draft" lang={locale}><span class="dot" aria-hidden="true"></span>{m.spec_draft_badge()}</span>
+				<span class="stage" class:released lang={locale}><span class="dot" aria-hidden="true"></span>{badge}</span>
 				<span class="tag mono">{spec.tag}</span>
 				{#if spec.date}<time datetime={spec.date} lang={locale}>{formatDate(spec.date, locale)}</time>{/if}
 			</div>
@@ -283,7 +286,7 @@
 		align-items: center;
 		gap: 8px;
 	}
-	.draft {
+	.stage {
 		display: inline-flex;
 		align-items: center;
 		gap: 6px;
@@ -299,6 +302,9 @@
 		block-size: 6px;
 		border-radius: 50%;
 		background: var(--ms-ask-fg);
+	}
+	.released .dot {
+		background: var(--ms-allow-fg);
 	}
 	.tag {
 		padding: 3px 10px;
@@ -420,7 +426,7 @@
 	}
 
 	@media (forced-colors: active) {
-		.draft,
+		.stage,
 		.tag,
 		.toc-sheet summary {
 			border: 1px solid CanvasText;
@@ -473,7 +479,7 @@
 		h1 {
 			font-size: 24pt;
 		}
-		.draft {
+		.stage {
 			border: 1px solid black;
 		}
 		.content :global(a) {
