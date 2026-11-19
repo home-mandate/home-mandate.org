@@ -29,7 +29,7 @@
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
     "@eslint/js": "10.0.1",
-    "@home-mandate/spec": "0.1.2",
+    "@home-mandate/spec": "0.2.0",
     "@inlang/paraglide-js": "2.25.4",
     "@inlang/plugin-icu1": "1.1.0",
     "@messageformat/parser": "5.1.1",

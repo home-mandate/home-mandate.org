@@ -62,14 +62,14 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library', 'tool'],
 		language: 'Go',
 		license: 'Apache-2.0',
-		spec: 'v0.1.1',
+		spec: 'v0.2.0',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored'],
 		conformance: {
-			run: 'https://github.com/home-mandate/spec/releases/tag/v0.1.1',
+			run: 'https://github.com/home-mandate/spec/releases/tag/v0.2.0',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/spec/releases/download/v0.1.1/conformance-report.json',
-					sha256: '21daf68fc39de7b5fe21e32749f41e7bb31de7624a9ecf386a1f4d0576797225'
+					url: 'https://github.com/home-mandate/spec/releases/download/v0.2.0/conformance-report.json',
+					sha256: '76cd95ddd943de87edfedf520a8ee14ca5a43d8a07673ccecf3d3fe74e23ca52'
 				}
 			]
 		}
@@ -81,14 +81,14 @@ export const IMPLEMENTATIONS: Implementation[] = [
 		kinds: ['library'],
 		language: 'TypeScript',
 		license: 'Apache-2.0',
-		spec: 'v0.1.1',
+		spec: 'v0.2.0',
 		classes: ['evaluator', 'selection', 'signatures', 'audit', 'audit-anchored'],
 		conformance: {
-			run: 'https://github.com/home-mandate/spec-ts/releases/tag/v0.1.2',
+			run: 'https://github.com/home-mandate/spec-ts/releases/tag/v0.2.0',
 			reports: [
 				{
-					url: 'https://github.com/home-mandate/spec-ts/releases/download/v0.1.2/conformance-report.json',
-					sha256: 'fdd6b4f08e3abb39bed9e325fa5aab39b8074208c9ef1b07df49c12fbf515c0d'
+					url: 'https://github.com/home-mandate/spec-ts/releases/download/v0.2.0/conformance-report.json',
+					sha256: 'fd99f79335346e9a446d00b992a29fd48b26deb5fca67d4f901eedd085e07043'
 				}
 			]
 		}

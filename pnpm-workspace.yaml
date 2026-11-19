@@ -1,6 +1,10 @@
 # Supply-chain hardening, same rules as the other Home-Mandate projects.
 # Only versions published at least 7 days ago are installed.
 minimumReleaseAge: 10080
+# Our own packages come from our own release workflow (trusted publishing with provenance);
+# the delay protects against third-party packages only.
+minimumReleaseAgeExclude:
+  - "@home-mandate/*"
 # Dependency install scripts never run; fail instead of silently skipping one.
 strictDepBuilds: true
 # Refuse a version whose publish provenance is weaker than an earlier one.

@@ -78,6 +78,8 @@
   "how_crit_scene_activate": "Szenen ausführen",
   "how_crit_script_run": "Skripte ausführen",
   "how_crit_other_set": "Sonstige Geräte steuern",
+  "how_crit_valve_open": "Ventile öffnen",
+  "how_crit_siren_turn_on": "Sirenen einschalten",
   "how_log_title": "Das Protokoll ist ein Fahrtenschreiber",
   "how_log_sub": "Jeder Eintrag enthält den Fingerabdruck (SHA-256-Hash) des vorherigen. Ändert jemand einen alten Eintrag, ändert sich sein Fingerabdruck – und der nächste Eintrag passt nicht mehr.",
   "how_log_tamper": "Eintrag 2 ändern",

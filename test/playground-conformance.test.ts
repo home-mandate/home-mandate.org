@@ -3,7 +3,7 @@
 // script bundles for evaluation and validation.
 import { exactNumber } from '@home-mandate/spec/browser';
 import { describe, expect, it } from 'vitest';
-import { evaluate, tryParseMandate, type Request } from '../src/lib/playground/engine.ts';
+import { evaluate, tryParseMandate, tryParseMandateBytes, type Mandate, type Request } from '../src/lib/playground/engine.ts';
 import { specText } from './playground-fixtures.ts';
 
 type Case = Record<string, unknown> & { id: string; why: string };
@@ -22,6 +22,12 @@ function mandateText(c: Case): string {
 	return typeof c.mandate_raw === 'string' ? c.mandate_raw : JSON.stringify(c.mandate_inline);
 }
 
+/** A case's mandate as the engine reads it: from bytes where the case gives them (SPEC-v0 section 10.2). */
+function parsed(c: Case): Mandate | null {
+	if (typeof c.mandate_base64 === 'string') return tryParseMandateBytes(Buffer.from(c.mandate_base64, 'base64'));
+	return tryParseMandate(mandateText(c));
+}
+
 describe('playground engine against the conformance cases', () => {
 	const evaluation = cases('conformance/cases-v0.json');
 
@@ -38,16 +44,17 @@ describe('playground engine against the conformance cases', () => {
 			timezone: c.timezone,
 			revoked: c.revoked
 		} as Request;
-		const result = evaluate(tryParseMandate(mandateText(c)), request);
+		const result = evaluate(parsed(c), request);
 		expect(result.decision, c.why).toBe(c.expected);
 		expect(result.reason, c.why).toBe(c.reason);
 		expect(result.rule_id ?? null, c.why).toBe(c.rule_id ?? null);
 		if (typeof c.approval_timeout === 'string') expect(result.approval?.timeout).toBe(c.approval_timeout);
 		expect(result.enforced ?? true, c.why).toBe(c.enforced ?? true);
 		expect(result.confirm ?? false, c.why).toBe(c.confirm ?? false);
+		expect(result.limited_rules ?? [], c.why).toEqual(c.limited_rules ?? []);
 	});
 
 	it.each(cases('conformance/invalid-v0.json').map((c) => [c.id, c] as const))('invalid mandate %s is rejected', (_id, c) => {
-		expect(tryParseMandate(mandateText(c)), c.why).toBeNull();
+		expect(parsed(c), c.why).toBeNull();
 	});
 });

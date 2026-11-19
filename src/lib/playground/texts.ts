@@ -32,7 +32,10 @@ const UNIT_KEYS: Record<string, string> = {
 	percent: 'unit_percent',
 	'percent open': 'unit_percent_open',
 	'degree Celsius': 'unit_celsius',
-	'degree Fahrenheit': 'unit_fahrenheit'
+	'degree Fahrenheit': 'unit_fahrenheit',
+	kelvin: 'unit_kelvin',
+	degree: 'unit_degree',
+	'of the unit of the resource': 'unit_resource'
 };
 
 export function unitLabel(texts: Texts, parameter: Pick<ParameterInfo, 'unit'>): string {

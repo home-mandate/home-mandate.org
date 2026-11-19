@@ -225,7 +225,7 @@ test.describe('desktop', () => {
 	test('the overview works with the keyboard', async ({ page }) => {
 		const selected = page.locator('.pg-cell[aria-pressed="true"]');
 		await expect(selected).toHaveAttribute('aria-label', /locks, unlock: ask, rule r-locks/);
-		await expect(page.locator('.pg-matrix th[scope="row"]')).toHaveCount(13);
+		await expect(page.locator('.pg-matrix th[scope="row"]')).toHaveCount(19);
 		await expect(page.locator('.pg-cell[tabindex="0"]')).toHaveCount(1);
 		await selected.focus();
 		await page.keyboard.press('ArrowRight');

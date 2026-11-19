@@ -127,9 +127,11 @@ describe('vocabulary', () => {
 			'camera.snapshot',
 			'scene.activate',
 			'script.run',
-			'other.set'
+			'other.set',
+			'valve.open',
+			'siren.turn_on'
 		]);
-		expect(categoryCount(vocabulary)).toBe(13);
+		expect(categoryCount(vocabulary)).toBe(19);
 	});
 
 	it('labels every critical action in every language, and falls back to its identifier', () => {
