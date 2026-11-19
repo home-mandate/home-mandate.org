@@ -94,6 +94,22 @@ test('only the current release is indexed and in the sitemap', async ({ page }) 
 	expect(sitemap).toContain('<loc>https://home-mandate.org/spec/v0/</loc>');
 });
 
+test('a release is marked released, a pre-release draft, and the band names the latest release', async ({ page }) => {
+	await page.goto('/spec/v0/');
+	await expect(page.locator('.band')).toContainText(/^Specification v\d+\.\d+ · open · vendor-neutral$/);
+	await expect(page.locator('.band')).not.toContainText('v0.1');
+	await expect(page.locator('.meta .stage')).toHaveText('Released');
+	const picker = page.locator('details.version').first();
+	await expect(picker.locator('summary .note')).toHaveText('latest · released');
+	await expect(picker.locator('a', { hasText: 'v0.1.1' }).locator('.note')).toHaveText('released');
+	await expect(picker.locator('a', { hasText: 'v0.1.0-rc.5' }).locator('.note')).toHaveText('draft');
+	await page.goto('/spec/v0/v0.1.0-rc.5/');
+	await expect(page.locator('.meta .stage')).toHaveText('Draft');
+	await page.goto('/de/spec/v0/');
+	await expect(page.locator('.band')).toContainText(/^Spezifikation v\d+\.\d+ · offen · herstellerneutral$/);
+	await expect(page.locator('.meta .stage')).toHaveText('Veröffentlicht');
+});
+
 test('the Atom feed is valid XML with entries', async ({ request }) => {
 	const response = await request.get('/changelog/feed.xml');
 	expect(response.status()).toBe(200);
