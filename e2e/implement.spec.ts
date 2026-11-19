@@ -46,7 +46,7 @@ for (const lang of LANGUAGES) {
 			await expect(page.locator('#cmd-install')).toHaveText(/^go install github\.com\/home-mandate\/spec\/cmd\/mandate-conformance@v\d/);
 
 			const links = page.locator('a[download]');
-			await expect(links).toHaveCount(3);
+			await expect(links).toHaveCount(4);
 			for (const card of await page.locator('.dl-grid article').all()) {
 				const href = (await card.locator('a[download]').getAttribute('href')) ?? '';
 				const body = await (await page.request.get(href)).body();

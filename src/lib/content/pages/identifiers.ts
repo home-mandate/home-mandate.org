@@ -6,7 +6,7 @@ import type { Block, TextPage } from '../types';
 
 const SITE = 'https://home-mandate.org';
 
-function page(kind: 'mandate' | 'audit' | 'checkpoint', path: string, code: string, cards: Block): TextPage {
+function page(kind: 'mandate' | 'audit' | 'audit_v1' | 'checkpoint', path: string, code: string, cards: Block): TextPage {
 	return {
 		title: `ident_${kind}_title`,
 		intro: `ident_${kind}_intro`,
@@ -46,6 +46,19 @@ export const auditIdentifier = page(
 	{
 		cards: [
 			...schemaCard(spec.identifiers['audit/v0']),
+			specCard('91-entries'),
+			{ icon: 'link', title: 'ident_how_title', body: 'ident_how_body', link: 'ident_how_link', href: '/how-it-works/' }
+		]
+	}
+);
+
+export const auditV1Identifier = page(
+	'audit_v1',
+	'audit/v1',
+	`{\n  "type": "${SITE}/audit/v1",\n  "seq": 42,\n  "event": "ct.status",\n  "prev": "sha256:…",\n  …\n}`,
+	{
+		cards: [
+			...schemaCard(spec.identifiers['audit/v1']),
 			specCard('91-entries'),
 			{ icon: 'link', title: 'ident_how_title', body: 'ident_how_body', link: 'ident_how_link', href: '/how-it-works/' }
 		]

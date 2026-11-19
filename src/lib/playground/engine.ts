@@ -11,6 +11,7 @@ export {
 	MandateError,
 	parseMandate,
 	tryParseMandate,
+	tryParseMandateBytes,
 	vocabulary,
 	type Decision,
 	type Mandate,

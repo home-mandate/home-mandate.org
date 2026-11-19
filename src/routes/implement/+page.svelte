@@ -36,7 +36,8 @@
 	const DOWNLOAD_TEXT: Record<DownloadId, { title: () => string; body: () => string }> = {
 		mandate: { title: m.implement_dl_mandate_title, body: m.implement_dl_mandate_body },
 		vocabulary: { title: m.implement_dl_vocabulary_title, body: () => m.implement_dl_vocabulary_body({ count: data.categories }) },
-		audit: { title: m.implement_dl_audit_title, body: m.implement_dl_audit_body }
+		audit: { title: m.implement_dl_audit_title, body: m.implement_dl_audit_body },
+		audit_v1: { title: m.implement_dl_audit_v1_title, body: m.implement_dl_audit_v1_body }
 	};
 
 	const cases = (c: SpecClass): string => (c === 'pdp' ? m.implement_class_pdp_cases() : m.implement_class_cases({ count: data.counts[c] }));

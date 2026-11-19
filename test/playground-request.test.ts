@@ -107,9 +107,9 @@ describe('buildRequest', () => {
 		expect(chosenParameter('climate', 'set_temperature', 'temperature_f')?.name).toBe('temperature_f');
 		expect(chosenParameter('lock', 'unlock', 'temperature_f')).toBeUndefined();
 	});
-	it('only set_temperature has several parameters, one per unit', () => {
+	it('only light.set and set_temperature have several parameters', () => {
 		const several = CATEGORIES.flatMap((c) => actionsOf(c).filter((a) => parametersOf(c, a).length > 1).map((a) => `${c}.${a}`));
-		expect(several).toEqual(['climate.set_temperature']);
+		expect(several).toEqual(['light.set', 'climate.set_temperature']);
 	});
 });
 
@@ -136,7 +136,7 @@ describe('units', () => {
 
 describe('vocabulary helpers', () => {
 	it('lists categories and actions of the specification', () => {
-		expect(CATEGORIES).toHaveLength(13);
+		expect(CATEGORIES).toHaveLength(19);
 		expect(ACTIONS).toContain('set_temperature');
 		expect(actionsOf('acme:robot')).toEqual([]);
 		expect(actionsOf(undefined)).toBe(ACTIONS);
@@ -150,7 +150,16 @@ describe('vocabulary helpers', () => {
 			{ name: 'temperature_low_f', type: 'integer', unit: 'degree Fahrenheit', scale: 100 },
 			{ name: 'temperature_high_f', type: 'integer', unit: 'degree Fahrenheit', scale: 100 }
 		]);
-		expect(parametersOf(undefined, 'set')).toEqual([{ name: 'brightness', type: 'integer', unit: 'percent', scale: 1, minimum: 0, maximum: 100 }]);
+		expect(parametersOf(undefined, 'set')).toEqual([
+			{ name: 'brightness', type: 'integer', unit: 'percent', scale: 1, minimum: 0, maximum: 100 },
+			{ name: 'color_temp_kelvin', type: 'integer', unit: 'kelvin', scale: 1, minimum: 1000, maximum: 12000 },
+			{ name: 'hue', type: 'integer', unit: 'degree', scale: 1, minimum: 0, maximum: 359 },
+			{ name: 'saturation', type: 'integer', unit: 'percent', scale: 1, minimum: 0, maximum: 100 },
+			{ name: 'value', type: 'integer', unit: 'of the unit of the resource', scale: 1000 },
+			{ name: 'option', type: 'string', unit: '', scale: 1 }
+		]);
+		expect(parametersOf('number', 'set')).toEqual([{ name: 'value', type: 'integer', unit: 'of the unit of the resource', scale: 1000 }]);
+		expect(parametersOf('select', 'set')).toEqual([{ name: 'option', type: 'string', unit: '', scale: 1 }]);
 		expect(parametersOf('climate', 'set_mode')).toEqual([
 			{ name: 'mode', type: 'string', unit: '', scale: 1, values: ['off', 'auto', 'cool', 'heat', 'emergency_heat', 'precooling', 'fan_only', 'dry', 'sleep'] }
 		]);
@@ -163,7 +172,8 @@ describe('vocabulary helpers', () => {
 		// (vocabulary v0.1); a request with only one end of a pair is invalid.
 		expect(requestableParameters('climate', 'set_temperature').map((p) => p.name)).toEqual(['temperature', 'temperature_f']);
 		expect(requestableParameters('climate', 'set_mode').map((p) => p.name)).toEqual(['mode']);
-		expect(requestableParameters('light', 'set').map((p) => p.name)).toEqual(['brightness']);
+		expect(requestableParameters('light', 'set').map((p) => p.name)).toEqual(['brightness', 'color_temp_kelvin', 'hue', 'saturation']);
+		expect(requestableParameters('number', 'set').map((p) => p.name)).toEqual(['value']);
 		expect(requestableParameters(undefined, 'set_temperature').map((p) => p.name)).toEqual(['temperature', 'temperature_f']);
 		expect(requestableParameters('lock', 'unlock')).toEqual([]);
 		expect(chosenParameter('climate', 'set_temperature', 'temperature_low')?.name).toBe('temperature');
@@ -188,7 +198,7 @@ describe('overview matrix', () => {
 		matrix.rows.find((r) => r.category === category)?.cells.find((c) => c.action === action)?.result;
 
 	it('has every category and action of the vocabulary', () => {
-		expect(matrix.rows).toHaveLength(13);
+		expect(matrix.rows).toHaveLength(19);
 		expect(matrix.columns).toEqual(ACTIONS);
 	});
 	it('evaluates each cell with the specification', () => {

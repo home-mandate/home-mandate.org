@@ -29,7 +29,7 @@ for (const lang of LANGUAGES) {
 			await expect(page.locator('.read-on a.link-card')).toHaveCount(3);
 			await expect(page.locator('.tiles li')).toHaveCount(5);
 			await expect(page.locator('.plain li')).toHaveCount(7);
-			await expect(page.locator('.critical li')).toHaveCount(8);
+			await expect(page.locator('.critical li')).toHaveCount(10);
 			await expect(page.locator('.chain > li')).toHaveCount(4);
 			expect(problems).toEqual([]);
 		});

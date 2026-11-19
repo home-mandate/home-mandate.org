@@ -78,6 +78,8 @@
   "how_crit_scene_activate": "Activate scenes",
   "how_crit_script_run": "Run scripts",
   "how_crit_other_set": "Control other devices",
+  "how_crit_valve_open": "Open valves",
+  "how_crit_siren_turn_on": "Turn on sirens",
   "how_log_title": "The log works like a tachograph",
   "how_log_sub": "Each entry contains the fingerprint (SHA-256 hash) of the entry before it. If someone changes an old entry, its fingerprint changes – and the next entry no longer matches.",
   "how_log_tamper": "Change entry 2",

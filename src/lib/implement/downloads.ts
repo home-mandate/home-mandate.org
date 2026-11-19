@@ -5,7 +5,8 @@
 export const DOWNLOADS = [
 	{ id: 'mandate', path: 'mandate/v0/mandate.schema.json', file: 'mandate.schema.json' },
 	{ id: 'vocabulary', path: 'vocabulary/v0.json', file: 'vocabulary-v0.json' },
-	{ id: 'audit', path: 'audit/v0/audit.schema.json', file: 'audit.schema.json' }
+	{ id: 'audit', path: 'audit/v0/audit.schema.json', file: 'audit.schema.json' },
+	{ id: 'audit_v1', path: 'audit/v1/audit.schema.json', file: 'audit-v1.schema.json' }
 ] as const;
 
 export type DownloadId = (typeof DOWNLOADS)[number]['id'];
