@@ -21,9 +21,9 @@
   "why_06_3_title": "The home says no",
   "why_06_3_body": "The mandate does not allow it. Nothing happens, and the attempt is logged.",
   "why_07_title": "For techies: what is prompt injection?",
-  "why_07_text": "Agents read text from many sources. If that text contains instructions, a model may follow them. The specification doesn’t try to detect this – it limits the damage: whatever the agent asks, the home guard only executes what the mandate allows. [What a mandate protects – and what it doesn’t](/security/)",
+  "why_07_text": "Agents read text from many sources. If that text contains instructions, a model may follow them. The specification doesn’t try to detect this – it limits the damage: whatever the agent asks, the gateway only executes what the mandate allows. [What a mandate protects – and what it doesn’t](/security/)",
   "why_08_title": "For techies: why decide at home?",
-  "why_08_text": "The decision is made outside the agent: the agent only names a device and an action, everything else – category, area, time – comes from the guard. In the intended setup the guard runs on a device the household controls, so a manipulated agent cannot talk its way past the mandate. [How the guard decides](/how-it-works/)",
+  "why_08_text": "The decision is made outside the agent: the agent only names a device and an action, everything else – category, area, time – comes from the gateway. In the intended setup the gateway runs on a device the household controls, so a manipulated agent cannot talk its way past the mandate. [How the gateway decides](/how-it-works/)",
   "why_everyday_title": "What does this look like in everyday life?",
   "why_everyday_text": "Six examples – and why your smart home app alone is not enough.",
   "why_everyday_link": "In everyday life"

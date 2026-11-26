@@ -10,7 +10,7 @@ import { sha256 } from './lib/spec.ts';
 
 const ROOT = new URL('..', import.meta.url).pathname;
 const BUILD = join(ROOT, 'build');
-const IDENTIFIER_PAGES = ['mandate/v0', 'audit/v0', 'audit/v1', 'audit-checkpoint/v0'];
+const IDENTIFIER_PAGES = ['mandate/v0', 'audit/v0', 'audit/v1', 'audit-checkpoint/v0', 'relay-metadata/v0', 'relay-enrollment/v0'];
 // The contact form and the pages the contact service redirects to (303).
 const CONTACT_PAGES = ['contact', 'contact/sent', 'contact/failed', 'contact/limit', 'contact/invalid'];
 

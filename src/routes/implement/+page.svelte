@@ -1,11 +1,12 @@
 <script lang="ts">
 	import PageMeta from '#lib/components/PageMeta.svelte';
 	import OverviewDiagram from '#lib/components/diagrams/OverviewDiagram.svelte';
-	import CommandLine from '#lib/components/implement/CommandLine.svelte';
+	import ClassCards from '#lib/components/implement/ClassCards.svelte';
 	import DownloadCard from '#lib/components/implement/DownloadCard.svelte';
+	import DownloadsSection from '#lib/components/implement/DownloadsSection.svelte';
+	import InstallSection from '#lib/components/implement/InstallSection.svelte';
 	import ModelBox from '#lib/components/implement/ModelBox.svelte';
 	import SubTabs from '#lib/components/implement/SubTabs.svelte';
-	import RichText from '#lib/components/RichText.svelte';
 	import { spec } from '#lib/generated/spec.ts';
 	import { conformanceCommands, type CommandId } from '#lib/implement/commands.ts';
 	import { CONFORMANCE_CLASSES, type SpecClass } from '#lib/implement/conformance.ts';
@@ -42,6 +43,15 @@
 
 	const cases = (c: SpecClass): string => (c === 'pdp' ? m.implement_class_pdp_cases() : m.implement_class_cases({ count: data.counts[c] }));
 	const commands = conformanceCommands(spec.repository, tag);
+	const classCards = $derived(
+		CONFORMANCE_CLASSES.map((c) => ({
+			id: c,
+			req: c === 'evaluator' ? m.implement_class_basis() : m.implement_class_optional(),
+			name: CLASS_TEXT[c].name(),
+			body: CLASS_TEXT[c].body(),
+			footer: cases(c)
+		}))
+	);
 </script>
 
 <PageMeta title="{m.implement_meta_title()} – {m.site_name()}" description={m.implement_meta_description()} />
@@ -84,57 +94,27 @@
 	</section>
 </div>
 
-<section class="band" aria-labelledby="classes">
-	<div class="wrap">
-		<div class="band-head">
-			<h2 id="classes">{m.implement_classes_title()}</h2>
-			<p class="muted">{m.implement_classes_intro()}</p>
-		</div>
-		<ul class="classes">
-			{#each CONFORMANCE_CLASSES as c (c)}
-				<li class="class">
-					<div class="class-top">
-						<span class="class-id mono">{c}</span>
-						<span class="req">{c === 'evaluator' ? m.implement_class_basis() : m.implement_class_optional()}</span>
-					</div>
-					<h3>{CLASS_TEXT[c].name()}</h3>
-					<p class="muted">{CLASS_TEXT[c].body()}</p>
-					<p class="cases mono">{cases(c)}</p>
-				</li>
-			{/each}
-		</ul>
-		<p class="note muted">{m.implement_classes_note()}</p>
-	</div>
-</section>
+<ClassCards
+	id="classes"
+	title={m.implement_classes_title()}
+	intro={m.implement_classes_intro()}
+	classes={classCards}
+	note={m.implement_classes_note()}
+/>
 
-<div class="wrap">
-	<section class="split install" aria-labelledby="install">
-		<div class="text">
-			<h2 id="install">{m.implement_install_title()}</h2>
-			<p class="muted">{m.implement_install_body()}</p>
-			<p class="muted"><RichText text={m.implement_install_more()} /></p>
-		</div>
-		<div class="commands">
-			{#each commands as c (c.id)}
-				<CommandLine id="cmd-{c.id}" label={COMMAND_LABEL[c.id]()} command={c.command} />
-			{/each}
-		</div>
-	</section>
-</div>
+<InstallSection
+	id="install"
+	title={m.implement_install_title()}
+	body={m.implement_install_body()}
+	more={m.implement_install_more()}
+	commands={commands.map((c) => ({ ...c, label: COMMAND_LABEL[c.id]() }))}
+/>
 
-<section class="downloads" aria-labelledby="downloads">
-	<div class="wrap">
-		<div class="dl-head">
-			<h2 id="downloads">{m.implement_dl_title()}</h2>
-			<p class="muted"><RichText text={m.implement_dl_note()} /></p>
-		</div>
-		<div class="dl-grid">
-			{#each data.downloads as d (d.id)}
-				<DownloadCard download={d} title={DOWNLOAD_TEXT[d.id].title()} body={DOWNLOAD_TEXT[d.id].body()} version={tag} />
-			{/each}
-		</div>
-	</div>
-</section>
+<DownloadsSection id="downloads" title={m.implement_dl_title()} note={m.implement_dl_note()}>
+	{#each data.downloads as d (d.id)}
+		<DownloadCard download={d} title={DOWNLOAD_TEXT[d.id].title()} body={DOWNLOAD_TEXT[d.id].body()} version={tag} />
+	{/each}
+</DownloadsSection>
 
 <style>
 	.page {
@@ -208,107 +188,10 @@
 		font-size: 13.5px;
 		color: var(--ms-text-muted);
 	}
-	.band {
-		padding-block: clamp(32px, 3.9vw, 56px);
-		border-block: 1px solid var(--ms-border);
-		background: var(--ms-surface);
-	}
-	.band-head,
-	.dl-head {
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-		margin-block-end: 20px;
-	}
-	.band-head p {
-		max-inline-size: 44em;
-	}
-	.classes {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 16px;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-	.class {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		padding: 22px;
-		border: 1px solid var(--ms-border);
-		border-radius: 14px;
-		background: var(--ms-bg);
-	}
-	.class-top {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 8px;
-	}
-	.class-id {
-		padding: 2px 10px;
-		border: 1px solid var(--ms-border-strong);
-		border-radius: 6px;
-		font-size: 13px;
-	}
-	.req {
-		font-size: 13px;
-		color: var(--ms-text-muted);
-	}
-	.class h3 {
-		font-size: 19px;
-		font-weight: 650;
-	}
-	.class p {
-		font-size: 15px;
-	}
-	.class .cases {
-		margin-block-start: auto;
-		font-size: 12.5px;
-		color: var(--ms-text-muted);
-	}
-	.note {
-		max-inline-size: 60em;
-		margin-block-start: 20px;
-		font-size: 14.5px;
-	}
-	.install {
-		padding-block: clamp(32px, 3.9vw, 56px);
-	}
-	.commands {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-		min-inline-size: 0;
-	}
-	.downloads {
-		padding-block: clamp(32px, 3.9vw, 56px) clamp(56px, 6.7vw, 96px);
-		border-block-start: 1px solid var(--ms-border);
-	}
-	.dl-head {
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: 8px 16px;
-	}
-	.dl-head p {
-		font-size: 14.5px;
-	}
-	.dl-grid {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 16px;
-	}
 	@media (max-width: 1023px) {
 		.split {
 			grid-template-columns: minmax(0, 1fr);
 			gap: 24px;
-		}
-		.classes,
-		.dl-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
 		}
 	}
 	@media (max-width: 767px) {
@@ -333,22 +216,6 @@
 		}
 		.rules-name {
 			display: inline;
-		}
-		.classes,
-		.dl-grid {
-			grid-template-columns: minmax(0, 1fr);
-			gap: 10px;
-		}
-		.class {
-			gap: 6px;
-			padding: 16px;
-			border-radius: 12px;
-		}
-		.class h3 {
-			font-size: 17px;
-		}
-		.dl-head {
-			flex-direction: column;
 		}
 	}
 </style>

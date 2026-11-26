@@ -9,7 +9,8 @@
 
 	// Versions of the specification with their changes. The text is quoted
 	// from the specification (English); badges only where the text names a kind.
-	let { notes }: { notes: ReleaseNotes } = $props();
+	// base: the reader of the document the notes come from (/spec/v0/ or /relay/v0/).
+	let { notes, base = '/spec/v0/' }: { notes: ReleaseNotes; base?: string } = $props();
 
 	const locale = $derived(getLocale());
 	const kinds: Record<ChangeKind, () => string> = {
@@ -36,7 +37,7 @@
 				{:else if entry.date}
 					<time class="date" datetime={entry.date}>{formatDate(entry.date, locale)}</time>
 				{/if}
-				<a class="in-spec" href="{pathIn('/spec/v0/', locale)}#{entry.id}">{m.changelog_in_spec()}</a>
+				<a class="in-spec" href="{pathIn(base, locale)}#{entry.id}">{m.changelog_in_spec()}</a>
 			</div>
 			<div class="groups" lang="en">
 				{#each entry.groups as group, g (g)}
@@ -79,6 +80,10 @@
 		flex-direction: column;
 		gap: 6px;
 		align-items: flex-start;
+	}
+	/* Paths and identifiers in the entries are long: they wrap anywhere. */
+	.groups :global(code) {
+		overflow-wrap: anywhere;
 	}
 	.version {
 		font: 600 18px var(--ms-font-mono);

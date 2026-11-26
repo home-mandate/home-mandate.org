@@ -17,5 +17,11 @@
   "spec_table": "Table, scrolls sideways",
   "spec_old_title": "You are reading an older version.",
   "spec_old_body": "Rules may have changed since.",
-  "spec_to_latest": "Go to {version} (latest)"
+  "spec_to_latest": "Go to {version} (latest)",
+  "relay_page_title": "Relay Specification {version}",
+  "relay_description": "The normative text of the Home-Mandate Relay Specification, release {version}: tunnel, pairing, certificates, protection levels and the operator's obligations.",
+  "relay_crumb": "Relay",
+  "spec_docs_label": "Document",
+  "spec_doc_core": "Core",
+  "spec_doc_relay": "Relay"
 }

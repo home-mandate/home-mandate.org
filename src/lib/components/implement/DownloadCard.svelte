@@ -6,7 +6,7 @@
 
 	// A file of the specification: what it is, size, SHA-256 (short, expandable
 	// with <details>, copyable with JavaScript) and the download link.
-	let { download, title, body, version }: { download: Download; title: string; body: string; version: string } = $props();
+	let { download, title, body, version }: { download: Download<string>; title: string; body: string; version: string } = $props();
 
 	const locale = $derived(getLocale());
 	const id = $derived(`dl-${download.id}`);

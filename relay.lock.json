@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/home-mandate/relay-spec.git",
+  "versions": [
+    { "tag": "v0.1.0-rc.1", "commit": "d4e964c6d651585fc8c5b7d4d0dd983fb1a6e373" },
+    { "tag": "v0.1.0-rc.2", "commit": "9383a3f81cc2de5b41f2a879d3b5b1797372ec3f" },
+    { "tag": "v0.1.0", "commit": "9383a3f81cc2de5b41f2a879d3b5b1797372ec3f" }
+  ]
+}

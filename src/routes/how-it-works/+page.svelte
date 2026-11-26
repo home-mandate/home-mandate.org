@@ -5,6 +5,7 @@
 	import HashChain from '#lib/components/how/HashChain.svelte';
 	import MandateViews from '#lib/components/how/MandateViews.svelte';
 	import PathDiagram from '#lib/components/how/PathDiagram.svelte';
+	import RemoteAccess from '#lib/components/how/RemoteAccess.svelte';
 	import TextBlocks from '#lib/components/TextBlocks.svelte';
 	import type { Block } from '#lib/content/types.ts';
 	import { scripts } from '#lib/generated/client.ts';
@@ -40,6 +41,7 @@
 <MandateViews />
 <GroundRules />
 <HashChain chain={data.chain} />
+<RemoteAccess />
 <section class="wrap read-on"><TextBlocks blocks={readOn} /></section>
 
 <style>

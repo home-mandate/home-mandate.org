@@ -16,6 +16,9 @@ export const glossary: TextPage = {
 			{ term: 'glossary_deny_term', code: 'deny', def: 'glossary_deny_def' },
 			{ term: 'glossary_pep_term', code: 'PEP', def: 'glossary_pep_def' },
 			{ term: 'glossary_mandate_term', code: 'mandate', def: 'glossary_mandate_def' },
+			{ term: 'glossary_relay_term', code: 'relay', def: 'glossary_relay_def' },
+			{ term: 'glossary_operator_term', code: 'operator', def: 'glossary_operator_def' },
+			{ term: 'glossary_protection_term', code: 'protection level', def: 'glossary_protection_def' },
 			{ term: 'glossary_rule_term', code: 'rule', def: 'glossary_rule_def' },
 			{ term: 'glossary_vocabulary_term', code: 'vocabulary', def: 'glossary_vocabulary_def' },
 			{ term: 'glossary_wildcard_term', code: '*', def: 'glossary_wildcard_def' }

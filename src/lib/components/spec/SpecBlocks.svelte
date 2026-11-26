@@ -1,6 +1,7 @@
 <script lang="ts">
 	import CodeBlock from '../CodeBlock.svelte';
 	import OverviewDiagram from '../diagrams/OverviewDiagram.svelte';
+	import SequenceDiagram from './SequenceDiagram.svelte';
 	import SpecBlocks from './SpecBlocks.svelte';
 	import SpecInline from './SpecInline.svelte';
 	import { m } from '#lib/paraglide/messages.js';
@@ -61,6 +62,8 @@
 	{:else if block.type === 'diagram'}
 		<!-- block.id is 'overview', the only diagram src/lib/spec/diagrams.ts knows. -->
 		<div class="diagram"><OverviewDiagram english /></div>
+	{:else if block.type === 'sequence'}
+		<SequenceDiagram sequence={block.sequence} />
 	{:else if block.type === 'blockquote'}
 		<blockquote><SpecBlocks blocks={block.blocks} prefix="{prefix}-{i}" /></blockquote>
 	{:else if block.type === 'hr'}

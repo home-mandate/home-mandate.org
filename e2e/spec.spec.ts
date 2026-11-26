@@ -96,8 +96,8 @@ test('only the current release is indexed and in the sitemap', async ({ page }) 
 
 test('a release is marked released, a pre-release draft, and the band names the latest release', async ({ page }) => {
 	await page.goto('/spec/v0/');
-	await expect(page.locator('.band')).toContainText(/^Specification v\d+\.\d+ · open · vendor-neutral$/);
-	await expect(page.locator('.band')).not.toContainText('v0.1');
+	await expect(page.locator('.band')).toContainText(/^Specification v\d+\.\d+ · Relay v\d+\.\d+ · open · vendor-neutral$/);
+	await expect(page.locator('.band')).not.toContainText('Specification v0.1');
 	await expect(page.locator('.meta .stage')).toHaveText('Released');
 	const picker = page.locator('details.version').first();
 	await expect(picker.locator('summary .note')).toHaveText('latest · released');
@@ -106,7 +106,7 @@ test('a release is marked released, a pre-release draft, and the band names the 
 	await page.goto('/spec/v0/v0.1.0-rc.5/');
 	await expect(page.locator('.meta .stage')).toHaveText('Draft');
 	await page.goto('/de/spec/v0/');
-	await expect(page.locator('.band')).toContainText(/^Spezifikation v\d+\.\d+ · offen · herstellerneutral$/);
+	await expect(page.locator('.band')).toContainText(/^Spezifikation v\d+\.\d+ · Relay v\d+\.\d+ · offen · herstellerneutral$/);
 	await expect(page.locator('.meta .stage')).toHaveText('Veröffentlicht');
 });
 

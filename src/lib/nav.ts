@@ -10,8 +10,9 @@ export const NAV = [
 
 export type NavId = (typeof NAV)[number]['id'];
 
-/** The navigation entry a page belongs to; /implementations/ counts as Implement. */
+/** The navigation entry a page belongs to; /implementations/ counts as Implement, /relay/ as Spec. */
 export function activeNav(basePath: string): NavId | undefined {
 	if (basePath.startsWith('/implementations/')) return 'implement';
+	if (basePath.startsWith('/relay/')) return 'spec';
 	return NAV.find((item) => basePath.startsWith(item.path))?.id;
 }
