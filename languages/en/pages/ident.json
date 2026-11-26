@@ -22,5 +22,16 @@
   "ident_play_link": "Open the playground",
   "ident_how_title": "How it works",
   "ident_how_body": "Why the log is a hash chain, explained without jargon.",
-  "ident_how_link": "Read the explanation"
+  "ident_how_link": "Read the explanation",
+  "ident_relay_metadata_title": "This address identifies the metadata of a relay operator under the Home-Mandate Relay Specification v0",
+  "ident_relay_metadata_intro": "If you found this address in a file, the file describes a relay operator: its domains, the addresses of its relay, the certificate authorities it allows and the protection levels. A gateway reads it before it pairs with the operator.",
+  "ident_relay_metadata_meta_title": "Identifier of the relay metadata v0",
+  "ident_relay_enrollment_title": "This address identifies the pairing messages under the Home-Mandate Relay Specification v0",
+  "ident_relay_enrollment_intro": "This address holds the JSON Schema of the messages with which a gateway pairs with a relay operator, obtains its certificates and unpairs again.",
+  "ident_relay_enrollment_meta_title": "Identifier of the pairing messages v0",
+  "ident_relay_spec_title": "Relay Specification",
+  "ident_relay_spec_body": "The section that defines this format in detail.",
+  "ident_relay_implement_title": "Implementing a relay",
+  "ident_relay_implement_body": "Conformance classes, test tool and downloads for operators and gateways.",
+  "ident_relay_implement_link": "To the overview"
 }

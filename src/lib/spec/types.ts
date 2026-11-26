@@ -1,6 +1,7 @@
 // The specification as a small, typed document tree. It is built at build time
 // from the marked lexer (src/lib/spec/markdown.ts) and rendered by Svelte
 // components; nothing in it is ever inserted as HTML.
+import type { Sequence } from './sequence';
 
 export type Inline =
 	| { type: 'text'; text: string }
@@ -29,6 +30,8 @@ export type Block =
 	| { type: 'table'; align: Align[]; header: Inline[][]; rows: Inline[][][] }
 	| { type: 'code'; lang: string; text: string }
 	| { type: 'diagram'; id: DiagramId }
+	/** A Mermaid sequence diagram, read by src/lib/spec/sequence.ts and drawn by the site. */
+	| { type: 'sequence'; sequence: Sequence }
 	| { type: 'blockquote'; blocks: Block[] }
 	| { type: 'hr' };
 

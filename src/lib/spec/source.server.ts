@@ -19,12 +19,12 @@ export function specVersions(versions: readonly { tag: string }[] = spec.version
 		.reverse();
 }
 
-/** Date of a release tag from the checkout in .spec-cache, or undefined. */
-export function tagDate(tag: string, root = process.cwd()): string | undefined {
+/** Date of a release tag from the checkout in .spec-cache (or another cache directory), or undefined. */
+export function tagDate(tag: string, root = process.cwd(), cacheDir = '.spec-cache'): string | undefined {
 	if (!TAG.test(tag)) return undefined;
 	try {
 		const out = execFileSync('git', ['for-each-ref', `refs/tags/${tag}`, '--format=%(creatordate:short)'], {
-			cwd: join(root, '.spec-cache', tag),
+			cwd: join(root, cacheDir, tag),
 			encoding: 'utf8',
 			stdio: ['ignore', 'pipe', 'ignore']
 		}).trim();

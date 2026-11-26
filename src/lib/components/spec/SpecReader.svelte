@@ -1,6 +1,7 @@
 <script lang="ts">
 	import PageMeta from '../PageMeta.svelte';
 	import Icon from '../Icon.svelte';
+	import DocSwitch from './DocSwitch.svelte';
 	import SpecBlocks from './SpecBlocks.svelte';
 	import SpecToc from './SpecToc.svelte';
 	import SpecVersionSelect from './SpecVersionSelect.svelte';
@@ -8,7 +9,7 @@
 	import { pathIn, urlIn } from '#lib/locale.ts';
 	import { m } from '#lib/paraglide/messages.js';
 	import { getLocale } from '#lib/paraglide/runtime.js';
-	import { SITE_URL, SPEC_REPOSITORY } from '#lib/site.ts';
+	import { RELAY_REPOSITORY, SITE_URL, SPEC_REPOSITORY } from '#lib/site.ts';
 	import { breadcrumbLd, jsonLdScript, specLd } from '#lib/seo.ts';
 	import { formatDate } from '#lib/spec/date.ts';
 	import { isRelease } from '#lib/spec/version.ts';
@@ -16,24 +17,39 @@
 
 	// The specification reader: the English text of one imported release with
 	// its table of contents, version choice, link to GitHub and a print layout.
-	let { spec, versions, file, noindex = false }: { spec: LoadedSpec; versions: SpecVersion[]; file: string; noindex?: boolean } = $props();
+	// doc chooses the document: the core specification (/spec/v0/) or the
+	// Relay Specification that builds on it (/relay/v0/).
+	let {
+		spec,
+		versions,
+		file,
+		noindex = false,
+		doc = 'spec'
+	}: { spec: LoadedSpec; versions: SpecVersion[]; file: string; noindex?: boolean; doc?: 'spec' | 'relay' } = $props();
 
 	const locale = $derived(getLocale());
+	const DOCS = {
+		spec: { base: '/spec/v0/', repository: SPEC_REPOSITORY, name: 'Home-Mandate Specification', title: m.spec_page_title, description: m.spec_description, crumb: m.spec_crumb },
+		relay: { base: '/relay/v0/', repository: RELAY_REPOSITORY, name: 'Home-Mandate Relay Specification', title: m.relay_page_title, description: m.relay_description, crumb: m.relay_crumb }
+	} as const;
+	const d = $derived(DOCS[doc]);
+	const DOC_PATHS = { spec: DOCS.spec.base, relay: DOCS.relay.base };
+
 	const latest = $derived(versions.find((v) => v.latest) ?? versions[0]);
 	const released = $derived(isRelease(spec.tag));
 	const badge = $derived(released ? m.spec_released_badge() : m.spec_draft_badge());
 	const isOld = $derived(latest !== undefined && latest.tag !== spec.tag);
-	const pathOf = (v: SpecVersion) => (v.latest ? '/spec/v0/' : `/spec/v0/${v.tag}/`);
+	const pathOf = (v: SpecVersion) => (v.latest ? d.base : `${d.base}${v.tag}/`);
 	const options = $derived(versions.map((v) => ({ ...v, href: pathIn(pathOf(v), locale) })));
 	const current = $derived(versions.find((v) => v.tag === spec.tag) ?? { tag: spec.tag, latest: false });
-	const github = $derived(`${SPEC_REPOSITORY}/blob/${spec.tag}/${file}`);
+	const github = $derived(`${d.repository}/blob/${spec.tag}/${file}`);
 	const printUrl = $derived(`${SITE_URL.replace(/^https:\/\//, '')}${pathOf(current)}`);
 	const first = $derived(spec.document.toc[0]);
 </script>
 
 <PageMeta
-	title="{m.spec_page_title({ version: spec.tag })} – {m.site_name()}"
-	description={m.spec_description({ version: spec.tag })}
+	title="{d.title({ version: spec.tag })} – {m.site_name()}"
+	description={d.description({ version: spec.tag })}
 	{noindex}
 	type="article"
 	modified={spec.date}
@@ -45,11 +61,11 @@
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -- JSON-LD from our own texts, "<" escaped -->
 		{@html jsonLdScript(
 			specLd({
-				title: `${m.spec_page_title({ version: spec.tag }, { locale: 'en' })} – ${m.site_name()}`,
+				title: `${d.title({ version: spec.tag }, { locale: 'en' })} – ${m.site_name()}`,
 				url: urlIn(pathOf(current), locale),
 				version: spec.tag,
 				date: spec.date,
-				description: m.spec_description({ version: spec.tag }, { locale: 'en' }),
+				description: d.description({ version: spec.tag }, { locale: 'en' }),
 				source: github
 			})
 		)}
@@ -57,7 +73,8 @@
 		{@html jsonLdScript(
 			breadcrumbLd([
 				{ name: m.site_name(), url: urlIn('/', locale) },
-				{ name: m.spec_crumb(), url: urlIn('/spec/v0/', locale) }
+				{ name: m.spec_crumb(), url: urlIn('/spec/v0/', locale) },
+				...(doc === 'relay' ? [{ name: m.relay_crumb(), url: urlIn('/relay/v0/', locale) }] : [])
 			])
 		)}
 	{/if}
@@ -68,10 +85,12 @@
 		<nav class="crumbs" aria-label={m.spec_breadcrumb()}>
 			<ol>
 				<li><a href={pathIn('/spec/v0/', locale)}>{m.spec_crumb()}</a></li>
+				{#if doc === 'relay'}<li><a href={pathIn('/relay/v0/', locale)}>{m.relay_crumb()}</a></li>{/if}
 				<li><span class="mono" aria-current="page">{spec.tag}</span></li>
 				{#if first}<li class="js-only"><span class="current" lang="en" data-spec-current>{first.text}</span></li>{/if}
 			</ol>
 		</nav>
+		<DocSwitch current={doc} paths={DOC_PATHS} />
 		<SpecVersionSelect versions={options} current={spec.tag} />
 		<a class="tool github" href={github}><Icon name="github" size={17} />{m.spec_github()}<span class="visually-hidden">{m.common_external()}</span></a>
 		<button type="button" class="tool print js-only" data-spec-print><Icon name="print" size={17} />{m.spec_print()}</button>
@@ -81,7 +100,7 @@
 		<div class="old no-print" role="status">
 			<Icon name="clock" size={20} stroke={1.9} />
 			<p><strong>{m.spec_old_title()}</strong> {m.spec_old_body()}</p>
-			<a class="to-latest" href={pathIn('/spec/v0/', locale)}>{m.spec_to_latest({ version: latest.tag })}</a>
+			<a class="to-latest" href={pathIn(d.base, locale)}>{m.spec_to_latest({ version: latest.tag })}</a>
 		</div>
 	{/if}
 	{#if locale !== 'en'}
@@ -110,7 +129,8 @@
 		</aside>
 
 		<article class="content" lang="en" data-spec-content>
-			<div class="print-head" aria-hidden="true"><span>Home-Mandate Specification {spec.tag} · {badge}</span><span>{printUrl}</span></div>
+			<DocSwitch current={doc} paths={DOC_PATHS} variant="phone" />
+			<div class="print-head" aria-hidden="true"><span>{d.name} {spec.tag} · {badge}</span><span>{printUrl}</span></div>
 			<div class="meta">
 				<span class="stage" class:released lang={locale}><span class="dot" aria-hidden="true"></span>{badge}</span>
 				<span class="tag mono">{spec.tag}</span>

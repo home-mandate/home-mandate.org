@@ -42,6 +42,11 @@
 	.intro .lead {
 		max-inline-size: 40em;
 	}
+	/* Long compounds ("Relay-Spezifikation") must not widen a 320 px screen. */
+	h1 {
+		hyphens: auto;
+		overflow-wrap: break-word;
+	}
 	.big-icon {
 		display: grid;
 		place-items: center;

@@ -2,7 +2,7 @@
   "glossary_title": "Glossary",
   "glossary_intro": "The words used on this site and in the specification.",
   "glossary_meta_title": "Glossary: mandate, agent, allow, ask, deny",
-  "glossary_meta_description": "The terms of the Home-Mandate Specification in plain words: agent, mandate, allow, ask, deny, critical action, home guard, audit log and more.",
+  "glossary_meta_description": "The terms of the Home-Mandate Specification in plain words: agent, mandate, allow, ask, deny, critical action, gateway, audit log and more.",
   "glossary_agent_term": "Agent",
   "glossary_agent_def": "Software that wants to act on devices, e.g. a voice assistant.",
   "glossary_allow_term": "Allow",
@@ -17,7 +17,7 @@
   "glossary_critical_def": "An action that is hard to undo, like opening a lock.",
   "glossary_deny_term": "Deny",
   "glossary_deny_def": "Decision: the request is refused.",
-  "glossary_pep_term": "Home guard",
+  "glossary_pep_term": "Gateway",
   "glossary_pep_def": "The part inside the home that checks every request.",
   "glossary_mandate_term": "Mandate",
   "glossary_mandate_def": "The household’s rules for one agent.",
@@ -27,5 +27,11 @@
   "glossary_vocabulary_def": "The list of categories and actions everyone shares.",
   "glossary_wildcard_term": "Wildcard",
   "glossary_wildcard_def": "Matches any action. Allowing a critical action this way is not enough: without an explicit allow_critical, a person is asked.",
-  "glossary_index": "Glossary from A to Z"
+  "glossary_index": "Glossary from A to Z",
+  "glossary_relay_term": "Relay",
+  "glossary_relay_def": "A server on the internet through which agents reach a gateway behind a router. It only passes the encrypted connection through and cannot read it.",
+  "glossary_operator_term": "Operator",
+  "glossary_operator_def": "Whoever runs a relay. It publishes its metadata and must keep the obligations of the Relay Specification.",
+  "glossary_protection_term": "Protection level",
+  "glossary_protection_def": "How well a household is protected against a relay operator: at Standard reading along is noticed, with an own domain it is not possible."
 }

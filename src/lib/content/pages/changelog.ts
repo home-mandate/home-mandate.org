@@ -7,3 +7,9 @@ export const changelog: TextPage = {
 	intro: 'changelog_intro',
 	blocks: []
 };
+
+export const relayChangelog: TextPage = {
+	title: 'changelog_relay_title',
+	intro: 'changelog_relay_intro',
+	blocks: []
+};

@@ -13,6 +13,7 @@ export const faq: TextPage = {
 			{ id: 'assist', q: 'faq_assist_q', a: 'faq_assist_a' },
 			{ id: 'today', q: 'faq_today_q', a: 'faq_today_a' },
 			{ id: 'data', q: 'faq_data_q', a: 'faq_data_a' },
+			{ id: 'remote', q: 'faq_remote_q', a: 'faq_remote_a' },
 			{ id: 'tricked', q: 'faq_tricked_q', a: 'faq_tricked_a' },
 			{ id: 'product', q: 'faq_product_q', a: 'faq_product_a' },
 			{ id: 'owner', q: 'faq_owner_q', a: 'faq_owner_a' },

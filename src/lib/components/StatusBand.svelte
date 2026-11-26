@@ -1,12 +1,14 @@
 <script lang="ts">
+	import { relay } from '#lib/generated/relay.ts';
 	import { spec } from '#lib/generated/spec.ts';
 	import { m } from '#lib/paraglide/messages.js';
 	import { statusVersion } from '#lib/spec/version.ts';
 
 	const version = statusVersion(spec.versions.map((v) => v.tag));
+	const relayVersion = statusVersion(relay.versions.map((v) => v.tag));
 </script>
 
-<p class="band"><span class="dot" aria-hidden="true"></span>{m.common_status({ version })}</p>
+<p class="band"><span class="dot" aria-hidden="true"></span>{m.common_status({ version, relay: relayVersion })}</p>
 
 <style>
 	.band {

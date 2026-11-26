@@ -13,5 +13,8 @@
   "changelog_kind_fixed": "fixed",
   "changelog_kind_removed": "removed",
   "changelog_kind_incompatible": "incompatible",
-  "changelog_kind_clarified": "clarified"
+  "changelog_kind_clarified": "clarified",
+  "changelog_relay_title": "Changelog of the Relay Specification",
+  "changelog_relay_intro": "What changed in each version of the Relay Specification, as the Relay Specification itself records it at its end.",
+  "changelog_relay_feed_name": "Home-Mandate Relay Specification changelog"
 }

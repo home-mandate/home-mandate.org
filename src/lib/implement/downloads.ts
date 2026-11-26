@@ -11,8 +11,8 @@ export const DOWNLOADS = [
 
 export type DownloadId = (typeof DOWNLOADS)[number]['id'];
 
-export interface Download {
-	id: DownloadId;
+export interface Download<Id extends string = DownloadId> {
+	id: Id;
 	/** Site path with leading slash, e.g. /vocabulary/v0.json */
 	href: string;
 	/** Suggested file name for the download attribute. */

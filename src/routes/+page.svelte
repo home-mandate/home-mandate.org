@@ -37,6 +37,10 @@
 				<Icon name="home" size={18} />{m.home_ha_hint()}
 				<a href={pathIn('/implementations/home-assistant/', locale)}>{m.home_ha_link()}</a>
 			</p>
+			<p class="platform">
+				<Icon name="link" size={18} />{m.home_remote_hint()}
+				<a href={pathIn('/how-it-works/', locale) + '#remote'}>{m.home_remote_link()}</a>
+			</p>
 			<p class="meta">{m.home_meta()}</p>
 		</div>
 		<MandateCard />
@@ -77,6 +81,9 @@
 		flex-wrap: wrap;
 		gap: 12px;
 		margin-block-start: 8px;
+	}
+	.platform + .platform {
+		margin-block-start: -20px;
 	}
 	.platform {
 		display: flex;

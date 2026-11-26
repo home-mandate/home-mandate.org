@@ -2,11 +2,11 @@
   "faq_title": "Häufige Fragen",
   "faq_intro": "Kurze Antworten. Jede Frage hat einen eigenen Link.",
   "faq_what_q": "Was ist Home-Mandate?",
-  "faq_what_a": "Ein offener Standard, mit dem ein Haushalt festlegt, was ein KI-Agent zu Hause darf. Jeder Agent bekommt ein Mandat: eine lesbare Datei mit Regeln je Gerät und Aktion. Auf jede Anfrage gibt es eine Antwort: erlauben, nachfragen oder ablehnen. Entschieden wird von einem Wächter außerhalb des Agenten, nach festen Regeln, nie von einem Sprachmodell – und jede Entscheidung wird protokolliert. [So funktioniert’s](/how-it-works/)",
+  "faq_what_a": "Ein offener Standard, mit dem ein Haushalt festlegt, was ein KI-Agent zu Hause darf. Jeder Agent bekommt ein Mandat: eine lesbare Datei mit Regeln je Gerät und Aktion. Auf jede Anfrage gibt es eine Antwort: erlauben, nachfragen oder ablehnen. Entschieden wird von einem Gateway außerhalb des Agenten, nach festen Regeln, nie von einem Sprachmodell – und jede Entscheidung wird protokolliert. [So funktioniert’s](/how-it-works/)",
   "faq_door_q": "Kann ein KI-Agent in Home Assistant meine Haustür öffnen?",
   "faq_door_a": "Nur, wenn sein Mandat es erlaubt. Aufschließen ist eine kritische Aktion: Ein einfaches Erlauben reicht nicht. Eine Regel muss es ausdrücklich nennen – sonst muss ein Mensch auf dem Handy bestätigen, und keine Antwort heißt nein. Mit Home-Mandate for Home Assistant bekommt der Agent nie einen Home-Assistant-Token und kann das Mandat deshalb nicht umgehen. [Home-Mandate for Home Assistant](/implementations/home-assistant/)",
   "faq_agents_q": "Mit welchen KI-Assistenten funktioniert es?",
-  "faq_agents_a": "Die Spezifikation ist an keinen Assistenten gebunden: Sie beschreibt, wie ein Wächter entscheidet, egal wer fragt. Home-Mandate for Home Assistant nimmt jeden Agenten an, der MCP über HTTPS spricht und sich mit OAuth 2.1 anmeldet – zum Beispiel Claude Desktop, Claude Code, claude.ai und ChatGPT. Jeder Agent bekommt ein eigenes Mandat.",
+  "faq_agents_a": "Die Spezifikation ist an keinen Assistenten gebunden: Sie beschreibt, wie ein Gateway entscheidet, egal wer fragt. Home-Mandate for Home Assistant nimmt jeden Agenten an, der MCP über HTTPS spricht und sich mit OAuth 2.1 anmeldet – zum Beispiel Claude Desktop, Claude Code, claude.ai und ChatGPT. Jeder Agent bekommt ein eigenes Mandat.",
   "faq_assist_q": "Was ist anders, als Geräte für Assist freizugeben?",
   "faq_assist_a": "Eine Freigabe ist ein Ja oder Nein pro Gerät, und sie gilt für alle Assistenten zugleich. Ein Mandat gilt pro Agent: einzelne Aktionen statt ganzer Geräte, Grenzen wie höchstens 22 °C, Uhrzeiten, eine Rückfrage aufs Handy, eine Obergrenze an Aktionen pro Stunde und ein Protokoll jeder Entscheidung. Assist funktioniert weiter wie bisher. [Beispiele im Alltag](/everyday/)",
   "faq_today_q": "Was brauche ich, um es heute zu nutzen?",
@@ -14,7 +14,7 @@
   "faq_meta_title": "FAQ: KI-Agenten, Home Assistant, Smart Home",
   "faq_meta_description": "Antworten zu KI-Agenten im Smart Home: Kann ein Agent die Tür öffnen, verlassen Daten das Haus, welche Assistenten gehen, Home Assistant und Probebetrieb.",
   "faq_data_q": "Verlassen meine Daten das Haus?",
-  "faq_data_a": "Nicht wegen des Mandats. Geprüft wird es von einem Wächter außerhalb des Agenten – so gedacht auf einem Gerät bei dir zu Hause –, und nur eine Rückfrage geht an dein Handy. Was der Agent selbst lesen darf, nimmt er allerdings mit. Ein Mandat entscheidet also auch darüber, was er sehen darf.",
+  "faq_data_a": "Nicht wegen des Mandats. Geprüft wird es von einem Gateway außerhalb des Agenten – so gedacht auf einem Gerät bei dir zu Hause –, und nur eine Rückfrage geht an dein Handy. Was der Agent selbst lesen darf, nimmt er allerdings mit. Ein Mandat entscheidet also auch darüber, was er sehen darf.",
   "faq_tricked_q": "Was, wenn der Agent getäuscht wird?",
   "faq_tricked_a": "Er kann trotzdem nur tun, was das Mandat erlaubt. Geprüft wird das Mandat außerhalb des Agenten, kein Text, den er liest, kann es also ändern. Kritische Aktionen wie Tür aufschließen oder Alarmanlage ausschalten brauchen immer eine ausdrückliche Regel oder einen Menschen, und jeder Versuch wird protokolliert. [Warum Mandate](/why/)",
   "faq_product_q": "Muss ich etwas kaufen?",
@@ -28,5 +28,7 @@
   "faq_app_q": "Reicht nicht die App meines Smart Homes?",
   "faq_app_a": "Sie ist für Menschen gebaut, denen du vertraust. Ein Mandat gibt jedem Agenten eigene Grenzen: einzelne Aktionen, Höchstwerte, Uhrzeiten, eine Rückfrage aufs Handy und ein Protokoll. [Beispiele im Alltag](/everyday/)",
   "faq_trial_q": "Kann ich ein Mandat erst ausprobieren, bevor es etwas sperrt?",
-  "faq_trial_a": "Ja, im Probebetrieb. Was die Regeln des Mandats ablehnen würden, wird trotzdem ausgeführt und im Protokoll als „nicht durchgesetzt“ vermerkt. So siehst du, was du noch anpassen musst. Rückfragen gelten weiter: Lehnst du ab, passiert nichts. Kritische Aktionen wie Tür entriegeln bleiben gesperrt. Wirksam wird der Probebetrieb erst, wenn jemand aus dem Haushalt genau diese Version bestätigt."
+  "faq_trial_a": "Ja, im Probebetrieb. Was die Regeln des Mandats ablehnen würden, wird trotzdem ausgeführt und im Protokoll als „nicht durchgesetzt“ vermerkt. So siehst du, was du noch anpassen musst. Rückfragen gelten weiter: Lehnst du ab, passiert nichts. Kritische Aktionen wie Tür entriegeln bleiben gesperrt. Wirksam wird der Probebetrieb erst, wenn jemand aus dem Haushalt genau diese Version bestätigt.",
+  "faq_remote_q": "Kann ich mein Zuhause von unterwegs erreichbar machen, ohne einem Dienst vertrauen zu müssen?",
+  "faq_remote_a": "Ja, über ein Relay nach der Relay-Spezifikation. Dein Gateway baut selbst eine Verbindung zum Relay auf, und die Verschlüsselung endet erst bei dir zu Hause: Der Betreiber sieht, wann wie viel übertragen wird, aber nicht, was. Mit einer eigenen Domain kann er nicht einmal ein Zertifikat für deinen Namen bekommen. Jeder darf ein Relay betreiben. [Von unterwegs erreichbar](/how-it-works/#remote)"
 }

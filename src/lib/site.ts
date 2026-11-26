@@ -1,4 +1,5 @@
 // Fixed facts about the site and links into the specification repository.
+import { relay } from '#lib/generated/relay.ts';
 import { spec } from '#lib/generated/spec.ts';
 
 export const SITE_URL = 'https://home-mandate.org';
@@ -16,3 +17,4 @@ export function specUrl(file = '', anchor = ''): string {
 
 export const SPEC_REPOSITORY = spec.repository;
 export const SECURITY_URL = `${spec.repository}/security/advisories/new`;
+export const RELAY_REPOSITORY = relay.repository;

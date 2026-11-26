@@ -17,5 +17,11 @@
   "spec_table": "Tabelle, seitlich scrollbar",
   "spec_old_title": "Du liest eine ältere Version.",
   "spec_old_body": "Regeln können sich seitdem geändert haben.",
-  "spec_to_latest": "Zu {version} (aktuell)"
+  "spec_to_latest": "Zu {version} (aktuell)",
+  "relay_page_title": "Relay-Spezifikation {version}",
+  "relay_description": "Der verbindliche Text der Home-Mandate-Relay-Spezifikation, Release {version}: Tunnel, Kopplung, Zertifikate, Schutzstufen und Pflichten des Betreibers.",
+  "relay_crumb": "Relay",
+  "spec_docs_label": "Dokument",
+  "spec_doc_core": "Kern",
+  "spec_doc_relay": "Relay"
 }

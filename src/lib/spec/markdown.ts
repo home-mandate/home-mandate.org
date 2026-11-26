@@ -4,6 +4,7 @@
 // SPDX comment at the top of SPEC-v0.md) are dropped.
 import { Lexer, type Token, type Tokens } from 'marked';
 import { diagramFor } from './diagrams';
+import { parseSequence } from './sequence';
 import { convertInline, plainText } from './inline';
 import { createSlugger } from './slug';
 import type { Align, Block, Inline, LinkContext, SpecDocument, TocEntry } from './types';
@@ -68,7 +69,10 @@ function convertBlock(token: Tokens.Generic, ctx: LinkContext, slug: (text: stri
 		case 'code': {
 			const lang = (token.lang as string | undefined)?.split(/\s/)[0] ?? '';
 			// The site draws Mermaid diagrams itself and refuses ones it does not know.
-			if (lang === 'mermaid') return { type: 'diagram', id: diagramFor(token.text) };
+			if (lang === 'mermaid') {
+				const sequence = parseSequence(token.text);
+				return sequence ? { type: 'sequence', sequence } : { type: 'diagram', id: diagramFor(token.text) };
+			}
 			return { type: 'code', lang, text: token.text };
 		}
 		case 'blockquote':

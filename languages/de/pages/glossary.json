@@ -2,7 +2,7 @@
   "glossary_title": "Glossar",
   "glossary_intro": "Die Begriffe dieser Seite und der Spezifikation.",
   "glossary_meta_title": "Glossar: Mandat, Agent, erlauben, ablehnen",
-  "glossary_meta_description": "Die Begriffe der Home-Mandate-Spezifikation in einfachen Worten: Agent, Mandat, erlauben, nachfragen, ablehnen, kritische Aktion, Wächter und Protokoll.",
+  "glossary_meta_description": "Die Begriffe der Home-Mandate-Spezifikation in einfachen Worten: Agent, Mandat, erlauben, nachfragen, ablehnen, kritische Aktion, Gateway und Protokoll.",
   "glossary_agent_term": "Agent",
   "glossary_agent_def": "Software, die Geräte steuern will, z. B. ein Sprachassistent.",
   "glossary_allow_term": "Erlauben",
@@ -17,7 +17,7 @@
   "glossary_critical_def": "Eine schwer umkehrbare Aktion, z. B. ein Schloss öffnen.",
   "glossary_deny_term": "Ablehnen",
   "glossary_deny_def": "Entscheidung: Die Anfrage wird abgelehnt.",
-  "glossary_pep_term": "Wächter",
+  "glossary_pep_term": "Gateway",
   "glossary_pep_def": "Der Teil im Haus, der jede Anfrage prüft.",
   "glossary_mandate_term": "Mandat",
   "glossary_mandate_def": "Die Regeln eines Haushalts für einen Agenten.",
@@ -27,5 +27,11 @@
   "glossary_vocabulary_def": "Die gemeinsame Liste der Kategorien und Aktionen.",
   "glossary_wildcard_term": "Platzhalter",
   "glossary_wildcard_def": "Passt auf jede Aktion. Für kritische Aktionen reicht das zum Erlauben nicht: Ohne ausdrückliches allow_critical wird ein Mensch gefragt.",
-  "glossary_index": "Glossar von A bis Z"
+  "glossary_index": "Glossar von A bis Z",
+  "glossary_relay_term": "Relay",
+  "glossary_relay_def": "Ein Server im Internet, über den Agenten ein Gateway hinter einem Router erreichen. Er reicht die verschlüsselte Verbindung nur durch und kann sie nicht lesen.",
+  "glossary_operator_term": "Betreiber",
+  "glossary_operator_def": "Wer ein Relay betreibt. Er veröffentlicht seine Metadaten und muss die Pflichten der Relay-Spezifikation einhalten.",
+  "glossary_protection_term": "Schutzstufe",
+  "glossary_protection_def": "Wie gut ein Haushalt gegen einen Relay-Betreiber geschützt ist: Bei Standard fällt Mitlesen auf, bei eigener Domain ist es nicht möglich."
 }

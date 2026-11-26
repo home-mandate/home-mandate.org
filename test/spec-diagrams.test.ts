@@ -30,7 +30,15 @@ describe('parseSpec with Mermaid', () => {
 	});
 
 	it('refuses an unknown Mermaid block', () => {
-		expect(() => parseSpec(fenced('sequenceDiagram\n  A->>B: hi'), ctx)).toThrow(/unknown Mermaid diagram/);
+		expect(() => parseSpec(fenced('flowchart LR\n  A --> B'), ctx)).toThrow(/unknown Mermaid diagram/);
+	});
+
+	it('reads a sequence diagram into a sequence block', () => {
+		const doc = parseSpec(fenced('sequenceDiagram\n  participant A as Agent\n  participant R as Relay\n  A->>R: hello'), ctx);
+		expect(doc.blocks[1]).toEqual({
+			type: 'sequence',
+			sequence: { participants: ['Agent', 'Relay'], steps: [{ kind: 'message', from: 0, to: 1, dashed: false, text: 'hello' }] }
+		});
 	});
 
 	it('leaves other code blocks literal', () => {

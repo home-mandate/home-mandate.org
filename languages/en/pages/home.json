@@ -83,11 +83,13 @@
   "home_impl_all": "All implementations",
   "home_impl_add": "Built something?",
   "home_impl_pr": "Add yours via pull request.",
-  "home_impl_kind_guard": "Home guard",
+  "home_impl_kind_guard": "Gateway",
   "home_impl_kind_integration": "Integration",
   "home_impl_kind_library": "Library",
   "home_impl_kind_tool": "Tool",
   "home_impl_classes": "Conformance classes",
   "home_impl_declared": "declared by the project",
-  "home_impl_passed": "conformance run published"
+  "home_impl_passed": "conformance run published",
+  "home_remote_hint": "Reachable on the go, without trusting the relay:",
+  "home_remote_link": "How it works"
 }

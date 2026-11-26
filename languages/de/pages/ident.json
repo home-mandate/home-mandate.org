@@ -22,5 +22,16 @@
   "ident_play_link": "Spielplatz öffnen",
   "ident_how_title": "So funktioniert’s",
   "ident_how_body": "Warum das Protokoll eine Hash-Kette ist, ohne Fachjargon erklärt.",
-  "ident_how_link": "Erklärung lesen"
+  "ident_how_link": "Erklärung lesen",
+  "ident_relay_metadata_title": "Diese Adresse kennzeichnet die Metadaten eines Relay-Betreibers nach der Home-Mandate-Relay-Spezifikation v0",
+  "ident_relay_metadata_intro": "Wenn du diese Adresse in einer Datei gefunden hast, beschreibt die Datei einen Relay-Betreiber: seine Domains, die Adressen seines Relays, die erlaubten Zertifizierungsstellen und die Schutzstufen. Ein Gateway liest sie, bevor es sich mit dem Betreiber koppelt.",
+  "ident_relay_metadata_meta_title": "Kennung der Relay-Metadaten v0",
+  "ident_relay_enrollment_title": "Diese Adresse kennzeichnet die Nachrichten der Kopplung nach der Home-Mandate-Relay-Spezifikation v0",
+  "ident_relay_enrollment_intro": "Unter dieser Adresse steht das JSON-Schema der Nachrichten, mit denen ein Gateway sich bei einem Relay-Betreiber koppelt, Zertifikate bekommt und sich wieder abmeldet.",
+  "ident_relay_enrollment_meta_title": "Kennung der Kopplungsnachrichten v0",
+  "ident_relay_spec_title": "Relay-Spezifikation",
+  "ident_relay_spec_body": "Der Abschnitt, der dieses Format im Detail festlegt.",
+  "ident_relay_implement_title": "Relay implementieren",
+  "ident_relay_implement_body": "Konformitätsklassen, Testwerkzeug und Downloads für Betreiber und Gateways.",
+  "ident_relay_implement_link": "Zur Übersicht"
 }

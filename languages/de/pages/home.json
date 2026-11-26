@@ -83,11 +83,13 @@
   "home_impl_all": "Alle Implementierungen",
   "home_impl_add": "Selbst etwas gebaut?",
   "home_impl_pr": "Per Pull Request eintragen.",
-  "home_impl_kind_guard": "Wächter im Haus",
+  "home_impl_kind_guard": "Gateway im Haus",
   "home_impl_kind_integration": "Anbindung",
   "home_impl_kind_library": "Bibliothek",
   "home_impl_kind_tool": "Werkzeug",
   "home_impl_classes": "Konformitätsklassen",
   "home_impl_declared": "vom Projekt angegeben",
-  "home_impl_passed": "Testlauf veröffentlicht"
+  "home_impl_passed": "Testlauf veröffentlicht",
+  "home_remote_hint": "Von unterwegs erreichbar, ohne dem Relay zu vertrauen:",
+  "home_remote_link": "So geht’s"
 }

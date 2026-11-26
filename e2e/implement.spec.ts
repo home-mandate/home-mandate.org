@@ -3,8 +3,8 @@ import { expect, test, type Page } from '@playwright/test';
 import { createHash } from 'node:crypto';
 
 const LANGUAGES = [
-	{ tag: 'en', prefix: '', implement: 'Implement the Home-Mandate Specification', list: 'Implementations', all: 'All', library: 'Library', guard: 'Home guard', show: 'Show', overview: 'Who talks to whom', figure: 'Diagram: how agent, implementation, smart-home platform and human work together' },
-	{ tag: 'de', prefix: '/de', implement: 'Die Home-Mandate-Spezifikation implementieren', list: 'Implementierungen', all: 'Alle', library: 'Bibliothek', guard: 'Wächter', show: 'Zeigen', overview: 'Wer mit wem spricht', figure: 'Diagramm: wie Agent, Implementierung, Smart-Home-Plattform und Mensch zusammenspielen' }
+	{ tag: 'en', prefix: '', implement: 'Implement the Home-Mandate Specification', list: 'Implementations', all: 'All', library: 'Library', guard: 'Gateway', show: 'Show', overview: 'Who talks to whom', figure: 'Diagram: how agent, implementation, smart-home platform and human work together' },
+	{ tag: 'de', prefix: '/de', implement: 'Die Home-Mandate-Spezifikation implementieren', list: 'Implementierungen', all: 'Alle', library: 'Bibliothek', guard: 'Gateway', show: 'Zeigen', overview: 'Wer mit wem spricht', figure: 'Diagramm: wie Agent, Implementierung, Smart-Home-Plattform und Mensch zusammenspielen' }
 ];
 const PAGES = ['/implement/', '/implementations/'];
 

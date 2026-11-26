@@ -4,11 +4,12 @@
 	import { m } from '#lib/paraglide/messages.js';
 
 	// Second navigation level of the Implement section: plain links.
-	let { current }: { current: 'implement' | 'implementations' } = $props();
+	let { current }: { current: 'implement' | 'relay' | 'implementations' } = $props();
 
 	const locale = $derived(getLocale());
 	const tabs = $derived([
 		{ id: 'implement', path: '/implement/', label: m.implement_sub_implement() },
+		{ id: 'relay', path: '/implement/relay/', label: m.implement_sub_relay() },
 		{ id: 'implementations', path: '/implementations/', label: m.implement_sub_implementations() }
 	]);
 </script>
@@ -65,12 +66,24 @@
 			padding-inline: 0;
 		}
 		li {
-			flex: 1;
+			flex: 1 1 auto;
 		}
 		a {
 			justify-content: center;
 			padding-inline: 8px;
 			font-size: 14.5px;
+		}
+	}
+	/* Three tabs on the narrowest phones (320 px): tighter, and the row scrolls
+	   rather than widening the page if a translation is longer. */
+	@media (max-width: 400px) {
+		ul {
+			overflow-x: auto;
+		}
+		a {
+			padding-inline: 6px;
+			font-size: 13.5px;
+			white-space: nowrap;
 		}
 	}
 	@media (forced-colors: active) {
